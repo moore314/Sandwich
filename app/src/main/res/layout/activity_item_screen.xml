@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="watchtower.ayalacashier.ItemScreen"
+    android:background="@color/background"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+
+   <LinearLayout
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:layout_centerInParent="true">
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginBottom="10dp">
+
+
+           <Button
+               android:id="@+id/sandwichButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/sandwich"
+               android:background="@drawable/shape"
+               android:tag="@string/sandwich"
+               android:layout_marginRight="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+           <Button
+               android:id="@+id/drinkButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/drink"
+               android:background="@drawable/shape"
+               android:tag="@string/drink"
+               android:layout_marginLeft="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               android:onClick="drinks"
+               >
+           </Button>
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginBottom="10dp"
+           android:layout_marginTop="10dp">
+
+
+           <Button
+               android:id="@+id/paniniButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/panini"
+               android:background="@drawable/shape"
+               android:tag="@string/panini"
+               android:layout_marginRight="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+
+           <Button
+               android:id="@+id/pastryButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/pastry"
+               android:background="@drawable/shape"
+               android:tag="@string/pastry"
+               android:layout_marginLeft="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginBottom="10dp"
+           android:layout_marginTop="10dp">
+           <Button
+               android:id="@+id/hotsButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/hots"
+               android:background="@drawable/shape"
+               android:tag="@string/hots"
+               android:layout_marginRight="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+           <Button
+               android:id="@+id/saladButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/salad"
+               android:background="@drawable/shape"
+               android:tag="@string/salad"
+               android:layout_marginLeft="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_marginTop="10dp">
+
+           <Button
+               android:id="@+id/candyButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/muesli"
+               android:background="@drawable/shape"
+               android:tag="@string/muesli"
+               android:layout_marginRight="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+           <Button
+               android:id="@+id/muesliButton"
+               android:layout_width="120dp"
+               android:layout_height="70dp"
+               android:text="@string/candy"
+               android:background="@drawable/shape"
+               android:tag="@string/candy"
+               android:layout_marginLeft="15dp"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               >
+           </Button>
+
+       </LinearLayout>
+
+   </LinearLayout>
+
+
+
+
+
+
+</RelativeLayout>
