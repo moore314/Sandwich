@@ -8,6 +8,7 @@
     android:layout_gravity="center"
     android:gravity="center"
     android:layoutDirection="ltr"
+    android:layout_weight="1"
     >
 
     <LinearLayout
@@ -30,156 +31,225 @@
             android:gravity="center"
             android:layout_gravity="center"
             >
-            <!-- todo add tags! important for sharedPrefs, add and handle onClicks, consider changing to 4 in one row instead of 3-->
+
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/slurpee7button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/slurpee7"
+                android:textStyle="bold"
+                android:tag="@string/slurpee7"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
+            <Button
+                android:id="@+id/slurpee5button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
                 android:layout_marginRight="7dp"
+                android:layout_marginLeft="2dp"
                 android:text="@string/slurpee5"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/slurpee5"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/ice7button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
+                android:layout_marginRight="2dp"
                 android:layout_marginLeft="7dp"
                 android:text="@string/iceCoffee7"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee7"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/ice5button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="2dp"
                 android:text="@string/iceCoffee5"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee5"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_gravity="center">
-            <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:text="@string/lemonade7"
-                android:textStyle="bold"/>
-            <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp"
-                android:text="@string/lemonade5"
-                android:textStyle="bold"/>
-            <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/shape"
-                android:layout_marginLeft="7dp"
-                android:text="@string/slurpee7"
-                android:textStyle="bold"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            >
 
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/orange7button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:text="@string/hotChoco"
-                android:textStyle="bold"/>
-            <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp"
+                android:layout_marginRight="2dp"
                 android:text="@string/orange7"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/orange7"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/orange5button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="7dp"
                 android:text="@string/orange5"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/orange5"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
+            <Button
+                android:id="@+id/lemonade7button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="7dp"
+                android:text="@string/lemonade7"
+                android:textStyle="bold"
+                android:tag="@string/lemonade7"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+            <Button
+                android:id="@+id/lemonade5button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/lemonade5"
+                android:textStyle="bold"
+                android:tag="@string/lemonade5"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="10dp"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:layout_gravity="center">
+
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/cappuccinoButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:text="@string/can5"
-                android:textStyle="bold"/>
-            <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp"
+                android:layout_marginRight="2dp"
                 android:text="@string/capuccino"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/capuccino"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/chocoButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginLeft="7dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
                 android:text="@string/choco"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/choco"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
+            <Button
+                android:id="@+id/hotChocoButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/hotChoco"
+                android:textStyle="bold"
+                android:tag="@string/hotChoco"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            >
 
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/waterButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
+                android:layout_marginRight="2dp"
                 android:text="@string/water"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/water"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
             <Button
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:id="@+id/can6button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:background="@drawable/shape"
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="7dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
                 android:text="@string/can6"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:tag="@string/can6"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
+            <Button
+                android:id="@+id/can5button"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/can5"
+                android:textStyle="bold"
+                android:tag="@string/can5"
+                android:onClick="chooseItem"
+                android:clickable="true"/>
+
 
         </LinearLayout>
 
-
-
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/red"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/blanco"
+            android:text="@string/cancel"
+            android:textStyle="bold"
+            android:onClick="cancel"/>
 
     </LinearLayout>
 

@@ -55,13 +55,12 @@ public class Welcome extends AppCompatActivity {
            if (Cashier.PASSWORD.equals(pass.getText().toString())) {
                Log.d("TKT_welcome", "next - if");
                employeeName = name.getText().toString();
-               Cashier.updateEmployee(employeeName);
+               Cashier.sharedUpdateEmployee(employeeName);
                name.setEnabled(false);
                pass.setEnabled(false);
                goToItemScreen();
-           /* TODO: 9/5/2017 go to next itemActivity
-                    set a onRestart etc. although it seems to work fine
-            */
+           // TODO: 9/5/2017 set a onRestart etc. although it seems to work fine
+               
            } else {
                Log.d("TKT_welcome", "next - else");
                Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_SHORT).show();
@@ -74,7 +73,7 @@ public class Welcome extends AppCompatActivity {
    public void goToItemScreen()
    {
        Log.d("TKT_welcome","goToItemScreen");
-       Toast.makeText(this, R.string.loading, Toast.LENGTH_SHORT).show();
+       //Toast.makeText(this, R.string.loading, Toast.LENGTH_SHORT).show();
        Intent intent = new Intent(this, ItemScreen.class);
        startActivity(intent);
        finish();

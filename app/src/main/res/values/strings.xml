@@ -1,34 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">פשוט טעים</string>
 
-    <string name="employee_name">Name</string>
-    <string name="password">Password</string>
-    <string name="wrong_password">Wrong password</string>
-    <string name="nil" translatable="false"></string>
-    <string name="loading">Loading...</string>
 
-    <string name="drink">Drinks</string>
-    <string name="sandwich">Sandwiches</string>
-    <string name="pastry">Pastries</string>
-    <string name="panini">Panini</string>
-    <string name="salad">Salad</string>
-    <string name="hots">Hots</string>
-    <string name="muesli">Muesli</string>
-    <string name="candy">Candy</string>
+    <string name="employee_name">שם</string>
+    <string name="password">סיסמה</string>
+    <string name="wrong_password">סיסמה שגויה</string>
+    <string name="nil"></string>
 
-    <string name="iceCoffee5">Ice coffee\n5</string>
-    <string name="iceCoffee7">Ice coffee\n7</string>
-    <string name="lemonade5">Lemonade\n5</string>
-    <string name="lemonade7">Lemonade\n7</string>
-    <string name="orange5">Orange\n5</string>
-    <string name="orange7">Orange\n7</string>
-    <string name="hotChoco">Hot Choc\n5</string>
-    <string name="choco">Choc\n3</string>
-    <string name="capuccino">Capuccino\n5</string>
-    <string name="can5">Can\n5</string>
-    <string name="can6">Can\n6</string>
-    <string name="water">Water\n5</string>
-    <string name="slurpee5">Slurpee\n5</string>
-    <string name="slurpee7">Slurpee\n7</string>
+    <string name="cancel">ביטול</string>
+    <string name="cancelCheck">ביטול חשבון</string>
+    <string name="checkPlease">סיום</string>
+
+    <string name="candy">ממתקים</string>
+    <string name="drink">שתיה</string>
+    <string name="hots">מנות חמות</string>
+    <string name="loading">טוען...</string>
+    <string name="muesli">מוזלי</string>
+    <string name="panini">טוסט</string>
+    <string name="pastry">מאפים</string>
+    <string name="salad">סלטים</string>
+    <string name="sandwich">סנדוויצ\'ים</string>
+    <string name="payment">לתשלום:</string>
+    <string name="done">הזמנה בוצעה בהצלחה!</string>
+    <string name="cancelled">הזמנה בוטלה</string>
+    <string name="emptyCheck">הזמנה ריקה</string>
+
+
+    <string name="can5">פחית\n5</string>
+    <string name="can6">פחית\n6</string>
+    <string name="capuccino">נס קפה\n5</string>
+    <string name="choco">שוקו\n3</string>
+    <string name="hotChoco">שוקו חם\n5</string>
+    <string name="iceCoffee5">אייס\n5</string>
+    <string name="iceCoffee7">אייס\n7</string>
+    <string name="lemonade5">לימונדה\n5</string>
+    <string name="lemonade7">לימונדה\n7</string>
+    <string name="orange5">תפוזים\n5</string>
+    <string name="orange7">תפוזים\n7</string>
+    <string name="water">מים\n5</string>
+    <string name="slurpee5">ברד\n5</string>
+    <string name="slurpee7">ברד\n7</string>
+    <string name="drink_type">litre</string>
+    <string name="no_hint"></string>
 
 </resources>

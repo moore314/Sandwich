@@ -6,5 +6,7 @@
     <color name="blanco">#ffffff</color>
     <color name="turq">#309c93</color>
     <color name="background">#fcfcfc</color>
+    <color name="gray">#d0d9d6</color>
+    <color name="red">#8c121e</color>
 
 </resources>
