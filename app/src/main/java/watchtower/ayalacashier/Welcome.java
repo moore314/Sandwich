@@ -60,7 +60,7 @@ public class Welcome extends AppCompatActivity {
                pass.setEnabled(false);
                goToItemScreen();
            // TODO: 9/5/2017 set a onRestart etc. although it seems to work fine
-               
+
            } else {
                Log.d("TKT_welcome", "next - else");
                Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_SHORT).show();

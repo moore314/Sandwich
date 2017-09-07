@@ -2,15 +2,19 @@ package watchtower.ayalacashier;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Currency;
+
 
 public class ItemScreen extends AppCompatActivity {
 
@@ -23,14 +27,18 @@ public class ItemScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_screen);
         context = this;
+        Log.d("TKT_itemScreen","fileNameb4change: " + Cashier.FILE_NAME);
+        //Cashier.FILE_NAME = getString(R.string.report) + ": " + Cashier.date.format(Cashier.c.getTime());
         Cashier.paymentText = (TextView)findViewById(R.id.paymentText);
         TextView NIS = (TextView)findViewById(R.id.NIS);
         NIS.setText(ILS.getSymbol(Cashier.il));
+        Log.d("TKT_itemScreen",Cashier.FILE_NAME);
+
     }
 
     public void drinks(View v)
     {
-        Cashier.type = getString(R.string.drink_type);
+        //Cashier.type = getString(R.string.drink);
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.drinks_dialog_layout);
         Cashier.dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -64,6 +72,7 @@ public class ItemScreen extends AppCompatActivity {
         Button water = (Button)Cashier.dialog.findViewById(R.id.waterButton);
         water.setTag(Cashier.I_WATER);
 
+
         Cashier.dialog.show();
     }
 
@@ -89,5 +98,39 @@ public class ItemScreen extends AppCompatActivity {
     public void onBackPressed() {
         //// TODO: 9/6/2017 display 'are u sure' message
         //super.onBackPressed();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case android.R.id.home:
+            {
+                onBackPressed();
+                return true;
+            }
+            case R.id.reportMenu:
+            {
+                Log.d("TKT_itemScreen","reportMenu");
+                Intent intent  = new Intent(this, Report.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.endShiftMenu:
+            {
+                Log.d("TKT_itemScreen","endShift");
+                return true;
+            }
+        }
+        return false;
     }
 }

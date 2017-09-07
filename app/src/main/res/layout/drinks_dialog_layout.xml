@@ -42,7 +42,8 @@
                 android:textStyle="bold"
                 android:tag="@string/slurpee7"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
 
             <Button
                 android:id="@+id/slurpee5button"
@@ -55,7 +56,8 @@
                 android:textStyle="bold"
                 android:tag="@string/slurpee5"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
             <Button
                 android:id="@+id/ice7button"
                 android:layout_width="70dp"
@@ -67,7 +69,8 @@
                 android:textStyle="bold"
                 android:tag="@string/iceCoffee7"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
             <Button
                 android:id="@+id/ice5button"
                 android:layout_width="70dp"
@@ -78,7 +81,8 @@
                 android:textStyle="bold"
                 android:tag="@string/iceCoffee5"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -101,7 +105,8 @@
                 android:textStyle="bold"
                 android:tag="@string/orange7"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
             <Button
                 android:id="@+id/orange5button"
                 android:layout_width="70dp"
@@ -113,7 +118,8 @@
                 android:textStyle="bold"
                 android:tag="@string/orange5"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
 
             <Button
                 android:id="@+id/lemonade7button"
@@ -126,7 +132,8 @@
                 android:textStyle="bold"
                 android:tag="@string/lemonade7"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
             <Button
                 android:id="@+id/lemonade5button"
                 android:layout_width="70dp"
@@ -137,7 +144,8 @@
                 android:textStyle="bold"
                 android:tag="@string/lemonade5"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
 
         </LinearLayout>
         <LinearLayout
@@ -160,7 +168,8 @@
                 android:textStyle="bold"
                 android:tag="@string/capuccino"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/no_hint"/>
 
             <Button
                 android:id="@+id/chocoButton"
@@ -173,7 +182,8 @@
                 android:textStyle="bold"
                 android:tag="@string/choco"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/no_hint"/>
 
             <Button
                 android:id="@+id/hotChocoButton"
@@ -185,7 +195,8 @@
                 android:textStyle="bold"
                 android:tag="@string/hotChoco"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/no_hint"/>
 
         </LinearLayout>
         <LinearLayout
@@ -209,7 +220,8 @@
                 android:textStyle="bold"
                 android:tag="@string/water"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/no_hint"/>
 
             <Button
                 android:id="@+id/can6button"
@@ -222,8 +234,10 @@
                 android:textStyle="bold"
                 android:tag="@string/can6"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
 
+            <!-- todo remeber to check that in overall file there is a difference between 5can and 6can-->
             <Button
                 android:id="@+id/can5button"
                 android:layout_width="70dp"
@@ -234,7 +248,8 @@
                 android:textStyle="bold"
                 android:tag="@string/can5"
                 android:onClick="chooseItem"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:hint="@string/drink"/>
 
 
         </LinearLayout>

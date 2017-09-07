@@ -12,6 +12,9 @@
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>
     <string name="checkPlease">סיום</string>
+    <string name="report">דו"ח מכירות</string>
+    <string name="endShift">סוף יום</string>
+    <string name="list">רשימת מוצרים שנמכרו</string>
 
     <string name="candy">ממתקים</string>
     <string name="drink">שתיה</string>
@@ -42,7 +45,6 @@
     <string name="water">מים\n5</string>
     <string name="slurpee5">ברד\n5</string>
     <string name="slurpee7">ברד\n7</string>
-    <string name="drink_type">litre</string>
     <string name="no_hint"></string>
 
 </resources>

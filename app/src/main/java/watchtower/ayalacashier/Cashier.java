@@ -4,10 +4,20 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.LinkedList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -24,7 +34,10 @@ public class Cashier {
     public static final String CHECK_PREFS = "cashier";
     public static final String PRICES = "prices";
     public static final String PRICE_CHANGED = "priceChanged"; //this is to determine if prices need to be loaded from shared or not
-    public static LinkedList<String> shoppingList = new LinkedList<String>();
+    public static ItemList boughtItems = new ItemList();
+    static Calendar c = Calendar.getInstance();
+    static SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+    public static final String FILE_NAME = "report";//date.format(c.getTime()).toString();
 
     //Drinks - // TODO: 9/6/2017 add option in menu to update prices, for that, i need to update it in itemScreen too!!!
     public static double I_ICE5 = 5;
@@ -46,6 +59,8 @@ public class Cashier {
     public static double LARGE_DRINK_PRICE = 7;
     public static double SMALL_DRINK_CAPACITY = 0.250;
     public static double LARGE_DRINK_CAPACITY = 0.300;
+    public static String smallTag = " קטן";
+    public static String largeTag = " גדול";
 
 
 
@@ -65,11 +80,15 @@ public class Cashier {
     public static String S_WATER = "מים\n"  +I_WATER;
 
 
+
+
     public static TextView paymentText;
     public static Dialog dialog;
     public static Locale il = new Locale("iw","IL");
 
-    static int firstLine = 0;
+    static int itemName = 0;
+    static int itemPrice = 1;
+
     static String type = "";
 
 
@@ -89,13 +108,35 @@ public class Cashier {
     {//update payment in textView, add item to list
         Log.d("TKT_cashier","updatePayment");
 
-        String name = item.getText().toString();
-        String [] lines = name.split("\n");
-        Cashier.shoppingList.add(lines[firstLine]);
-        Log.d("TKT_cashier","item name: "+lines[firstLine]);
+        String buttonText = item.getText().toString();
+        String [] lines = buttonText.split("\n");
+        double price = Double.parseDouble(lines[itemPrice]);
 
-        double price = getPrice(item);
-        Log.d("TKT_cashier","price: "+price);
+        if(item.getHint().equals(ItemScreen.context.getString(R.string.drink))) {
+            if (price == SMALL_DRINK_PRICE) {
+                lines[itemName] += smallTag;
+                Log.d("TKT_cashier", "name: " + lines[itemName]);
+
+            } else
+                lines[itemName] += largeTag;
+        }
+
+
+        //handle itemList
+        ItemList.Item currItem = boughtItems.contains(lines[itemName]);
+        if(currItem != null)
+        {//item exists
+            Log.d("TKT_cashier", "contained in boughtItems");
+            currItem.increase();
+        }
+        else
+        {//create new item
+            ItemList.Item newItem = new ItemList().new Item(lines[itemName]);
+            boughtItems.addItem(newItem);
+        }
+
+
+        //handle price textView
         if(paymentText.getText().toString().equals(""))
             paymentText.setText(price+"");
         else {
@@ -104,17 +145,11 @@ public class Cashier {
             Log.d("TKT_cashier", "else");
             paymentText.setText(price+"");
         }
+
+
         dialog.dismiss();
     }
 
-    public static double getPrice(Button item)
-    {
-        Log.d("TKT_cashier","getPrice");
-
-        String tag = item.getTag().toString();
-        Log.d("TKT_cashier","tag: "+tag);
-        return Double.parseDouble(tag);
-    }
 
     public static void cancel()
     {
@@ -126,6 +161,7 @@ public class Cashier {
         {
             if(!paymentText.getText().toString().equals("")) {
                 paymentText.setText("");
+                boughtItems.clearAll();
                 AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
                 message.setMessage(R.string.cancelled).create();
                 message.show();
@@ -135,23 +171,71 @@ public class Cashier {
         }
             
     }
-    
+
+    public static ItemList openItemList()
+    {
+        Log.d("TKT_cashier","openItemList");
+        ObjectInputStream objectInputStream;
+        File file = new File(ItemScreen.context.getFilesDir(), FILE_NAME);
+        try
+        {
+            objectInputStream = new ObjectInputStream(new FileInputStream(file));
+            return (ItemList)objectInputStream.readObject();
+        }
+        catch (Exception e)
+        {
+            Log.d("TKT_cashier","file does not exist");
+            return null;
+        }
+    }
+
+    public static void saveHash(ItemList hash)
+    {
+        Log.d("TKT_cashier","saveHash");
+
+        File file = new File(ItemScreen.context.getFilesDir().toString(), FILE_NAME);
+        Log.d("TKT_cashier","is file null: "+file.exists());
+        try {
+            Log.d("TKT_cashier","try");
+            file.createNewFile();
+            Log.d("TKT_cashier","file is created: "+file.exists());
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            //// TODO: 9/8/2017 never get passed this ^^ line :\
+            outputStream.writeObject(hash);
+            outputStream.flush();
+            outputStream.close();
+
+        } catch (IOException e) {
+            Log.d("TKT_cashier","catch me if you can1");
+            e.printStackTrace();
+        }
+    }
+
     public static void check()
     {//// TODO: 9/6/2017 add hint of small large and none for size reference 
         Log.d("TKT_cashier","check");
 
         if(!paymentText.getText().toString().equals("")) {
-            progressEdit = checkPrefs.edit();
-
-            while (!shoppingList.isEmpty()) {
-                String currItem = shoppingList.poll();
-                Log.d("TKT_cashier", "currentItem: " + currItem);
-                int currAmount = checkPrefs.getInt(currItem, 0);
-                Log.d("TKT_cashier", "currentAmountB4: " + currAmount);
-                currAmount++;
-                progressEdit.putInt(currItem, currAmount);
-                progressEdit.commit();
+            ItemList SavedShoppingList = openItemList();
+            if(SavedShoppingList == null) {
+                Log.d("TKT_cashier","path: "+ItemScreen.context.getFilesDir().toString());
+                saveHash(boughtItems);
             }
+            else
+            {//merging both hashMaps
+                Log.d("TKT_cashier","file exists");
+                SavedShoppingList.merge(boughtItems);
+
+
+                //clear current file and update
+                File oldFile = new File(ItemScreen.context.getFilesDir().toString(), FILE_NAME);//// TODO: 9/8/2017 check if redundant
+                boolean deleted = oldFile.delete();
+                Log.d("TKT_cashier","isDeleted: "+deleted);
+                saveHash(SavedShoppingList);
+                boughtItems.clearAll();
+
+            }
+
 
             AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
             message.setMessage(R.string.done).create();
@@ -166,7 +250,6 @@ public class Cashier {
 
     }
 
-
     public static void emptyCheck()
     {
         AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
@@ -174,6 +257,17 @@ public class Cashier {
         message.show();
     }
 
+    public static void displayReport(ListView listView)
+    {
+        Log.d("TKT_cashier","displayReport");
+        ItemList SavedShoppingList = Cashier.openItemList();
+        if(SavedShoppingList != null)
+        {
+            ArrayList<String> listOfItems = SavedShoppingList.getArrayList();
+            ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
+            listView.setAdapter(adapter);
+        }
+    }
 
 
 
