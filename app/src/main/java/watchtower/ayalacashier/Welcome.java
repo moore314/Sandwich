@@ -44,7 +44,7 @@ public class Welcome extends AppCompatActivity {
 
    public void next (View v)
    {
-       Log.d("TKT_welcome","next");
+       Log.d("TKT_welcome","next===================");
        if(pass.getVisibility() == View.GONE)
        {
            Log.d("TKT_welcome","pass is gone");
@@ -72,7 +72,7 @@ public class Welcome extends AppCompatActivity {
 
    public void goToItemScreen()
    {
-       Log.d("TKT_welcome","goToItemScreen");
+       Log.d("TKT_welcome","goToItemScreen===================");
        //Toast.makeText(this, R.string.loading, Toast.LENGTH_SHORT).show();
        Intent intent = new Intent(this, ItemScreen.class);
        startActivity(intent);
@@ -80,7 +80,7 @@ public class Welcome extends AppCompatActivity {
    }
 
     public void hideKeyboard(View view) {
-        Log.d("TKT_welcome","hiding keyboard");
+        Log.d("TKT_welcome","hiding keyboard===================");
 
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);

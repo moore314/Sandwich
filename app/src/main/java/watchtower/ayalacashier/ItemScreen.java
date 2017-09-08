@@ -78,7 +78,7 @@ public class ItemScreen extends AppCompatActivity {
 
     public void chooseItem(View v)
     {
-        Log.d("TKT_itemScreen","chooseItem");
+        Log.d("TKT_itemScreen","chooseItem===================");
         Cashier.updatePayment((Button)v);
 
 
@@ -120,14 +120,14 @@ public class ItemScreen extends AppCompatActivity {
             }
             case R.id.reportMenu:
             {
-                Log.d("TKT_itemScreen","reportMenu");
+                Log.d("TKT_itemScreen","reportMenu===================");
                 Intent intent  = new Intent(this, Report.class);
                 startActivity(intent);
                 return true;
             }
             case R.id.endShiftMenu:
             {
-                Log.d("TKT_itemScreen","endShift");
+                Log.d("TKT_itemScreen","endShift===================");
                 return true;
             }
         }

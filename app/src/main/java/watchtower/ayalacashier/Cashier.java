@@ -17,6 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -96,7 +97,7 @@ public class Cashier {
 
     public static void sharedUpdateEmployee(String employeeName)
     {
-        Log.d("TKT_cashier","updateEmployee");
+        Log.d("TKT_cashier","updateEmployee===================");
 
         progressEdit = checkPrefs.edit();
         progressEdit.putString(EMPLOYEE_NAME, employeeName);
@@ -106,7 +107,7 @@ public class Cashier {
 
     public static void updatePayment(Button item)
     {//update payment in textView, add item to list
-        Log.d("TKT_cashier","updatePayment");
+        Log.d("TKT_cashier","updatePayment===================");
 
         String buttonText = item.getText().toString();
         String [] lines = buttonText.split("\n");
@@ -153,7 +154,7 @@ public class Cashier {
 
     public static void cancel()
     {
-        Log.d("TKT_cashier","cancel");
+        Log.d("TKT_cashier","cancel===================");
 
         if(dialog.isShowing())
             dialog.dismiss();
@@ -172,18 +173,19 @@ public class Cashier {
             
     }
 
-    public static ItemList openItemList()
+    public static String openItemList()
     {
-        Log.d("TKT_cashier","openItemList");
+        Log.d("TKT_cashier","openItemList===================");
         ObjectInputStream objectInputStream;
         File file = new File(ItemScreen.context.getFilesDir(), FILE_NAME);
         try
         {
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
-            return (ItemList)objectInputStream.readObject();
+            return (String)objectInputStream.readObject();
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             Log.d("TKT_cashier","file does not exist");
             return null;
         }
@@ -191,7 +193,7 @@ public class Cashier {
 
     public static void saveHash(ItemList hash)
     {
-        Log.d("TKT_cashier","saveHash");
+        Log.d("TKT_cashier","saveHash===================");
 
         File file = new File(ItemScreen.context.getFilesDir().toString(), FILE_NAME);
         Log.d("TKT_cashier","is file null: "+file.exists());
@@ -200,8 +202,8 @@ public class Cashier {
             file.createNewFile();
             Log.d("TKT_cashier","file is created: "+file.exists());
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            //// TODO: 9/8/2017 never get passed this ^^ line :\
-            outputStream.writeObject(hash);
+            Log.d("TKT_cashier","shopList: "+hash.toString());
+            outputStream.writeObject(hash.toString());
             outputStream.flush();
             outputStream.close();
 
@@ -211,18 +213,37 @@ public class Cashier {
         }
     }
 
+    public static ItemList stringToItemList(String listString)
+    {
+        Log.d("TKT_cashier","strignToItemList===================");
+        ItemList SavedShoppingList = new ItemList();
+        String [] items = listString.split(System.getProperty("line.separator"));
+        for(int i = 0; i < items.length; i++)
+        {
+            Log.d("TKT_cashier","item[i]: "+items[i]);
+
+            ItemList.Item newItem = new ItemList().new Item(items[i]);
+            Log.d("TKT_cashier","newItem: "+newItem.toString());
+            SavedShoppingList.addItem(newItem);
+        }
+        return SavedShoppingList;
+    }
+
     public static void check()
-    {//// TODO: 9/6/2017 add hint of small large and none for size reference 
-        Log.d("TKT_cashier","check");
+    {
+        Log.d("TKT_cashier","check===================");
 
         if(!paymentText.getText().toString().equals("")) {
-            ItemList SavedShoppingList = openItemList();
-            if(SavedShoppingList == null) {
-                Log.d("TKT_cashier","path: "+ItemScreen.context.getFilesDir().toString());
+            String listString = openItemList();
+            Log.d("TKT_cashier","listString: "+listString);
+            //Log.d("TKT_cashier","savedShopList: "+SavedShoppingList.toString());
+            if(listString == null) {
                 saveHash(boughtItems);
             }
             else
             {//merging both hashMaps
+                Log.d("TKT_cashier","merging");
+                ItemList SavedShoppingList = stringToItemList(listString);//openItemList();
                 Log.d("TKT_cashier","file exists");
                 SavedShoppingList.merge(boughtItems);
 
@@ -232,15 +253,16 @@ public class Cashier {
                 boolean deleted = oldFile.delete();
                 Log.d("TKT_cashier","isDeleted: "+deleted);
                 saveHash(SavedShoppingList);
-                boughtItems.clearAll();
 
             }
+            boughtItems.clearAll();
 
 
             AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
             message.setMessage(R.string.done).create();
             message.show();
             paymentText.setText("");
+            Log.d("TKT_cashier","OrderSubmitted $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4");
         }
         else
         {
@@ -259,14 +281,25 @@ public class Cashier {
 
     public static void displayReport(ListView listView)
     {
-        Log.d("TKT_cashier","displayReport");
-        ItemList SavedShoppingList = Cashier.openItemList();
+        Log.d("TKT_cashier","displayReport===================");
+        String SavedShoppingList = openItemList();
+        if(SavedShoppingList != null)
+        {
+            // TODO: 9/8/2017 this cast vv is not good, look for an alternative 
+            ArrayList<String> listOfItems = (ArrayList<String>) Arrays.asList(SavedShoppingList.split(System.getProperty("line.separator")));
+            ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
+            listView.setAdapter(adapter);
+        }
+
+        /*
+        ItemList SavedShoppingList = openItemList();
         if(SavedShoppingList != null)
         {
             ArrayList<String> listOfItems = SavedShoppingList.getArrayList();
             ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
             listView.setAdapter(adapter);
         }
+        */
     }
 
 

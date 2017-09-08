@@ -1,15 +1,29 @@
 package watchtower.ayalacashier;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Moore on 9/7/2017.
  */
 
-public class ItemList  implements Comparable<ItemList.Item>{
+public class ItemList  implements  Serializable{
 
+
+    public boolean isValidInt(String string)
+    {
+        if(string == null || string.isEmpty())
+            return false;
+        for(int i = 0; i < string.length(); i++)
+        {
+            if(!Character.isDigit(string.charAt(i)))
+                return false;
+        }
+        return true;
+    }
 
     public class Item implements Comparable
     {
@@ -19,8 +33,32 @@ public class ItemList  implements Comparable<ItemList.Item>{
 
         public Item(String n)
         {
-            name = n;
-            amount = 1;
+            String [] itemDetails = n.split(" ");
+            boolean isInt = isValidInt(itemDetails[itemDetails.length-1]);
+            if(!isInt)
+            {
+                Log.d("TKT_itemList","gotHere");
+                Log.d("TKT_itemList","item[last]: " + itemDetails[itemDetails.length-1]);
+                name = n;
+                Log.d("TKT_itemList","name: "+name);
+                amount = 1;
+            }
+            else
+            {
+                Log.d("TKT_itemList","else");
+                name = "";
+                for(int i=0; i<itemDetails.length-1; i++)
+                {
+                    if(i == 0)
+                        name += itemDetails[i];
+                    else
+                        name += " " + itemDetails[i];
+                    Log.d("TKT_itemList","nameFromList: "+name);
+                }
+                amount = Integer.parseInt(itemDetails[itemDetails.length-1]);
+
+            }
+
         }
 
         public Item(Item item)
@@ -57,7 +95,7 @@ public class ItemList  implements Comparable<ItemList.Item>{
 
         @Override
         public String toString() {
-            return name+": "+amount;
+            return name+" "+amount;
         }
 
     }
@@ -109,6 +147,24 @@ public class ItemList  implements Comparable<ItemList.Item>{
         }
     }
 
+    public void updateList(Item item)
+    {
+        boolean working = true;
+        //TODO remove it and add it again
+        Item run = head;
+        while(run.next != null && working)
+        {
+            if(run.next == item)
+            {
+                run.next = item.next;
+                item.next = null;
+                working = false;
+            }
+            run = run.next;
+        }
+        this.addItem(item);
+    }
+
     public void merge(ItemList list)
     {
         Item run = list.head;
@@ -117,11 +173,18 @@ public class ItemList  implements Comparable<ItemList.Item>{
             Item temp = this.contains(run);
             if(temp != null)
             {
+                Log.d("TKT_itemList","run.amount: "+run.amount);
+                Log.d("TKT_itemList","temp.amount:" +temp.amount);
                 temp.increase(run.amount);
+                updateList(temp);
+
+            }
+            else
+            {
+                this.addItem(run);
             }
             run = run.next;
         }
-
     }
 
     public Item contains(String itemName)
@@ -173,16 +236,13 @@ public class ItemList  implements Comparable<ItemList.Item>{
         String ans = "";
         while(run!=null)
         {
-            ans += run.toString();
+            ans += run.toString()+"\n";
             run = run.next;
         }
         return ans;
     }
 
-    @Override
-    public int compareTo(@NonNull Item o) {
-        return 0;
-    }
+
 
 
 
