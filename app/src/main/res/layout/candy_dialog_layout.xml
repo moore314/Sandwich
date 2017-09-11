@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            >
+
+
+            <Button
+                android:id="@+id/toffeeFizzButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/toffee_fizz"
+                android:textStyle="bold"
+                android:tag="@string/toffee_fizz"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"
+                />
+            <Button
+                android:id="@+id/lolliesDipBbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/lolly_dip"
+                android:textStyle="bold"
+                android:tag="@string/lolly_dip"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+            <Button
+                android:id="@+id/marshmellowButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/marshmellow"
+                android:textStyle="bold"
+                android:tag="@string/marshmellow"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"
+                />
+            <Button
+                android:id="@+id/selzerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/selzer"
+                android:textStyle="bold"
+                android:tag="@string/selzer"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+            <Button
+                android:id="@+id/rugButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/rug"
+                android:textStyle="bold"
+                android:tag="@string/rug"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            >
+
+            <Button
+                android:id="@+id/kinderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/kinder"
+                android:textStyle="bold"
+                android:tag="@string/kinder"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/sourSprayButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/sour_spray"
+                android:textStyle="bold"
+                android:tag="@string/sour_spray"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+
+            <Button
+                android:id="@+id/heartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/heart_lolly"
+                android:textStyle="bold"
+                android:tag="@string/heart_lolly"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+            <Button
+                android:id="@+id/fizzButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/fizz"
+                android:textStyle="bold"
+                android:tag="@string/fizz"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+            <Button
+                android:id="@+id/piesPolvoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/pies_polvo"
+                android:textStyle="bold"
+                android:tag="@string/pies_polvo"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="5">
+
+
+
+            <Button
+                android:id="@+id/pipeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/pipe"
+                android:textStyle="bold"
+                android:tag="@string/pipe"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/paraguaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/paragua"
+                android:textStyle="bold"
+                android:tag="@string/paragua"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/mentosButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/mentos"
+                android:textStyle="bold"
+                android:tag="@string/mentos"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/tictacButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/tictac"
+                android:textStyle="bold"
+                android:tag="@string/tictac"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/extremeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/extreme"
+                android:textStyle="bold"
+                android:tag="@string/extreme"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/zoonButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/zoom"
+                android:textStyle="bold"
+                android:tag="@string/zoom"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="5"
+            >
+
+            <Button
+                android:id="@+id/timeOutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/time_out"
+                android:textStyle="bold"
+                android:tag="@string/time_out"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/buenoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/bueno"
+                android:textStyle="bold"
+                android:tag="@string/bueno"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/teamiButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/teami"
+                android:textStyle="bold"
+                android:tag="@string/teami"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/twixButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/twix"
+                android:textStyle="bold"
+                android:tag="@string/twix"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+
+            <Button
+                android:id="@+id/marsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/mars"
+                android:textStyle="bold"
+                android:tag="@string/mars"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/sneakersButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/sneakers"
+                android:textStyle="bold"
+                android:tag="@string/sneakers"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="5"
+            >
+
+
+            <Button
+                android:id="@+id/clickTabletButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/click_tablet"
+                android:textStyle="bold"
+                android:tag="@string/click_tablet"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/clickBagButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/click_bag"
+                android:textStyle="bold"
+                android:tag="@string/click_bag"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/clickBarButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/click_bar"
+                android:textStyle="bold"
+                android:tag="@string/click_bar"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+
+
+            <Button
+                android:id="@+id/nutellaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/nutella"
+                android:textStyle="bold"
+                android:tag="@string/nutella"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="5"
+            >
+
+            <Button
+                android:id="@+id/bearsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/bears"
+                android:textStyle="bold"
+                android:tag="@string/bears"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/apropositoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/aproposito"
+                android:textStyle="bold"
+                android:tag="@string/aproposito"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/bislyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/bisly"
+                android:textStyle="bold"
+                android:tag="@string/bisly"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/doritosButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/doritos"
+                android:textStyle="bold"
+                android:tag="@string/doritos"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+            <Button
+                android:id="@+id/bambaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/bamba"
+                android:textStyle="bold"
+                android:tag="@string/bamba"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"
+                android:textSize="12dp"/>
+
+
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/red"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/blanco"
+            android:text="@string/cancel"
+            android:textStyle="bold"
+            android:onClick="cancel"/>
+
+    </LinearLayout>
+
+</LinearLayout>

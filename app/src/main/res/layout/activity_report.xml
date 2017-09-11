@@ -11,6 +11,7 @@
     android:layoutDirection="ltr"
     android:id="@+id/reportLayout">
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +27,45 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        android:layout_weight="1"></ListView>
+
+    <!-- check this -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/gray"
+        android:backgroundTint="@color/gray"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        >
+
+        <TextView
+            android:id="@+id/altogetherText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/altogetherTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/altogether"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/turq"
+            />
+
+
+
+    </LinearLayout>
 
 </LinearLayout>

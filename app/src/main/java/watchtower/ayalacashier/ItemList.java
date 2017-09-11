@@ -38,9 +38,7 @@ public class ItemList  implements  Serializable{
             if(!isInt)
             {
                 Log.d("TKT_itemList","gotHere");
-                Log.d("TKT_itemList","item[last]: " + itemDetails[itemDetails.length-1]);
                 name = n;
-                Log.d("TKT_itemList","name: "+name);
                 amount = 1;
             }
             else
@@ -53,7 +51,6 @@ public class ItemList  implements  Serializable{
                         name += itemDetails[i];
                     else
                         name += " " + itemDetails[i];
-                    Log.d("TKT_itemList","nameFromList: "+name);
                 }
                 amount = Integer.parseInt(itemDetails[itemDetails.length-1]);
 
@@ -72,6 +69,11 @@ public class ItemList  implements  Serializable{
         {
             name = n;
             amount = p;
+        }
+
+        public boolean equals(Item item)
+        {
+            return item.name == this.name;
         }
 
         public void increase()
@@ -108,62 +110,87 @@ public class ItemList  implements  Serializable{
         head = tail = null;
     }
 
-    public void addItem(Item item)
+    public boolean addItem(Item item)
     {
+        Log.d("TKT_itemList","addItem");
         boolean working = true;
         Item temp = new Item(item);
-        if(head == null)
+        if(this.contains(temp) == null)
         {
-            head = temp;
-            tail = head;
-        }
-        else
-        {
-            Item run = head;
-            if(run.compareTo(temp) == -1 || run.compareTo(temp) == 0)
-            {//run is smaller or equals
-                temp.next = head;
+            if (head == null) {
                 head = temp;
-                working = false;
+                tail = head;
+                return true;
             }
-            while(run.next != null && working)
-            {
-
-
-                    if (run.compareTo(temp) == 1 && (run.next.compareTo(temp) == -1 || run.next.compareTo(temp) == 0))
-                    {
+            else
+                {
+                Item run = head;
+                if (run.compareTo(temp) == -1 || run.compareTo(temp) == 0) {//run is smaller or equals
+                    temp.next = head;
+                    head = temp;
+                    return true;
+                }
+                while (run.next != null)
+                {
+                    if (run.compareTo(temp) == 1 && (run.next.compareTo(temp) == -1 || run.next.compareTo(temp) == 0)) {
                         temp.next = run.next;
                         run.next = temp;
-                        working = false;
+                        return true;
                     }
 
-                run = run.next;
+                    run = run.next;
 
-            }
-            if(working) {
-                tail.next = temp;
-                tail = tail.next;
+                }
+                /*
+                if (working) {
+                    tail.next = temp;
+                    tail = tail.next;
+                }
+                */
             }
         }
+        tail.next = temp;
+        tail = tail.next;
+        return false;
     }
 
-    public void updateList(Item item)
+    public boolean remove(Item item)
     {
+        Log.d("TKT_itemList","remove: "+item.toString());
+        Log.d("TKT_itemList","this.toString b4 remove: "+this.toString());
         boolean working = true;
         //TODO remove it and add it again
         Item run = head;
-        while(run.next != null && working)
-        {
-            if(run.next == item)
-            {
-                run.next = item.next;
-                item.next = null;
-                working = false;
-            }
-            run = run.next;
+        if(run != null && run == item)
+        {//if it's the 1st item in list
+            head = head.next;
+            run.next = null;
+            return true;
         }
-        this.addItem(item);
+        else {
+            while (run.next != null) {
+                Log.d("TKT_itemList", "run.next: " + run.next.toString());
+                if (run.next == item) {
+                    if(run.next == tail)
+                    {
+                        run.next = null;
+                        tail = run;
+                    }
+                    else
+                    {
+                        run.next = item.next;
+                        item.next = null;
+                    }
+                    return true;
+                }
+
+                run = run.next;
+            }
+        }
+    return false;
     }
+
+
 
     public void merge(ItemList list)
     {
@@ -173,16 +200,16 @@ public class ItemList  implements  Serializable{
             Item temp = this.contains(run);
             if(temp != null)
             {
-                Log.d("TKT_itemList","run.amount: "+run.amount);
-                Log.d("TKT_itemList","temp.amount:" +temp.amount);
+                Log.d("TKT_itemList","merge: this contains run");
+                remove(temp);
                 temp.increase(run.amount);
-                updateList(temp);
-
+                this.addItem(temp);
             }
             else
             {
                 this.addItem(run);
             }
+
             run = run.next;
         }
     }

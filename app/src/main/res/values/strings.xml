@@ -15,6 +15,9 @@
     <string name="report">דו"ח מכירות</string>
     <string name="endShift">סוף יום</string>
     <string name="list">רשימת מוצרים שנמכרו</string>
+    <string name="altogether">סה\"כ:</string>
+    <string name="cheap">כריכים מוזלים</string>
+
 
     <string name="candy">ממתקים</string>
     <string name="drink">שתיה</string>
@@ -30,7 +33,10 @@
     <string name="cancelled">הזמנה בוטלה</string>
     <string name="emptyCheck">הזמנה ריקה</string>
 
-
+    <!-- drinks -->
+    <string name="smallDrink">קטן</string>
+    <string name="largeDrink">גדול</string>
+    <string name="drink_hint">drink</string>
     <string name="can5">פחית\n5</string>
     <string name="can6">פחית\n6</string>
     <string name="capuccino">נס קפה\n5</string>
@@ -46,5 +52,125 @@
     <string name="slurpee5">ברד\n5</string>
     <string name="slurpee7">ברד\n7</string>
     <string name="no_hint"></string>
+
+
+    <!-- sandwiches -->
+    <string name="sandwhich_hint">sandwich</string>
+    <string name="shakshuka">שקשוקה\n15</string>
+    <string name="sabih">סביח\n15</string>
+    <string name="greenOmlette">חביתת ירק\n15</string>
+    <string name="tunaSalad">סלט טונה\n15</string>
+    <string name="pesto">פסטו\n15</string>
+    <string name="spicyEggplant">חציל פיקנטי\n15</string>
+    <string name="cheeseEggplant">חציל+בולגרית\n15</string>
+    <!-- cheap-->
+    <string name="tuna">טונה\n10</string>
+    <string name="creamCheese">גבינת שמנת\n10</string>
+    <string name="bulgarian">בולגרית\n10</string>
+    <string name="yellowCheese">גבינה צהובה\n10</string>
+    <string name="eggSalad">סלט ביצים\n10</string>
+    <string name="avocado">אבוקדו\n12</string>
+    <string name="omlette">חביתה\n12</string>
+    <string name="tivol">טבעול\n12</string>
+    
+    <!-- pastries -->
+    <string name="pastry_hint">pastry</string>
+    <string name="croissant_hint">croissant</string>
+    <string name="burk_hint">burk</string>
+    <string name="pizza_hint">pizza</string>
+    <string name="potato_hint">potato</string>
+    <string name="melawac_hint">melawac</string>
+
+
+    <string name="croissant">קוראסון</string>
+    <string name="chocCroissant">שוקולד\n7</string>
+    <string name="cheeseCroissant">גבינית\n7</string>
+    <string name="butterCroissant">חמאה\n7</string>
+    <string name="cinnamonCroissant">קינמון\n7</string>
+
+    <string name="donut">דונאט\n6</string>
+
+    <string name="burek">בורקס</string>
+    <string name="burekCheese">גבינה\n7</string>
+    <string name="burekPotato">תפו\"א\n7</string>
+    <string name="plusEgg">+ ביצה\n3</string>
+
+    <string name="melawacText">מלאווח</string>
+    <string name="melawac">מלאווח\n10</string>
+
+    <string name="pizzaText">פיצה</string>
+    <string name="pizza">רגילה\n6</string>
+    <string name="pizzaPlus">+ תוספות\n7</string>
+    <string name="pizzaBulgarian">+ בולגרית\n3</string>
+
+    <!-- panini -->
+    <string name="panini_hint">panini</string>
+    <string name="panini_addition_hint1">panini1</string>
+    <string name="panini_addition_hint3">panini3</string>
+    <string name="paniniFinger">לחמניית אצבע\n10</string>
+    <string name="paniniBagle">בייגל\n13</string>
+    <string name="additions">תוספות</string>
+    <string name="oneNis">זיתים/עגבניות/בצל סגול/פטריות/תירס</string>
+    <string name="threeNis">ביצה/בולגרית/טונה/רוטב שום</string>
+    <string name="one">תוספת\n1</string>
+    <string name="three">תוספת\n3</string>
+
+    <!-- salad -->
+    <string name="salad_hint">salad</string>
+    <string name="saladBase">סלט\n13</string>
+    <string name="bread">פרוסת לחם\n1.5</string>
+    <string name="saladAddition">תוספות\n3</string>
+
+    <!-- hots -->
+    <string name="soup_hint">soup</string>
+    <string name="kuskus">קוסקוס\n14</string>
+    <string name="pasta">פסטה\n14</string>
+    <string name="soup">מרקים</string>
+    <string name="lentil">עדשים\n10</string>
+    <string name="veggie">ירקות\n10</string>
+    <string name="yam">בטטה\n10</string>
+    <string name="corn_milanesa">טבעול תירס\n5</string>
+
+    <!-- meusli -->
+    <string name="watermelon">אבטיח\n7</string>
+    <string name="fruitMuesli">מוזלי\n15</string>
+    <string name="muller_froop">מולר קטן\n5.5</string>
+    <string name="muller_click">מולר גדול\n6.5</string>
+
+    <!-- candy -->
+    <string name="rug">שטיח\n0.5</string>
+    <string name="selzer">סוכריית סודה\n1</string>
+    <string name="marshmellow">מרשמלו\n1.5</string>
+    <string name="lolly_dip">Lollies dip\n1.5</string>
+    <string name="toffee_fizz">טופי פיז\n2</string>
+    <string name="pies_polvo">אבקת pies\n2</string>
+    <string name="fizz">שרשרת פיז\n2</string>
+    <string name="heart_lolly">לקקן לב\n2</string>
+    <string name="paragua">מטריה\n3</string>
+    <string name="pipe">צינור\n3</string>
+    <string name="zoom">זום\n3.5</string>
+    <string name="extreme">אקסטרים\n3.5</string>
+    <string name="tictac">תיקתק\n4</string>
+    <string name="mentos">מנטוס\n4</string>
+    <string name="kinder">אצבעות קינדר\n5</string>
+    <string name="sneakers">סניקרס\n5</string>
+    <string name="mars">מארס\n5</string>
+    <string name="sour_spray">ספריי חמוץ\n5.5</string>
+    <string name="twix">טוויקס\n5.5</string>
+    <string name="teami">טעמי\n5.5</string>
+    <string name="nutella">נוטלה טו גו\n6</string>
+    <string name="bueno">בואנו\n6.5</string>
+    <string name="time_out">פסק זמן\n6.5</string>
+    <string name="click_bar">חטיף קליק\n6.5</string>
+    <string name="click_bag">קליק שקית\n6.5</string>
+    <string name="click_tablet">קליק טבלה\n7</string>
+    <string name="bamba">במבה\n5</string>
+    <string name="doritos">דוריטוס\n5</string>
+    <string name="bisly">ביסלי\n5.5</string>
+    <string name="aproposito">אפרופו\n5.5</string>
+    <string name="bears">דובונים\n5.5</string>
+
+
+
 
 </resources>

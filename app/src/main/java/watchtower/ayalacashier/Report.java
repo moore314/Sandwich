@@ -1,13 +1,9 @@
 package watchtower.ayalacashier;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ArrayAdapter;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-
-import java.util.ArrayList;
 
 public class Report extends AppCompatActivity {
 
@@ -21,11 +17,6 @@ public class Report extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listView);
         context = this;
         //Cashier.displayReport(listView);
-    }
-
-    public void displayReport()
-    {
-
     }
 
     @Override
