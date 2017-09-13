@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:layout_weight="1"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@+id/ice7button"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/largeDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ice5button"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/smallDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/iceCoffee1"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@+id/ice7button1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/largeDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ice5button1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/smallDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/slurpy"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@+id/ice7button2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/largeDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ice5button2"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/smallDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/orange1"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="4">
+
+            <Button
+                android:id="@+id/ice7button3"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/largeDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ice5button3"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/smallDrink1"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lemonade1"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="2"
+                android:layout_gravity="center"
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+
+        <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_weight="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/largeDrink"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/smallDrink"
+                android:textStyle="bold"
+                android:layout_marginBottom="5dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            >
+
+            <Button
+                android:id="@+id/slurpee7button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/slurpee7"
+                android:textStyle="bold"
+                android:tag="@string/slurpee7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ice7button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/iceCoffee7"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/slurpee5button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/slurpee5"
+                android:textStyle="bold"
+                android:tag="@string/slurpee5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/ice5button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/iceCoffee5"
+                android:textStyle="bold"
+                android:tag="@string/iceCoffee5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            >
+
+            <Button
+                android:id="@+id/orange7button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/orange7"
+                android:textStyle="bold"
+                android:tag="@string/orange7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/lemonade7button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/lemonade7"
+                android:textStyle="bold"
+                android:tag="@string/lemonade7"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/orange5button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/orange5"
+                android:textStyle="bold"
+                android:tag="@string/orange5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+
+            <Button
+                android:id="@+id/lemonade5button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/lemonade5"
+                android:textStyle="bold"
+                android:tag="@string/lemonade5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="3">
+
+            <Button
+                android:id="@+id/cappuccinoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/capuccino"
+                android:textStyle="bold"
+                android:tag="@string/capuccino"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/chocoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/choco"
+                android:textStyle="bold"
+                android:tag="@string/choco"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/hotChocoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/hotChoco"
+                android:textStyle="bold"
+                android:tag="@string/hotChoco"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            >
+
+            <Button
+                android:id="@+id/waterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/water"
+                android:textStyle="bold"
+                android:tag="@string/water"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/no_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/can6button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/can6"
+                android:textStyle="bold"
+                android:tag="@string/can6"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/can5button"
+                android:layout_width="wrap_content"
+                android:layout_height="70dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/can5"
+                android:textStyle="bold"
+                android:tag="@string/can5"
+                android:onClick="chooseItem"
+                android:clickable="true"
+                android:hint="@string/drink_hint"
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/red"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/blanco"
+            android:text="@string/cancel"
+            android:textStyle="bold"
+            android:onClick="cancel"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

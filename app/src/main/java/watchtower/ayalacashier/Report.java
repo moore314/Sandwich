@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class Report extends AppCompatActivity {
 
@@ -17,11 +18,14 @@ public class Report extends AppCompatActivity {
         listView = (ListView)findViewById(R.id.listView);
         context = this;
         //Cashier.displayReport(listView);
+        //Cashier.displayReport(listView,(TextView)findViewById(R.id.altogetherText));
+
     }
+
 
     @Override
     protected void onResume() {
-        Cashier.displayReport(listView);
+        Cashier.displayReport(listView,(TextView)findViewById(R.id.altogetherText));
         super.onResume();
     }
 }

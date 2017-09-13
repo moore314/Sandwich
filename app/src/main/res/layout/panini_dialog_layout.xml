@@ -78,21 +78,9 @@
         android:layout_marginBottom="5dp"
         />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_weight="2">
-
-
         <Button
             android:id="@+id/oneButton"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:layout_marginRight="2dp"
@@ -102,8 +90,10 @@
             android:onClick="chooseItem"
             android:clickable="true"
             android:hint="@string/panini_addition_hint1"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:layout_marginBottom="5dp"/>
 
+        <!--
         <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
@@ -116,26 +106,12 @@
             android:layout_weight="1"
             android:textSize="20dp"
             />
-
-
-
-    </LinearLayout>
-
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="horizontal"
-           android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp"
-           android:layout_centerInParent="true"
-           android:gravity="center"
-           android:layout_gravity="center"
-           android:layout_weight="2">
+-->
 
 
            <Button
                android:id="@+id/threeButton"
-               android:layout_width="100dp"
+               android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:background="@drawable/shape"
                android:layout_marginRight="2dp"
@@ -147,6 +123,8 @@
                android:hint="@string/panini_addition_hint3"
                android:layout_weight="1"/>
 
+
+           <!--
            <TextView
                android:layout_width="200dp"
                android:layout_height="wrap_content"
@@ -160,9 +138,9 @@
                android:textSize="20dp"
                />
 
+           -->
 
 
-       </LinearLayout>
 
        <Button
            android:layout_width="match_parent"

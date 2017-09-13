@@ -12,15 +12,17 @@
 
 
    <LinearLayout
-       android:layout_width="wrap_content"
+       android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical"
        android:layout_centerInParent="true"
+       android:layout_marginLeft="10dp"
+       android:layout_marginRight="10dp"
        >
 
        <LinearLayout
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"
+           android:layout_height="35dp"
            android:orientation="horizontal"
            android:background="@drawable/shape"
            android:backgroundTint="@color/gray"
@@ -38,6 +40,7 @@
                android:textSize="25dp"
                android:textStyle="bold"
                android:textColor="@color/turq"
+               android:layout_gravity="center"
                />
 
            <TextView
@@ -47,23 +50,119 @@
                android:layout_marginRight="10dp"
                android:textSize="25dp"
                android:textStyle="bold"
+               android:layout_gravity="center"
                />
+
+       </LinearLayout>
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:weightSum="2">
+
+
+           <LinearLayout
+               android:layout_width="115dp"
+               android:layout_height="55dp"
+               android:orientation="horizontal"
+               android:background="@drawable/shape"
+               android:backgroundTint="@color/gray"
+               android:gravity="right"
+               android:layout_marginBottom="5dp"
+               android:layout_marginRight="2dp"
+               android:layout_weight="1"
+               >
+
+               <TextView
+                   android:id="@+id/changeText"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:textSize="22dp"
+                   android:textStyle="bold"
+                   android:layout_gravity="center"
+
+                   />
+
+               <TextView
+                   android:id="@+id/change"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:text="@string/change"
+                   android:textSize="22dp"
+                   android:textStyle="bold"
+                   android:textColor="@color/turq"
+                   android:gravity="right"
+                   android:layout_gravity="center"
+                   android:layout_marginRight="5dp"
+                   />
+
+           </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="125dp"
+               android:layout_height="55dp"
+               android:orientation="horizontal"
+               android:background="@drawable/shape"
+               android:backgroundTint="@color/gray"
+               android:gravity="right"
+               android:layout_marginBottom="5dp"
+               android:layout_marginLeft="2dp"
+               android:layout_weight="1"
+               >
+
+               <EditText
+                   android:id="@+id/cashReceivedEditText"
+                   android:layout_width="80dp"
+                   android:layout_height="wrap_content"
+                   android:textSize="22dp"
+                   android:textStyle="bold"
+                   android:inputType="numberDecimal"
+                   android:maxLength="4"
+                   android:maxLines="1"
+                   android:gravity="center"
+                   android:layout_gravity="center"
+                   android:backgroundTint="@color/turq"
+
+
+                   />
+
+               <TextView
+                   android:id="@+id/cashReceived"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="@string/cash"
+                   android:textSize="22dp"
+                   android:textStyle="bold"
+                   android:textColor="@color/turq"
+                   android:layout_gravity="center"
+                   android:backgroundTint="@color/turq"
+                   android:layout_marginRight="5dp"
+
+                   />
+
+           </LinearLayout>
 
        </LinearLayout>
 
 
 
+
+
        <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp">
+           android:layout_marginTop="5dp"
+           android:weightSum="2">
 
 
            <Button
                android:id="@+id/sandwichButton"
-               android:layout_width="120dp"
+               android:layout_width="125dp"
                android:layout_height="70dp"
                android:text="@string/sandwich"
                android:background="@drawable/shape"
@@ -72,11 +171,12 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="sandwiches"
+               android:layout_weight="1"
                >
            </Button>
            <Button
                android:id="@+id/drinkButton"
-               android:layout_width="120dp"
+               android:layout_width="125dp"
                android:layout_height="70dp"
                android:text="@string/drink"
                android:background="@drawable/shape"
@@ -85,6 +185,7 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="drinks"
+               android:layout_weight="1"
 
                >
            </Button>
@@ -92,16 +193,16 @@
        </LinearLayout>
 
        <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp">
+           android:weightSum="2">
 
 
            <Button
                android:id="@+id/paniniButton"
-               android:layout_width="120dp"
+               android:layout_width="match_parent"
                android:layout_height="70dp"
                android:text="@string/panini"
                android:background="@drawable/shape"
@@ -110,12 +211,13 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="panini"
+               android:layout_weight="1"
                >
            </Button>
 
            <Button
                android:id="@+id/pastryButton"
-               android:layout_width="120dp"
+               android:layout_width="match_parent"
                android:layout_height="70dp"
                android:text="@string/pastry"
                android:background="@drawable/shape"
@@ -124,6 +226,7 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="pastries"
+               android:layout_weight="1"
                >
            </Button>
 
@@ -131,14 +234,14 @@
        </LinearLayout>
 
        <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp">
+           android:weightSum="2">
            <Button
                android:id="@+id/hotsButton"
-               android:layout_width="120dp"
+               android:layout_width="match_parent"
                android:layout_height="70dp"
                android:text="@string/hots"
                android:background="@drawable/shape"
@@ -147,11 +250,12 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="hots"
+               android:layout_weight="1"
                >
            </Button>
            <Button
                android:id="@+id/saladButton"
-               android:layout_width="120dp"
+               android:layout_width="match_parent"
                android:layout_height="70dp"
                android:text="@string/salad"
                android:background="@drawable/shape"
@@ -160,20 +264,21 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="salads"
+               android:layout_weight="1"
                >
            </Button>
        </LinearLayout>
 
        <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
-           android:layout_marginTop="5dp"
-           android:layout_marginBottom="5dp">
+           android:layout_marginBottom="5dp"
+           android:weightSum="2">
 
            <Button
                android:id="@+id/candyButton"
-               android:layout_width="120dp"
+               android:layout_width="match_parent"
                android:layout_height="70dp"
                android:text="@string/muesli"
                android:background="@drawable/shape"
@@ -182,11 +287,12 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="fruitMeusli"
+               android:layout_weight="1"
                >
            </Button>
            <Button
                android:id="@+id/muesliButton"
-               android:layout_width="120dp"
+               android:layout_width="match_parent"
                android:layout_height="70dp"
                android:text="@string/candy"
                android:background="@drawable/shape"
@@ -195,39 +301,55 @@
                android:textSize="18dp"
                android:textStyle="bold"
                android:onClick="candy"
+               android:layout_weight="1"
                >
            </Button>
 
        </LinearLayout>
 
-       <Button
-           android:id="@+id/check"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@drawable/shape"
-           android:backgroundTint="@color/turq"
-           android:layout_marginTop="5dp"
-           android:layout_marginBottom="5dp"
-           android:text="@string/checkPlease"
-           android:textColor="@color/blanco"
-           android:textSize="20dp"
-           android:textStyle="bold"
-           android:onClick="check"
-           />
 
-       <Button
-           android:id="@+id/cancelCheck"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:background="@drawable/shape"
-           android:backgroundTint="@color/red"
-           android:layout_marginTop="5dp"
-           android:text="@string/cancelCheck"
-           android:textColor="@color/blanco"
-           android:textSize="20dp"
-           android:textStyle="bold"
-           android:onClick="cancel"
-           />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="2"
+    >
+
+    <Button
+        android:id="@+id/cancelCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/red"
+        android:layout_marginTop="5dp"
+        android:text="@string/cancelCheck"
+        android:textColor="@color/blanco"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:onClick="cancel"
+        android:layout_weight="1"
+        android:layout_marginRight="5dp"
+        />
+
+    <Button
+        android:id="@+id/check"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/turq"
+        android:layout_marginTop="5dp"
+        android:text="@string/checkPlease"
+        android:textColor="@color/blanco"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:onClick="check"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dp"
+        />
+
+
+</LinearLayout>
+
 
    </LinearLayout>
 

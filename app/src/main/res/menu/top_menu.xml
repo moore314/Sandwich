@@ -20,5 +20,13 @@
 
     </item>
 
+    <item
+        android:id="@+id/updatePrices"
+        android:title="@string/updatePrice"
+        app:showAsAction="never">
+
+
+    </item>
+
 
 </menu>
