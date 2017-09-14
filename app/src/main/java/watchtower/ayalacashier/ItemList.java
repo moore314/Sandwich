@@ -159,7 +159,6 @@ public class ItemList  implements  Serializable{
         Log.d("TKT_itemList","remove: "+item.toString());
         Log.d("TKT_itemList","this.toString b4 remove: "+this.toString());
         boolean working = true;
-        //TODO remove it and add it again
         Item run = head;
         if(run != null && run == item)
         {//if it's the 1st item in list

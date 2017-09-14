@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">פשוט טעים</string>
+    <string name="cashier">קופה</string>
 
 
     <string name="employee_name">שם</string>
@@ -18,6 +19,11 @@
     <string name="altogether">סה\"כ:</string>
     <string name="cheap">כריכים מוזלים</string>
     <string name="updatePrice">עדכון מחירים</string>
+    <string name="currentPrice">מחיר נוכחי:</string>
+    <string name="newPrice">מחיר חדש:</string>
+    <string name="cancelUpdate">עדכון מחיר בוטל!</string>
+    <string name="updateSuccess">מחיר עודכן בהצלחה!</string>
+    <string name="chooseNewPrice">מחיר לא תקין!</string>
 
 
     <string name="candy">ממתקים</string>
@@ -83,7 +89,7 @@
     <string name="avocado">אבוקדו\n12</string>
     <string name="omlette">חביתה\n12</string>
     <string name="tivol">כריך טבעול\n12</string>
-    
+
     <!-- pastries -->
     <string name="pastry_hint">pastry</string>
     <string name="croissant_hint">croissant</string>
@@ -181,8 +187,6 @@
     <string name="bisly">ביסלי\n5.5</string>
     <string name="aproposito">אפרופו\n5.5</string>
     <string name="bears">דובונים\n5.5</string>
-
-
 
 
 </resources>

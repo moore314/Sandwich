@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/background"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    tools:context="watchtower.ayalacashier.UpdatePrices">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:weightSum="2">
+
+
+        <Button
+            android:id="@+id/sandwichButtonChange"
+            android:layout_width="125dp"
+            android:layout_height="70dp"
+            android:text="@string/sandwich"
+            android:background="@drawable/shape"
+            android:tag="@string/sandwich"
+            android:layout_marginRight="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="sandwichesChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+        <Button
+            android:id="@+id/drinkButtonChange"
+            android:layout_width="125dp"
+            android:layout_height="70dp"
+            android:text="@string/drink"
+            android:background="@drawable/shape"
+            android:tag="@string/drink"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="drinksChangePrice"
+            android:layout_weight="1"
+
+            >
+        </Button>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
+
+
+        <Button
+            android:id="@+id/paniniButtonChange"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/panini"
+            android:background="@drawable/shape"
+            android:tag="@string/panini"
+            android:layout_marginRight="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="paniniChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+
+        <Button
+            android:id="@+id/pastryButtonChange"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/pastry"
+            android:background="@drawable/shape"
+            android:tag="@string/pastry"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="pastriesChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
+        <Button
+            android:id="@+id/hotsButtonChange"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/hots"
+            android:background="@drawable/shape"
+            android:tag="@string/hots"
+            android:layout_marginRight="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="hotsChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+        <Button
+            android:id="@+id/saladButtonChange"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/salad"
+            android:background="@drawable/shape"
+            android:tag="@string/salad"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="saladsChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/candyButtonChange"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/muesli"
+            android:background="@drawable/shape"
+            android:tag="@string/muesli"
+            android:layout_marginRight="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="fruitMeusliChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+        <Button
+            android:id="@+id/muesliButtonChange"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/candy"
+            android:background="@drawable/shape"
+            android:tag="@string/candy"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="candyChangePrice"
+            android:layout_weight="1"
+            >
+        </Button>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
