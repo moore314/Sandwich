@@ -20,6 +20,7 @@ public class Welcome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         Cashier.checkPrefs = getSharedPreferences(Cashier.CHECK_PREFS, 0);
+
         name = (EditText)findViewById(R.id.name);
         pass = (EditText)findViewById(R.id.password);
 
@@ -110,5 +111,9 @@ public class Welcome extends AppCompatActivity {
     }
 
 
-
+    @Override
+    protected void onResume() {
+        //// TODO: 9/17/2017 set here the prices from shared pref. consider this: whenever need to get item price; use shared, thus it will always be updated, so maybe no need onResume.
+        super.onResume();
+    }
 }

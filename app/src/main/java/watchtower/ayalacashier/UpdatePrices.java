@@ -122,7 +122,7 @@ public class UpdatePrices extends AppCompatActivity {
         Cashier.dialog.show();
     }
 
-    public void changeThisItemPrice(String itemName, String [] names, double [] prices)
+    public void changeThisItemPrice(final String itemName, String [] names, double [] prices)
     {
         updateDialog = new Dialog(this);
         updateDialog.setContentView(R.layout.change_price);
@@ -152,7 +152,7 @@ public class UpdatePrices extends AppCompatActivity {
                     Toast.makeText(UpdatePrices.this, R.string.chooseNewPrice, Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    finishUpdate();
+                    finishUpdate(Double.parseDouble(newPrice.getText().toString()),  itemName);
                     updateDialog.dismiss();
                 }
             }
@@ -163,10 +163,10 @@ public class UpdatePrices extends AppCompatActivity {
     }
 
 
-    public void finishUpdate()
+    public void finishUpdate(double newPrice, String itemName)
     {
         //// TODO: 9/14/2017 dismiss dialog and update shared with new price
-
+        Cashier.finishUpdate(newPrice,itemName);
         Toast.makeText(this, R.string.updateSuccess, Toast.LENGTH_SHORT).show();
     }
 

@@ -12,14 +12,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,6 +44,7 @@ public class Cashier {
     static SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
     public static final String FILE_NAME = "report";//date.format(c.getTime()).toString();
     public static final String REPORT_SENT = "report_sent";
+    public static final String ALTOGETHER = "altogether";
 
 
     //=======================================================================
@@ -270,7 +269,6 @@ public class Cashier {
 
     //candy========================================================
 
-    public static double [] CANDY_PRICES = {0.5,1,1.5,1.5,2,2,2,2,3,3,3.5,4,4,5,5,5.5,5.5,5.5,5.5,6,6.5,6.5,6.5,6.5,6.5,5,5,5.5,5.5,5.5};
     public static int IND_RUG = 0;
     public static int IND_SELZER = 1;
     public static int IND_MARSHMELLOW = 2;
@@ -321,6 +319,13 @@ public class Cashier {
     //CANDY_PRICES[IND_SNEAKERS] 5.5;
     //CANDY_PRICES[IND_SOUR_SPRAY] :5.5;
     //CANDY_PRICES[IND_TWIX] : 5.5;
+    public static double [] CANDY_PRICES = {0.5, 1, 1.5 ,1.5 ,2,
+                                            2,   2,  2,   3,  3,
+                                            3.5, 3.5, 4,  4,   5,  5,
+                                            5.5, 5.5, 5.5, 5.5,6,
+                                            6.5, 6.5, 6.5, 6.5,6.5,
+                                            5,   5,   5.5, 5.5,5.5};
+
     //CANDY_PRICES[IND_TEAMI] : 5.5;
     //CANDY_PRICES[IND_NUTELLA] : 6;
     //CANDY_PRICES[IND_BUENO] :6.5;
@@ -429,7 +434,8 @@ public class Cashier {
 
         String buttonText = item.getText().toString();
         String [] lines = buttonText.split("\n");
-        double price = Double.parseDouble(lines[itemPrice]);
+        //double price = Double.parseDouble(lines[itemPrice]);
+        double price = Double.parseDouble(item.getTag().toString());
         change.setText("");
 
         switch (item.getHint().toString())
@@ -598,6 +604,20 @@ public class Cashier {
         return SavedShoppingList;
     }
 
+    public static void updateSubTotal(TextView paymentText)
+    {
+
+        double currentSubTotal = checkPrefs.getFloat(ALTOGETHER,0);
+        currentSubTotal += Double.parseDouble(paymentText.getText().toString());
+
+        Log.d("TKT_cashier","updateSubTotal: currTotal:  "+currentSubTotal);
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putFloat(ALTOGETHER, (float)currentSubTotal);
+        progressEdit.commit();
+
+    }
+
     public static void check(EditText cash, TextView change)
     {
         Log.d("TKT_cashier","check===================");
@@ -621,6 +641,8 @@ public class Cashier {
                 }
 
 
+
+
                 Log.d("TKT_cashier","merging");
                 ItemList SavedShoppingList = stringToItemList(listString);//openItemList();
                 Log.d("TKT_cashier","saveShopListL "+SavedShoppingList.toString());
@@ -634,6 +656,7 @@ public class Cashier {
                 saveHash(SavedShoppingList);
 
             }
+            updateSubTotal(paymentText);
             boughtItems.clearAll();
 
 
@@ -666,18 +689,23 @@ public class Cashier {
         if(SavedShoppingList != null)
         {
 
+            /*
             try {
                 setAltogether(totalSum,SavedShoppingList);
             } catch (IOException e) {
                 e.printStackTrace();
                 Log.d("TKT_cashier","exception");
             }
+            */
+            totalSum.setText((checkPrefs.getFloat(ALTOGETHER,0))+"");
 
             List<String> listOfItems = new ArrayList<String>(Arrays.asList(SavedShoppingList.split("\n")));// Arrays.asList(SavedShoppingList.split(System.getProperty("line.separator")));
             ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
             listView.setAdapter(adapter);
         }
     }
+
+    /*
 
     public static void setAltogether(TextView totalSum, String SavedShoppingList) throws IOException {
         double total = 0;
@@ -1420,7 +1448,10 @@ public class Cashier {
 
     }
 
-    public static void endShift() throws IOException {//create a file with userName & report file
+    */
+
+    public static void endShift() throws IOException {
+        //create a file with userName & report file
         //create a new file:
         String userName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
         //File dest = new File(ItemScreen.context.getFilesDir().toString(), userName);
@@ -1463,6 +1494,13 @@ public class Cashier {
     }
 
 
+    public static void finishUpdate(double newPrice, String itemName)
+    {
+        Log.d("TKT_cashier","finishUpdate. item: "+itemName+", newPrice: "+newPrice);
+        progressEdit = checkPrefs.edit();
+        progressEdit.putFloat(itemName, (float)newPrice);
+        progressEdit.commit();
+    }
 
 
 
