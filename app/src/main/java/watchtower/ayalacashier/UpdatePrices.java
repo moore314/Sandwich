@@ -165,7 +165,6 @@ public class UpdatePrices extends AppCompatActivity {
 
     public void finishUpdate(double newPrice, String itemName)
     {
-        //// TODO: 9/14/2017 dismiss dialog and update shared with new price
         Cashier.finishUpdate(newPrice,itemName);
         Toast.makeText(this, R.string.updateSuccess, Toast.LENGTH_SHORT).show();
     }

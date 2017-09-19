@@ -45,6 +45,10 @@ public class Cashier {
     public static final String FILE_NAME = "report";//date.format(c.getTime()).toString();
     public static final String REPORT_SENT = "report_sent";
     public static final String ALTOGETHER = "altogether";
+    public static final String SHIFT = "shift";
+    public static final String LOGIN = "login";
+    public static final String NEXT = "next";
+
 
 
     //=======================================================================
@@ -1502,6 +1506,12 @@ public class Cashier {
         progressEdit.commit();
     }
 
+    public static void updateShiftState(boolean state)
+    {
+        progressEdit = checkPrefs.edit();
+        progressEdit.putBoolean(SHIFT,state);
+        progressEdit.commit();
+    }
 
 
 

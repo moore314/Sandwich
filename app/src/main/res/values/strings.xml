@@ -9,6 +9,8 @@
     <string name="password">סיסמה</string>
     <string name="wrong_password">סיסמה שגויה</string>
     <string name="nil"></string>
+    <string name="inShift">במשמרת</string>
+    <string name="outShift">לא במשמרת</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>
