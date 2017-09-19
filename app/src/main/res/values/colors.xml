@@ -8,5 +8,6 @@
     <color name="background">#fcfcfc</color>
     <color name="gray">#d0d9d6</color>
     <color name="red">#8c121e</color>
+    <color name="trans">#00FFFFFF</color>
 
 </resources>

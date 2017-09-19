@@ -1,20 +1,17 @@
 package watchtower.ayalacashier;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
-
-import io.netopen.hotbitmapgg.library.view.RingProgressBar;
 
 public class Welcome extends AppCompatActivity {
 
@@ -22,46 +19,123 @@ public class Welcome extends AppCompatActivity {
     EditText name, pass;
     //TextView shift;
     ImageButton nextButton;
-    RingProgressBar progressBar;
-    int progress = 0;
+    //RingProgressBar progressBar;
+    //ProgressBar progressBar;
+    ImageView progressBar;
+    //int progress = 0;
     static boolean start = false;
     int RED = R.color.red;
     int TURQ = R.color.turq;
-
+    Context context;
+    /*
     Handler progressBarHandler = new Handler()
     {
         @Override
         public void handleMessage(Message msg) {
 
             if(start) {
+                ///Log.d("TKT_welcome","handleMessage");
                 progress++;
-
             }
             progressBar.setProgress(progress);
             progressBarHandler.sendEmptyMessageDelayed(0,5);
+
         }
 
     };
+    */
+    //ImageView circle_turq;
+    //Context context;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_welcome);
+        Cashier.checkPrefs = getSharedPreferences(Cashier.CHECK_PREFS, 0);
+        //shift = (TextView)findViewById(R.id.shiftState);
+        name = (EditText)findViewById(R.id.name);
+        pass = (EditText)findViewById(R.id.password);
+        //progressBar = (RingProgressBar) findViewById(R.id.progressBar);
+        progressBar = (ImageView)findViewById(R.id.stateCircle);
+        ImageButton getInShift = (ImageButton) findViewById(R.id.logo);
+        inShift();
+        context = this;
+
+            getInShift.setOnLongClickListener(new View.OnLongClickListener() {
+
+                @Override
+                public boolean onLongClick(View v) {
+                    start = true;
+                    Log.d("TKT_welcome","start = "+start);
+                    if(Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
+                        //progressBar.setVisibility(View.VISIBLE);
+                        if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
+                        {//if longPressed and shift = true; meaning, getOut
+                            Log.d("TKT_welcome","getOutShift");
+                            progressBar.setBackgroundResource(R.drawable.circle_red);
+                            //progressBar.setBackgroundColor(ContextCompat.getColor(context, RED));
+                            //progressBar.setBackgroundResource(RED);
+
+                            //progressBarListener(RED, TURQ, false);
+                            //progressBarHandler.sendEmptyMessage(0);
+                            //shift.setText(getString(R.string.outShift));
+                            //shift.setTextColor(ContextCompat.getColor(context, R.color.red));
+                            Cashier.updateShiftState(false);
+                            shiftExit();
+
+                        } else {
+                            Log.d("TKT_welcome","getInShift");
+                            progressBar.setBackgroundResource(R.drawable.circle_turq);
+                            //progressBar.setBackgroundColor(ContextCompat.getColor(context, TURQ));
+                            //progressBar.setBackgroundResource(TURQ);
+                            /// /progressBarListener(TURQ, RED, true);
+                            //progressBarHandler.sendEmptyMessage(0);
+                            //shift.setText(getString(R.string.inShift));
+                            //shift.setTextColor(ContextCompat.getColor(context, R.color.turq));
+                            Cashier.updateShiftState(true);
+                            shiftEntry();
+
+                        }
+                        //handler();
+                        return true;
+                    }
+                    return false;
+                }
+            });
 
 
 
 
 
+    }
 
-
-
-    public void progressBarListener(final int color, final boolean state)
+    public void shiftEntry()
     {
+        //// TODO: 9/20/2017 file start time; add shiftList screen and option to send to ayala; format will include date(maybe as a calender), time, hours each day, altogether monthly hours
+    }
+
+    public void shiftExit()
+    {
+        //// TODO: 9/20/2017 file end time
+    }
+
+
+/*
+    public void progressBarListener(final int prog, final int currColor, final boolean state)
+    {
+        progressBar.setRingColor(ContextCompat.getColor(this, prog));
+        progressBar.setRingProgressColor(ContextCompat.getColor(this, currColor));
+
         progressBar.setOnProgressListener(new RingProgressBar.OnProgressListener() {
             @Override
             public void progressToComplete() {
                 //Log.d("TKT_welcome","progressToComplete");
 
-                Log.d("TKT_welcome", "progComplete");
                 if(start)
                 {
-                    Log.d("TKT_welcome", "start = true");
                     Cashier.updateShiftState(state);
+                    progress = 0;
                     start = false;
 
                 }
@@ -73,93 +147,12 @@ public class Welcome extends AppCompatActivity {
 
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
-        Cashier.checkPrefs = getSharedPreferences(Cashier.CHECK_PREFS, 0);
-
-        //shift = (TextView)findViewById(R.id.shiftState);
-        name = (EditText)findViewById(R.id.name);
-        pass = (EditText)findViewById(R.id.password);
-        progressBar = (RingProgressBar)findViewById(R.id.progressBar);
-
-        if(Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
-        {//if inShift
-            Log.d("TKT_welcome","inShift");
-            progressBar.setRingProgressColor(ContextCompat.getColor(this, RED));
-
-        }
-        else {
-            //outOFsHIFT
-            Log.d("TKT_welcome","outShift");
-            progressBar.setRingProgressColor(ContextCompat.getColor(this, TURQ));
-        }
-
-        ImageButton getInShift = (ImageButton) findViewById(R.id.logo);
-
-            getInShift.setOnLongClickListener(new View.OnLongClickListener() {
-
-                @Override
-                public boolean onLongClick(View v) {
-                    start = true;
-                    if(Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
-                        if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false)) {//if longPressed and shift = true; meaning, getOut
-                            Log.d("TKT_welcome","if1");
-
-                            progressBarListener(RED, false);
-                            progressBarHandler.sendEmptyMessage(0);
-
-
-                            //shift.setText(getString(R.string.outShift));
-                            //shift.setTextColor(ContextCompat.getColor(context, R.color.red));
-                            //Cashier.updateShiftState(false);
-                        } else {
-                            Log.d("TKT_welcome","else1");
-                            progressBarListener(TURQ, true);
-                            progressBarHandler.sendEmptyMessage(0);
-
-                            //shift.setText(getString(R.string.inShift));
-                            //shift.setTextColor(ContextCompat.getColor(context, R.color.turq));
-                            //Cashier.updateShiftState(true);
-                        }
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-
-        /*
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Log.d("TKT_welcome","run");
-                for(int i = 0; i<100; i++)
-                {
-                    try{
-                        Log.d("TKT_welcome","try i: "+i);
-                        Thread.sleep(100);
-                        progressBarHandler.sendEmptyMessage(0);
-                    } catch (InterruptedException e) {
-                        Log.d("TKT_welcome","catch");
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }).start();
-        */
-        inShift();
-
-
-    }
+*/
 
     public void inShift()
     {
 
         employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
-
-
         if(employeeName == null)
         {
             Log.d("TKT_welcome","employee = null");
@@ -169,20 +162,30 @@ public class Welcome extends AppCompatActivity {
         }
         else
         {
-            //shift.setVisibility(View.VISIBLE);
             Log.d("TKT_welcome","employee != null");
             pass.setVisibility(View.GONE);
             name.setText(employeeName);
             name.setEnabled(false);
+
             if(Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
             {
-                //shift.setText(getString(R.string.inShift));
-                //shift.setTextColor(ContextCompat.getColor(this, R.color.turq));
+                Log.d("TKT_welcome","inShift");
+                progressBar.setBackgroundResource(R.drawable.circle_turq);
+                //progressBar.setBackgroundResource(TURQ);
+                //progressBar.setVisibility(View.INVISIBLE);
+                //circle_turq.setBackgroundColor(ContextCompat.getColor(this, TURQ));
+                //progressBar.setRingColor(ContextCompat.getColor(this, TURQ));
+                //progressBar.setRingProgressColor(ContextCompat.getColor(this, RED));
             }
             else
             {
-                //shift.setText(getString(R.string.outShift));
-                //shift.setTextColor(ContextCompat.getColor(this, R.color.red));
+                Log.d("TKT_welcome","outShift");
+                progressBar.setBackgroundResource(R.drawable.circle_red);
+                //progressBar.setBackgroundColor(ContextCompat.getColor(this, RED));
+                //progressBar.setBackgroundResource(RED);
+                //circle_turq.setBackgroundColor(ContextCompat.getColor(this, RED));
+                //progressBar.setRingColor(ContextCompat.getColor(this, RED));
+                //progressBar.setRingProgressColor(ContextCompat.getColor(this, TURQ));
             }
 
         }

@@ -48,26 +48,65 @@
 
 
         <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+            <!--
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="210dp"
-            android:layout_height="210dp">
+            android:layout_height="210dp"
+            android:indeterminate="false"
+            android:max="100"
+            android:progress="50"
+            android:progressDrawable="@animator/progress_circle"
+            android:secondaryProgress="100"/>
+            -->
 
 
+            <!--
             <io.netopen.hotbitmapgg.library.view.RingProgressBar
                 android:id="@+id/progressBar"
-                android:layout_width="210dp"
-                android:layout_height="210dp"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
                 app:max="100"
                 app:ringColor="@color/red"
                 app:ringProgressColor="@color/turq"
                 app:ringWidth="5dp"
                 android:layout_centerInParent="true"
                 app:style="STROKE"
-                app:textIsShow="false" />
+                app:textIsShow="false"
+                />
+            -->
+
+
+
+            <ImageView
+                android:id="@+id/stateCircle"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:background="@drawable/circle_turq"
+                />
+
+
+            <!--
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="210dp"
+                android:layout_height="210dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/circle_turq"
+                />
+            -->
+
 
             <ImageButton
                 android:id="@+id/logo"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:background="@drawable/translogo"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="10dp"
