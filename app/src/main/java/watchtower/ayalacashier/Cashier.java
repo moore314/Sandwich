@@ -1,6 +1,7 @@
 package watchtower.ayalacashier;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,10 +19,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,6 +52,20 @@ public class Cashier {
     public static final String SHIFT = "shift";
     public static final String LOGIN = "login";
     public static final String NEXT = "next";
+    public static final String CURR_DATE = "currDate";
+    public static final String CURR_START = "currStart";
+    public static final String CURR_END = "currEnd";
+    public static final String ALTOGETHER_HOURS = "altogetherHours";
+
+    //======== Hours ========
+    public static ArrayList<Day> [] days = new ArrayList[12];
+    public static Day today;
+    public static final int DAY = 0;
+    public static final int MONTH = 1;
+    public static final int YEAR = 2;
+    public static final int DATE = 0;
+    public static final int TIME = 1;
+
 
 
 
@@ -1511,6 +1529,75 @@ public class Cashier {
         progressEdit = checkPrefs.edit();
         progressEdit.putBoolean(SHIFT,state);
         progressEdit.commit();
+    }
+
+    public static void updateToday(String date, String start, String end)
+    {
+        String []  month  = date.split("/");
+        progressEdit = checkPrefs.edit();
+        if(end == null) {
+            progressEdit.putString(CURR_DATE, date);
+            progressEdit.putString(CURR_START, start);
+        }
+        else {
+            progressEdit.putString(CURR_END, end);
+            String st = Cashier.checkPrefs.getString(Cashier.CURR_START, null);
+            Day today = new Day(date, st, end);//create new dat
+            float hours = calculateHours(st, end);
+            progressEdit.putFloat(ALTOGETHER_HOURS+month[MONTH], hours);
+            saveTodayToFile(today);
+
+
+        }
+        progressEdit.commit();
+    }
+
+    public static void saveTodayToFile(Day day)
+    {
+        //create a file of current month, then append days to bottom
+        //create file
+        String [] month = day.date.split("/");
+        File file = new File (Welcome.context.getFilesDir(), month[MONTH]);
+        try {
+            file.createNewFile();
+            OutputStreamWriter out = new OutputStreamWriter(Welcome.context.openFileOutput(month[MONTH], Context.MODE_APPEND));
+            out.write(day.toString());
+            out.write("\n");
+            out.flush();
+            out.close();
+            /*
+            OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream(file, Welcome.context.MODE_APPEND));
+            outputStream.writeObject(day.toString());
+            outputStream.flush();
+            outputStream.close();
+            */
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("TKT_cashier","exception in saving day");
+        }
+    }
+
+    public static String setAltogetherHours(int month)
+    {
+        //get hours from shared;
+        Log.d("TKT_cashier","setAltogetherHours month: "+month);
+        return checkPrefs.getFloat(ALTOGETHER_HOURS+month, 0)+"";
+    }
+
+    public static float calculateHours(String s, String e)
+    {
+
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        long difference = 0;
+        try {
+            Date st = format.parse(e);
+            Date ed = format.parse(e);
+            difference = ed.getTime() - st.getTime();
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+        }
+        Log.d("TKT_cashier","difference: "+difference);
+        return (float)difference;
     }
 
 

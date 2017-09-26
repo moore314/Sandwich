@@ -473,6 +473,11 @@ public class ItemScreen extends AppCompatActivity {
                 Intent intent = new Intent(this, UpdatePrices.class);
                 startActivity(intent);
             }
+            case R.id.hours:
+            {
+                Intent intent = new Intent(this, Hours.class);
+                startActivity(intent);
+            }
         }
         return false;
     }

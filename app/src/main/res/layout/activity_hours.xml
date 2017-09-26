@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:layoutDirection="ltr"
+    tools:context="watchtower.ayalacashier.Hours">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/altogetherHours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/hoursText"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            />
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:background="@drawable/shape"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/turq"
+            android:text="@string/sendHours"
+            android:textColor="@color/blanco"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:onClick="sendHoursReport"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

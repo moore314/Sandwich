@@ -11,11 +11,14 @@
     <string name="nil"></string>
     <string name="inShift">במשמרת</string>
     <string name="outShift">לא במשמרת</string>
+    <string name="hours">דו\"ח שעות</string>
+    <string name="hoursText">סה\"כ שעות לחודש דצמבר</string>
+    <string name="sendHours">שליחת דו\"ח שעות</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>
     <string name="checkPlease">סיום</string>
-    <string name="report">דו"ח מכירות</string>
+    <string name="report">דו\"ח מכירות</string>
     <string name="endShift">סוף יום</string>
     <string name="list">רשימת מוצרים שנמכרו</string>
     <string name="altogether">סה\"כ:</string>

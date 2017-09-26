@@ -13,6 +13,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Welcome extends AppCompatActivity {
 
     String employeeName;
@@ -26,7 +30,7 @@ public class Welcome extends AppCompatActivity {
     static boolean start = false;
     int RED = R.color.red;
     int TURQ = R.color.turq;
-    Context context;
+    public static Context context;
     /*
     Handler progressBarHandler = new Handler()
     {
@@ -113,11 +117,53 @@ public class Welcome extends AppCompatActivity {
     public void shiftEntry()
     {
         //// TODO: 9/20/2017 file start time; add shiftList screen and option to send to ayala; format will include date(maybe as a calender), time, hours each day, altogether monthly hours
+        //get currentTime
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+        Calendar cal = Calendar.getInstance();
+        String [] dayInit = (dateFormat.format(cal.getTime())).split(" ");
+        String currDate=Cashier.checkPrefs.getString(Cashier.CURR_DATE, null);
+
+        if(currDate == null || currDate != dayInit[Cashier.DATE])
+        {
+            //Cashier.CURR_DATE = dayInit[0];
+            currDate = dayInit[Cashier.DATE];
+            Cashier.updateToday(currDate, dayInit[Cashier.TIME], null);
+        }
+
+
+      //  if(!Cashier.today.date.equalsIgnoreCase(dayInit[0]))
+    //    {
+            //Cashier.today = new Day(dayInit[0]);//create day with date
+            //Cashier.today.setStartTime(dayInit[1]);//add start time
+            //push to shared
+  //          Cashier.updateToday();
+//        }
+
+        //Log.d("TKT_welcome","dateFormatStart: "+dateFormat.format(cal.getTime()));
+
+        //addToShared: if c
+
+        /**
+         * DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+         Calendar cal = Calendar.getInstance();
+         System.out.println(dateFormat.format(cal.getTime()));
+         */
+
+        /*
+        DateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        Time currTime = new Time (System.currentTimeMillis());
+        Log.d("TKT_welcome","currTime: "+currTime.toString());//
+        */
     }
 
     public void shiftExit()
     {
-        //// TODO: 9/20/2017 file end time
+        //// TODO: 9/20/2017 file end time, add are u sure? message
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
+        Calendar cal = Calendar.getInstance();
+        String [] dayEnd = (dateFormat.format(cal.getTime())).split(" ");
+        Cashier.updateToday(dayEnd[Cashier.DATE], null, dayEnd[Cashier.TIME]);
+
     }
 
 

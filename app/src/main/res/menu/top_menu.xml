@@ -28,5 +28,15 @@
 
     </item>
 
+    <item
+        android:id="@+id/hours"
+        android:title="@string/hours"
+        app:showAsAction="never">
+
+
+    </item>
+
+    <!-- TODO add this menu to welcome screen too?-->
+
 
 </menu>
