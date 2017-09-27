@@ -25,7 +25,7 @@ public class Report extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Cashier.displayReport(listView,(TextView)findViewById(R.id.altogetherText));
+        Cashier.displayReport(listView,(TextView)findViewById(R.id.altogetherText), this);
         super.onResume();
     }
 }

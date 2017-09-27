@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:layoutDirection="ltr"
+    android:orientation="vertical"
+    tools:context="watchtower.ayalacashier.ClassicView">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:padding="5dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/gray"
+            android:gravity="left"
+            android:layout_marginBottom="5dp"
+            >
+
+            <TextView
+                android:id="@+id/genNIS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/payment"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/turq"
+                android:layout_gravity="center"
+                />
+
+            <TextView
+                android:id="@+id/genPaymentText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+
+            <LinearLayout
+                android:layout_width="115dp"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/gray"
+                android:gravity="right"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="2dp"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:id="@+id/genChangeText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+
+                    />
+
+                <TextView
+                    android:id="@+id/genChange"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="@string/change"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/turq"
+                    android:gravity="right"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="125dp"
+                android:layout_height="55dp"
+                android:orientation="horizontal"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/gray"
+                android:gravity="right"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                >
+
+                <EditText
+                    android:id="@+id/genCashReceivedEditText"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:maxLines="1"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/turq"
+
+
+                    />
+
+                <TextView
+                    android:id="@+id/genCashReceived"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/cash"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/turq"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/turq"
+                    android:layout_marginRight="5dp"
+
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:text="@string/general"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/genLargeDrink"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/generalLargeDrink"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="7"/>
+            <Button
+                android:id="@+id/genSmallDrink"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:text="@string/generalSmallDrink"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="5"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/genWatermelon"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalWatermelon"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="7"
+                />
+            <Button
+                android:id="@+id/genMeusli"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:text="@string/generalMeusli"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="15"
+                />
+            <Button
+                android:id="@+id/genPastry"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalPastry"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="7"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/genPasta"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalPasta"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:tag="14"/>
+            <Button
+                android:id="@+id/genSaladAdd"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:text="@string/generalSaladAddition"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:tag="3"
+
+                />
+            <Button
+                android:id="@+id/genSalad"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalSalad"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="13"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/genSoup"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalSoup"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="10"/>
+            <Button
+                android:id="@+id/genPaniniAdd"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:text="@string/generalPaniniAddition"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:tag="1"
+                />
+            <Button
+                android:id="@+id/genPanini"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalPanini"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="10"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/genExSand"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalExSand"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="15"/>
+            <Button
+                android:id="@+id/genMidSand"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:textStyle="bold"
+                android:text="@string/generalMenSand"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="12"/>
+            <Button
+                android:id="@+id/genGenSand"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/shape"
+                android:textStyle="bold"
+                android:text="@string/generalRegSand"
+                android:layout_gravity="center"
+                android:onClick="addToCheck"
+                android:layout_weight="1"
+                android:tag="10"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:id="@+id/genCancelCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/red"
+                android:layout_marginTop="5dp"
+                android:text="@string/cancelCheck"
+                android:textColor="@color/blanco"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="cancel"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
+                />
+
+            <Button
+                android:id="@+id/genCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/turq"
+                android:layout_marginTop="5dp"
+                android:text="@string/checkPlease"
+                android:textColor="@color/blanco"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:onClick="check"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

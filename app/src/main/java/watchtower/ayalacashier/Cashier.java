@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,6 +57,11 @@ public class Cashier {
     public static final String CURR_START = "currStart";
     public static final String CURR_END = "currEnd";
     public static final String ALTOGETHER_HOURS = "altogetherHours";
+    public static final String VIEW_STATE = "viewState";
+    public static final String CLASSIC_VIEW = "קופה בסיסית";
+    public static final String DETAIL_VIEW = "קופה מפורטת";
+
+    //public static final String REPORT_HEB = "דוח מכירות"
 
     //======== Hours ========
     public static ArrayList<Day> [] days = new ArrayList[12];
@@ -65,6 +71,8 @@ public class Cashier {
     public static final int YEAR = 2;
     public static final int DATE = 0;
     public static final int TIME = 1;
+
+    public static final String EXIT_SHIFT = "לצאת מהמשמרת?";
 
 
 
@@ -538,17 +546,95 @@ public class Cashier {
 
 
         //handle price textView
-        if(paymentText.getText().toString().equals(""))
-            paymentText.setText(price+"");
-        else {
+        if(!paymentText.getText().toString().equals(""))
+        {
             double currPayment = Double.parseDouble(paymentText.getText().toString());
             price+=currPayment;
             Log.d("TKT_cashier", "else");
-            paymentText.setText(price+"");
+
         }
+        paymentText.setText(price+"");
 
 
         dialog.dismiss();
+    }
+
+    public static void simplePayment(Button item, TextView change)
+    {//// TODO: 9/27/2017 finish 
+        change.setText("");
+        double price = Double.parseDouble(item.getTag().toString());
+        if(!paymentText.getText().toString().equals(""))
+        {
+            double currPayment = Double.parseDouble(paymentText.getText().toString());
+            price+=currPayment;
+
+        }
+        paymentText.setText(price+"");
+
+        /*
+        switch (item.getId())
+        {
+            case R.id.genLargeDrink:
+            {
+                price =
+                break;
+            }
+            case R.id.genSmallDrink:
+            {
+                break;
+            }
+            case R.id.genWatermelon:
+            {
+                break;
+            }
+            case R.id.genMeusli:
+            {
+                break;
+            }
+            case R.id.genPastry:
+            {
+                break;
+            }
+            case R.id.genPasta:
+            {
+                break;
+            }
+            case R.id.genSaladAdd:
+            {
+                break;
+            }
+            case R.id.genSalad:
+            {
+                break;
+            }
+            case R.id.genSoup:
+            {
+                break;
+            }
+            case R.id.genPaniniAdd:
+            {
+                break;
+            }
+            case R.id.genPanini:
+            {
+                break;
+            }
+            case R.id.genExSand:
+            {
+                break;
+            }
+            case R.id.genMidSand:
+            {
+                break;
+            }
+            case R.id.genGenSand:
+            {
+                break;
+            }
+
+
+        }
+        */
     }
 
     public static void cancel()
@@ -572,11 +658,23 @@ public class Cashier {
             
     }
 
-    public static String openItemList()
+    public static void simpleCancel(EditText cashRec, TextView change)
+    {
+        if(!paymentText.getText().toString().equals(""))
+        {
+            paymentText.setText("");
+            cashRec.setText("");
+            change.setText("");
+        }
+        else
+            emptyCheck();
+    }
+
+    public static String openItemList(Context context)
     {
         Log.d("TKT_cashier","openItemList===================");
         ObjectInputStream objectInputStream;
-        File file = new File(ItemScreen.context.getFilesDir(), FILE_NAME);
+        File file = new File(context.getFilesDir(), FILE_NAME);
         try
         {
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
@@ -590,11 +688,11 @@ public class Cashier {
         }
     }
 
-    public static void saveHash(ItemList hash)
+    public static void saveHash(ItemList hash, Context context)
     {
         Log.d("TKT_cashier","saveHash===================");
 
-        File file = new File(ItemScreen.context.getFilesDir().toString(), FILE_NAME);
+        File file = new File(context.getFilesDir().toString(), FILE_NAME);
         Log.d("TKT_cashier","is file null: "+file.exists());
         try {
             Log.d("TKT_cashier","try");
@@ -640,30 +738,32 @@ public class Cashier {
 
     }
 
-    public static void check(EditText cash, TextView change)
+
+
+    public static void check(EditText cash, TextView change, Context context)
     {
         Log.d("TKT_cashier","check===================");
 
         if(!paymentText.getText().toString().equals("")) {
-            String listString = openItemList();
-            Log.d("TKT_cashier","listString: "+listString);
+
+
+            if(!cash.getText().toString().equals(""))
+            {
+                Log.d("TKT_cashier","inIf");
+                double cashReceived = Double.parseDouble(cash.getText().toString());
+                double payment = Double.parseDouble(paymentText.getText().toString());
+                double changeToCustomer = cashReceived - payment;
+                change.setText(changeToCustomer+"");
+            }
+
             //Log.d("TKT_cashier","savedShopList: "+SavedShoppingList.toString());
+            String listString = openItemList(context);
+            Log.d("TKT_cashier","listString: "+listString);
             if(listString == null) {
-                saveHash(boughtItems);
+                saveHash(boughtItems, context);
             }
             else
             {//merging both hashMaps
-
-                if(!cash.getText().toString().equals(""))
-                {
-                    double cashReceived = Double.parseDouble(cash.getText().toString());
-                    double payment = Double.parseDouble(paymentText.getText().toString());
-                    double changeToCustomer = cashReceived - payment;
-                    change.setText(changeToCustomer+"");
-                }
-
-
-
 
                 Log.d("TKT_cashier","merging");
                 ItemList SavedShoppingList = stringToItemList(listString);//openItemList();
@@ -673,16 +773,16 @@ public class Cashier {
 
 
                 //clear current file and update
-                File oldFile = new File(ItemScreen.context.getFilesDir().toString(), FILE_NAME);//// TODO: 9/8/2017 check if redundant
+                File oldFile = new File(context.getFilesDir().toString(), FILE_NAME);//// TODO: 9/8/2017 check if redundant
                 boolean deleted = oldFile.delete();
-                saveHash(SavedShoppingList);
+                saveHash(SavedShoppingList, context);
 
             }
             updateSubTotal(paymentText);
             boughtItems.clearAll();
 
 
-            AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
+            AlertDialog.Builder message = new AlertDialog.Builder(context);
             message.setMessage(R.string.done).create();
             message.show();
             paymentText.setText("");
@@ -697,6 +797,22 @@ public class Cashier {
 
     }
 
+    public static void simpleCheck(EditText cash, TextView change, Context context)
+    {//// TODO: 9/27/2017 finish this 
+        if(!paymentText.getText().toString().equals(""))
+        {
+            if(!cash.getText().toString().equals(""))
+            {//if paid exact amount
+                double cashReceived = Double.parseDouble(cash.getText().toString());
+                double payment = Double.parseDouble(paymentText.getText().toString());
+                double changeToCustomer = cashReceived - payment;
+                change.setText(changeToCustomer+"");
+            }
+
+            updateSubTotal(paymentText);
+        }
+    }
+
     public static void emptyCheck()
     {
         AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
@@ -704,10 +820,10 @@ public class Cashier {
         message.show();
     }
 
-    public static void displayReport(ListView listView, TextView totalSum)
+    public static void displayReport(ListView listView, TextView totalSum,Context context)
     {
         Log.d("TKT_cashier","displayReport===================");
-        String SavedShoppingList = openItemList();
+        String SavedShoppingList = openItemList(context);
         if(SavedShoppingList != null)
         {
 
@@ -1472,7 +1588,7 @@ public class Cashier {
 
     */
 
-    public static void endShift() throws IOException {
+    public static void endShift(Context context) throws IOException {
         //create a file with userName & report file
         //create a new file:
         String userName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
@@ -1482,7 +1598,7 @@ public class Cashier {
 
         //send email
         //// TODO: 9/10/2017 file is not being attached!! :/
-        File src = new File(ItemScreen.context.getFilesDir().getAbsolutePath(), FILE_NAME);
+        File src = new File(context.getFilesDir().getAbsolutePath(), FILE_NAME);
         Log.d("TKT_cashier","file exists? "+src.exists());
         Uri path = Uri.fromFile(src);
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -1494,10 +1610,10 @@ public class Cashier {
         emailIntent.putExtra(Intent.EXTRA_STREAM, path);
         // the mail subject
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName+": " +
-                ItemScreen.context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
-        Log.d("TKT_cashier","mailSybject: "+userName+": " +
-                ItemScreen.context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
-        ItemScreen.context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
+                context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
+        //Log.d("TKT_cashier","mailSybject: "+userName+": " +
+              //  ItemScreen.context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
+        context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
 
 
 
@@ -1598,6 +1714,26 @@ public class Cashier {
         }
         Log.d("TKT_cashier","difference: "+difference);
         return (float)difference;
+    }
+
+    public static void setCashierView(MenuItem item, String state)
+    {//0: classic, 1: detail
+        //int state = checkPrefs.getInt(VIEW_STATE, 0);
+        if(state.equals(CLASSIC_VIEW))
+        {
+            //set to classic view and change text to detail
+            progressEdit = checkPrefs.edit();
+            progressEdit.putInt(VIEW_STATE,0);
+            item.setTitle(DETAIL_VIEW);
+        }
+        else
+        {
+            progressEdit = checkPrefs.edit();
+            progressEdit.putInt(VIEW_STATE,1);
+            item.setTitle(CLASSIC_VIEW);
+        }
+        progressEdit.commit();
+
     }
 
 

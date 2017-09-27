@@ -23,24 +23,27 @@ public class Hours extends AppCompatActivity {
 
 
         calendar = (CalendarView)findViewById(R.id.calendarView);
-        int month = Calendar.MONTH;
+        int month = Calendar.MONTH;//todo check: gives a wrong month number
         altogetherHours.setText(Cashier.setAltogetherHours(month));
 
         Log.d("TKT_hours","month: "+month);
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                //// TODO: 9/26/2017 set onClickListener for dates
                 Toast.makeText(Hours.this, "date selected: "+dayOfMonth+"--"+month+"--"+year, Toast.LENGTH_SHORT).show();
+                //1.get file of corresponding date: ALTOGETHER_HOURS+month
+
+                //2.each entry looks like that: dd/mm/yy: startTime - endTime
+                //look for entry that starts with same date as currentDate
+
+                //3. display it in a dialog
+
 
             }
         });
     }
 
-
-    public void hoursOfCurrentMonth()
-    {
-
-    }
 
     public void sendHoursReport(View v)
     {

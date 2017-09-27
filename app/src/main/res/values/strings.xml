@@ -14,6 +14,9 @@
     <string name="hours">דו\"ח שעות</string>
     <string name="hoursText">סה\"כ שעות לחודש דצמבר</string>
     <string name="sendHours">שליחת דו\"ח שעות</string>
+    <string name="exit">לצאת מהקופה?</string>
+    <string name="yes">כן</string>
+    <string name="no">לא</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>
@@ -29,6 +32,8 @@
     <string name="cancelUpdate">עדכון מחיר בוטל!</string>
     <string name="updateSuccess">מחיר עודכן בהצלחה!</string>
     <string name="chooseNewPrice">מחיר לא תקין!</string>
+    <string name="classicView">קופה בסיסית</string>
+    <string name="detailView">קופה מפורטת</string>
 
 
     <string name="candy">ממתקים</string>
@@ -192,6 +197,23 @@
     <string name="bisly">ביסלי\n5.5</string>
     <string name="aproposito">אפרופו\n5.5</string>
     <string name="bears">דובונים\n5.5</string>
+
+    <!-- classic view -->
+    <string name="general">כללי</string>
+    <string name="generalLargeDrink">שתיה גדול</string>
+    <string name="generalSmallDrink">שתיה קטן</string>
+    <string name="generalWatermelon">אבטיח</string>
+    <string name="generalMeusli">מוזלי</string>
+    <string name="generalPastry">מאפה</string>
+    <string name="generalPasta">קוסקוס ספגטי</string>
+    <string name="generalSaladAddition">תוספת לסלט</string>
+    <string name="generalSalad">סלט</string>
+    <string name="generalSoup">מרק</string>
+    <string name="generalPaniniAddition">תוספת לטוסט</string>
+    <string name="generalPanini">טוסט</string>
+    <string name="generalExSand">כריך עשיר</string>
+    <string name="generalMenSand">כריך בינוני</string>
+    <string name="generalRegSand">כריך בסיסי</string>
 
 
 </resources>

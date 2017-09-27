@@ -27,6 +27,9 @@ public class ItemScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_item_screen);
         context = this;
         Log.d("TKT_itemScreen","fileNameb4change: " + Cashier.FILE_NAME);
@@ -189,7 +192,7 @@ public class ItemScreen extends AppCompatActivity {
         setPriceView(potatoBurek, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_POTATO_BUREK);
 
         Button eggBurek = (Button)Cashier.dialog.findViewById(R.id.eggBurektButton);
-        setPriceView(eggBurek, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_POTATO_BUREK);
+        setPriceView(eggBurek, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_EGG_BUREK);
 
         Button melawac = (Button)Cashier.dialog.findViewById(R.id.melawacbutton);
         setPriceView(melawac, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_MELAWAC);
@@ -422,13 +425,36 @@ public class ItemScreen extends AppCompatActivity {
 
     public void check(View v)
     {
-        Cashier.check((EditText) findViewById(R.id.cashReceivedEditText), (TextView) findViewById(R.id.changeText));
+        Cashier.check((EditText) findViewById(R.id.cashReceivedEditText), (TextView) findViewById(R.id.changeText), this);
     }
 
     @Override
     public void onBackPressed() {
-        //// TODO: 9/6/2017 display 'are u sure' message
-        super.onBackPressed();
+        Cashier.dialog = new Dialog(this);
+        Cashier.dialog.setContentView(R.layout.are_you_sure);
+        Cashier.dialog.setCanceledOnTouchOutside(false);
+        Button yes = (Button)Cashier.dialog.findViewById(R.id.hellYeah);
+        Button no = (Button)Cashier.dialog.findViewById(R.id.heavensNo);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cashier.dialog.dismiss();
+                ItemScreen.super.onBackPressed();
+            }
+        });
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cashier.dialog.dismiss();
+            }
+        });
+
+        // Cashier.dialog.dismiss();
+
+        Cashier.dialog.show();
+
+
     }
 
     @Override
@@ -460,7 +486,7 @@ public class ItemScreen extends AppCompatActivity {
             {
                 Log.d("TKT_itemScreen","endShift===================");
                 try {
-                    Cashier.endShift();
+                    Cashier.endShift(this);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("TKT_itemScreen","exception happened");
@@ -472,11 +498,13 @@ public class ItemScreen extends AppCompatActivity {
                 //employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
                 Intent intent = new Intent(this, UpdatePrices.class);
                 startActivity(intent);
+                return true;
             }
             case R.id.hours:
             {
                 Intent intent = new Intent(this, Hours.class);
                 startActivity(intent);
+                return true;
             }
         }
         return false;

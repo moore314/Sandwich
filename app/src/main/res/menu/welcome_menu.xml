@@ -36,6 +36,12 @@
 
     </item>
 
+    <item
+        android:id="@+id/classicView"
+        android:title="@string/classicView"
+        app:showAsAction="never">
+
+    </item>
 
 
 

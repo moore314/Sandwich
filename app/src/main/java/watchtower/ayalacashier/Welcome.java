@@ -1,18 +1,24 @@
 package watchtower.ayalacashier;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -77,16 +83,37 @@ public class Welcome extends AppCompatActivity {
                         if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
                         {//if longPressed and shift = true; meaning, getOut
                             Log.d("TKT_welcome","getOutShift");
-                            progressBar.setBackgroundResource(R.drawable.circle_red);
-                            //progressBar.setBackgroundColor(ContextCompat.getColor(context, RED));
-                            //progressBar.setBackgroundResource(RED);
 
-                            //progressBarListener(RED, TURQ, false);
-                            //progressBarHandler.sendEmptyMessage(0);
-                            //shift.setText(getString(R.string.outShift));
-                            //shift.setTextColor(ContextCompat.getColor(context, R.color.red));
-                            Cashier.updateShiftState(false);
-                            shiftExit();
+                            Cashier.dialog = new Dialog(context);
+                            Cashier.dialog.setContentView(R.layout.are_you_sure);
+                            TextView q = (TextView)Cashier.dialog.findViewById(R.id.text);
+                            q.setText(Cashier.EXIT_SHIFT);
+                            Button yes = (Button)Cashier.dialog.findViewById(R.id.hellYeah);
+                            Button no = (Button)Cashier.dialog.findViewById(R.id.heavensNo);
+
+                            yes.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    progressBar.setBackgroundResource(R.drawable.circle_red);
+                                    //progressBar.setBackgroundColor(ContextCompat.getColor(context, RED));
+                                    //progressBar.setBackgroundResource(RED);
+
+                                    //progressBarListener(RED, TURQ, false);
+                                    //progressBarHandler.sendEmptyMessage(0);
+                                    //shift.setText(getString(R.string.outShift));
+                                    //shift.setTextColor(ContextCompat.getColor(context, R.color.red));
+                                    Cashier.updateShiftState(false);
+                                    Cashier.dialog.dismiss();
+                                    shiftExit();
+                                }
+                            });
+                            no.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Cashier.dialog.dismiss();
+                                }
+                            });
+                            Cashier.dialog.show();
 
                         } else {
                             Log.d("TKT_welcome","getInShift");
@@ -116,7 +143,6 @@ public class Welcome extends AppCompatActivity {
 
     public void shiftEntry()
     {
-        //// TODO: 9/20/2017 file start time; add shiftList screen and option to send to ayala; format will include date(maybe as a calender), time, hours each day, altogether monthly hours
         //get currentTime
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Calendar cal = Calendar.getInstance();
@@ -158,7 +184,6 @@ public class Welcome extends AppCompatActivity {
 
     public void shiftExit()
     {
-        //// TODO: 9/20/2017 file end time, add are u sure? message
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Calendar cal = Calendar.getInstance();
         String [] dayEnd = (dateFormat.format(cal.getTime())).split(" ");
@@ -272,7 +297,16 @@ public class Welcome extends AppCompatActivity {
    public void goToItemScreen()
    {
        Log.d("TKT_welcome","goToItemScreen===================");
-       Intent intent = new Intent(this, ItemScreen.class);
+       Intent intent;
+       if(Cashier.checkPrefs.getInt(Cashier.VIEW_STATE,1) == 0)
+       {//this is classic
+           intent = new Intent(this, ClassicView.class);
+       }
+       else
+       {
+           intent = new Intent(this, ItemScreen.class);
+       }
+
        startActivity(intent);
    }
 
@@ -312,4 +346,72 @@ public class Welcome extends AppCompatActivity {
         inShift();
         super.onResume();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.welcome_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        //exit app
+        super.onBackPressed();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case android.R.id.home:
+            {
+                onBackPressed();
+                return true;
+            }
+            case R.id.reportMenu:
+            {
+                Log.d("TKT_itemScreen","reportMenu===================");
+                Intent intent  = new Intent(this, Report.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.endShiftMenu:
+            {
+                Log.d("TKT_itemScreen","endShift===================");
+                try {
+                    Cashier.endShift(this);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Log.d("TKT_itemScreen","exception happened");
+                }
+                return true;
+            }
+            case R.id.updatePrices:
+            {
+                //employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
+                Intent intent = new Intent(this, UpdatePrices.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.hours:
+            {
+                Intent intent = new Intent(this, Hours.class);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.classicView:
+            {
+
+                Cashier.setCashierView(item, item.getTitle().toString());
+                //item.setTitle(R.string.detailView);
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
