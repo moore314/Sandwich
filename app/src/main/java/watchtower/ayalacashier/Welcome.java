@@ -27,35 +27,11 @@ public class Welcome extends AppCompatActivity {
 
     String employeeName;
     EditText name, pass;
-    //TextView shift;
-    ImageButton nextButton;
-    //RingProgressBar progressBar;
-    //ProgressBar progressBar;
     ImageView progressBar;
-    //int progress = 0;
     static boolean start = false;
     int RED = R.color.red;
     int TURQ = R.color.turq;
     public static Context context;
-    /*
-    Handler progressBarHandler = new Handler()
-    {
-        @Override
-        public void handleMessage(Message msg) {
-
-            if(start) {
-                ///Log.d("TKT_welcome","handleMessage");
-                progress++;
-            }
-            progressBar.setProgress(progress);
-            progressBarHandler.sendEmptyMessageDelayed(0,5);
-
-        }
-
-    };
-    */
-    //ImageView circle_turq;
-    //Context context;
 
 
     @Override
@@ -192,34 +168,6 @@ public class Welcome extends AppCompatActivity {
     }
 
 
-/*
-    public void progressBarListener(final int prog, final int currColor, final boolean state)
-    {
-        progressBar.setRingColor(ContextCompat.getColor(this, prog));
-        progressBar.setRingProgressColor(ContextCompat.getColor(this, currColor));
-
-        progressBar.setOnProgressListener(new RingProgressBar.OnProgressListener() {
-            @Override
-            public void progressToComplete() {
-                //Log.d("TKT_welcome","progressToComplete");
-
-                if(start)
-                {
-                    Cashier.updateShiftState(state);
-                    progress = 0;
-                    start = false;
-
-                }
-
-
-            }
-        });
-    }
-
-
-
-*/
-
     public void inShift()
     {
 
@@ -242,21 +190,11 @@ public class Welcome extends AppCompatActivity {
             {
                 Log.d("TKT_welcome","inShift");
                 progressBar.setBackgroundResource(R.drawable.circle_turq);
-                //progressBar.setBackgroundResource(TURQ);
-                //progressBar.setVisibility(View.INVISIBLE);
-                //circle_turq.setBackgroundColor(ContextCompat.getColor(this, TURQ));
-                //progressBar.setRingColor(ContextCompat.getColor(this, TURQ));
-                //progressBar.setRingProgressColor(ContextCompat.getColor(this, RED));
             }
             else
             {
                 Log.d("TKT_welcome","outShift");
                 progressBar.setBackgroundResource(R.drawable.circle_red);
-                //progressBar.setBackgroundColor(ContextCompat.getColor(this, RED));
-                //progressBar.setBackgroundResource(RED);
-                //circle_turq.setBackgroundColor(ContextCompat.getColor(this, RED));
-                //progressBar.setRingColor(ContextCompat.getColor(this, RED));
-                //progressBar.setRingProgressColor(ContextCompat.getColor(this, TURQ));
             }
 
         }
@@ -282,7 +220,7 @@ public class Welcome extends AppCompatActivity {
                    Cashier.sharedUpdateEmployee(employeeName);
                    name.setEnabled(false);
                    pass.setEnabled(false);
-                    inShift();
+                   inShift();
 
 
            } else {
@@ -300,10 +238,12 @@ public class Welcome extends AppCompatActivity {
        Intent intent;
        if(Cashier.checkPrefs.getInt(Cashier.VIEW_STATE,1) == 0)
        {//this is classic
+           Log.d("TKT_welcome","classicView");
            intent = new Intent(this, ClassicView.class);
        }
        else
        {
+           Log.d("TKT_welcome","itemScreen");
            intent = new Intent(this, ItemScreen.class);
        }
 
@@ -343,7 +283,10 @@ public class Welcome extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        Log.d("TKT_welcome","onResume");
         inShift();
+        //get state from shared
+
         super.onResume();
     }
 
@@ -406,6 +349,20 @@ public class Welcome extends AppCompatActivity {
             case R.id.classicView:
             {
 
+                int state = Cashier.checkPrefs.getInt(Cashier.VIEW_STATE,1);
+
+                if(state == 0)
+                {
+                    //setTextToDetail
+                    Log.d("TKT_welcome","state == 0");
+                    item.setTitle(Cashier.CLASSIC_VIEW);
+                }
+                else
+                {
+                    //setTextToSimple
+                    Log.d("TKT_welcome","state == 1");
+                    item.setTitle(Cashier.DETAIL_VIEW);
+                }
                 Cashier.setCashierView(item, item.getTitle().toString());
                 //item.setTitle(R.string.detailView);
                 return true;
@@ -413,5 +370,7 @@ public class Welcome extends AppCompatActivity {
         }
         return false;
     }
+
+
 
 }

@@ -3,6 +3,7 @@ package watchtower.ayalacashier;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class Report extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        Log.d("TKT_report","onResume");
         Cashier.displayReport(listView,(TextView)findViewById(R.id.altogetherText), this);
         super.onResume();
     }

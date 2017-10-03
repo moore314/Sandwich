@@ -165,7 +165,8 @@
                 android:text="@string/general"
                 android:textStyle="bold"
                 android:layout_gravity="center"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="general"/>
             <Button
                 android:id="@+id/genLargeDrink"
                 android:layout_width="match_parent"

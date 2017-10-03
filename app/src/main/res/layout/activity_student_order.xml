@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="watchtower.ayalacashier.StudentOrder"
+    android:background="@color/background"
+    android:layoutDirection="ltr"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="5dp"
+        >
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp"
+
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp">
+
+        <Button
+
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:textSize="18dp"
+            android:text="@string/timeTen"
+            android:tag="@string/timeTen"
+            android:onClick="setTime"/>
+
+        <Button
+
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:textSize="18dp"
+            android:text="@string/timeEleven"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:tag="@string/timeEleven"
+            android:onClick="setTime"/>
+
+        <Button
+
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:textSize="18dp"
+            android:text="@string/timeOne"
+            android:layout_marginRight="5dp"
+            android:tag="@string/timeOne"
+            android:onClick="setTime"/>
+
+        <Button
+
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:textSize="18dp"
+            android:text="@string/timeThree"
+            android:tag="@string/timeThree"
+            android:onClick="setTime"/>
+
+    </LinearLayout>
+
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/turq"
+            android:layout_marginBottom="10dp"></view>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp">
+
+        <Button
+            android:id="@+id/muesliButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="@string/muesli"
+            android:background="@drawable/shape"
+            android:tag="@string/muesli"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="fruitMeusli"
+            >
+        </Button>
+
+        <Button
+            android:id="@+id/hotsButton"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="@string/hots"
+            android:background="@drawable/shape"
+            android:tag="@string/hots"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="hots"
+            ></Button>
+
+
+
+
+        <Button
+            android:id="@+id/saladButton"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:text="@string/generalSalad"
+            android:background="@drawable/shape"
+            android:tag="@string/generalSalad"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="salads"
+            >
+        </Button>
+
+        <Button
+            android:id="@+id/sandwichButton"
+            android:layout_width="90dp"
+            android:layout_height="60dp"
+            android:text="@string/sandwich"
+            android:background="@drawable/shape"
+            android:tag="@string/sandwich"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="sandwiches"
+            >
+        </Button>
+
+    </LinearLayout>
+
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/turq"
+            android:layout_marginBottom="10dp"></view>
+
+
+        <!--
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/hotsButton"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="@string/hots"
+            android:background="@drawable/shape"
+            android:tag="@string/hots"
+            android:layout_marginRight="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="hots"
+            ></Button>
+
+        <Button
+            android:id="@+id/muesliButton"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="@string/muesli"
+            android:background="@drawable/shape"
+            android:tag="@string/muesli"
+            android:layout_marginLeft="5dp"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            android:onClick="fruitMeusli"
+            >
+        </Button>
+
+    </LinearLayout>
+        -->
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/shape"
+        android:hint="@string/notes"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:inputType="textMultiLine"
+        android:textColorHint="@color/turq"
+        android:layout_marginBottom="10dp"
+        />
+
+
+        <view
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/turq"
+            android:layout_marginBottom="20dp"></view>
+
+        <!-- orderDetail -->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:layout_marginBottom="30dp"
+            >
+
+            <!-- no x for hour, just make hour button gray(or turq) when chosen  -->
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"
+                android:backgroundTint="@color/red"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            >
+
+            <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@android:drawable/ic_menu_close_clear_cancel"
+                android:backgroundTint="@color/red"/>
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <!-- end &  cancel -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            android:id="@+id/cancelCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/red"
+            android:text="@string/cancel"
+            android:textColor="@color/blanco"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:onClick="cancel"
+            android:layout_weight="1"
+            android:layout_marginRight="2dp"
+            />
+
+        <Button
+            android:id="@+id/check"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/turq"
+            android:text="@string/checkPlease"
+            android:textColor="@color/blanco"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:onClick="check"
+            android:layout_weight="1"
+            android:layout_marginLeft="2dp"
+            />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

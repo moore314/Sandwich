@@ -17,6 +17,11 @@
     <string name="exit">לצאת מהקופה?</string>
     <string name="yes">כן</string>
     <string name="no">לא</string>
+    <string name="timeTen">10:00</string>
+    <string name="timeEleven">12:00</string>
+    <string name="timeOne">13:30</string>
+    <string name="timeThree">15:30</string>
+    <string name="notes">הערות...</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>
@@ -34,6 +39,8 @@
     <string name="chooseNewPrice">מחיר לא תקין!</string>
     <string name="classicView">קופה בסיסית</string>
     <string name="detailView">קופה מפורטת</string>
+    <string name="enterPrice">מחיר מוצר:</string>
+    <string name="order">הזמנה</string>
 
 
     <string name="candy">ממתקים</string>

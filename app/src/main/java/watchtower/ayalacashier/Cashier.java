@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -73,6 +75,7 @@ public class Cashier {
     public static final int TIME = 1;
 
     public static final String EXIT_SHIFT = "לצאת מהמשמרת?";
+
 
 
 
@@ -440,6 +443,7 @@ public class Cashier {
     public static TextView paymentText;
     public static Dialog dialog;
     public static Locale il = new Locale("iw","IL");
+    public static final Currency ILS = Currency.getInstance(il);
 
     static int itemName = 0;
     static int itemPrice = 1;
@@ -560,7 +564,7 @@ public class Cashier {
     }
 
     public static void simplePayment(Button item, TextView change)
-    {//// TODO: 9/27/2017 finish 
+    {//// TODO: 9/27/2017 seems to work fine
         change.setText("");
         double price = Double.parseDouble(item.getTag().toString());
         if(!paymentText.getText().toString().equals(""))
@@ -571,70 +575,6 @@ public class Cashier {
         }
         paymentText.setText(price+"");
 
-        /*
-        switch (item.getId())
-        {
-            case R.id.genLargeDrink:
-            {
-                price =
-                break;
-            }
-            case R.id.genSmallDrink:
-            {
-                break;
-            }
-            case R.id.genWatermelon:
-            {
-                break;
-            }
-            case R.id.genMeusli:
-            {
-                break;
-            }
-            case R.id.genPastry:
-            {
-                break;
-            }
-            case R.id.genPasta:
-            {
-                break;
-            }
-            case R.id.genSaladAdd:
-            {
-                break;
-            }
-            case R.id.genSalad:
-            {
-                break;
-            }
-            case R.id.genSoup:
-            {
-                break;
-            }
-            case R.id.genPaniniAdd:
-            {
-                break;
-            }
-            case R.id.genPanini:
-            {
-                break;
-            }
-            case R.id.genExSand:
-            {
-                break;
-            }
-            case R.id.genMidSand:
-            {
-                break;
-            }
-            case R.id.genGenSand:
-            {
-                break;
-            }
-
-
-        }
-        */
     }
 
     public static void cancel()
@@ -728,6 +668,7 @@ public class Cashier {
     {
 
         double currentSubTotal = checkPrefs.getFloat(ALTOGETHER,0);
+        Log.d("TKT_cashier","currentSubTotal: "+currentSubTotal);
         currentSubTotal += Double.parseDouble(paymentText.getText().toString());
 
         Log.d("TKT_cashier","updateSubTotal: currTotal:  "+currentSubTotal);
@@ -798,7 +739,7 @@ public class Cashier {
     }
 
     public static void simpleCheck(EditText cash, TextView change, Context context)
-    {//// TODO: 9/27/2017 finish this 
+    {
         if(!paymentText.getText().toString().equals(""))
         {
             if(!cash.getText().toString().equals(""))
@@ -809,8 +750,17 @@ public class Cashier {
                 change.setText(changeToCustomer+"");
             }
 
+            Log.d("TKT_cashier","paymentText: "+paymentText.getText().toString());
             updateSubTotal(paymentText);
+            AlertDialog.Builder message = new AlertDialog.Builder(context);
+            message.setMessage(R.string.done).create();
+            message.show();
+            paymentText.setText("");
+            cash.setText("");
+
         }
+        else
+            emptyCheck();
     }
 
     public static void emptyCheck()
@@ -835,12 +785,13 @@ public class Cashier {
                 Log.d("TKT_cashier","exception");
             }
             */
-            totalSum.setText((checkPrefs.getFloat(ALTOGETHER,0))+"");
+
 
             List<String> listOfItems = new ArrayList<String>(Arrays.asList(SavedShoppingList.split("\n")));// Arrays.asList(SavedShoppingList.split(System.getProperty("line.separator")));
             ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
             listView.setAdapter(adapter);
         }
+        totalSum.setText((checkPrefs.getFloat(ALTOGETHER,0))+"");
     }
 
     /*
@@ -1719,21 +1670,68 @@ public class Cashier {
     public static void setCashierView(MenuItem item, String state)
     {//0: classic, 1: detail
         //int state = checkPrefs.getInt(VIEW_STATE, 0);
-        if(state.equals(CLASSIC_VIEW))
+        Log.d("TKT_cashier","changedHere");
+        if(!state.equals(CLASSIC_VIEW))
         {
             //set to classic view and change text to detail
+            Log.d("TKT_cashier","!= classicView");
             progressEdit = checkPrefs.edit();
             progressEdit.putInt(VIEW_STATE,0);
             item.setTitle(DETAIL_VIEW);
         }
         else
         {
+            Log.d("TKT_cashier","== classicView");
             progressEdit = checkPrefs.edit();
             progressEdit.putInt(VIEW_STATE,1);
             item.setTitle(CLASSIC_VIEW);
         }
         progressEdit.commit();
 
+    }
+
+    public static void general(Context context)
+    {//paymentTextView is already set - refer to onCreate of ClassicView || ItemView
+        Cashier.dialog = new Dialog(context);
+        Cashier.dialog.setContentView(R.layout.general_payment);
+        Cashier.dialog.setCanceledOnTouchOutside(false);
+        final EditText cashText = (EditText)dialog.findViewById(R.id.generalEditText);
+        Button proceed = (Button)dialog.findViewById(R.id.generalProceedPayment);
+        Button cancel = (Button)dialog.findViewById(R.id.generalCancelPayment);
+
+        proceed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //if(cashText.equals(""))
+                Log.d("TKT_cashier","cashText: "+cashText);
+                if(cashText.getText().toString().length() == 0) {
+                    Log.d("TKT_cashier","cashTextIsMT");
+                    emptyCheck();
+                }
+                else
+                {
+                    double price = Double.parseDouble(cashText.getText().toString());
+                    if(!paymentText.getText().toString().equals(""))
+                    {
+                        double currPayment = Double.parseDouble(paymentText.getText().toString());
+                        price+=currPayment;
+
+                    }
+                    paymentText.setText(price+"");
+                    Cashier.dialog.dismiss();
+                }
+
+
+            }
+        });
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cashier.dialog.dismiss();
+            }
+        });
+
+        Cashier.dialog.show();
     }
 
 

@@ -15,12 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.IOException;
-import java.util.Currency;
 
 
 public class ItemScreen extends AppCompatActivity {
 
-    Currency ILS = Currency.getInstance(Cashier.il);
+    //Currency ILS = Currency.getInstance(Cashier.il);
     public static Context context;
 
 
@@ -36,7 +35,7 @@ public class ItemScreen extends AppCompatActivity {
         //Cashier.FILE_NAME = getString(R.string.report) + ": " + Cashier.date.format(Cashier.c.getTime());
         Cashier.paymentText = (TextView)findViewById(R.id.paymentText);
         TextView NIS = (TextView)findViewById(R.id.NIS);
-        NIS.setText(ILS.getSymbol(Cashier.il));
+        NIS.setText(Cashier.ILS.getSymbol(Cashier.il));
         Log.d("TKT_itemScreen",Cashier.FILE_NAME);
 
     }
@@ -429,7 +428,8 @@ public class ItemScreen extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.are_you_sure);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -510,5 +510,10 @@ public class ItemScreen extends AppCompatActivity {
         return false;
     }
 
+
+    public void general(View v)
+    {
+        Cashier.general(this);
+    }
 
 }

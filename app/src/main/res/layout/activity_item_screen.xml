@@ -59,6 +59,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:orientation="horizontal"
+           android:layout_marginBottom="5dp"
            android:weightSum="2">
 
 
@@ -69,7 +70,6 @@
                android:background="@drawable/shape"
                android:backgroundTint="@color/gray"
                android:gravity="right"
-               android:layout_marginBottom="5dp"
                android:layout_marginRight="2dp"
                android:layout_weight="1"
                >
@@ -108,7 +108,6 @@
                android:background="@drawable/shape"
                android:backgroundTint="@color/gray"
                android:gravity="right"
-               android:layout_marginBottom="5dp"
                android:layout_marginLeft="2dp"
                android:layout_weight="1"
                >
@@ -156,14 +155,13 @@
            android:layout_height="wrap_content"
            android:orientation="horizontal"
            android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp"
            android:weightSum="2">
 
 
            <Button
                android:id="@+id/sandwichButton"
                android:layout_width="125dp"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/sandwich"
                android:background="@drawable/shape"
                android:tag="@string/sandwich"
@@ -177,7 +175,7 @@
            <Button
                android:id="@+id/drinkButton"
                android:layout_width="125dp"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/drink"
                android:background="@drawable/shape"
                android:tag="@string/drink"
@@ -203,7 +201,7 @@
            <Button
                android:id="@+id/paniniButton"
                android:layout_width="match_parent"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/panini"
                android:background="@drawable/shape"
                android:tag="@string/panini"
@@ -218,7 +216,7 @@
            <Button
                android:id="@+id/pastryButton"
                android:layout_width="match_parent"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/pastry"
                android:background="@drawable/shape"
                android:tag="@string/pastry"
@@ -242,7 +240,7 @@
            <Button
                android:id="@+id/hotsButton"
                android:layout_width="match_parent"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/hots"
                android:background="@drawable/shape"
                android:tag="@string/hots"
@@ -256,7 +254,7 @@
            <Button
                android:id="@+id/saladButton"
                android:layout_width="match_parent"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/salad"
                android:background="@drawable/shape"
                android:tag="@string/salad"
@@ -277,9 +275,9 @@
            android:weightSum="2">
 
            <Button
-               android:id="@+id/candyButton"
+               android:id="@+id/muesliButton"
                android:layout_width="match_parent"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/muesli"
                android:background="@drawable/shape"
                android:tag="@string/muesli"
@@ -290,10 +288,11 @@
                android:layout_weight="1"
                >
            </Button>
+           <!-- TODO check if ok after refactor -->
            <Button
-               android:id="@+id/muesliButton"
+               android:id="@+id/candyButton"
                android:layout_width="match_parent"
-               android:layout_height="70dp"
+               android:layout_height="60dp"
                android:text="@string/candy"
                android:background="@drawable/shape"
                android:tag="@string/candy"
@@ -306,6 +305,21 @@
            </Button>
 
        </LinearLayout>
+
+
+       <Button
+           android:id="@+id/generalButton"
+           android:layout_width="match_parent"
+           android:layout_height="60dp"
+           android:text="@string/general"
+           android:background="@drawable/shape"
+           android:tag="@string/general"
+           android:textSize="18dp"
+           android:textStyle="bold"
+           android:onClick="general"
+           >
+       </Button>
+
 
 
 <LinearLayout
