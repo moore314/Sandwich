@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:padding="5dp">
+
+        <NumberPicker
+            android:id="@+id/monthPicker"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:scaleX="1.7"
+            android:scaleY="1.7"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginBottom="5dp">
+        </NumberPicker>
+
+        <ListView
+            android:id="@+id/updateHoursListView"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@color/background"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            >
+
+
+        </ListView>
+
+    <Button
+        android:id="@+id/hoursCancelButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/red"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:textColor="@color/blanco"
+        android:text="@string/cancel"
+        android:textStyle="bold" />
+
+
+
+
+
+</LinearLayout>

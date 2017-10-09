@@ -24,6 +24,11 @@
     <string name="notes">הערות...</string>
     <string name="noEntries">לא נמצאו נתונים עבור תאריך זה</string>
     <string name="manualUpdate">עדכון ידני</string>
+    <string name="startHour">התחלה:</string>
+    <string name="endHour">סיום:</string>
+    <string name="updateHr">עדכון</string>
+    <string name="successHrUpdate">עדכון בוצע בהצלחה!</string>
+
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>

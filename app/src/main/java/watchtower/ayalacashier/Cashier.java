@@ -75,6 +75,7 @@ public class Cashier {
     public static final int TIME = 1;
 
     public static final String EXIT_SHIFT = "לצאת מהמשמרת?";
+    public static final String [] MONTHS = {"בחר/י חודש","ינואר","פבואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"};
 
 
 
@@ -783,6 +784,62 @@ public class Cashier {
         totalSum.setText((checkPrefs.getFloat(ALTOGETHER,0))+"");
         //return SavedShoppingList;
 
+    }
+
+    public static void displayHoursFromFile(ListView listView, int month)
+    {
+        Log.d("TKT_cashier","displayHoursFromFile===================");
+        File file = new File (Welcome.context.getFilesDir().toString(),month+"");
+        List<String>hourList = new ArrayList<String>();
+        try
+        {
+            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
+            String fileString = (String)objectInputStream.readObject();
+            Log.d("TKT_cashier","fileString: "+fileString);
+            hourList = organizeList(fileString);//new ArrayList<String>(Arrays.asList(fileString.split("\n")));
+            //hourList = organizeList(hourList);
+            ArrayAdapter<String>adapter = new ArrayAdapter<String>(Hours.context, R.layout.custom_list_view, hourList);
+            listView.setAdapter(adapter);
+
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+            Log.d("TKT_cashier","exception!");
+            listView.setAdapter(null);
+        }
+    }
+
+    public static List organizeList(String hours)
+    {
+        /* a string entry format is the following:
+                   יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש
+        */
+        Log.d("TKT_cashier","organizeList");
+        String day, hrs, alt;
+        List<String>list = new ArrayList<String>();
+        String [] entries = hours.split("\n");
+        for(int i = 0; i < entries.length; i ++)
+        {
+            String [] date = entries[i].split(">>");
+            String [] dateEntries = date[0].split("/");
+            // יי/חח/שש  //
+            day = dateEntries[0];
+            Log.d("TKT_cashier","day: "+day);
+            String [] hoursADay = date[1].split("=");//hours
+            //  שעת_התחלה - שעת_סיום  //
+            hrs = hoursADay[0];
+            Log.d("TKT_cashier","hrs: "+hrs);
+            String [] altogether = hoursADay[1].split(" ");
+            //  דד/שש  //
+            alt = altogether[2];
+            Log.d("TKT_cashier","alt: "+alt);
+            Log.d("TKT_cashier","addToList: "+day+": "+hrs+" -> "+alt);
+            //list.add(day+": "+hrs+" -> "+alt);
+            list.add(alt+"   ::   "+hrs+"   ::   "+day);
+
+        }
+        return list;
     }
 
     public static void endShift(Context context) throws IOException {
