@@ -12,6 +12,7 @@
         >
     </item>
 
+    <!--
     <item
         android:id="@+id/endShiftMenu"
         android:title="@string/endShift"
@@ -19,6 +20,7 @@
 
 
     </item>
+    -->
 
     <item
         android:id="@+id/updatePrices"

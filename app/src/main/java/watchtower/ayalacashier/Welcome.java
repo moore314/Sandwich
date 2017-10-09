@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -71,13 +70,6 @@ public class Welcome extends AppCompatActivity {
                                 @Override
                                 public void onClick(View v) {
                                     progressBar.setBackgroundResource(R.drawable.circle_red);
-                                    //progressBar.setBackgroundColor(ContextCompat.getColor(context, RED));
-                                    //progressBar.setBackgroundResource(RED);
-
-                                    //progressBarListener(RED, TURQ, false);
-                                    //progressBarHandler.sendEmptyMessage(0);
-                                    //shift.setText(getString(R.string.outShift));
-                                    //shift.setTextColor(ContextCompat.getColor(context, R.color.red));
                                     Cashier.updateShiftState(false);
                                     Cashier.dialog.dismiss();
                                     shiftExit();
@@ -94,12 +86,6 @@ public class Welcome extends AppCompatActivity {
                         } else {
                             Log.d("TKT_welcome","getInShift");
                             progressBar.setBackgroundResource(R.drawable.circle_turq);
-                            //progressBar.setBackgroundColor(ContextCompat.getColor(context, TURQ));
-                            //progressBar.setBackgroundResource(TURQ);
-                            /// /progressBarListener(TURQ, RED, true);
-                            //progressBarHandler.sendEmptyMessage(0);
-                            //shift.setText(getString(R.string.inShift));
-                            //shift.setTextColor(ContextCompat.getColor(context, R.color.turq));
                             Cashier.updateShiftState(true);
                             shiftEntry();
 
@@ -120,15 +106,17 @@ public class Welcome extends AppCompatActivity {
     public void shiftEntry()
     {
         //get currentTime
+        Log.d("TKT_welcome","shiftEntry");
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Calendar cal = Calendar.getInstance();
         String [] dayInit = (dateFormat.format(cal.getTime())).split(" ");
         String currDate=Cashier.checkPrefs.getString(Cashier.CURR_DATE, null);
+        Log.d("TKT_welcome","currDateOut: "+currDate);
 
         if(currDate == null || currDate != dayInit[Cashier.DATE])
-        {
-            //Cashier.CURR_DATE = dayInit[0];
+        {//digo, if there isn't a file corresponding to current date
             currDate = dayInit[Cashier.DATE];
+            Log.d("TKT_welcome","currDateIn: "+currDate);
             Cashier.updateToday(currDate, dayInit[Cashier.TIME], null);
         }
 
@@ -160,9 +148,11 @@ public class Welcome extends AppCompatActivity {
 
     public void shiftExit()
     {
+        Log.d("TKT_welcome","shiftExit");
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Calendar cal = Calendar.getInstance();
         String [] dayEnd = (dateFormat.format(cal.getTime())).split(" ");
+        Log.d("TKT_welcome","date: "+dayEnd[Cashier.DATE]);
         Cashier.updateToday(dayEnd[Cashier.DATE], null, dayEnd[Cashier.TIME]);
 
     }
@@ -322,6 +312,7 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
+            /*
             case R.id.endShiftMenu:
             {
                 Log.d("TKT_itemScreen","endShift===================");
@@ -333,6 +324,7 @@ public class Welcome extends AppCompatActivity {
                 }
                 return true;
             }
+            */
             case R.id.updatePrices:
             {
                 //employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);

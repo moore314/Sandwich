@@ -11,12 +11,14 @@ public class Day implements Comparable{
     String startTime;
     String endTime;
     static String date;
+    String sumHours;
 
-    public Day(String d , String  st, String  et)
+    public Day(String d , String  st, String  et, String sh)
     {
         startTime = st;
         endTime = et;
         date = d;
+        sumHours = sh;
     }
 
     public Day(String d)
@@ -40,6 +42,7 @@ public class Day implements Comparable{
 
     @Override
     public String toString() {
-        return date+ ": "+startTime+" - "+endTime;
+        String temp = "סה\"כ שעות: ";
+        return date+ ">>"+startTime+" - "+endTime+"="+temp+sumHours;
     }
 }

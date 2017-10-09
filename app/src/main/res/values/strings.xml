@@ -22,6 +22,8 @@
     <string name="timeOne">13:30</string>
     <string name="timeThree">15:30</string>
     <string name="notes">הערות...</string>
+    <string name="noEntries">לא נמצאו נתונים עבור תאריך זה</string>
+    <string name="manualUpdate">עדכון ידני</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>

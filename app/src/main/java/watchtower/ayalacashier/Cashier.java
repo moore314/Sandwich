@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
@@ -21,7 +20,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +29,8 @@ import java.util.Currency;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Moore on 9/5/2017.
@@ -564,7 +564,7 @@ public class Cashier {
     }
 
     public static void simplePayment(Button item, TextView change)
-    {//// TODO: 9/27/2017 seems to work fine
+    {
         change.setText("");
         double price = Double.parseDouble(item.getTag().toString());
         if(!paymentText.getText().toString().equals(""))
@@ -679,8 +679,6 @@ public class Cashier {
 
     }
 
-
-
     public static void check(EditText cash, TextView change, Context context)
     {
         Log.d("TKT_cashier","check===================");
@@ -774,803 +772,37 @@ public class Cashier {
     {
         Log.d("TKT_cashier","displayReport===================");
         String SavedShoppingList = openItemList(context);
+        List<String> listOfItems = new ArrayList<String>();
         if(SavedShoppingList != null)
         {
 
-            /*
-            try {
-                setAltogether(totalSum,SavedShoppingList);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Log.d("TKT_cashier","exception");
-            }
-            */
-
-
-            List<String> listOfItems = new ArrayList<String>(Arrays.asList(SavedShoppingList.split("\n")));// Arrays.asList(SavedShoppingList.split(System.getProperty("line.separator")));
+            listOfItems = new ArrayList<String>(Arrays.asList(SavedShoppingList.split("\n")));// Arrays.asList(SavedShoppingList.split(System.getProperty("line.separator")));
             ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
             listView.setAdapter(adapter);
         }
         totalSum.setText((checkPrefs.getFloat(ALTOGETHER,0))+"");
-    }
-
-    /*
-
-    public static void setAltogether(TextView totalSum, String SavedShoppingList) throws IOException {
-        double total = 0;
-            BufferedReader bufferedReader = new BufferedReader((new StringReader(SavedShoppingList)));
-            String line = bufferedReader.readLine();
-            while(line != null)
-            {
-                ItemList.Item temp = new ItemList().new Item(line);
-                String itemName = temp.name;
-                int itemAmount = temp.amount;
-
-
-                //THIS HAD TO BE AN IF-ELSE BECAUSE SWITCH MUST USE CONSTANT EXPRESSION, AND FOR SOME REASON, THE DATA IN *_NAMES ARRAYS ISN'T CONSIDERED CONSTANT
-                if(itemName.equals(DRINK_NAMES[IND_ICE5]))
-                {
-                    total +=  itemAmount*DRINK_PRICES[IND_ICE5];
-                    Log.d("TKT_cashier","iceSmall, name: " + itemName);
-                }
-                else
-                {
-                    if(itemName.equals(DRINK_NAMES[IND_ICE7]))
-                    {
-                        total += itemAmount*DRINK_PRICES[IND_ICE7];
-                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                    }
-                    else
-                    {
-                        if(itemName.equals(DRINK_NAMES[IND_SLURPEE5]))
-                        {
-                            total += itemAmount*DRINK_PRICES[IND_SLURPEE5];
-                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                        }
-                        else
-                        {
-                            if(itemName.equals(DRINK_NAMES[IND_SLURPEE7]))
-                            {
-                                total += itemAmount*DRINK_PRICES[IND_ICE7];
-                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                            }
-                            else
-                            {
-                                if(itemName.equals(DRINK_NAMES[IND_LEMONADE5]))
-                                {
-                                    total += itemAmount*DRINK_PRICES[IND_LEMONADE5];
-                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-
-                                }
-                                else
-                                {
-                                    if(itemName.equals(DRINK_NAMES[IND_LEMONADE7]))
-                                    {
-                                        total += itemAmount*DRINK_PRICES[IND_LEMONADE7];
-                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                    }
-                                    else
-                                    {
-                                        if(itemName.equals(DRINK_NAMES[IND_ORANGE5]))
-                                        {
-                                            total += itemAmount*DRINK_PRICES[IND_ORANGE5];
-                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                        }
-                                        else
-                                        {
-                                            if(itemName.equals(DRINK_NAMES[IND_ORANGE7]))
-                                            {
-                                                total += itemAmount*DRINK_PRICES[IND_ORANGE7];
-                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                            }
-                                            else
-                                            {
-                                                if(itemName.equals(DRINK_NAMES[IND_HOT_CHOC]))
-                                                {
-                                                    total += itemAmount*DRINK_PRICES[IND_HOT_CHOC];
-                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                }
-                                                else
-                                                {
-                                                    if(itemName.equals(DRINK_NAMES[IND_CHOC]))
-                                                    {
-                                                        total += itemAmount*DRINK_PRICES[IND_CHOC];
-                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                    }
-                                                    else
-                                                    {
-                                                        if(itemName.equals(DRINK_NAMES[IND_CAPPUCCINO]))
-                                                        {
-                                                            total += itemAmount*DRINK_PRICES[IND_CAPPUCCINO];
-                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                        }
-                                                        else
-                                                        {
-                                                            if(itemName.equals(DRINK_NAMES[IND_CAN5]))
-                                                            {
-                                                                total += itemAmount*DRINK_PRICES[IND_CAN5];
-                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                            }
-                                                            else
-                                                            {
-                                                                if(itemName.equals(DRINK_NAMES[IND_CAN6]))
-                                                                {
-                                                                    total += itemAmount*DRINK_PRICES[IND_CAN6];
-                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                }
-                                                                else
-                                                                {
-                                                                    if(itemName.equals(DRINK_NAMES[IND_WATER]))
-                                                                    {
-                                                                        total += itemAmount*DRINK_PRICES[IND_WATER];
-                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                    }
-                                                                    //===========================================
-                                                                    {
-                                                                        if(itemName.equals(SANDWICH_NAMES[IND_GREEN_OMLETTE]))
-                                                                        {
-                                                                            total += itemAmount*SANDWICH_PRICES[IND_GREEN_OMLETTE];
-                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            if(itemName.equals(SANDWICH_NAMES[IND_TUNA_SALAD]))
-                                                                            {
-                                                                                total += itemAmount*SANDWICH_PRICES[IND_TUNA_SALAD];
-                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                if(itemName.equals(SANDWICH_NAMES[IND_SHAKSHUKA]))
-                                                                                {
-                                                                                    total += itemAmount*SANDWICH_PRICES[IND_SHAKSHUKA];
-                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                }
-                                                                                else
-                                                                                {
-                                                                                    if(itemName.equals(SANDWICH_NAMES[IND_EGGPLANT_CHEESE]))
-                                                                                    {
-                                                                                        total += itemAmount*SANDWICH_PRICES[IND_EGGPLANT_CHEESE];
-                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-
-                                                                                    }
-                                                                                    else
-                                                                                    {
-                                                                                        if(itemName.equals(SANDWICH_NAMES[IND_PESTO]))
-                                                                                        {
-                                                                                            total += itemAmount*SANDWICH_PRICES[IND_PESTO];
-                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            if(itemName.equals(SANDWICH_NAMES[IND_SPICY_EGGPLANT]))
-                                                                                            {
-                                                                                                total += itemAmount*SANDWICH_PRICES[IND_SPICY_EGGPLANT];
-                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                            }
-                                                                                            else
-                                                                                            {
-                                                                                                if(itemName.equals(SANDWICH_NAMES[IND_SABIH]))
-                                                                                                {
-                                                                                                    total += itemAmount*SANDWICH_PRICES[IND_SABIH];;
-                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                }
-                                                                                                else
-                                                                                                {
-                                                                                                    if(itemName.equals(SANDWICH_NAMES[IND_TUNA]))
-                                                                                                    {
-                                                                                                        total += itemAmount*SANDWICH_PRICES[IND_TUNA];
-                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                    }
-                                                                                                    else
-                                                                                                    {
-                                                                                                        if(itemName.equals(SANDWICH_NAMES[IND_CREAM_CHEESE]))
-                                                                                                        {
-                                                                                                            total += itemAmount*SANDWICH_PRICES[IND_CREAM_CHEESE];
-                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                                            if(itemName.equals(SANDWICH_NAMES[IND_BULGARIAN]))
-                                                                                                            {
-                                                                                                                total += itemAmount*SANDWICH_PRICES[IND_BULGARIAN];
-                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                            }
-                                                                                                            else
-                                                                                                            {
-                                                                                                                if(itemName.equals(SANDWICH_NAMES[IND_EGG_SALAD]))
-                                                                                                                {
-                                                                                                                    total += itemAmount*SANDWICH_PRICES[IND_EGG_SALAD];
-                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                }
-                                                                                                                else
-                                                                                                                {
-                                                                                                                    if(itemName.equals(SANDWICH_NAMES[IND_AVOCADO]))
-                                                                                                                    {
-                                                                                                                        total += itemAmount*SANDWICH_PRICES[IND_AVOCADO];
-                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                    }
-                                                                                                                    else
-                                                                                                                    {
-                                                                                                                        if(itemName.equals(SANDWICH_NAMES[IND_OMLETTE]))
-                                                                                                                        {
-                                                                                                                            total += itemAmount*SANDWICH_PRICES[IND_OMLETTE];
-                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                        }
-                                                                                                                        else
-                                                                                                                        {
-                                                                                                                            if(itemName.equals(SANDWICH_NAMES[IND_TIVOL]))
-                                                                                                                            {
-                                                                                                                                total += itemAmount*SANDWICH_PRICES[IND_TIVOL];
-                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                            }
-                                                                                                                            else
-                                                                                                                            {
-                                                                                                                                if(itemName.equals(SANDWICH_NAMES[IND_YELLOW_CHEESE]))
-                                                                                                                                {
-                                                                                                                                    total += itemAmount*SANDWICH_PRICES[IND_YELLOW_CHEESE];
-                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                }
-                                                                                                                                else
-                                                                                                                                {
-                                                                                                                                    if(itemName.equals(PASTRY_NAMES[IND_CHOCO_CROI]))
-                                                                                                                                    {
-                                                                                                                                        total += itemAmount*PASTRY_PRICES[IND_CHOCO_CROI];
-                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                    }
-                                                                                                                                    else
-                                                                                                                                    {
-                                                                                                                                        if(itemName.equals(PASTRY_NAMES[IND_CHEESE_CROI]))
-                                                                                                                                        {
-                                                                                                                                            total += itemAmount*PASTRY_PRICES[IND_CHEESE_CROI];
-                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                        }
-                                                                                                                                        else
-                                                                                                                                        {
-                                                                                                                                            if(itemName.equals(PASTRY_NAMES[IND_BUTTER_CROI]))
-                                                                                                                                            {
-                                                                                                                                                total += itemAmount*PASTRY_PRICES[IND_BUTTER_CROI];
-                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                            }
-                                                                                                                                            else
-                                                                                                                                            {
-                                                                                                                                                if(itemName.equals(PASTRY_NAMES[IND_CINNAMON_CROI]))
-                                                                                                                                                {
-                                                                                                                                                    total += itemAmount*PASTRY_PRICES[IND_CINNAMON_CROI];
-                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                }
-                                                                                                                                                else
-                                                                                                                                                {
-                                                                                                                                                    if(itemName.equals(PASTRY_NAMES[IND_DONUT]))
-                                                                                                                                                    {
-                                                                                                                                                        total += itemAmount*PASTRY_PRICES[IND_DONUT];
-                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                    }
-                                                                                                                                                    else
-                                                                                                                                                    {
-                                                                                                                                                        if(itemName.equals(PASTRY_NAMES[IND_CHEESE_BUREK]))
-                                                                                                                                                        {
-                                                                                                                                                            total += itemAmount*PASTRY_PRICES[IND_CHEESE_BUREK];
-                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                        }
-                                                                                                                                                        else
-                                                                                                                                                        {
-                                                                                                                                                            if(itemName.equals(PASTRY_NAMES[IND_POTATO_BUREK]))
-                                                                                                                                                            {
-                                                                                                                                                                total += itemAmount*PASTRY_PRICES[IND_POTATO_BUREK];
-                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                            }
-                                                                                                                                                            else
-                                                                                                                                                            {
-                                                                                                                                                                if(itemName.equals(PASTRY_NAMES[IND_EGG_BUREK]))
-                                                                                                                                                                {
-                                                                                                                                                                    total += itemAmount*PASTRY_PRICES[IND_EGG_BUREK];
-                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                }
-                                                                                                                                                                else
-                                                                                                                                                                {
-                                                                                                                                                                    if(itemName.equals(PASTRY_NAMES[IND_MELAWAC]))
-                                                                                                                                                                    {
-                                                                                                                                                                        total += itemAmount*PASTRY_PRICES[IND_MELAWAC];
-                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                    }
-                                                                                                                                                                    else
-                                                                                                                                                                    {
-                                                                                                                                                                        if(itemName.equals(PASTRY_NAMES[IND_MELAWAC_ADDITION]))
-                                                                                                                                                                        {
-                                                                                                                                                                            total += itemAmount*PASTRY_PRICES[IND_MELAWAC_ADDITION];
-                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                        }
-                                                                                                                                                                        else
-                                                                                                                                                                        {
-                                                                                                                                                                            if(itemName.equals(PASTRY_NAMES[IND_PIZZA]))
-                                                                                                                                                                            {
-                                                                                                                                                                                total += itemAmount*PASTRY_PRICES[IND_PIZZA];
-                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                            }
-                                                                                                                                                                            else
-                                                                                                                                                                            {
-                                                                                                                                                                                if(itemName.equals(PASTRY_NAMES[IND_PIZZA_PLUS]))
-                                                                                                                                                                                {
-                                                                                                                                                                                    total += itemAmount*PASTRY_PRICES[IND_PIZZA_PLUS];
-                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                }
-                                                                                                                                                                                else
-                                                                                                                                                                                {
-                                                                                                                                                                                    if(itemName.equals(PASTRY_NAMES[IND_PIZZA_BULGARIAN]))
-                                                                                                                                                                                    {
-                                                                                                                                                                                        total += itemAmount*PASTRY_PRICES[IND_PIZZA_BULGARIAN];
-                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                    }
-                                                                                                                                                                                    else
-                                                                                                                                                                                    {
-                                                                                                                                                                                        if(itemName.equals(PANINI_NAMES[Cashier.IND_PANINI_FINGER]))
-                                                                                                                                                                                        {
-                                                                                                                                                                                            total += itemAmount*PANINI_PRICES[Cashier.IND_PANINI_FINGER];
-                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                        }
-                                                                                                                                                                                        else
-                                                                                                                                                                                        {
-                                                                                                                                                                                            if(itemName.equals(PANINI_NAMES[Cashier.IND_PANINI_BAGLE]))
-                                                                                                                                                                                            {
-                                                                                                                                                                                                total += itemAmount*PANINI_PRICES[Cashier.IND_PANINI_BAGLE];
-                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                            }
-                                                                                                                                                                                            else
-                                                                                                                                                                                            {
-                                                                                                                                                                                                if(itemName.equals(PANINI_PRICES[Cashier.IND_PANINI_ADDITION1]))
-                                                                                                                                                                                                {
-                                                                                                                                                                                                    total += itemAmount*PANINI_PRICES[Cashier.IND_PANINI_ADDITION1];
-                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                }
-                                                                                                                                                                                                else
-                                                                                                                                                                                                {
-                                                                                                                                                                                                    if(itemName.equals(PANINI_PRICES[Cashier.IND_PANINI_ADDITION3]))
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                        total += itemAmount*PANINI_PRICES[Cashier.IND_PANINI_ADDITION3];
-                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                    }
-                                                                                                                                                                                                    else
-                                                                                                                                                                                                    {
-                                                                                                                                                                                                        if(itemName.equals(SALAD_NAMES[IND_SALAD]))
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                            total += itemAmount*SALAD_PRICES[IND_SALAD];
-                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                        }
-                                                                                                                                                                                                        else
-                                                                                                                                                                                                        {
-                                                                                                                                                                                                            if(itemName.equals(SALAD_NAMES[Cashier.IND_SALAD_BREAD]))
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                                total += itemAmount*SALAD_PRICES[Cashier.IND_SALAD_BREAD];
-                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                            else
-                                                                                                                                                                                                            {
-                                                                                                                                                                                                                if(itemName.equals(SALAD_NAMES[Cashier.IND_SALAD_ADDITION]))
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                    total += itemAmount*SALAD_PRICES[Cashier.IND_SALAD_ADDITION];
-                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                }
-                                                                                                                                                                                                                else
-                                                                                                                                                                                                                {
-                                                                                                                                                                                                                    if(itemName.equals(HOTS_NAMES[IND_PASTA]))
-                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                        total += itemAmount*HOTS_PRICES[IND_PASTA];
-                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                        if(itemName.equals(HOTS_NAMES[IND_KUSKUS]))
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                            total += itemAmount*HOTS_PRICES[IND_KUSKUS];
-                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                            if(itemName.equals(HOTS_NAMES[IND_YAM_SOUP]))
-                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                total += itemAmount*HOTS_PRICES[IND_YAM_SOUP];
-                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                if(itemName.equals(HOTS_NAMES[IND_LENTIL_SOUP]))
-                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                    total += itemAmount*HOTS_PRICES[IND_LENTIL_SOUP];
-                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                    if(itemName.equals(HOTS_NAMES[IND_VEGGIE_SOUP]))
-                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                        total += itemAmount*HOTS_PRICES[IND_VEGGIE_SOUP] ;
-                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                        if(itemName.equals(HOTS_NAMES[IND_CORN_MILANESA]))
-                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                            total += itemAmount*HOTS_PRICES[IND_CORN_MILANESA];
-                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                            if(itemName.equals(FRUIT_NAMES[IND_WATERMELON]))
-                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                total += itemAmount*FRUIT_PRICES[IND_WATERMELON];
-                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                if(itemName.equals(FRUIT_NAMES[IND_FRUIT_MEUSLI]))
-                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                    total += itemAmount*FRUIT_PRICES[IND_FRUIT_MEUSLI];
-                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                    if(itemName.equals(FRUIT_NAMES[IND_FROOP_MULLER ]))
-                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                        total += itemAmount*FRUIT_PRICES[IND_FROOP_MULLER ];
-                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                        if(itemName.equals(FRUIT_NAMES[IND_CLICK_MULLER]))
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                            total += itemAmount*FRUIT_PRICES[IND_CLICK_MULLER];
-                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_RUG]))
-                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_RUG];
-                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_SELZER]))
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_SELZER];
-                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_MARSHMELLOW]))
-                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_MARSHMELLOW];
-                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                        if(itemName.equals(CANDY_NAMES[IND_LOLLIES_DIP]))
-                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_LOLLIES_DIP];
-                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_TOFFEE_FIZZ]))
-                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_TOFFEE_FIZZ];
-                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_PIES_POLVO]))
-                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_PIES_POLVO];
-                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_FIZZ_NECKLACE]))
-                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_FIZZ_NECKLACE];
-                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                        if(itemName.equals(CANDY_NAMES[IND_HEART]))
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_HEART];
-                                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_PARAGUA]))
-                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_PARAGUA];
-                                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_PIPE]))
-                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_PIPE];
-                                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_ZOOM]))
-                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_ZOOM];
-                                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                        if(itemName.equals( CANDY_NAMES[IND_EXTREME]))
-                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_EXTREME];
-                                                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_TICTAC]))
-                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_TICTAC];
-                                                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_MENTOS]))
-                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_MENTOS];
-                                                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_KINDER]))
-                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_KINDER];
-                                                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                        if(itemName.equals(CANDY_NAMES[IND_SNEAKERS]))
-                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_SNEAKERS];
-                                                                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_SNEAKERS]))
-                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_SNEAKERS];
-                                                                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_SOUR_SPRAY]))
-                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_SOUR_SPRAY];
-                                                                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_TWIX]))
-                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_TWIX];
-                                                                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                        if(itemName.equals(CANDY_NAMES[IND_TEAMI]))
-                                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_TEAMI];
-                                                                                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_NUTELLA]))
-                                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_NUTELLA];
-                                                                                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_BUENO]))
-                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_BUENO];
-                                                                                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_TIME_OUT]))
-                                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_TIME_OUT];
-                                                                                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                                        if(itemName.equals(CANDY_NAMES[IND_CLICK_BAR]))
-                                                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_CLICK_BAR];
-                                                                                                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_CLICK_BAG]))
-                                                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[IND_CLICK_BAG];
-                                                                                                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_CLICK_TABLET]))
-                                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[IND_CLICK_TABLET];
-                                                                                                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_BAMBA]))
-                                                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_BAMBA];
-                                                                                                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                    else
-                                                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                                                        if(itemName.equals(CANDY_NAMES[IND_DORITOS]))
-                                                                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                                                                            total += itemAmount*CANDY_PRICES[IND_DORITOS];
-                                                                                                                                                                                                                                                                                                                                                                            Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                                                        else
-                                                                                                                                                                                                                                                                                                                                                                        {
-                                                                                                                                                                                                                                                                                                                                                                            if(itemName.equals(CANDY_NAMES[IND_BISLI]))
-                                                                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                                                                total += itemAmount*CANDY_PRICES[Cashier.IND_BISLI];
-                                                                                                                                                                                                                                                                                                                                                                                Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                                                            else
-                                                                                                                                                                                                                                                                                                                                                                            {
-                                                                                                                                                                                                                                                                                                                                                                                if(itemName.equals(CANDY_NAMES[IND_APROPOSITO]))
-                                                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                                    total += itemAmount*CANDY_PRICES[Cashier.IND_APROPOSITO];
-                                                                                                                                                                                                                                                                                                                                                                                    Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                                                else
-                                                                                                                                                                                                                                                                                                                                                                                {
-                                                                                                                                                                                                                                                                                                                                                                                    if(itemName.equals(CANDY_NAMES[IND_BEARS]))
-                                                                                                                                                                                                                                                                                                                                                                                    {
-                                                                                                                                                                                                                                                                                                                                                                                        total += itemAmount*CANDY_PRICES[IND_BEARS];
-                                                                                                                                                                                                                                                                                                                                                                                        Log.d("TKT_cashier","iceSmall, total: " + itemName);
-                                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                            }
-                                                                                                                                                                                                                        }
-                                                                                                                                                                                                                    }
-                                                                                                                                                                                                                }
-                                                                                                                                                                                                            }
-                                                                                                                                                                                                        }
-                                                                                                                                                                                                    }
-                                                                                                                                                                                                }
-                                                                                                                                                                                            }
-                                                                                                                                                                                        }
-                                                                                                                                                                                    }
-                                                                                                                                                                                }
-                                                                                                                                                                            }
-                                                                                                                                                                        }
-                                                                                                                                                                    }
-                                                                                                                                                                }
-                                                                                                                                                            }
-                                                                                                                                                        }
-                                                                                                                                                    }
-                                                                                                                                                }
-                                                                                                                                            }
-                                                                                                                                        }
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-
-
-                line = bufferedReader.readLine();
-            }
-            Log.d("TKT_cashier","iceSmall, total: " + total);
-           totalSum.setText(total+"");
+        //return SavedShoppingList;
 
     }
-
-    */
 
     public static void endShift(Context context) throws IOException {
         //create a file with userName & report file
         //create a new file:
         String userName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
-        //File dest = new File(ItemScreen.context.getFilesDir().toString(), userName);
-        //File src = new File(ItemScreen.context.getFilesDir(), FILE_NAME);
-        //copy(src, dest);
 
-        //send email
-        //// TODO: 9/10/2017 file is not being attached!! :/
-        File src = new File(context.getFilesDir().getAbsolutePath(), FILE_NAME);
-        Log.d("TKT_cashier","file exists? "+src.exists());
-        Uri path = Uri.fromFile(src);
+        String SavedShoppingList = openItemList(context);
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         // set the type to 'email'
         emailIntent.setType("text/plain");//("vnd.android.cursor.dir/email");
         String to[] = {"js777755@gmail.com"};
         emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
         // the attachment
-        emailIntent.putExtra(Intent.EXTRA_STREAM, path);
+        emailIntent.putExtra(Intent.EXTRA_TEXT, SavedShoppingList);
         // the mail subject
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName+": " +
                 context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
-        //Log.d("TKT_cashier","mailSybject: "+userName+": " +
-              //  ItemScreen.context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
-        context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
-
-
-
-
+               context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
     }
-
 
     public static int itemIndexInArray(String itemName, String [] items)
     {
@@ -1581,7 +813,6 @@ public class Cashier {
         }
         return -1;
     }
-
 
     public static void finishUpdate(double newPrice, String itemName)
     {
@@ -1600,18 +831,33 @@ public class Cashier {
 
     public static void updateToday(String date, String start, String end)
     {
+        Log.d("TKT_cashier","updateToday");
         String []  month  = date.split("/");
+        String hours = "";
         progressEdit = checkPrefs.edit();
         if(end == null) {
             progressEdit.putString(CURR_DATE, date);
             progressEdit.putString(CURR_START, start);
+            Log.d("TKT_cashier","date: "+date);
+            Log.d("TKT_cashier","start: "+start);
         }
         else {
             progressEdit.putString(CURR_END, end);
             String st = Cashier.checkPrefs.getString(Cashier.CURR_START, null);
-            Day today = new Day(date, st, end);//create new dat
-            float hours = calculateHours(st, end);
-            progressEdit.putFloat(ALTOGETHER_HOURS+month[MONTH], hours);
+            hours = hourDifference(st, end);
+            Day today = new Day(date, st, end,hours);//create new day
+            String prevHours = checkPrefs.getString(ALTOGETHER_HOURS+month[MONTH], null);
+            Log.d("TKT_cashier","prevHours: "+prevHours);
+            if(prevHours != null)
+            {//combine hours
+                Log.d("TKT_cashier","prevHours != null");
+                hours = hourAddition(hours,prevHours);
+                Log.d("TKT_cashier","hourAddition: "+hours);
+            }
+
+            progressEdit.putString(ALTOGETHER_HOURS+month[MONTH],hours);
+            Log.d("TKT_cashier","st: "+st);
+            Log.d("TKT_cashier","end: "+end);
             saveTodayToFile(today);
 
 
@@ -1620,18 +866,25 @@ public class Cashier {
     }
 
     public static void saveTodayToFile(Day day)
-    {
+    {//called by updateToday
         //create a file of current month, then append days to bottom
         //create file
+        Log.d("TKT_cashier","saveTodat");
         String [] month = day.date.split("/");
         File file = new File (Welcome.context.getFilesDir(), month[MONTH]);
         try {
             file.createNewFile();
-            OutputStreamWriter out = new OutputStreamWriter(Welcome.context.openFileOutput(month[MONTH], Context.MODE_APPEND));
-            out.write(day.toString());
-            out.write("\n");
-            out.flush();
-            out.close();
+            Log.d("TKT_cashier","fileName: "+month[MONTH]);
+            //OutputStreamWriter out = new OutputStreamWriter(Welcome.context.openFileOutput(month[MONTH], Context.MODE_APPEND));
+            //out.write(day.toString());
+            //out.write("\n");
+            //out.flush();
+            //out.close();
+
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
+            outputStream.writeObject(day.toString());
+            outputStream.flush();
+            outputStream.close();
             /*
             OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream(file, Welcome.context.MODE_APPEND));
             outputStream.writeObject(day.toString());
@@ -1648,23 +901,65 @@ public class Cashier {
     {
         //get hours from shared;
         Log.d("TKT_cashier","setAltogetherHours month: "+month);
-        return checkPrefs.getFloat(ALTOGETHER_HOURS+month, 0)+"";
+        return checkPrefs.getString(ALTOGETHER_HOURS+month, null);
     }
 
-    public static float calculateHours(String s, String e)
+    public static String hourDifference(String s, String e)
     {
-
+        String diffString = "";
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        long difference = 0;
         try {
-            Date st = format.parse(e);
+            Date st = format.parse(s);
             Date ed = format.parse(e);
-            difference = ed.getTime() - st.getTime();
+            long difference = ed.getTime() - st.getTime();
+            //Date diff = new Date(difference);
+            //diffString = format.format(diff);
+            //Log.d("TKT_cashier","difference: "+diffString);
+            diffString = String.format("%02d:%02d",
+                    TimeUnit.MILLISECONDS.toHours(difference),
+                    TimeUnit.MILLISECONDS.toMinutes(difference) -
+                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)));
+                    //TimeUnit.MILLISECONDS.toSeconds(difference) -
+                    //TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(difference)));
         } catch (ParseException e1) {
             e1.printStackTrace();
         }
-        Log.d("TKT_cashier","difference: "+difference);
-        return (float)difference;
+        Log.d("TKT_cashier","difference: "+diffString);
+        return diffString;
+    }
+
+    public static String hourAddition(String h1, String h2)
+    {
+        Log.d("TKT_cashier","hourAddition");
+        String sumString = "";
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        try
+        {
+            Log.d("TKT_cashier","h1: "+h1);
+            Log.d("TKT_cashier","h2: "+h2);
+            Date d1 = format.parse(h1);
+            Date d2 = format.parse(h2);
+            long sum = d1.getTime() + d2.getTime();
+            Log.d("TKT_cashier","d1.toString: "+d1.toString());
+            Log.d("TKT_cashier","d2.toString: "+d2.toString());
+            Log.d("TKT_cashier","d1.getTime: "+d1.getTime());
+            Log.d("TKT_cashier","d2.getTime: "+d2.getTime());
+            Log.d("TKT_cashier","sum: "+sum);
+            sumString = format.format(new Date(sum));
+            Log.d("TKT_cashier","sumString: "+sumString);
+
+
+        }
+        catch (ParseException e)
+        {
+            Log.d("TKT_cashier","can't parse"+sumString);
+            e.printStackTrace();
+
+        }
+
+        //String [] finalSum = sumString.split("-");
+        return sumString;//finalSum[0];//meaning, only hours and minutes
     }
 
     public static void setCashierView(MenuItem item, String state)

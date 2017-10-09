@@ -14,8 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.io.IOException;
-
 
 public class ItemScreen extends AppCompatActivity {
 
@@ -482,6 +480,7 @@ public class ItemScreen extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
+            /*
             case R.id.endShiftMenu:
             {
                 Log.d("TKT_itemScreen","endShift===================");
@@ -493,6 +492,7 @@ public class ItemScreen extends AppCompatActivity {
                 }
                 return true;
             }
+            */
             case R.id.updatePrices:
             {
                 //employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
