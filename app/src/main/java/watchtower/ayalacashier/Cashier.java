@@ -62,6 +62,7 @@ public class Cashier {
     public static final String VIEW_STATE = "viewState";
     public static final String CLASSIC_VIEW = "קופה בסיסית";
     public static final String DETAIL_VIEW = "קופה מפורטת";
+    public static final String ALTOGETHER_HR_TXT = "סה\"כ שעות: ";
 
     //public static final String REPORT_HEB = "דוח מכירות"
 
@@ -75,8 +76,10 @@ public class Cashier {
     public static final int TIME = 1;
 
     public static final String EXIT_SHIFT = "לצאת מהמשמרת?";
-    public static final String [] MONTHS = {"בחר/י חודש","ינואר","פבואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"};
-
+    public static final String [] MONTHS = {"בחר/י חודש","ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"};
+    //public static ArrayList<Day>[] DAY_ARR_LST = new ArrayList[12];
+    public static Day [][] DAY_ARR_LST = new Day[31][12];
+    public static final String DAY_MATRIX = "dayMatrix";
 
 
 
@@ -614,8 +617,15 @@ public class Cashier {
     public static String openItemList(Context context)
     {
         Log.d("TKT_cashier","openItemList===================");
+        return fileToString(context, FILE_NAME);
+
+    }
+
+    public static String fileToString(Context context, String fileName)
+    {
+        Log.d("TKT_cashier","fileToString===================");
         ObjectInputStream objectInputStream;
-        File file = new File(context.getFilesDir(), FILE_NAME);
+        File file = new File(context.getFilesDir(), fileName);
         try
         {
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
@@ -789,32 +799,29 @@ public class Cashier {
     public static void displayHoursFromFile(ListView listView, int month)
     {
         Log.d("TKT_cashier","displayHoursFromFile===================");
-        File file = new File (Welcome.context.getFilesDir().toString(),month+"");
         List<String>hourList = new ArrayList<String>();
-        try
-        {
-            ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
-            String fileString = (String)objectInputStream.readObject();
-            Log.d("TKT_cashier","fileString: "+fileString);
-            hourList = organizeList(fileString);//new ArrayList<String>(Arrays.asList(fileString.split("\n")));
-            //hourList = organizeList(hourList);
-            ArrayAdapter<String>adapter = new ArrayAdapter<String>(Hours.context, R.layout.custom_list_view, hourList);
-            listView.setAdapter(adapter);
 
-
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-            Log.d("TKT_cashier","exception!");
-            listView.setAdapter(null);
-        }
+            Day [][]dayMat = getMatrixFromDB();
+            String fileString = "";
+            for(int i = 0; i<DAY_ARR_LST.length; i++)
+            {
+                if(dayMat[i][month-1] != null)
+                    fileString += dayMat[i][month-1].toString()+"\n";
+            }
+            if(fileString.equals(""))
+                listView.setAdapter(null);
+            else {
+                Log.d("TKT_cashier", "fileString: " + fileString);
+                hourList = organizeList(fileString);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(Hours.context, R.layout.custom_list_view, hourList);
+                listView.setAdapter(adapter);
+            }
     }
 
     public static List organizeList(String hours)
     {
         /* a string entry format is the following:
-                   יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש
-        */
+update        */
         Log.d("TKT_cashier","organizeList");
         String day, hrs, alt;
         List<String>list = new ArrayList<String>();
@@ -834,8 +841,6 @@ public class Cashier {
             //  דד/שש  //
             alt = altogether[2];
             Log.d("TKT_cashier","alt: "+alt);
-            Log.d("TKT_cashier","addToList: "+day+": "+hrs+" -> "+alt);
-            //list.add(day+": "+hrs+" -> "+alt);
             list.add(alt+"   ::   "+hrs+"   ::   "+day);
 
         }
@@ -888,15 +893,13 @@ public class Cashier {
 
     public static void updateToday(String date, String start, String end)
     {
-        Log.d("TKT_cashier","updateToday");
+        Log.d("TKT_cashier","updateToday======================");
         String []  month  = date.split("/");
         String hours = "";
         progressEdit = checkPrefs.edit();
         if(end == null) {
             progressEdit.putString(CURR_DATE, date);
             progressEdit.putString(CURR_START, start);
-            Log.d("TKT_cashier","date: "+date);
-            Log.d("TKT_cashier","start: "+start);
         }
         else {
             progressEdit.putString(CURR_END, end);
@@ -904,17 +907,12 @@ public class Cashier {
             hours = hourDifference(st, end);
             Day today = new Day(date, st, end,hours);//create new day
             String prevHours = checkPrefs.getString(ALTOGETHER_HOURS+month[MONTH], null);
-            Log.d("TKT_cashier","prevHours: "+prevHours);
             if(prevHours != null)
             {//combine hours
-                Log.d("TKT_cashier","prevHours != null");
                 hours = hourAddition(hours,prevHours);
-                Log.d("TKT_cashier","hourAddition: "+hours);
             }
 
             progressEdit.putString(ALTOGETHER_HOURS+month[MONTH],hours);
-            Log.d("TKT_cashier","st: "+st);
-            Log.d("TKT_cashier","end: "+end);
             saveTodayToFile(today);
 
 
@@ -922,36 +920,93 @@ public class Cashier {
         progressEdit.commit();
     }
 
-    public static void saveTodayToFile(Day day)
-    {//called by updateToday
-        //create a file of current month, then append days to bottom
-        //create file
-        Log.d("TKT_cashier","saveTodat");
-        String [] month = day.date.split("/");
-        File file = new File (Welcome.context.getFilesDir(), month[MONTH]);
-        try {
-            file.createNewFile();
-            Log.d("TKT_cashier","fileName: "+month[MONTH]);
-            //OutputStreamWriter out = new OutputStreamWriter(Welcome.context.openFileOutput(month[MONTH], Context.MODE_APPEND));
-            //out.write(day.toString());
-            //out.write("\n");
-            //out.flush();
-            //out.close();
+    public static void updateAltogetherHours(String hoursMinus, String hoursPlus, int month)
+    {
+        //display it again
+        String alt = checkPrefs.getString(ALTOGETHER_HOURS+month,null);
+        progressEdit = checkPrefs.edit();
+        if(alt == null)
+        {
+            progressEdit.putString(ALTOGETHER_HOURS+month, hoursPlus);
+        }
+        else
+        {
+            String temp = hourDifference(alt, hoursMinus);
+            temp = hourAddition(temp, hoursPlus);
+            progressEdit.putString(ALTOGETHER_HOURS+month, temp);
+        }
+        progressEdit.commit();
+        //Log.d("TKT_cashier","monthCausesProb: "+month);
+        Hours.altogetherHours.setText(setAltogetherHours(month));
+    }
 
+    public static Day [][] getMatrixFromDB()
+    {
+        File file = new File(Welcome.context.getFilesDir(), DAY_MATRIX);
+        ObjectInputStream objectInputStream = null;
+        //Day[][] fromDB = null;
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (objectInputStream != null) {
+
+            try
+            {
+                DAY_ARR_LST = (Day[][]) objectInputStream.readObject();
+            }
+            catch (Exception e1)
+            {
+                e1.printStackTrace();
+                Log.d("TKT_cashier", "couldn't cast to matrix");
+
+            }
+        }
+        return DAY_ARR_LST;
+
+
+    }
+
+    public static void writeMatToDB(Day [][] mat)
+    {
+        Log.d("TKT_cashier", "writeMatToFile");
+        File file = new File(Welcome.context.getFilesDir(), DAY_MATRIX);
+        try
+        {
+            file.createNewFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            outputStream.writeObject(day.toString());
+            outputStream.writeObject(mat);
             outputStream.flush();
             outputStream.close();
-            /*
-            OutputStreamWriter outputStream = new OutputStreamWriter(new FileOutputStream(file, Welcome.context.MODE_APPEND));
-            outputStream.writeObject(day.toString());
-            outputStream.flush();
-            outputStream.close();
-            */
-        } catch (IOException e) {
+
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
             Log.d("TKT_cashier","exception in saving day");
         }
+
+    }
+
+    public static void saveTodayToFile(Day day)
+    {//called by updateToday
+        Log.d("TKT_cashier", "saveTodayToFile");
+        String[] month = day.date.split("/");
+        int i = Integer.parseInt(month[DAY]);
+        int j = Integer.parseInt(month[MONTH]);
+        //fetch mat from shared
+        Day[][] fromDB = getMatrixFromDB();//(month[MONTH]); //// TODO: 10/10/2017 change file name since it's a mat
+        //if(fromDB == null)
+        {
+            fromDB[i - 1][j - 1] = new Day(day);
+            writeMatToDB(fromDB);
+        }
+        //else
+            //writeMatToDB(fromDB);
+
+
     }
 
     public static String setAltogetherHours(int month)
@@ -963,6 +1018,7 @@ public class Cashier {
 
     public static String hourDifference(String s, String e)
     {
+        Log.d("TKT_cashier","hourDifference==============");
         String diffString = "";
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         try {
@@ -981,30 +1037,21 @@ public class Cashier {
         } catch (ParseException e1) {
             e1.printStackTrace();
         }
-        Log.d("TKT_cashier","difference: "+diffString);
         return diffString;
     }
 
     public static String hourAddition(String h1, String h2)
     {
-        Log.d("TKT_cashier","hourAddition");
+        Log.d("TKT_cashier","hourAddition==============");
         String sumString = "";
         SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
         try
         {
-            Log.d("TKT_cashier","h1: "+h1);
-            Log.d("TKT_cashier","h2: "+h2);
             Date d1 = format.parse(h1);
             Date d2 = format.parse(h2);
             long sum = d1.getTime() + d2.getTime();
-            Log.d("TKT_cashier","d1.toString: "+d1.toString());
-            Log.d("TKT_cashier","d2.toString: "+d2.toString());
-            Log.d("TKT_cashier","d1.getTime: "+d1.getTime());
-            Log.d("TKT_cashier","d2.getTime: "+d2.getTime());
-            Log.d("TKT_cashier","sum: "+sum);
             sumString = format.format(new Date(sum));
-            Log.d("TKT_cashier","sumString: "+sumString);
 
 
         }
@@ -1085,6 +1132,9 @@ public class Cashier {
 
         Cashier.dialog.show();
     }
+
+
+
 
 
 

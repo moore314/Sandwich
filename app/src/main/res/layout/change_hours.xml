@@ -13,21 +13,48 @@
 
 
 
-    <TextView
-        android:id="@+id/entryDate"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:text="dfds"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:textColor="@color/turq"
-        android:layout_gravity="center"
+        android:orientation="horizontal"
         android:background="@color/gray"
         android:padding="5dp"
+        android:layout_marginBottom="1dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
 
-        />
+
+        <ImageButton
+            android:id="@+id/deleteEntryButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@android:drawable/ic_menu_delete"
+            />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"></View>
+
+        <TextView
+            android:id="@+id/entryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dfds"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:textColor="@color/turq"
+            android:layout_gravity="center"
+            android:background="@color/gray"
+            />
+
+
+
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"

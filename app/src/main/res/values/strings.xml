@@ -28,6 +28,7 @@
     <string name="endHour">סיום:</string>
     <string name="updateHr">עדכון</string>
     <string name="successHrUpdate">עדכון בוצע בהצלחה!</string>
+    <string name="date">תאריך:</string>
 
 
     <string name="cancel">ביטול</string>
@@ -48,6 +49,7 @@
     <string name="detailView">קופה מפורטת</string>
     <string name="enterPrice">מחיר מוצר:</string>
     <string name="order">הזמנה</string>
+
 
 
     <string name="candy">ממתקים</string>

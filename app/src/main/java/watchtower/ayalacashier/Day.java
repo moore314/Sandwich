@@ -2,15 +2,17 @@ package watchtower.ayalacashier;
 
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
+
 /**
  * Created by Moore on 9/24/2017.
  */
 
-public class Day implements Comparable{
+public class Day implements Comparable, Serializable{
 
     String startTime;
     String endTime;
-    static String date;
+    String date;
     String sumHours;
 
     public Day(String d , String  st, String  et, String sh)
@@ -21,15 +23,29 @@ public class Day implements Comparable{
         sumHours = sh;
     }
 
-    public Day(String d)
+    public Day(Day dia)
     {
-        date = d;
+        startTime = dia.startTime;
+        endTime = dia.endTime;
+        date = dia.date;
+        sumHours = dia.sumHours;
     }
 
-    public void setStartTime(String st)
+    public Day(String entry)
     {
 
+        String [] temp = entry.split(">>");
+        date = temp[0];
+        temp = temp[1].split("=");
+        temp[0] = temp[0].replace(" ","");
+        String [] time = temp[0].split("-");
+        startTime = time[0];
+        endTime = time[1];
+        temp = temp[1].split(" ");
+        sumHours = temp[2];
     }
+
+
 
     @Override
     public int compareTo(@NonNull Object o) {
@@ -42,7 +58,6 @@ public class Day implements Comparable{
 
     @Override
     public String toString() {
-        String temp = "סה\"כ שעות: ";
-        return date+ ">>"+startTime+" - "+endTime+"="+temp+sumHours;
+        return date+ ">>"+startTime+" - "+endTime+"="+Cashier.ALTOGETHER_HR_TXT +sumHours;
     }
 }

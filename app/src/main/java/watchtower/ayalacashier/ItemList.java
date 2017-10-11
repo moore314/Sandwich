@@ -143,7 +143,7 @@ public class ItemList  implements  Serializable{
                 }
                 /*
                 if (working) {
-                    tail.next = temp;
+                    tail.next = ALTOGETHER_HR_TXT;
                     tail = tail.next;
                 }
                 */

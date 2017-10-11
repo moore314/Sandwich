@@ -111,12 +111,10 @@ public class Welcome extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         String [] dayInit = (dateFormat.format(cal.getTime())).split(" ");
         String currDate=Cashier.checkPrefs.getString(Cashier.CURR_DATE, null);
-        Log.d("TKT_welcome","currDateOut: "+currDate);
 
-        if(currDate == null || currDate != dayInit[Cashier.DATE])
+        //if(currDate == null || currDate != dayInit[Cashier.DATE])
         {//digo, if there isn't a file corresponding to current date
             currDate = dayInit[Cashier.DATE];
-            Log.d("TKT_welcome","currDateIn: "+currDate);
             Cashier.updateToday(currDate, dayInit[Cashier.TIME], null);
         }
 
@@ -152,7 +150,7 @@ public class Welcome extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Calendar cal = Calendar.getInstance();
         String [] dayEnd = (dateFormat.format(cal.getTime())).split(" ");
-        Log.d("TKT_welcome","date: "+dayEnd[Cashier.DATE]);
+        //Log.d("TKT_welcome","date: "+dayEnd[Cashier.DATE]);
         Cashier.updateToday(dayEnd[Cashier.DATE], null, dayEnd[Cashier.TIME]);
 
     }
@@ -164,14 +162,12 @@ public class Welcome extends AppCompatActivity {
         employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
         if(employeeName == null)
         {
-            Log.d("TKT_welcome","employee = null");
             name.setEnabled(true);
             pass.setVisibility(View.VISIBLE);
             initBoxes();
         }
         else
         {
-            Log.d("TKT_welcome","employee != null");
             pass.setVisibility(View.GONE);
             name.setText(employeeName);
             name.setEnabled(false);
@@ -312,19 +308,7 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
-            /*
-            case R.id.endShiftMenu:
-            {
-                Log.d("TKT_itemScreen","endShift===================");
-                try {
-                    Cashier.endShift(this);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Log.d("TKT_itemScreen","exception happened");
-                }
-                return true;
-            }
-            */
+
             case R.id.updatePrices:
             {
                 //employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);

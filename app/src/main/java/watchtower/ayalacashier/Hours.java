@@ -13,15 +13,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -35,12 +34,13 @@ public class Hours extends AppCompatActivity {
     public static Context context;
     int NEW_VAL = 0;
     String START = "", END = "";
+    static TextView altogetherHours;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hours);
-        TextView altogetherHours = (TextView)findViewById(R.id.altogetherHours);
+        altogetherHours = (TextView)findViewById(R.id.altogetherHours);
         cal = Calendar.getInstance();
         context = this;
         calendar = (CalendarView)findViewById(R.id.calendarView);
@@ -58,8 +58,6 @@ public class Hours extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 month++;
-                //Toast.makeText(Hours.this, "date selected: "+dayOfMonth+"--"+month+"--"+year, Toast.LENGTH_SHORT).show();
-                //1.get file of corresponding date:
 
                 String dia=dayOfMonth+"", mes=month+"";
                 if(dayOfMonth<10)
@@ -67,22 +65,21 @@ public class Hours extends AppCompatActivity {
                 if(month<10)
                     mes = "0"+month;
 
-                String pressedDate = dia+"/"+mes+"/"+year%100;
-                Log.d("TKT_hours","pressedDate: "+pressedDate);
-                File file = new File(Welcome.context.getFilesDir().toString(), currMonth+"");
-                try {
-                    //FileInputStream inputStream = new FileInputStream(file);
-                    ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
-                    String fileString = (String)objectInputStream.readObject();
-                    Log.d("TKT_hours","fileString: "+fileString);
-                    displayHourDialog(fileString, pressedDate);
-                    //run through all Day till i find pressedDate
+                String pressedDate = generateDateFormat(dia, mes, year);// dia+"/"+mes+"/"+year%100;
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Log.d("TKT_hours","exception!");
-                    Toast.makeText(Hours.this, R.string.noEntries, Toast.LENGTH_SHORT).show();
-                }
+                //File file = new File(Welcome.context.getFilesDir().toString(), currMonth+"");
+                //File file = new File(Welcome.context.getFilesDir().toString(), Cashier.DAY_MATRIX);
+               // try
+
+
+                    Day [][] dayMat = Cashier.getMatrixFromDB();
+                    if (dayMat == null)
+                        Toast.makeText(Hours.this, R.string.noEntries, Toast.LENGTH_SHORT).show();
+                    else
+                    {
+                        displayHourDialog(dayMat, dayOfMonth, month);
+                    }
+
 
 
             }
@@ -90,29 +87,43 @@ public class Hours extends AppCompatActivity {
     }
 
 
-    public void displayHourDialog(String file, String pressedDate)
+    public String generateDateFormat(String day, String month, int year)
     {
-        Log.d("TKT_hours","displayHourDialog");
-        String [] inFile = file.split("\n");
-        for(int i = 0; i < inFile.length; i ++)
-        {
-            String [] fileEntry = inFile[i].split(">>");
-            if (fileEntry[0].equals(pressedDate))
-            {
-
-                String mensaje = pressedDate+"\n";
-                String [] rest = fileEntry[1].split("=");
-                mensaje+=rest[0]+"\n"+rest[1];
-                Log.d("TKT_hours","mensaje: "+mensaje);
-                //inFile[i]; //fileEntry[1]+"\n";
-                AlertDialog.Builder message = new AlertDialog.Builder(this);
-                message.setMessage(mensaje).create();
-                message.show();
-            }
-            else
-                Toast.makeText(this, R.string.noEntries, Toast.LENGTH_SHORT).show();
-        }
+        return day+"/"+month+"/"+year%100;
     }
+
+    public void displayHourDialog(Day [][] dayMat, int i, int j)
+    {
+        //i = rows = days
+        //j = cols = months
+        Log.d("TKT_hours","displayHourDialog===========");
+       if(dayMat[i-1][j-1] != null)
+       {
+
+           Log.d("TKT_hours","dayMat[i-1][j-1]: "+dayMat[i-1][j-1]);
+           AlertDialog.Builder message = new AlertDialog.Builder(this);
+           message.setMessage(generateMessage(dayMat[i-1][j-1])).create();
+           message.show();
+       }
+       else
+           Toast.makeText(Hours.this, R.string.noEntries, Toast.LENGTH_SHORT).show();
+
+    }
+
+    public String generateMessage(Day day)
+    {
+        //day.toString() format:
+        //  יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש     //
+        String dayString = day.toString();
+        String [] rest = dayString.split(">>");
+        String message = rest[0]+"\n";
+        rest = rest[1].split("=");
+        message += rest[0]+"\n"+rest[1];
+        return message;
+
+    }
+
+
 
     public void sendHoursReport(View v)
     {
@@ -146,33 +157,67 @@ public class Hours extends AppCompatActivity {
             {
                 //manualUpdate
                 //dialog that on top there are months, and below there will be a listView of all month entries
-                showDialog();
+                showChangeDialog(0);
                 return true;
             }
         }
         return false;
     }
 
-    public void showDialog()
+    public void addNewEntryDialog()
     {
-        Log.d("TKT_hours","showDialog");
+        Calendar cal = Calendar.getInstance();
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.add_hours);
+        TimePicker startTime = (TimePicker)dialog.findViewById(R.id.startTimePicker1);
+        TimePicker endTime = (TimePicker)dialog.findViewById(R.id.endTimePicker1);
+        DatePicker picker = (DatePicker)dialog.findViewById(R.id.datePicker);
+
+        startTime.setIs24HourView(true);
+        endTime.setIs24HourView(true);
+
+        //picker.setMinDate(cal.get(Calendar.YEAR));
+        //picker.setMaxDate(cal.get(Calendar.YEAR));
+
+
+        dialog.show();
+    }
+
+    public void showChangeDialog(int monthInit)
+    {
+        Log.d("TKT_hours","showChangeDialog");
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.change_hours_manually_dialog);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.monthPicker);
         final ListView entryListView = (ListView)Cashier.dialog.findViewById(R.id.updateHoursListView);
         Button cancel = (Button)Cashier.dialog.findViewById(R.id.hoursCancelButton);
+        final Button addNewEntry = (Button)Cashier.dialog.findViewById(R.id.newEntry);
         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         picker.setMinValue(0);
         picker.setMaxValue(12);
         picker.setWrapSelectorWheel(false);
         picker.setDisplayedValues(Cashier.MONTHS);
+        picker.setValue(monthInit);
+        if(monthInit != 0)
+        {
+            NEW_VAL = monthInit;
+            Cashier.displayHoursFromFile(entryListView, monthInit);
+        }
+
+        addNewEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addNewEntryDialog();
+            }
+        });
+
         picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 //Log.d("TKT_hours","oldVal: "+oldVal);
-                Log.d("TKT_hours","newVal: "+newVal);
-                //jan = 0, dec = 11
+                //Log.d("TKT_hours","newVal: "+newVal);
+                //jan = 1, dec = 12
                 //retrieve corresponding file: 1 for jan, 2 for feb etc.
                 if(newVal == 0)
                 {
@@ -207,15 +252,15 @@ public class Hours extends AppCompatActivity {
 
         Cashier.dialog.show();
     }
-    public void changeThisEntryHours(String entry, int month)
+    public void changeThisEntryHours(String entry, final int month)
     {
         Log.d("TKT_hours","changeThisEntryHours");
-        Log.d("TKT_hours","entry: "+entry);
+
         String entryNoSpace = entry.replace(" ","");
-        Log.d("TKT_hours","entryNoSpace: "+entryNoSpace);
         String [] entrySplit = entryNoSpace.split("::");
 
-
+        final String currentDiff = entrySplit[0];
+        Log.d("TKT_hours","currDiff: "+currentDiff);
 
         //======set current start&end times in timePicker
         String [] times = entrySplit[1].split("-");
@@ -224,8 +269,8 @@ public class Hours extends AppCompatActivity {
         try {
             beg = format.parse(times[0]);
             end = format.parse(times[1]);
-            Log.d("TKT_hours","beg: "+times[0]);
-            Log.d("TKT_hours","end: "+times[1]);
+            START = times[0];
+            END = times[1];
 
         } catch (ParseException e) {
             e.printStackTrace();
@@ -236,13 +281,14 @@ public class Hours extends AppCompatActivity {
 
 
         //======set title to corresponding date
-        String title = entrySplit[2];
+        String title = entrySplit[2];//TODO the assignment seems redundant
         if(month<10)
             title+="/0"+month;
         else
             title+="/"+month;
+        final String TITLE = title+"/"+Calendar.getInstance().get(Calendar.YEAR)%100;//did that so it could be accessed from update.OnClickListener
         title+="/"+Calendar.getInstance().get(Calendar.YEAR);
-        Log.d("TKT_hours","title: "+title);
+        //Log.d("TKT_hours","title: "+title);
 
 
         //======show dialog
@@ -254,6 +300,7 @@ public class Hours extends AppCompatActivity {
         final TimePicker ed = (TimePicker)updateDialog.findViewById(R.id.endTimePicker);
         Button update = (Button)updateDialog.findViewById(R.id.finishUpdtHrs);
         Button cancel = (Button)updateDialog.findViewById(R.id.cancelUpdtHrs);
+        ImageButton deleteEntry = (ImageButton)updateDialog.findViewById(R.id.deleteEntryButton);
         st.setIs24HourView(true);
         ed.setIs24HourView(true);
         titleText.setText(title);
@@ -266,14 +313,33 @@ public class Hours extends AppCompatActivity {
         cEnd.setTime(end);
         ed.setHour(cEnd.get(Calendar.HOUR_OF_DAY));
         ed.setMinute(cEnd.get(Calendar.MINUTE));
-        Log.d("TKT_hours","stMin: "+cSt.get(Calendar.MINUTE));
-        Log.d("TKT_hours","edMin: "+cEnd.get(Calendar.MINUTE));
+
+        deleteEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                String [] entries = TITLE.split("/");
+                int day = Integer.parseInt(entries[0]);
+                int month = Integer.parseInt(entries[1]);
+                Day [][] days = Cashier.getMatrixFromDB();
+                days[day-1][month-1] = null;
+                Cashier.writeMatToDB(days);
+
+                updateDialog.dismiss();
+                if(Cashier.dialog.isShowing())
+                    Cashier.dialog.dismiss();
+                showChangeDialog(month);
+            }
+        });
 
 
         st.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                START = hourOfDay+":"+minute;
+                if(minute<10)
+                    START = hourOfDay+":0"+minute;
+                else
+                    START = hourOfDay+":"+minute;
                 Log.d("TKT_hours","START: "+START);
             }
         });
@@ -281,7 +347,10 @@ public class Hours extends AppCompatActivity {
         ed.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                END = hourOfDay+":"+minute;
+                if(minute<10)
+                    END = hourOfDay+":0"+minute;
+                else
+                    END = hourOfDay+":"+minute;
                 Log.d("TKT_hours","END: "+END);
             }
         });
@@ -292,16 +361,36 @@ public class Hours extends AppCompatActivity {
             public void onClick(View v) {
                 //set new hours
                 //st.getHour();
-                String newHours = START+" - "+END;
-                /* TODO: 10/10/2017  update the list in shared
+                String diff = Cashier.hourDifference(START,END);
+                /*
                 entry format:
                   יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש
-                1. get string from shared
-                2. create a new string with new hours
-                3. update shared again - make sure update is shown on listView
                 */
+
+                Log.d("TKT_hours","entry: "+TITLE);
+                String newEntry = generateEntry(TITLE, START, END, diff);
+                Log.d("TKT_hours","newEntry: "+newEntry);
+
+                //get mat from db
+                //Day newDayObj = new Day(newEntry);
+                String [] dayOfMonth = newEntry.split(">>");
+                dayOfMonth = dayOfMonth[0].split("/");
+                int day = Integer.parseInt(dayOfMonth[0]);
+                Log.d("TKT_hours","day: "+day);
+                //Log.d("TKT_hours","newDayObj: "+newDayObj.toString());
+                Day [][] dayMat = Cashier.getMatrixFromDB();
+                dayMat[day-1][month-1] = new Day(newEntry);//newEntry;
+                Cashier.writeMatToDB(dayMat);
+                Cashier.updateAltogetherHours(currentDiff, dayMat[day-1][month-1].sumHours, month);
+                Cashier.dialog.dismiss();
+                showChangeDialog(month);
                 Toast.makeText(Hours.this, R.string.successHrUpdate, Toast.LENGTH_SHORT).show();
                 updateDialog.dismiss();
+
+
+
+
+
             }
         });
 
@@ -315,6 +404,18 @@ public class Hours extends AppCompatActivity {
         updateDialog.show();
 
     }
+
+
+
+    public String generateEntry(String date, String startTime, String endTime, String sumHours) {
+        Log.d("TKT_hours","generateEntry===========");
+        //  יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש    //
+
+        return date+ ">>"+startTime+" - "+endTime+"="+Cashier.ALTOGETHER_HR_TXT +sumHours;
+    }
+
+
+
 
 }
 
