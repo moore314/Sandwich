@@ -931,9 +931,18 @@ update        */
         }
         else
         {
-            String temp = hourDifference(alt, hoursMinus);
-            temp = hourAddition(temp, hoursPlus);
+            String temp = "00:00";
+            if(hoursMinus != null)
+            {
+                temp = hourDifference(alt, hoursMinus);
+
+            }
+            else
+                temp = hourAddition(temp, hoursPlus);
             progressEdit.putString(ALTOGETHER_HOURS+month, temp);
+
+
+
         }
         progressEdit.commit();
         //Log.d("TKT_cashier","monthCausesProb: "+month);
