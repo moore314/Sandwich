@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import java.io.File;
@@ -48,7 +49,8 @@ public class Cashier {
     public static final String PRICE_CHANGED = "priceChanged"; //this is to determine if prices need to be loaded from shared or not
     public static ItemList boughtItems = new ItemList();
     static Calendar c = Calendar.getInstance();
-    static SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy");
+    static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    static final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
     public static final String FILE_NAME = "report";//date.format(c.getTime()).toString();
     public static final String REPORT_SENT = "report_sent";
     public static final String ALTOGETHER = "altogether";
@@ -862,7 +864,7 @@ update        */
         emailIntent.putExtra(Intent.EXTRA_TEXT, SavedShoppingList);
         // the mail subject
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName+": " +
-                context.getString(R.string.report)+ " - "+ date.format(c.getTime()).toString());
+                context.getString(R.string.report)+ " - "+ dateFormat.format(c.getTime()).toString());
                context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
     }
 
@@ -1029,10 +1031,10 @@ update        */
     {
         Log.d("TKT_cashier","hourDifference==============");
         String diffString = "";
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         try {
-            Date st = format.parse(s);
-            Date ed = format.parse(e);
+            Date st = timeFormat.parse(s);
+            Date ed = timeFormat.parse(e);
             long difference = ed.getTime() - st.getTime();
             //Date diff = new Date(difference);
             //diffString = format.format(diff);
@@ -1053,14 +1055,14 @@ update        */
     {
         Log.d("TKT_cashier","hourAddition==============");
         String sumString = "";
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
         try
         {
-            Date d1 = format.parse(h1);
-            Date d2 = format.parse(h2);
+            Date d1 = timeFormat.parse(h1);
+            Date d2 = timeFormat.parse(h2);
             long sum = d1.getTime() + d2.getTime();
-            sumString = format.format(new Date(sum));
+            sumString = timeFormat.format(new Date(sum));
 
 
         }
@@ -1143,8 +1145,116 @@ update        */
     }
 
 
+    static int MONTH_TO_SEND;
+    public static void sendHoursToA(final Context context)
+    {
+        //choose month dialog
+        Log.d("TKT_cashier","sendHoursToA");
+        MONTH_TO_SEND = 0;
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_send_hours);
+        dialog.setCanceledOnTouchOutside(false);
+        NumberPicker monthPicker = (NumberPicker)dialog.findViewById(R.id.monthPickerSend);
+        Button send = (Button)dialog.findViewById(R.id.sendButton);
+        Button cancel = (Button)dialog.findViewById(R.id.cancelButtonHours);
+
+        monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        monthPicker.setMinValue(0);
+        monthPicker.setMaxValue(12);
+        monthPicker.setWrapSelectorWheel(false);
+        monthPicker.setDisplayedValues(MONTHS);
+
+        monthPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                MONTH_TO_SEND = newVal;
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //whatsApp instance
+                if(MONTH_TO_SEND != 0) {
+                    sendThisMonthToA(MONTH_TO_SEND,context);
+                    //dialog.dismiss();
+                }
+            }
+        });
+
+        dialog.show();
+
+    }
 
 
+    public static void sendThisMonthToA(int month, Context context)
+    {
+        Log.d("TKT_cashier","sendThisMonthToA==========");
+        //Log.d("TKT_cashier","month is: "+(month));
+        //Log.d("TKT_cashier","month[]: "+MONTHS[(month)]);
+        //generate string to send
+        String hourMessage = generateHourMessage(month);
+        Intent sendToA = new Intent(Intent.ACTION_SEND);
+        sendToA.putExtra(Intent.EXTRA_TEXT,hourMessage);
+        sendToA.setType("text/plain");
+        context.startActivity(Intent.createChooser(sendToA,"שליחת דו\"ח שעות"));
+
+    }
+
+    public static String generateHourMessage(int month)
+    {
+        Log.d("TKT_cashier","generateHourMessage==========");
+        String message = "", title = "דו\"ח שעות לחודש ", alt = "סה\"כ שעות: ";
+        title += MONTHS[month];
+        Log.d("TKT_cashier","title: "+title);
+        Day [][] mat = getMatrixFromDB();
+        message += title +"\n";
+        for(int i = 0; i < mat.length; i++)
+        {//run through days of month
+            if(mat[i][month-1] != null) {
+
+                message += generateSendEntry(mat[i][month - 1].toString()) + "\n";
+            }
+        }
+        alt += getAltFromDb(month);
+        message += alt;
+        Log.d("TKT_cashier","messageToA "+message);
+        return message;
+    }
+
+    public static String generateSendEntry(String entry)
+    {
+        String day, hrs, alt;
+        String [] date = entry.split(">>");
+        String [] dateEntries = date[0].split("/");
+        // יי/חח/שש  //
+        day = dateEntries[0];
+        Log.d("TKT_cashier","day: "+day);
+        String [] hoursADay = date[1].split("=");//hours
+        //  שעת_התחלה - שעת_סיום  //
+        hrs = hoursADay[0];
+        Log.d("TKT_cashier","hrs: "+hrs);
+        String [] altogether = hoursADay[1].split(" ");
+        //  דד/שש  //
+        alt = altogether[2];
+
+        Log.d("TKT_cashier","newEntry: " + (alt + " :: "+"hrs"+" :: "+day));
+        return alt + " :: "+hrs+" :: "+day;
+
+    }
+
+
+    public static String getAltFromDb(int month)
+    {
+        return  checkPrefs.getString(ALTOGETHER_HOURS+month,null);
+    }
 
 
 }

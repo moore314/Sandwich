@@ -31,6 +31,7 @@
     <string name="date">תאריך:</string>
 
 
+
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>
     <string name="checkPlease">סיום</string>
@@ -50,6 +51,7 @@
     <string name="enterPrice">מחיר מוצר:</string>
     <string name="order">הזמנה</string>
     <string name="newHourEntry">חדש</string>
+    <string name="sendHours1">שליחה</string>
 
 
     <string name="candy">ממתקים</string>

@@ -35,6 +35,9 @@ public class Hours extends AppCompatActivity {
     int NEW_VAL = 0;
     String START = "", END = "";
     static TextView altogetherHours;
+    static int currMonth = 0;
+    public String updateTitle = "", updateStart = "", updateEnd = "";
+    int updateMonth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,8 @@ public class Hours extends AppCompatActivity {
         context = this;
         calendar = (CalendarView)findViewById(R.id.calendarView);
         int tempMonth = cal.get(Calendar.MONTH);
-        final int currMonth = ++tempMonth;
+        currMonth = ++tempMonth;
+
         //int day = cal.get(Calendar.DAY_OF_MONTH);
         //int year = cal.get(Calendar.YEAR);
         altogetherHours.setText(Cashier.setAltogetherHours(currMonth));
@@ -54,7 +58,8 @@ public class Hours extends AppCompatActivity {
         //Log.d("TKT_hours","day: "+day);
         //Log.d("TKT_hours","year: "+year);
 
-        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener()
+        {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 month++;
@@ -78,6 +83,7 @@ public class Hours extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -126,7 +132,9 @@ public class Hours extends AppCompatActivity {
 
     public void sendHoursReport(View v)
     {
-
+        //create string of hours, then send it on whatsapp
+        Log.d("TKT_hours","sendHourReport==========");
+        Cashier.sendHoursToA(this);
     }
 
     @Override
@@ -162,14 +170,14 @@ public class Hours extends AppCompatActivity {
         return false;
     }
 
-    public String updateTitle = "", updateStart = "", updateEnd = "";
-    int updateMonth;
+
     public void addNewEntryDialog()
     {//change date and time - new entry
         Log.d("TKT_hours","addNewEntryDialog=================");
         Calendar cal = Calendar.getInstance();
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_hours);
+        dialog.setCanceledOnTouchOutside(false);
         TimePicker startTime = (TimePicker)dialog.findViewById(R.id.startTimePicker1);
         final TimePicker endTime = (TimePicker)dialog.findViewById(R.id.endTimePicker1);
         DatePicker datePicker = (DatePicker)dialog.findViewById(R.id.datePicker);
