@@ -130,9 +130,10 @@ public class UpdatePrices extends AppCompatActivity {
         TextView name = (TextView)updateDialog.findViewById(R.id.itemNameTextView);
         name.setText(itemName);
 
-        int itemIndex = Cashier.itemIndexInArray(itemName, names);
+        int itemIndex = Cashier.itemIndexInArray(itemName, names);//index of item in array
         final TextView currPrice = (TextView)updateDialog.findViewById(R.id.currentPriceTextView);
-        currPrice.setText(prices[itemIndex]+"");
+        currPrice.setText(Cashier.checkPrefs.getFloat(names[itemIndex], (float)prices[itemIndex])+"");//(prices[itemIndex]+"");
+        //Cashier.checkPrefs.getFloat(nameArr[i], (float)priceArr[i])
 
 
         final EditText newPrice = (EditText)updateDialog.findViewById(R.id.newPriceTextView);
@@ -153,6 +154,7 @@ public class UpdatePrices extends AppCompatActivity {
                 }
                 else {
                     finishUpdate(Double.parseDouble(newPrice.getText().toString()),  itemName);
+
                     updateDialog.dismiss();
                 }
             }

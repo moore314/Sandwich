@@ -74,9 +74,9 @@ public class ClassicView extends AppCompatActivity {
             /*
             case R.id.endShiftMenu:
             {
-                Log.d("TKT_itemScreen","endShift===================");
+                Log.d("TKT_itemScreen","sendReportToA===================");
                 try {
-                    Cashier.endShift(this);
+                    Cashier.sendReportToA(this);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("TKT_itemScreen","exception happened");

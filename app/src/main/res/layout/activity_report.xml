@@ -40,7 +40,7 @@
         android:background="@color/gray"
         android:backgroundTint="@color/gray"
         android:gravity="center"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="2dp"
         >
 
         <TextView
@@ -64,8 +64,7 @@
             android:textColor="@color/turq"
             />
 
-
-
     </LinearLayout>
+
 
 </LinearLayout>

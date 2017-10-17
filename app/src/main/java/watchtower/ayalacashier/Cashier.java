@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -849,7 +850,7 @@ update        */
         return list;
     }
 
-    public static void endShift(Context context) throws IOException {
+    public static void sendReportToA(Context context, ListView listView, TextView textView) throws IOException {
         //create a file with userName & report file
         //create a new file:
         String userName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
@@ -858,7 +859,7 @@ update        */
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         // set the type to 'email'
         emailIntent.setType("text/plain");//("vnd.android.cursor.dir/email");
-        String to[] = {"js777755@gmail.com"};
+        String to[] = {"ayalam530@walla.com"};//
         emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
         // the attachment
         emailIntent.putExtra(Intent.EXTRA_TEXT, SavedShoppingList);
@@ -866,6 +867,9 @@ update        */
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName+": " +
                 context.getString(R.string.report)+ " - "+ dateFormat.format(c.getTime()).toString());
                context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
+        //clear all
+        clearAllReport(context, listView, textView);
+
     }
 
     public static int itemIndexInArray(String itemName, String [] items)
@@ -1254,6 +1258,23 @@ update        */
     public static String getAltFromDb(int month)
     {
         return  checkPrefs.getString(ALTOGETHER_HOURS+month,null);
+    }
+
+    public static void clearAllReport(Context context, ListView listView, TextView totalSum)
+    {
+        Log.d("TKT_cashier","displayReport===================");
+
+        //erase that file from DB
+        File file = new File(context.getFilesDir(), FILE_NAME);
+        file.delete();
+        listView.setAdapter(null);
+        progressEdit = checkPrefs.edit();
+        progressEdit.putFloat(ALTOGETHER,0);
+        progressEdit.commit();
+        totalSum.setText("");
+        Toast.makeText(context, R.string.clearedSuccessfully, Toast.LENGTH_SHORT).show();
+        //return SavedShoppingList;
+
     }
 
 

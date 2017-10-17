@@ -33,6 +33,7 @@ public class Welcome extends AppCompatActivity {
     public static Context context;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +45,11 @@ public class Welcome extends AppCompatActivity {
         //progressBar = (RingProgressBar) findViewById(R.id.progressBar);
         progressBar = (ImageView)findViewById(R.id.stateCircle);
         ImageButton getInShift = (ImageButton) findViewById(R.id.logo);
+        //TextView timerText = (TextView)findViewById(R.id.timerCount);
         inShift();
         context = this;
+
+
 
             getInShift.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -161,24 +165,25 @@ public class Welcome extends AppCompatActivity {
 
         employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
         if(employeeName == null)
-        {
+        {//no emplyee yet
             name.setEnabled(true);
             pass.setVisibility(View.VISIBLE);
             initBoxes();
         }
         else
-        {
+        {//employee is registered
             pass.setVisibility(View.GONE);
             name.setText(employeeName);
             name.setEnabled(false);
 
             if(Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
-            {
+            {//in shift
                 Log.d("TKT_welcome","inShift");
                 progressBar.setBackgroundResource(R.drawable.circle_turq);
+                //set countUp timer
             }
             else
-            {
+            {//out shift
                 Log.d("TKT_welcome","outShift");
                 progressBar.setBackgroundResource(R.drawable.circle_red);
             }
@@ -271,7 +276,8 @@ public class Welcome extends AppCompatActivity {
     protected void onResume() {
         Log.d("TKT_welcome","onResume");
         inShift();
-        //get state from shared
+
+
 
         super.onResume();
     }

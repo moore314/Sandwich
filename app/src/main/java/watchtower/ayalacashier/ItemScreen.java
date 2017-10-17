@@ -41,7 +41,7 @@ public class ItemScreen extends AppCompatActivity {
 
 
     public void setPriceView(Button b, String [] nameArr, double [] priceArr, int i)
-    {
+    {//
 
         b.setTag(Cashier.checkPrefs.getFloat(nameArr[i], (float)priceArr[i]));
         String price = b.getTag().toString();
@@ -431,6 +431,8 @@ public class ItemScreen extends AppCompatActivity {
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.are_you_sure);
         Cashier.dialog.setCanceledOnTouchOutside(false);
+        TextView q = (TextView)Cashier.dialog.findViewById(R.id.text);
+        q.setText(R.string.exit);
         Button yes = (Button)Cashier.dialog.findViewById(R.id.hellYeah);
         Button no = (Button)Cashier.dialog.findViewById(R.id.heavensNo);
 
@@ -483,9 +485,9 @@ public class ItemScreen extends AppCompatActivity {
             /*
             case R.id.endShiftMenu:
             {
-                Log.d("TKT_itemScreen","endShift===================");
+                Log.d("TKT_itemScreen","sendReportToA===================");
                 try {
-                    Cashier.endShift(this);
+                    Cashier.sendReportToA(this);
                 } catch (IOException e) {
                     e.printStackTrace();
                     Log.d("TKT_itemScreen","exception happened");

@@ -13,6 +13,16 @@
         >
     </item>
 
+    <item
+        android:id="@+id/clearReport"
+        android:title="@string/clearPurchaseReport"
+        app:showAsAction="always"
+        android:icon="@android:drawable/ic_menu_delete"
+        >
+    </item>
+
+
+
 
 
 

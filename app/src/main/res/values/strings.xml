@@ -29,6 +29,8 @@
     <string name="updateHr">עדכון</string>
     <string name="successHrUpdate">עדכון בוצע בהצלחה!</string>
     <string name="date">תאריך:</string>
+    <string name="clearPurchaseReport">מחיקת דו\"ח מכירות</string>
+    <string name="clearedSuccessfully">מחיקה בוצעה בהצלחה!</string>
 
 
 
