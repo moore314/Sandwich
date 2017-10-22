@@ -931,6 +931,7 @@ update        */
         //display it again
         String alt = checkPrefs.getString(ALTOGETHER_HOURS+month,null);
         progressEdit = checkPrefs.edit();
+        Log.d("TKT_cashir","alttt: "+alt);
         if(alt == null)
         {
             progressEdit.putString(ALTOGETHER_HOURS+month, hoursPlus);
@@ -952,6 +953,7 @@ update        */
         }
         progressEdit.commit();
         //Log.d("TKT_cashier","monthCausesProb: "+month);
+        //// TODO: 10/22/2017 problem here with displaying alt in Hours layout 
         Hours.altogetherHours.setText(setAltogetherHours(month));
     }
 

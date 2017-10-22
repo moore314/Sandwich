@@ -36,7 +36,7 @@ public class Hours extends AppCompatActivity {
     String START = "", END = "";
     static TextView altogetherHours;
     static int currMonth = 0;
-    public String updateTitle = "", updateStart = "", updateEnd = "";
+    String updateTitle = "", updateStart = "", updateEnd = "";
     int updateMonth;
 
     @Override
@@ -309,10 +309,11 @@ public class Hours extends AppCompatActivity {
 
         Cashier.dialog.show();
     }
-    public void changeThisEntryHours(String entry, final int month)
+    public void changeThisEntryHours(final String entry, final int month)
     {//change hours only
         Log.d("TKT_hours","changeThisEntryHours=============");
 
+        //entryNoSpace format> diff::st-ed::dayOfMonth
         String entryNoSpace = entry.replace(" ","");
         String [] entrySplit = entryNoSpace.split("::");
 
@@ -346,7 +347,8 @@ public class Hours extends AppCompatActivity {
        //title+"/"+Calendar.getInstance().get(Calendar.YEAR)%100;//did that so it could be accessed from update.OnClickListener
        // title+="/"+Calendar.getInstance().get(Calendar.YEAR);
         //Log.d("TKT_hours","title: "+title);
-        title = generateDateFormat(0,month,Calendar.getInstance().get(Calendar.YEAR));
+        title = generateDateFormat(Integer.parseInt(entrySplit[2]),month,Calendar.getInstance().get(Calendar.YEAR));
+        Log.d("TKT_hours","title: "+ title);
         final String TITLE = title;
 
         //======show dialog
@@ -375,8 +377,10 @@ public class Hours extends AppCompatActivity {
         deleteEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {
+            {//works fine
                 String [] entries = TITLE.split("/");
+                Log.d("TKT_deleteEntry","entries[0]" +
+                        ": "+ entries[0]);
                 int day = Integer.parseInt(entries[0]);
                 int month = Integer.parseInt(entries[1]);
                 Day [][] days = Cashier.getMatrixFromDB();
@@ -394,10 +398,17 @@ public class Hours extends AppCompatActivity {
         st.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                /*
+                String m = "", h = "";
                 if(minute<10)
+                    m = "0"+minute;
+                else
+                    m += minute;
                     START = hourOfDay+":0"+minute;
                 else
                     START = hourOfDay+":"+minute;
+                */
+                START = generateTimeFormat(hourOfDay,minute);
                 Log.d("TKT_hours","START: "+START);
             }
         });
@@ -405,10 +416,13 @@ public class Hours extends AppCompatActivity {
         ed.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                /*
                 if(minute<10)
                     END = hourOfDay+":0"+minute;
                 else
                     END = hourOfDay+":"+minute;
+                */
+                END = generateTimeFormat(hourOfDay,minute);
                 Log.d("TKT_hours","END: "+END);
             }
         });
@@ -462,11 +476,13 @@ public class Hours extends AppCompatActivity {
         dayOfMonth = dayOfMonth[0].split("/");
         int day = Integer.parseInt(dayOfMonth[0]);
         Log.d("TKT_hours","day: "+day);
+        Log.d("TKT_hours","day: "+day);
         //Log.d("TKT_hours","newDayObj: "+newDayObj.toString());
         Day [][] dayMat = Cashier.getMatrixFromDB();
         dayMat[day-1][month-1] = new Day(newEntry);//newEntry;
         Cashier.writeMatToDB(dayMat);
 
+        Log.d("TKT_hours","currDiff: "+currentDiff+", dayMay[][].sumHours: "+dayMat[day-1][month-1].sumHours+", month: "+month);
         Cashier.updateAltogetherHours(currentDiff, dayMat[day-1][month-1].sumHours, month);
         Cashier.dialog.dismiss();
         showChangeDialog(month);
@@ -486,8 +502,12 @@ public String generateTimeFormat(int hours, int minutes)
     String h = "",m = "";
     if(hours<10)
         h = "0"+hours;
+    else
+        h += hours;
     if(minutes < 10)
         m = "0"+minutes;
+    else
+        m += minutes;
     return h+":"+m;
 }
 

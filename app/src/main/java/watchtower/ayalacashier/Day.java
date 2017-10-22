@@ -1,8 +1,10 @@
 package watchtower.ayalacashier;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * Created by Moore on 9/24/2017.
@@ -33,15 +35,21 @@ public class Day implements Comparable, Serializable{
 
     public Day(String entry)
     {
-
+/*
+                entry format:
+                         יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש
+                */
         String [] temp = entry.split(">>");
+        Log.d("TKT_cay","temp0.toString: "+ Arrays.toString(temp));
         date = temp[0];
         temp = temp[1].split("=");
         temp[0] = temp[0].replace(" ","");
         String [] time = temp[0].split("-");
         startTime = time[0];
         endTime = time[1];
+        Log.d("TKT_cay","temp1.toString: "+ Arrays.toString(temp));
         temp = temp[1].split(" ");
+        Log.d("TKT_cay","temp2.toString: "+ Arrays.toString(temp));
         sumHours = temp[2];
     }
 
