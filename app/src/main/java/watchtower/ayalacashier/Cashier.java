@@ -45,6 +45,7 @@ public class Cashier {
     //====== sharedPref ======
     public static final String EMPLOYEE_NAME = "employeeName";
     public static final String PASSWORD = "sandwich";
+    public static final String STUDENT_PASSWORD = "student";
     public static final String CHECK_PREFS = "cashier";
     public static final String PRICES = "prices";
     public static final String PRICE_CHANGED = "priceChanged"; //this is to determine if prices need to be loaded from shared or not
@@ -66,11 +67,12 @@ public class Cashier {
     public static final String CLASSIC_VIEW = "קופה בסיסית";
     public static final String DETAIL_VIEW = "קופה מפורטת";
     public static final String ALTOGETHER_HR_TXT = "סה\"כ שעות: ";
+    public static final String IS_STUDENT = "isStudent";
 
     //public static final String REPORT_HEB = "דוח מכירות"
 
     //======== Hours ========
-    public static ArrayList<Day> [] days = new ArrayList[12];
+    public static ArrayList<Day>[] days = new ArrayList[12];
     public static Day today;
     public static final int DAY = 0;
     public static final int MONTH = 1;
@@ -79,12 +81,10 @@ public class Cashier {
     public static final int TIME = 1;
 
     public static final String EXIT_SHIFT = "לצאת מהמשמרת?";
-    public static final String [] MONTHS = {"בחר/י חודש","ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"};
+    public static final String[] MONTHS = {"בחר/י חודש", "ינואר", "פברואר", "מרץ", "אפריל", "מאי", "יוני", "יולי", "אוגוסט", "ספטמבר", "אוקטובר", "נובמבר", "דצמבר"};
     //public static ArrayList<Day>[] DAY_ARR_LST = new ArrayList[12];
-    public static Day [][] DAY_ARR_LST = new Day[31][12];
+    public static Day[][] DAY_ARR_LST = new Day[31][12];
     public static final String DAY_MATRIX = "dayMatrix";
-
-
 
 
     //=======================================================================
@@ -119,8 +119,8 @@ public class Cashier {
     //DRINK_NAMES[IND_CAN5] : "פחית קטן";
     ///DRINK_NAMES[IND_CAN6] : "פחית גדול";
     //DRINK_NAMES[IND_WATER] : "מים";
-    public static final String [] DRINK_NAMES = {"אייס קטן", "אייס גדול", "ברד קטן", "ברד גדול", "לימונדה קטן","לימונדה גדול" ,"תפוזים קטן" ,"תפוזים גדול" ,"שוקו חם" ,"שוקו" ,"נס קפה" ,"פחית קטן" ,"פחית גדול" , "מים"};
-    public static double [] DRINK_PRICES = {5,7,5,7,5,7,5,7,5,3,5,5,6,5};
+    public static final String[] DRINK_NAMES = {"אייס קטן", "אייס גדול", "ברד קטן", "ברד גדול", "לימונדה קטן", "לימונדה גדול", "תפוזים קטן", "תפוזים גדול", "שוקו חם", "שוקו", "נס קפה", "פחית קטן", "פחית גדול", "מים"};
+    public static double[] DRINK_PRICES = {5, 7, 5, 7, 5, 7, 5, 7, 5, 3, 5, 5, 6, 5};
     public static int IND_ICE5 = 0;
     public static int IND_ICE7 = 1;
     public static int IND_SLURPEE5 = 2;
@@ -137,8 +137,8 @@ public class Cashier {
     public static int IND_WATER = 13;
 
     //Sandwiches============================================================
-    public static String [] SANDWICH_NAMES = {"חציל פיקנטי","שקשוקה" ,"סביח" , "חביתת ירק", "סלט טונה", "פסטו","חציל + בולגרית" , "טונה", "גבינת שמנת", "בולגרית", "גבינה צהובה","סלט ביצים" , "אבוקדו", "חביתה", "כריך טבעול"};
-    public static double [] SANDWICH_PRICES = {15,15,15,15,15,15,15,10,10,10,10,10,12,12,12};
+    public static String[] SANDWICH_NAMES = {"חציל פיקנטי", "שקשוקה", "סביח", "חביתת ירק", "סלט טונה", "פסטו", "חציל + בולגרית", "טונה", "גבינת שמנת", "בולגרית", "גבינה צהובה", "סלט ביצים", "אבוקדו", "חביתה", "כריך טבעול"};
+    public static double[] SANDWICH_PRICES = {15, 15, 15, 15, 15, 15, 15, 10, 10, 10, 10, 10, 12, 12, 12};
     public static int IND_SPICY_EGGPLANT = 0;
     public static int IND_SHAKSHUKA = 1;
     public static int IND_SABIH = 2;
@@ -186,8 +186,8 @@ public class Cashier {
     //SANDWICH_NAMES[IND_TIVOL] : "כריך טבעול";
 
     //PastrieS===========================================================
-    public static String [] PASTRY_NAMES = {"קרואסון שוקולד", "גבינית","קרואסון חמאה" , "קרואסון קינמון","דונאט" ,"בורקס גבינה" , "בורקס תפו\"א","בורקס + ביצה" ,"מלאווח" , "מלאווח + תוספות", "פיצה רגילה","פיצה + תוספות" ,"בולגרית לפיצה"};
-    public static double [] PASTRY_PRICES = {7, 7, 7, 7, 6, 7, 7, 10, 10, 13, 6, 7,3};
+    public static String[] PASTRY_NAMES = {"קרואסון שוקולד", "גבינית", "קרואסון חמאה", "קרואסון קינמון", "דונאט", "בורקס גבינה", "בורקס תפו\"א", "בורקס + ביצה", "מלאווח", "מלאווח + תוספות", "פיצה רגילה", "פיצה + תוספות", "בולגרית לפיצה"};
+    public static double[] PASTRY_PRICES = {7, 7, 7, 7, 6, 7, 7, 10, 10, 13, 6, 7, 3};
     public static int IND_CHOCO_CROI = 0;
     public static int IND_CHEESE_CROI = 1;
     public static int IND_BUTTER_CROI = 2;
@@ -230,15 +230,15 @@ public class Cashier {
     //PASTRY_NAMES[IND_MELAWAC] : "מלאווח";
     //PASTRY_NAMES[IND_MELAWAC_ADDITION] : "מלאווח + תוספות";
     //PASTRY_NAMES[IND_PIZZA] : "פיצה רגילה";
-   // PASTRY_NAMES[IND_PIZZA_PLUS] : "פיצה + תוספות";
+    // PASTRY_NAMES[IND_PIZZA_PLUS] : "פיצה + תוספות";
     //PASTRY_NAMES[IND_PIZZA_BULGARIAN] : "בולגרית לפיצה";
 
     //panini==============================================================
-    public static String [] PANINI_NAMES = {"טוסט לחמניית אצבע","טוסט בייגל" ,"תוספת 1 לטוסט" , "תוספת 3 לטוסט"};
-    public static double [] PANINI_PRICES = {10,13,1,2};
-    public static String panini="טוסט ";
-    public static String panini_addition1=" 1 לטוסט ";
-    public static String panini_addition3=" 3 לטוסט ";
+    public static String[] PANINI_NAMES = {"טוסט לחמניית אצבע", "טוסט בייגל", "תוספת 1 לטוסט", "תוספת 3 לטוסט"};
+    public static double[] PANINI_PRICES = {10, 13, 1, 2};
+    public static String panini = "טוסט ";
+    public static String panini_addition1 = " 1 לטוסט ";
+    public static String panini_addition3 = " 3 לטוסט ";
 
     public static int IND_PANINI_FINGER = 0;
     public static int IND_PANINI_BAGLE = 1;
@@ -254,12 +254,12 @@ public class Cashier {
     //PANINI_PRICES[Cashier.IND_PANINI_ADDITION3] : 3;
 
     //salad===================================================================
-    public static String [] SALAD_NAMES = {"סלט","פרוסת לחם" ,"תוספות לסלט"};
-    public static double [] SALAD_PRICES = {13,1.5,3};
+    public static String[] SALAD_NAMES = {"סלט", "פרוסת לחם", "תוספות לסלט"};
+    public static double[] SALAD_PRICES = {13, 1.5, 3};
     public static int IND_SALAD = 0;
     public static int IND_SALAD_BREAD = 1;
     public static int IND_SALAD_ADDITION = 2;
-    public static String salad_addition_text=" לסלט ";
+    public static String salad_addition_text = " לסלט ";
 
     //SALAD_PRICES[IND_SALAD] : 13;
     //SALAD_PRICES[Cashier.IND_SALAD_BREAD] : 1.5;
@@ -269,15 +269,15 @@ public class Cashier {
     //SALAD_NAMES[Cashier.IND_SALAD_ADDITION] : "תוספות לסלט";
 
     //hots===================================================================
-    public static String [] HOTS_NAMES = {"פסטה","קוסקוס" ,"מרק בטטה" ,"מרק עדשים" ,"מרק ירקות" ,"שניצל תירס"};
-    public static double [] HOTS_PRICES = {14,14,10,10,10,5};
+    public static String[] HOTS_NAMES = {"פסטה", "קוסקוס", "מרק בטטה", "מרק עדשים", "מרק ירקות", "שניצל תירס"};
+    public static double[] HOTS_PRICES = {14, 14, 10, 10, 10, 5};
     public static int IND_PASTA = 0;
     public static int IND_KUSKUS = 1;
     public static int IND_YAM_SOUP = 2;
     public static int IND_LENTIL_SOUP = 3;
     public static int IND_VEGGIE_SOUP = 4;
     public static int IND_CORN_MILANESA = 5;
-    public static String soup_text="מרק ";
+    public static String soup_text = "מרק ";
     //HOTS_PRICES[IND_PASTA] : 14;
     //HOTS_PRICES[IND_KUSKUS] : 14;
     //HOTS_PRICES[IND_YAM_SOUP] 10;
@@ -292,8 +292,8 @@ public class Cashier {
     //HOTS_NAMES[IND_CORN_MILANESA] : "שניצל תירס";
 
     //meusli=======================================================
-    public static String [] FRUIT_NAMES = {"אבטיח","מוזלי" ,"מולר קטן" ,"מולר גדול"};
-    public static double [] FRUIT_PRICES = {7, 15, 5.5, 6.5};
+    public static String[] FRUIT_NAMES = {"אבטיח", "מוזלי", "מולר קטן", "מולר גדול"};
+    public static double[] FRUIT_PRICES = {7, 15, 5.5, 6.5};
     public static int IND_WATERMELON = 0;
     public static int IND_FRUIT_MEUSLI = 1;
     public static int IND_FROOP_MULLER = 2;
@@ -359,12 +359,12 @@ public class Cashier {
     //CANDY_PRICES[IND_SNEAKERS] 5.5;
     //CANDY_PRICES[IND_SOUR_SPRAY] :5.5;
     //CANDY_PRICES[IND_TWIX] : 5.5;
-    public static double [] CANDY_PRICES = {0.5, 1, 1.5 ,1.5 ,2,
-                                            2,   2,  2,   3,  3,
-                                            3.5, 3.5, 4,  4,   5,  5,
-                                            5.5, 5.5, 5.5, 5.5,6,
-                                            6.5, 6.5, 6.5, 6.5,6.5,
-                                            5,   5,   5.5, 5.5,5.5};
+    public static double[] CANDY_PRICES = {0.5, 1, 1.5, 1.5, 2,
+            2, 2, 2, 3, 3,
+            3.5, 3.5, 4, 4, 5, 5,
+            5.5, 5.5, 5.5, 5.5, 6,
+            6.5, 6.5, 6.5, 6.5, 6.5,
+            5, 5, 5.5, 5.5, 5.5};
 
     //CANDY_PRICES[IND_TEAMI] : 5.5;
     //CANDY_PRICES[IND_NUTELLA] : 6;
@@ -378,8 +378,8 @@ public class Cashier {
     //CANDY_PRICES[IND_BISLI] : 5.5;
     //CANDY_PRICES[IND_APROPOSITO] :5.5;
     //CANDY_PRICES[IND_BEARS] : 5.5;
-    public static String [] CANDY_NAMES = {"שטיח","סוכריית סודה" ,"מרשמלו" ,"Lollies dip" , "טופי פיז", "Pies","שרשרת פיז" ,"לקקן לב" ,"מטריה" , "צינור", "זום","אקסטרים" ,"תיקתק" ,"מנטוס" ,
-            "אצבעות קינדר","סניקרס" ,"מארס" ,"ספריי חמוץ" ,"טוויקס" , "טעמי","נוטלה טו גו" , "בואנו", "פסק זמן","חטיף קליק" ,"קליק שקית" ,"קליק טבלה" ,"במבה" ,"דוריטוס" ,"ביסלי" , "אפרופו" , "דובונים"};
+    public static String[] CANDY_NAMES = {"שטיח", "סוכריית סודה", "מרשמלו", "Lollies dip", "טופי פיז", "Pies", "שרשרת פיז", "לקקן לב", "מטריה", "צינור", "זום", "אקסטרים", "תיקתק", "מנטוס",
+            "אצבעות קינדר", "סניקרס", "מארס", "ספריי חמוץ", "טוויקס", "טעמי", "נוטלה טו גו", "בואנו", "פסק זמן", "חטיף קליק", "קליק שקית", "קליק טבלה", "במבה", "דוריטוס", "ביסלי", "אפרופו", "דובונים"};
 
 
     public static final String RUG = "שטיח";
@@ -417,7 +417,6 @@ public class Cashier {
     //==========================================================
 
 
-
     public static double SMALL_DRINK_PRICE = 5;
     public static double LARGE_DRINK_PRICE = 7;
     //public static double SMALL_DRINK_CAPACITY = 0.250;
@@ -442,286 +441,241 @@ public class Cashier {
     public static final String SOUP_HINT = "soup";
 
 
-
-
-
-
-
     public static TextView paymentText;
     public static Dialog dialog;
-    public static Locale il = new Locale("iw","IL");
+    public static Locale il = new Locale("iw", "IL");
     public static final Currency ILS = Currency.getInstance(il);
 
     static int itemName = 0;
     static int itemPrice = 1;
-
+    static int MONTH_TO_SEND;
     static String type = "";
 
 
-
-
-    public static void sharedUpdateEmployee(String employeeName)
-    {
-        Log.d("TKT_cashier","updateEmployee===================");
+    public static void sharedUpdateEmployee(String employeeName) {
+        Log.d("TKT_cashier", "updateEmployee===================");
 
         progressEdit = checkPrefs.edit();
         progressEdit.putString(EMPLOYEE_NAME, employeeName);
         progressEdit.commit();
     }
 
-    public static void updatePayment(Button item, TextView change)
-    {//update payment in textView, add item to list
-        Log.d("TKT_cashier","updatePayment===================");
+    public static void updatePayment(Button item, TextView change) {//update payment in textView, add item to list
+        Log.d("TKT_cashier", "updatePayment===================");
 
         String buttonText = item.getText().toString();
-        String [] lines = buttonText.split("\n");
+        String[] lines = buttonText.split("\n");
         //double price = Double.parseDouble(lines[itemPrice]);
         double price = Double.parseDouble(item.getTag().toString());
         change.setText("");
 
-        switch (item.getHint().toString())
-        {
+        switch (item.getHint().toString()) {
 
-            case DRINK_HINT:
-            {
+            case DRINK_HINT: {
                 if (price == SMALL_DRINK_PRICE) {
                     lines[itemName] += smallTag;
-                    Log.d("TKT_cashier", "name: " + lines[itemName]);
+                    //Log.d("TKT_cashier", "name: " + lines[itemName]);
 
                 } else
                     lines[itemName] += largeTag;
                 break;
             }
-            case PANINI_HINT:
-            {
+            case PANINI_HINT: {
                 lines[itemName] = panini + lines[itemName];
                 break;
             }
-            case PANINI_ADDITION_HINT1:
-            {
+            case PANINI_ADDITION_HINT1: {
                 lines[itemName] += panini_addition1;
                 break;
             }
-            case PANINI_ADDITION_HINT3:
-            {
+            case PANINI_ADDITION_HINT3: {
                 lines[itemName] += panini_addition3;
                 break;
             }
-            case SALAD_HINT:
-            {
+            case SALAD_HINT: {
                 lines[itemName] += salad_addition_text;
                 break;
             }
-            case CROISSANT_HINT:
-            {
+            case CROISSANT_HINT: {
                 lines[itemName] = croissant_text + lines[itemName];
                 break;
             }
-            case BURK_HINT:
-            {
+            case BURK_HINT: {
                 lines[itemName] = burk_text + lines[itemName];
                 break;
             }
-            case PIZZA_HINT:
-            {
-                if(!lines[itemName].equals(pizza_text_bulgarian))
+            case PIZZA_HINT: {
+                if (!lines[itemName].equals(pizza_text_bulgarian))
                     lines[itemName] = pizza_text + lines[itemName];
                 break;
             }
-            case MELAWAC_HINT:
-            {
+            case MELAWAC_HINT: {
                 lines[itemName] = melawac_text + lines[itemName];
                 break;
             }
-            case SOUP_HINT:
-            {
+            case SOUP_HINT: {
                 lines[itemName] = soup_text + lines[itemName];
                 break;
             }
         }
 
 
-
         //handle itemList
         ItemList.Item currItem = boughtItems.contains(lines[itemName]);
-        if(currItem != null)
-        {//item exists
-            Log.d("TKT_cashier", "contained in boughtItems");
+        if (currItem != null) {//item exists
+            //Log.d("TKT_cashier", "contained in boughtItems");
             currItem.increase();
-        }
-        else
-        {//create new item
+        } else {//create new item
             ItemList.Item newItem = new ItemList().new Item(lines[itemName]);
             boughtItems.addItem(newItem);
         }
 
 
         //handle price textView
-        if(!paymentText.getText().toString().equals(""))
-        {
+        if (!paymentText.getText().toString().equals("")) {
             double currPayment = Double.parseDouble(paymentText.getText().toString());
-            price+=currPayment;
-            Log.d("TKT_cashier", "else");
+            price += currPayment;
+            //Log.d("TKT_cashier", "else");
 
         }
-        paymentText.setText(price+"");
+        paymentText.setText(price + "");
 
 
         dialog.dismiss();
     }
 
-    public static void simplePayment(Button item, TextView change)
-    {
+    public static void simplePayment(Button item, TextView change) {
         change.setText("");
         double price = Double.parseDouble(item.getTag().toString());
-        if(!paymentText.getText().toString().equals(""))
-        {
+        if (!paymentText.getText().toString().equals("")) {
             double currPayment = Double.parseDouble(paymentText.getText().toString());
-            price+=currPayment;
+            price += currPayment;
 
         }
-        paymentText.setText(price+"");
+        paymentText.setText(price + "");
 
     }
 
-    public static void cancel()
-    {
-        Log.d("TKT_cashier","cancel===================");
+    public static void cancel() {
+        Log.d("TKT_cashier", "cancel===================");
 
-        if(dialog.isShowing())
+        if (dialog.isShowing())
             dialog.dismiss();
         else//meaning this was called from cancelCheck
         {
-            if(!paymentText.getText().toString().equals("")) {
+            if (!paymentText.getText().toString().equals("")) {
                 paymentText.setText("");
                 boughtItems.clearAll();
                 AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
                 message.setMessage(R.string.cancelled).create();
                 message.show();
-            }
-            else
+            } else
                 emptyCheck();
         }
-            
+
     }
 
-    public static void simpleCancel(EditText cashRec, TextView change)
-    {
-        if(!paymentText.getText().toString().equals(""))
-        {
+    public static void simpleCancel(EditText cashRec, TextView change) {
+        if (!paymentText.getText().toString().equals("")) {
             paymentText.setText("");
             cashRec.setText("");
             change.setText("");
-        }
-        else
+        } else
             emptyCheck();
     }
 
-    public static String openItemList(Context context)
-    {
-        Log.d("TKT_cashier","openItemList===================");
+    public static String openItemList(Context context) {
+        Log.d("TKT_cashier", "openItemList===================");
         return fileToString(context, FILE_NAME);
 
     }
 
-    public static String fileToString(Context context, String fileName)
-    {
-        Log.d("TKT_cashier","fileToString===================");
+    public static String fileToString(Context context, String fileName) {
+        Log.d("TKT_cashier", "fileToString===================");
         ObjectInputStream objectInputStream;
         File file = new File(context.getFilesDir(), fileName);
-        try
-        {
+        try {
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
-            return (String)objectInputStream.readObject();
-        }
-        catch (Exception e)
-        {
+            return (String) objectInputStream.readObject();
+        } catch (Exception e) {
             e.printStackTrace();
-            Log.d("TKT_cashier","file does not exist");
+            Log.d("TKT_cashier", "file does not exist");
             return null;
         }
     }
 
-    public static void saveHash(ItemList hash, Context context)
-    {
-        Log.d("TKT_cashier","saveHash===================");
+    public static void saveHash(ItemList hash, Context context) {
+        Log.d("TKT_cashier", "saveHash===================");
 
         File file = new File(context.getFilesDir().toString(), FILE_NAME);
-        Log.d("TKT_cashier","is file null: "+file.exists());
+        Log.d("TKT_cashier", "is file null: " + file.exists());
         try {
-            Log.d("TKT_cashier","try");
+            Log.d("TKT_cashier", "try");
             file.createNewFile();
-            Log.d("TKT_cashier","file is created: "+file.exists());
+            Log.d("TKT_cashier", "file is created: " + file.exists());
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            Log.d("TKT_cashier","shopList: "+hash.toString());
+            Log.d("TKT_cashier", "shopList: " + hash.toString());
             outputStream.writeObject(hash.toString());
             outputStream.flush();
             outputStream.close();
 
         } catch (IOException e) {
-            Log.d("TKT_cashier","catch me if you can1");
+            Log.d("TKT_cashier", "catch me if you can1");
             e.printStackTrace();
         }
     }
 
-    public static ItemList stringToItemList(String listString)
-    {
-        Log.d("TKT_cashier","strignToItemList===================");
+    public static ItemList stringToItemList(String listString) {
+        Log.d("TKT_cashier", "strignToItemList===================");
         ItemList SavedShoppingList = new ItemList();
-        String [] items = listString.split(System.getProperty("line.separator"));
-        Log.d("TKT_cashier","items: "+listString);
-        for(int i = 0; i < items.length; i++)
-        {
+        String[] items = listString.split(System.getProperty("line.separator"));
+        Log.d("TKT_cashier", "items: " + listString);
+        for (int i = 0; i < items.length; i++) {
             ItemList.Item newItem = new ItemList().new Item(items[i]);
             SavedShoppingList.addItem(newItem);
         }
         return SavedShoppingList;
     }
 
-    public static void updateSubTotal(TextView paymentText)
-    {
+    public static void updateSubTotal(TextView paymentText) {
 
-        double currentSubTotal = checkPrefs.getFloat(ALTOGETHER,0);
-        Log.d("TKT_cashier","currentSubTotal: "+currentSubTotal);
+        double currentSubTotal = checkPrefs.getFloat(ALTOGETHER, 0);
+        Log.d("TKT_cashier", "currentSubTotal: " + currentSubTotal);
         currentSubTotal += Double.parseDouble(paymentText.getText().toString());
 
-        Log.d("TKT_cashier","updateSubTotal: currTotal:  "+currentSubTotal);
+        Log.d("TKT_cashier", "updateSubTotal: currTotal:  " + currentSubTotal);
 
         progressEdit = checkPrefs.edit();
-        progressEdit.putFloat(ALTOGETHER, (float)currentSubTotal);
+        progressEdit.putFloat(ALTOGETHER, (float) currentSubTotal);
         progressEdit.commit();
 
     }
 
-    public static void check(EditText cash, TextView change, Context context)
-    {
-        Log.d("TKT_cashier","check===================");
+    public static void check(EditText cash, TextView change, Context context) {
+        Log.d("TKT_cashier", "check===================");
 
-        if(!paymentText.getText().toString().equals("")) {
+        if (!paymentText.getText().toString().equals("")) {
 
 
-            if(!cash.getText().toString().equals(""))
-            {
-                Log.d("TKT_cashier","inIf");
+            if (!cash.getText().toString().equals("")) {
+                //Log.d("TKT_cashier","inIf");
                 double cashReceived = Double.parseDouble(cash.getText().toString());
                 double payment = Double.parseDouble(paymentText.getText().toString());
                 double changeToCustomer = cashReceived - payment;
-                change.setText(changeToCustomer+"");
+                change.setText(changeToCustomer + "");
             }
 
             //Log.d("TKT_cashier","savedShopList: "+SavedShoppingList.toString());
             String listString = openItemList(context);
-            Log.d("TKT_cashier","listString: "+listString);
-            if(listString == null) {
+            //Log.d("TKT_cashier","listString: "+listString);
+            if (listString == null) {
                 saveHash(boughtItems, context);
-            }
-            else
-            {//merging both hashMaps
+            } else {//merging both hashMaps
 
-                Log.d("TKT_cashier","merging");
+                //Log.d("TKT_cashier","merging");
                 ItemList SavedShoppingList = stringToItemList(listString);//openItemList();
-                Log.d("TKT_cashier","saveShopListL "+SavedShoppingList.toString());
-                Log.d("TKT_cahier","boughtItems: "+boughtItems.toString());
+                //Log.d("TKT_cashier","saveShopListL "+SavedShoppingList.toString());
+                //Log.d("TKT_cahier","boughtItems: "+boughtItems.toString());
                 SavedShoppingList.merge(boughtItems);
 
 
@@ -740,29 +694,24 @@ public class Cashier {
             message.show();
             paymentText.setText("");
             cash.setText("");
-            Log.d("TKT_cashier","OrderSubmitted $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4");
-        }
-        else
-        {
+            Log.d("TKT_cashier", "OrderSubmitted $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$4");
+        } else {
             emptyCheck();
         }
 
 
     }
 
-    public static void simpleCheck(EditText cash, TextView change, Context context)
-    {
-        if(!paymentText.getText().toString().equals(""))
-        {
-            if(!cash.getText().toString().equals(""))
-            {//if paid exact amount
+    public static void simpleCheck(EditText cash, TextView change, Context context) {
+        if (!paymentText.getText().toString().equals("")) {
+            if (!cash.getText().toString().equals("")) {//if paid exact amount
                 double cashReceived = Double.parseDouble(cash.getText().toString());
                 double payment = Double.parseDouble(paymentText.getText().toString());
                 double changeToCustomer = cashReceived - payment;
-                change.setText(changeToCustomer+"");
+                change.setText(changeToCustomer + "");
             }
 
-            Log.d("TKT_cashier","paymentText: "+paymentText.getText().toString());
+            //Log.d("TKT_cashier","paymentText: "+paymentText.getText().toString());
             updateSubTotal(paymentText);
             AlertDialog.Builder message = new AlertDialog.Builder(context);
             message.setMessage(R.string.done).create();
@@ -770,81 +719,73 @@ public class Cashier {
             paymentText.setText("");
             cash.setText("");
 
-        }
-        else
+        } else
             emptyCheck();
     }
 
-    public static void emptyCheck()
-    {
+    public static void emptyCheck() {
         AlertDialog.Builder message = new AlertDialog.Builder(ItemScreen.context);
         message.setMessage(R.string.emptyCheck).create();
         message.show();
     }
 
-    public static void displayReport(ListView listView, TextView totalSum,Context context)
-    {
-        Log.d("TKT_cashier","displayReport===================");
+    public static void displayReport(ListView listView, TextView totalSum, Context context) {
+        Log.d("TKT_cashier", "displayReport===================");
         String SavedShoppingList = openItemList(context);
         List<String> listOfItems = new ArrayList<String>();
-        if(SavedShoppingList != null)
-        {
+        if (SavedShoppingList != null) {
 
             listOfItems = new ArrayList<String>(Arrays.asList(SavedShoppingList.split("\n")));// Arrays.asList(SavedShoppingList.split(System.getProperty("line.separator")));
             ArrayAdapter<String> adapter = new ArrayAdapter(Report.context, R.layout.custom_list_view, listOfItems);
             listView.setAdapter(adapter);
         }
-        totalSum.setText((checkPrefs.getFloat(ALTOGETHER,0))+"");
+        totalSum.setText((checkPrefs.getFloat(ALTOGETHER, 0)) + "");
         //return SavedShoppingList;
 
     }
 
-    public static void displayHoursFromFile(ListView listView, int month)
-    {
-        Log.d("TKT_cashier","displayHoursFromFile===================");
-        List<String>hourList = new ArrayList<String>();
+    public static void displayHoursFromFile(ListView listView, int month) {
+        Log.d("TKT_cashier", "displayHoursFromFile===================");
+        List<String> hourList = new ArrayList<String>();
 
-            Day [][]dayMat = getMatrixFromDB();
-            String fileString = "";
-            for(int i = 0; i<DAY_ARR_LST.length; i++)
-            {
-                if(dayMat[i][month-1] != null)
-                    fileString += dayMat[i][month-1].toString()+"\n";
-            }
-            if(fileString.equals(""))
-                listView.setAdapter(null);
-            else {
-                Log.d("TKT_cashier", "fileString: " + fileString);
-                hourList = organizeList(fileString);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(Hours.context, R.layout.custom_list_view, hourList);
-                listView.setAdapter(adapter);
-            }
+        Day[][] dayMat = getMatrixFromDB();
+        String fileString = "";
+        for (int i = 0; i < DAY_ARR_LST.length; i++) {
+            if (dayMat[i][month - 1] != null)
+                fileString += dayMat[i][month - 1].toString() + "\n";
+        }
+        if (fileString.equals(""))
+            listView.setAdapter(null);
+        else {
+            //Log.d("TKT_cashier", "fileString: " + fileString);
+            hourList = organizeList(fileString);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(Hours.context, R.layout.custom_list_view, hourList);
+            listView.setAdapter(adapter);
+        }
     }
 
-    public static List organizeList(String hours)
-    {
+    public static List organizeList(String hours) {
         /* a string entry format is the following:
 update        */
-        Log.d("TKT_cashier","organizeList");
+        Log.d("TKT_cashier", "organizeList");
         String day, hrs, alt;
-        List<String>list = new ArrayList<String>();
-        String [] entries = hours.split("\n");
-        for(int i = 0; i < entries.length; i ++)
-        {
-            String [] date = entries[i].split(">>");
-            String [] dateEntries = date[0].split("/");
+        List<String> list = new ArrayList<String>();
+        String[] entries = hours.split("\n");
+        for (int i = 0; i < entries.length; i++) {
+            String[] date = entries[i].split(">>");
+            String[] dateEntries = date[0].split("/");
             // יי/חח/שש  //
             day = dateEntries[0];
-            Log.d("TKT_cashier","day: "+day);
-            String [] hoursADay = date[1].split("=");//hours
+            //Log.d("TKT_cashier","day: "+day);
+            String[] hoursADay = date[1].split("=");//hours
             //  שעת_התחלה - שעת_סיום  //
             hrs = hoursADay[0];
-            Log.d("TKT_cashier","hrs: "+hrs);
-            String [] altogether = hoursADay[1].split(" ");
+            //Log.d("TKT_cashier","hrs: "+hrs);
+            String[] altogether = hoursADay[1].split(" ");
             //  דד/שש  //
             alt = altogether[2];
-            Log.d("TKT_cashier","alt: "+alt);
-            list.add(alt+"   ::   "+hrs+"   ::   "+day);
+            //Log.d("TKT_cashier","alt: "+alt);
+            list.add(alt + "   ::   " + hrs + "   ::   " + day);
 
         }
         return list;
@@ -864,61 +805,54 @@ update        */
         // the attachment
         emailIntent.putExtra(Intent.EXTRA_TEXT, SavedShoppingList);
         // the mail subject
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName+": " +
-                context.getString(R.string.report)+ " - "+ dateFormat.format(c.getTime()).toString());
-               context.startActivity(Intent.createChooser(emailIntent , "Send email..."));
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " +
+                context.getString(R.string.report) + " - " + dateFormat.format(c.getTime()).toString());
+        context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
         //clear all
         clearAllReport(context, listView, textView);
 
     }
 
-    public static int itemIndexInArray(String itemName, String [] items)
-    {
-        for(int i = 0; i < items.length; i++)
-        {
-            if(items[i].equals(itemName))
+    public static int itemIndexInArray(String itemName, String[] items) {
+        for (int i = 0; i < items.length; i++) {
+            if (items[i].equals(itemName))
                 return i;
         }
         return -1;
     }
 
-    public static void finishUpdate(double newPrice, String itemName)
-    {
-        Log.d("TKT_cashier","finishUpdate. item: "+itemName+", newPrice: "+newPrice);
+    public static void finishUpdate(double newPrice, String itemName) {
+        Log.d("TKT_cashier", "finishUpdate");
         progressEdit = checkPrefs.edit();
-        progressEdit.putFloat(itemName, (float)newPrice);
+        progressEdit.putFloat(itemName, (float) newPrice);
         progressEdit.commit();
     }
 
-    public static void updateShiftState(boolean state)
-    {
+    public static void updateShiftState(boolean state) {
         progressEdit = checkPrefs.edit();
-        progressEdit.putBoolean(SHIFT,state);
+        progressEdit.putBoolean(SHIFT, state);
         progressEdit.commit();
     }
 
-    public static void updateToday(String date, String start, String end)
-    {
-        Log.d("TKT_cashier","updateToday======================");
-        String []  month  = date.split("/");
+    public static void updateToday(String date, String start, String end) {
+        Log.d("TKT_cashier", "updateToday======================");
+        String[] month = date.split("/");
         String hours = "";
         progressEdit = checkPrefs.edit();
-        if(end == null) {
+        if (end == null) {
             progressEdit.putString(CURR_DATE, date);
             progressEdit.putString(CURR_START, start);
-        }
-        else {
+        } else {
             progressEdit.putString(CURR_END, end);
             String st = Cashier.checkPrefs.getString(Cashier.CURR_START, null);
             hours = hourDifference(st, end);
-            Day today = new Day(date, st, end,hours);//create new day
-            String prevHours = checkPrefs.getString(ALTOGETHER_HOURS+month[MONTH], null);
-            if(prevHours != null)
-            {//combine hours
-                hours = hourAddition(hours,prevHours);
+            Day today = new Day(date, st, end, hours);//create new day
+            String prevHours = checkPrefs.getString(ALTOGETHER_HOURS + month[MONTH], null);
+            if (prevHours != null) {//combine hours
+                hours = hourAddition(hours, prevHours);
             }
 
-            progressEdit.putString(ALTOGETHER_HOURS+month[MONTH],hours);
+            progressEdit.putString(ALTOGETHER_HOURS + month[MONTH], hours);
             saveTodayToFile(today);
 
 
@@ -926,39 +860,40 @@ update        */
         progressEdit.commit();
     }
 
-    public static void updateAltogetherHours(String hoursMinus, String hoursPlus, int month)
-    {
+    public static void updateAltogetherHours(String hoursMinus, String hoursPlus, int month) {
         //display it again
-        String alt = checkPrefs.getString(ALTOGETHER_HOURS+month,null);
+        Log.d("TKT_cashir", "updateAltogetherHours================");
+        String alt = checkPrefs.getString(ALTOGETHER_HOURS + month, null);
         progressEdit = checkPrefs.edit();
-        Log.d("TKT_cashir","alttt: "+alt);
-        if(alt == null)
-        {
-            progressEdit.putString(ALTOGETHER_HOURS+month, hoursPlus);
-        }
-        else
-        {
-            String temp = "00:00";
-            if(hoursMinus != null)
-            {
+        Log.d("TKT_cashier", "alt: " + alt);
+        Log.d("TKT_cashier", "hoursMinus: " + hoursMinus);
+        Log.d("TKT_cashier", "hoursPlus: " + hoursPlus);
+        Log.d("TKT_cashier", "month: " + month);
+        if (alt == null) {
+            Log.d("TKT_cashier", "alt: " + alt);
+            progressEdit.putString(ALTOGETHER_HOURS + month, hoursPlus);
+        } else {
+            String temp = Hours.emptyHour;
+            if (hoursMinus != null) {
                 temp = hourDifference(alt, hoursMinus);
-
-            }
-            else
                 temp = hourAddition(temp, hoursPlus);
-            progressEdit.putString(ALTOGETHER_HOURS+month, temp);
+                Log.d("TKT_cashier", "temp0: " + temp);
 
+            } else {
+                temp = hourAddition(alt, hoursPlus);
+                Log.d("TKT_cashier", "temp1: " + temp);
+            }
+
+            progressEdit.putString(ALTOGETHER_HOURS + month, temp);
 
 
         }
         progressEdit.commit();
         //Log.d("TKT_cashier","monthCausesProb: "+month);
-        //// TODO: 10/22/2017 problem here with displaying alt in Hours layout 
         Hours.altogetherHours.setText(setAltogetherHours(month));
     }
 
-    public static Day [][] getMatrixFromDB()
-    {
+    public static Day[][] getMatrixFromDB() {
         File file = new File(Welcome.context.getFilesDir(), DAY_MATRIX);
         ObjectInputStream objectInputStream = null;
         //Day[][] fromDB = null;
@@ -970,12 +905,9 @@ update        */
 
         if (objectInputStream != null) {
 
-            try
-            {
+            try {
                 DAY_ARR_LST = (Day[][]) objectInputStream.readObject();
-            }
-            catch (Exception e1)
-            {
+            } catch (Exception e1) {
                 e1.printStackTrace();
                 Log.d("TKT_cashier", "couldn't cast to matrix");
 
@@ -986,29 +918,24 @@ update        */
 
     }
 
-    public static void writeMatToDB(Day [][] mat)
-    {
+    public static void writeMatToDB(Day[][] mat) {
         Log.d("TKT_cashier", "writeMatToFile");
         File file = new File(Welcome.context.getFilesDir(), DAY_MATRIX);
-        try
-        {
+        try {
             file.createNewFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
             outputStream.writeObject(mat);
             outputStream.flush();
             outputStream.close();
 
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
-            Log.d("TKT_cashier","exception in saving day");
+            Log.d("TKT_cashier", "exception in saving day");
         }
 
     }
 
-    public static void saveTodayToFile(Day day)
-    {//called by updateToday
+    public static void saveTodayToFile(Day day) {//called by updateToday
         Log.d("TKT_cashier", "saveTodayToFile");
         String[] month = day.date.split("/");
         int i = Integer.parseInt(month[DAY]);
@@ -1021,60 +948,82 @@ update        */
             writeMatToDB(fromDB);
         }
         //else
-            //writeMatToDB(fromDB);
+        //writeMatToDB(fromDB);
 
 
     }
 
-    public static String setAltogetherHours(int month)
-    {
+    public static String setAltogetherHours(int month) {
         //get hours from shared;
-        Log.d("TKT_cashier","setAltogetherHours month: "+month);
-        return checkPrefs.getString(ALTOGETHER_HOURS+month, null);
+        Log.d("TKT_cashier", "setAltogetherHours month: " + month);
+        Log.d("TKT_cashier", "inShared: " + checkPrefs.getString(ALTOGETHER_HOURS + month, null));
+        return checkPrefs.getString(ALTOGETHER_HOURS + month, null);
     }
 
-    public static String hourDifference(String s, String e)
-    {
-        Log.d("TKT_cashier","hourDifference==============");
+    public static String hourDifference(String strt, String end) {
+        Log.d("TKT_cashier", "hourDifference==============");
         String diffString = "";
         //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-        try {
-            Date st = timeFormat.parse(s);
-            Date ed = timeFormat.parse(e);
-            long difference = ed.getTime() - st.getTime();
-            //Date diff = new Date(difference);
-            //diffString = format.format(diff);
-            //Log.d("TKT_cashier","difference: "+diffString);
-            diffString = String.format("%02d:%02d",
-                    TimeUnit.MILLISECONDS.toHours(difference),
-                    TimeUnit.MILLISECONDS.toMinutes(difference) -
-                    TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)));
-                    //TimeUnit.MILLISECONDS.toSeconds(difference) -
-                    //TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(difference)));
-        } catch (ParseException e1) {
-            e1.printStackTrace();
+        if (strt.equals(end)) {
+            return Hours.emptyHour;
+        } else {
+            String[] startArr = strt.split(":");
+            String[] endArr = end.split(":");
+            String s, e;
+            if (Integer.parseInt(startArr[0]) > Integer.parseInt(endArr[0])) {
+                e = strt;
+                s = end;
+            } else if (Integer.parseInt(startArr[0]) < Integer.parseInt(endArr[0])) {
+                s = strt;
+                e = end;
+            } else {
+                if (Integer.parseInt(startArr[1]) > Integer.parseInt(endArr[1])) {
+                    e = strt;
+                    s = end;
+                } else {
+                    s = strt;
+                    e = end;
+                }
+                //// TODO: 10/23/2017 problemmmm!!!! 
+            }
+            Log.d("TKT_cashier", "s: " + s);
+            Log.d("TKT_cashier", "e: " + e);
+
+            try {
+                Date st = timeFormat.parse(s);
+                Date ed = timeFormat.parse(e);
+                long difference = ed.getTime() - st.getTime();
+                //Date diff = new Date(difference);
+                //diffString = format.format(diff);
+                //Log.d("TKT_cashier","difference: "+diffString);
+                diffString = String.format("%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(difference),
+                        TimeUnit.MILLISECONDS.toMinutes(difference) -
+                                TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(difference)));
+                //TimeUnit.MILLISECONDS.toSeconds(difference) -
+                //TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(difference)));
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
+            Log.d("TKT_cashier", e + " - " + s + " = " + diffString);
+            return diffString;
         }
-        return diffString;
     }
 
-    public static String hourAddition(String h1, String h2)
-    {
-        Log.d("TKT_cashier","hourAddition==============");
+    public static String hourAddition(String h1, String h2) {
+        Log.d("TKT_cashier", "hourAddition==============");
         String sumString = "";
         //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
-        try
-        {
+        try {
             Date d1 = timeFormat.parse(h1);
             Date d2 = timeFormat.parse(h2);
             long sum = d1.getTime() + d2.getTime();
             sumString = timeFormat.format(new Date(sum));
 
 
-        }
-        catch (ParseException e)
-        {
-            Log.d("TKT_cashier","can't parse"+sumString);
+        } catch (ParseException e) {
+            Log.d("TKT_cashier", "can't parse" + sumString);
             e.printStackTrace();
 
         }
@@ -1083,57 +1032,49 @@ update        */
         return sumString;//finalSum[0];//meaning, only hours and minutes
     }
 
-    public static void setCashierView(MenuItem item, String state)
-    {//0: classic, 1: detail
+    public static void setCashierView(MenuItem item, String state) {//0: classic, 1: detail
         //int state = checkPrefs.getInt(VIEW_STATE, 0);
-        Log.d("TKT_cashier","changedHere");
-        if(!state.equals(CLASSIC_VIEW))
-        {
+        Log.d("TKT_cashier", "changedHere");
+        if (!state.equals(CLASSIC_VIEW)) {
             //set to classic view and change text to detail
-            Log.d("TKT_cashier","!= classicView");
+            //Log.d("TKT_cashier","!= classicView");
             progressEdit = checkPrefs.edit();
-            progressEdit.putInt(VIEW_STATE,0);
+            progressEdit.putInt(VIEW_STATE, 0);
             item.setTitle(DETAIL_VIEW);
-        }
-        else
-        {
-            Log.d("TKT_cashier","== classicView");
+        } else {
+            //Log.d("TKT_cashier","== classicView");
             progressEdit = checkPrefs.edit();
-            progressEdit.putInt(VIEW_STATE,1);
+            progressEdit.putInt(VIEW_STATE, 1);
             item.setTitle(CLASSIC_VIEW);
         }
         progressEdit.commit();
 
     }
 
-    public static void general(Context context)
-    {//paymentTextView is already set - refer to onCreate of ClassicView || ItemView
+    public static void general(Context context) {//paymentTextView is already set - refer to onCreate of ClassicView || ItemView
         Cashier.dialog = new Dialog(context);
         Cashier.dialog.setContentView(R.layout.general_payment);
         Cashier.dialog.setCanceledOnTouchOutside(false);
-        final EditText cashText = (EditText)dialog.findViewById(R.id.generalEditText);
-        Button proceed = (Button)dialog.findViewById(R.id.generalProceedPayment);
-        Button cancel = (Button)dialog.findViewById(R.id.generalCancelPayment);
+        final EditText cashText = (EditText) dialog.findViewById(R.id.generalEditText);
+        Button proceed = (Button) dialog.findViewById(R.id.generalProceedPayment);
+        Button cancel = (Button) dialog.findViewById(R.id.generalCancelPayment);
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //if(cashText.equals(""))
-                Log.d("TKT_cashier","cashText: "+cashText);
-                if(cashText.getText().toString().length() == 0) {
-                    Log.d("TKT_cashier","cashTextIsMT");
+                Log.d("TKT_cashier", "cashText: " + cashText);
+                if (cashText.getText().toString().length() == 0) {
+                    //Log.d("TKT_cashier","cashTextIsMT");
                     emptyCheck();
-                }
-                else
-                {
+                } else {
                     double price = Double.parseDouble(cashText.getText().toString());
-                    if(!paymentText.getText().toString().equals(""))
-                    {
+                    if (!paymentText.getText().toString().equals("")) {
                         double currPayment = Double.parseDouble(paymentText.getText().toString());
-                        price+=currPayment;
+                        price += currPayment;
 
                     }
-                    paymentText.setText(price+"");
+                    paymentText.setText(price + "");
                     Cashier.dialog.dismiss();
                 }
 
@@ -1151,18 +1092,16 @@ update        */
     }
 
 
-    static int MONTH_TO_SEND;
-    public static void sendHoursToA(final Context context)
-    {
+    public static void sendHoursToA(final Context context) {
         //choose month dialog
-        Log.d("TKT_cashier","sendHoursToA");
+        Log.d("TKT_cashier", "sendHoursToA");
         MONTH_TO_SEND = 0;
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_send_hours);
         dialog.setCanceledOnTouchOutside(false);
-        NumberPicker monthPicker = (NumberPicker)dialog.findViewById(R.id.monthPickerSend);
-        Button send = (Button)dialog.findViewById(R.id.sendButton);
-        Button cancel = (Button)dialog.findViewById(R.id.cancelButtonHours);
+        NumberPicker monthPicker = (NumberPicker) dialog.findViewById(R.id.monthPickerSend);
+        Button send = (Button) dialog.findViewById(R.id.sendButton);
+        Button cancel = (Button) dialog.findViewById(R.id.cancelButtonHours);
 
         monthPicker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         monthPicker.setMinValue(0);
@@ -1188,8 +1127,8 @@ update        */
             @Override
             public void onClick(View v) {
                 //whatsApp instance
-                if(MONTH_TO_SEND != 0) {
-                    sendThisMonthToA(MONTH_TO_SEND,context);
+                if (MONTH_TO_SEND != 0) {
+                    sendThisMonthToA(MONTH_TO_SEND, context);
                     //dialog.dismiss();
                 }
             }
@@ -1200,83 +1139,83 @@ update        */
     }
 
 
-    public static void sendThisMonthToA(int month, Context context)
-    {
-        Log.d("TKT_cashier","sendThisMonthToA==========");
+    public static void sendThisMonthToA(int month, Context context) {
+        Log.d("TKT_cashier", "sendThisMonthToA==========");
         //Log.d("TKT_cashier","month is: "+(month));
         //Log.d("TKT_cashier","month[]: "+MONTHS[(month)]);
         //generate string to send
         String hourMessage = generateHourMessage(month);
         Intent sendToA = new Intent(Intent.ACTION_SEND);
-        sendToA.putExtra(Intent.EXTRA_TEXT,hourMessage);
+        sendToA.putExtra(Intent.EXTRA_TEXT, hourMessage);
         sendToA.setType("text/plain");
-        context.startActivity(Intent.createChooser(sendToA,"שליחת דו\"ח שעות"));
+        context.startActivity(Intent.createChooser(sendToA, "שליחת דו\"ח שעות"));
 
     }
 
-    public static String generateHourMessage(int month)
-    {
-        Log.d("TKT_cashier","generateHourMessage==========");
+    public static String generateHourMessage(int month) {
+        Log.d("TKT_cashier", "generateHourMessage==========");
         String message = "", title = "דו\"ח שעות לחודש ", alt = "סה\"כ שעות: ";
         title += MONTHS[month];
-        Log.d("TKT_cashier","title: "+title);
-        Day [][] mat = getMatrixFromDB();
-        message += title +"\n";
-        for(int i = 0; i < mat.length; i++)
-        {//run through days of month
-            if(mat[i][month-1] != null) {
+        //Log.d("TKT_cashier","title: "+title);
+        Day[][] mat = getMatrixFromDB();
+        message += title + "\n";
+        for (int i = 0; i < mat.length; i++) {//run through days of month
+            if (mat[i][month - 1] != null) {
 
                 message += generateSendEntry(mat[i][month - 1].toString()) + "\n";
             }
         }
         alt += getAltFromDb(month);
         message += alt;
-        Log.d("TKT_cashier","messageToA "+message);
+        //Log.d("TKT_cashier","messageToA "+message);
         return message;
     }
 
-    public static String generateSendEntry(String entry)
-    {
+    public static String generateSendEntry(String entry) {
         String day, hrs, alt;
-        String [] date = entry.split(">>");
-        String [] dateEntries = date[0].split("/");
+        String[] date = entry.split(">>");
+        String[] dateEntries = date[0].split("/");
         // יי/חח/שש  //
         day = dateEntries[0];
-        Log.d("TKT_cashier","day: "+day);
-        String [] hoursADay = date[1].split("=");//hours
+        //Log.d("TKT_cashier","day: "+day);
+        String[] hoursADay = date[1].split("=");//hours
         //  שעת_התחלה - שעת_סיום  //
         hrs = hoursADay[0];
-        Log.d("TKT_cashier","hrs: "+hrs);
-        String [] altogether = hoursADay[1].split(" ");
+        //Log.d("TKT_cashier","hrs: "+hrs);
+        String[] altogether = hoursADay[1].split(" ");
         //  דד/שש  //
         alt = altogether[2];
 
-        Log.d("TKT_cashier","newEntry: " + (alt + " :: "+"hrs"+" :: "+day));
-        return alt + " :: "+hrs+" :: "+day;
+        //Log.d("TKT_cashier","newEntry: " + (alt + " :: "+"hrs"+" :: "+day));
+        return alt + " :: " + hrs + " :: " + day;
 
     }
 
-
-    public static String getAltFromDb(int month)
-    {
-        return  checkPrefs.getString(ALTOGETHER_HOURS+month,null);
+    public static String getAltFromDb(int month) {
+        return checkPrefs.getString(ALTOGETHER_HOURS + month, null);
     }
 
-    public static void clearAllReport(Context context, ListView listView, TextView totalSum)
-    {
-        Log.d("TKT_cashier","displayReport===================");
+    public static void clearAllReport(Context context, ListView listView, TextView totalSum) {
+        Log.d("TKT_cashier", "displayReport===================");
 
         //erase that file from DB
         File file = new File(context.getFilesDir(), FILE_NAME);
         file.delete();
         listView.setAdapter(null);
         progressEdit = checkPrefs.edit();
-        progressEdit.putFloat(ALTOGETHER,0);
+        progressEdit.putFloat(ALTOGETHER, 0);
         progressEdit.commit();
         totalSum.setText("");
         Toast.makeText(context, R.string.clearedSuccessfully, Toast.LENGTH_SHORT).show();
         //return SavedShoppingList;
 
+    }
+
+    public static void sharedUpdateStudentState()
+    {
+        progressEdit = checkPrefs.edit();
+        progressEdit.putBoolean(IS_STUDENT,true);
+        progressEdit.commit();
     }
 
 

@@ -150,7 +150,7 @@ public class Welcome extends AppCompatActivity {
 
     public void shiftExit()
     {
-        Log.d("TKT_welcome","shiftExit");
+        Log.d("TKT_welcome","shiftExit====================");
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm");
         Calendar cal = Calendar.getInstance();
         String [] dayEnd = (dateFormat.format(cal.getTime())).split(" ");
@@ -171,21 +171,31 @@ public class Welcome extends AppCompatActivity {
             initBoxes();
         }
         else
-        {//employee is registered
+            {//employee is registered
+            if (!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false))
+            {//this is staff
             pass.setVisibility(View.GONE);
             name.setText(employeeName);
             name.setEnabled(false);
 
-            if(Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
-            {//in shift
-                Log.d("TKT_welcome","inShift");
-                progressBar.setBackgroundResource(R.drawable.circle_turq);
-                //set countUp timer
+                if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false)) {//in shift
+                    Log.d("TKT_welcome", "inShift");
+                    progressBar.setBackgroundResource(R.drawable.circle_turq);
+                    //set countUp timer
+                } else {//out shift
+                    Log.d("TKT_welcome", "outShift");
+                    progressBar.setBackgroundResource(R.drawable.circle_red);
+                }
             }
             else
-            {//out shift
-                Log.d("TKT_welcome","outShift");
-                progressBar.setBackgroundResource(R.drawable.circle_red);
+            {//this is a student
+                Log.d("TKT_welcome","this is a student");
+                pass.setVisibility(View.GONE);
+                name.setText(employeeName);
+                name.setEnabled(false);
+                progressBar.setBackgroundResource(R.drawable.circle_turq);
+                progressBar.setEnabled(false);
+
             }
 
         }
@@ -200,13 +210,13 @@ public class Welcome extends AppCompatActivity {
        Log.d("TKT_welcome","next===================");
        if(pass.getVisibility() == View.GONE)
        {
-           Log.d("TKT_welcome","pass is gone");
+           //Log.d("TKT_welcome","pass is gone");
            goToItemScreen();
        }
        else {
-           Log.d("TKT_welcome","pass is visible");
+           //Log.d("TKT_welcome","pass is visible");
            if (Cashier.PASSWORD.equals(pass.getText().toString())) {
-               Log.d("TKT_welcome", "next - if");
+               //Log.d("TKT_welcome", "next - if");
                    employeeName = name.getText().toString();
                    Cashier.sharedUpdateEmployee(employeeName);
                    name.setEnabled(false);
@@ -214,8 +224,20 @@ public class Welcome extends AppCompatActivity {
                    inShift();
 
 
-           } else {
-               Log.d("TKT_welcome", "next - else");
+           } else
+               if(Cashier.STUDENT_PASSWORD.equals(pass.getText().toString()))
+               {
+                   Log.d("TKT_welcome","studentPassword");
+                   employeeName = name.getText().toString();
+                   Cashier.sharedUpdateEmployee(employeeName);
+                   name.setEnabled(false);
+                   pass.setEnabled(false);
+                   Cashier.sharedUpdateStudentState();
+                   inShift();
+               }
+               else
+               {
+               //Log.d("TKT_welcome", "next - else");
                Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_SHORT).show();
                pass.setText(R.string.nil);
            }
@@ -227,15 +249,19 @@ public class Welcome extends AppCompatActivity {
    {
        Log.d("TKT_welcome","goToItemScreen===================");
        Intent intent;
-       if(Cashier.checkPrefs.getInt(Cashier.VIEW_STATE,1) == 0)
-       {//this is classic
-           Log.d("TKT_welcome","classicView");
-           intent = new Intent(this, ClassicView.class);
+       if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT,false)) {
+           if (Cashier.checkPrefs.getInt(Cashier.VIEW_STATE, 1) == 0) {//this is classic
+               //Log.d("TKT_welcome","classicView");
+               intent = new Intent(this, ClassicView.class);
+           } else {
+               //Log.d("TKT_welcome","itemScreen");
+               intent = new Intent(this, ItemScreen.class);
+           }
        }
        else
        {
-           Log.d("TKT_welcome","itemScreen");
-           intent = new Intent(this, ItemScreen.class);
+           Log.d("TKT_welcome","studentMode");
+           intent = new Intent(this, StudentOrder.class);
        }
 
        startActivity(intent);
@@ -251,7 +277,7 @@ public class Welcome extends AppCompatActivity {
 
     public void initBoxes()
     {
-        Log.d("TKT_welcome","intiBoxes was called");
+        Log.d("TKT_welcome","intiBoxes was called=======================");
         name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -274,11 +300,8 @@ public class Welcome extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Log.d("TKT_welcome","onResume");
+        Log.d("TKT_welcome","onResume======================");
         inShift();
-
-
-
         super.onResume();
     }
 
@@ -336,13 +359,13 @@ public class Welcome extends AppCompatActivity {
                 if(state == 0)
                 {
                     //setTextToDetail
-                    Log.d("TKT_welcome","state == 0");
+                    //Log.d("TKT_welcome","state == 0");
                     item.setTitle(Cashier.CLASSIC_VIEW);
                 }
                 else
                 {
                     //setTextToSimple
-                    Log.d("TKT_welcome","state == 1");
+                    //Log.d("TKT_welcome","state == 1");
                     item.setTitle(Cashier.DETAIL_VIEW);
                 }
                 Cashier.setCashierView(item, item.getTitle().toString());

@@ -39,7 +39,6 @@ public class ClassicView extends AppCompatActivity {
     }
     public void cancel(View v)
     {
-        //// TODO: 9/27/2017 consider add r u sure? message
         Cashier.simpleCancel(cashReceived, change);
 
 

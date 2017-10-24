@@ -81,6 +81,7 @@
                 android:scaleY="1"
                 android:scaleX="1.2"
                 android:layout_gravity="center"
+                android:descendantFocusability="blocksDescendants"
                 ></TimePicker>
 
             <View
@@ -118,6 +119,7 @@
             android:scaleY="1"
             android:scaleX="1.2"
             android:layout_gravity="center"
+            android:descendantFocusability="blocksDescendants"
             ></TimePicker>
 
             <View

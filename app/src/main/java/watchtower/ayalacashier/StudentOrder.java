@@ -13,6 +13,7 @@ public class StudentOrder extends AppCompatActivity {
         setContentView(R.layout.activity_student_order);
     }
 
+
     public void setTime(View v)
     {
         Log.d("TKT_studentOrder","setTime");
@@ -37,4 +38,6 @@ public class StudentOrder extends AppCompatActivity {
     {
         Log.d("TKT_studentOrder","fruitMeusli");
     }
+
+
 }

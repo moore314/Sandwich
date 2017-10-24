@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     tools:context="watchtower.ayalacashier.StudentOrder"
     android:background="@color/background"
-    android:layoutDirection="ltr"
-    android:orientation="vertical">
+    android:layoutDirection="ltr">
 
 
     <LinearLayout
@@ -36,7 +35,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="5dp">
 
         <Button
 
@@ -84,84 +83,86 @@
     </LinearLayout>
 
 
-        <view
+        <View
+
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/turq"
-            android:layout_marginBottom="10dp"></view>
+            android:layout_marginBottom="5dp"></View>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="5dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/muesliButton"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="@string/muesli"
-            android:background="@drawable/shape"
+            android:layout_height="50dp"
+            android:background="@drawable/fruit1"
             android:tag="@string/muesli"
             android:textSize="18dp"
             android:textStyle="bold"
             android:onClick="fruitMeusli"
+            android:clickable="true"
             >
-        </Button>
+        </ImageButton>
 
-        <Button
+        <ImageButton
             android:id="@+id/hotsButton"
-            android:layout_width="100dp"
-            android:layout_height="60dp"
-            android:text="@string/hots"
-            android:background="@drawable/shape"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:background="@drawable/pasta"
             android:tag="@string/hots"
             android:layout_marginLeft="5dp"
             android:textSize="18dp"
             android:textStyle="bold"
             android:onClick="hots"
-            ></Button>
+            android:clickable="true"
+            ></ImageButton>
 
 
 
 
-        <Button
+        <ImageButton
             android:id="@+id/saladButton"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:text="@string/generalSalad"
-            android:background="@drawable/shape"
+            android:layout_height="50dp"
+            android:background="@drawable/salad"
             android:tag="@string/generalSalad"
             android:layout_marginLeft="5dp"
             android:textSize="18dp"
             android:textStyle="bold"
             android:onClick="salads"
+            android:clickable="true"
             >
-        </Button>
+        </ImageButton>
 
-        <Button
+        <ImageButton
             android:id="@+id/sandwichButton"
-            android:layout_width="90dp"
-            android:layout_height="60dp"
-            android:text="@string/sandwich"
-            android:background="@drawable/shape"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:background="@drawable/sandwich1"
             android:tag="@string/sandwich"
             android:layout_marginLeft="5dp"
             android:textSize="18dp"
             android:textStyle="bold"
             android:onClick="sandwiches"
+            android:clickable="true"
             >
-        </Button>
+        </ImageButton>
 
     </LinearLayout>
 
 
-        <view
+
+        <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/turq"
-            android:layout_marginBottom="10dp"></view>
+            android:layout_marginBottom="5dp"></View>
 
 
         <!--
@@ -212,55 +213,50 @@
         android:textStyle="bold"
         android:inputType="textMultiLine"
         android:textColorHint="@color/turq"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:padding="5dp"
         />
 
 
-        <view
+        <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/turq"
-            android:layout_marginBottom="20dp"></view>
+            android:layout_marginBottom="10dp"></View>
 
         <!-- orderDetail -->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
+
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:layout_gravity="right"
+            android:text="@string/defaultName"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:gravity="right"
+            android:paddingRight="5dp"
+            />
+
+
+
+        <!--
+        <LinearLayout
+            android:id="@+id/orderLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_gravity="right"
-            android:layout_marginBottom="30dp"
+            android:padding="5dp"
+            android:layout_marginBottom="55dp"
             >
-
-            <!-- no x for hour, just make hour button gray(or turq) when chosen  -->
-
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@android:drawable/ic_menu_close_clear_cancel"
-                android:backgroundTint="@color/red"/>
-
 
 
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right"
-            android:layout_marginBottom="10dp"
-            >
-
-            <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@android:drawable/ic_menu_close_clear_cancel"
-                android:backgroundTint="@color/red"/>
+        -->
 
 
-
-        </LinearLayout>
 
 
     </LinearLayout>
@@ -309,6 +305,8 @@
 
 
     </LinearLayout>
+
+
 
 
 </RelativeLayout>

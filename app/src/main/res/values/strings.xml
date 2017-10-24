@@ -32,6 +32,9 @@
     <string name="clearPurchaseReport">מחיקת דו\"ח מכירות</string>
     <string name="clearedSuccessfully">מחיקה בוצעה בהצלחה!</string>
 
+    <!-- student mode-->
+    <string name="defaultName">לויס ליין</string>
+
 
 
     <string name="cancel">ביטול</string>

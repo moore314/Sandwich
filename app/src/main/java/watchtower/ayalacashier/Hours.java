@@ -38,6 +38,7 @@ public class Hours extends AppCompatActivity {
     static int currMonth = 0;
     String updateTitle = "", updateStart = "", updateEnd = "";
     int updateMonth;
+    public static String emptyHour = "00:00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +108,7 @@ public class Hours extends AppCompatActivity {
        if(dayMat[i-1][j-1] != null)
        {
 
-           Log.d("TKT_hours","dayMat[i-1][j-1]: "+dayMat[i-1][j-1]);
+           //Log.d("TKT_hours","dayMat[i-1][j-1]: "+dayMat[i-1][j-1]);
            AlertDialog.Builder message = new AlertDialog.Builder(this);
            message.setMessage(generateMessage(dayMat[i-1][j-1])).create();
            message.show();
@@ -190,10 +191,10 @@ public class Hours extends AppCompatActivity {
         updateStart = generateTimeFormat(startTime.getHour(), startTime.getMinute());
         updateEnd = generateTimeFormat(endTime.getHour(), endTime.getMinute());
 
-        Log.d("TKT_hours","initTitile: "+updateTitle);
-        Log.d("TKT_hours","initStart: "+updateStart);
-        Log.d("TKT_hours","initEnd: "+updateEnd);
-        Log.d("TKT_hours","updateMonth: "+updateMonth);
+        //Log.d("TKT_hours","initTitile: "+updateTitle);
+        //Log.d("TKT_hours","initStart: "+updateStart);
+        //Log.d("TKT_hours","initEnd: "+updateEnd);
+        //Log.d("TKT_hours","updateMonth: "+updateMonth);
 
         datePicker.init(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
 
@@ -242,7 +243,7 @@ public class Hours extends AppCompatActivity {
 
     public void showChangeDialog(int monthInit)
     {//picking month
-        Log.d("TKT_hours","showChangeDialog");
+        Log.d("TKT_hours","showChangeDialog=================");
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.change_hours_manually_dialog);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -276,6 +277,7 @@ public class Hours extends AppCompatActivity {
                 //Log.d("TKT_hours","newVal: "+newVal);
                 //jan = 1, dec = 12
                 //retrieve corresponding file: 1 for jan, 2 for feb etc.
+                Log.d("TKT_hours","picker.onValueChangeListener=============");
                 if(newVal == 0)
                 {
                     entryListView.setAdapter(null);
@@ -291,7 +293,7 @@ public class Hours extends AppCompatActivity {
         entryListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("TKT_hours","onLongClick");
+                Log.d("TKT_hours","onLongClick===================");
                 String entry = entryListView.getItemAtPosition(position).toString();
                 changeThisEntryHours(entry,NEW_VAL);
                 return true;
@@ -311,6 +313,7 @@ public class Hours extends AppCompatActivity {
     }
     public void changeThisEntryHours(final String entry, final int month)
     {//change hours only
+
         Log.d("TKT_hours","changeThisEntryHours=============");
 
         //entryNoSpace format> diff::st-ed::dayOfMonth
@@ -318,7 +321,7 @@ public class Hours extends AppCompatActivity {
         String [] entrySplit = entryNoSpace.split("::");
 
         final String currentDiff = entrySplit[0];
-        Log.d("TKT_hours","currDiff: "+currentDiff);
+        //Log.d("TKT_hours","currDiff: "+currentDiff);
 
         //======set current start&end times in timePicker
         String [] times = entrySplit[1].split("-");
@@ -339,7 +342,7 @@ public class Hours extends AppCompatActivity {
 
 
         //======set title to corresponding date
-        String title;// = entrySplit[2];//TODO the assignment seems redundant
+        String title;
         //if(month<10)
         //    title+="/0"+month;
         //else
@@ -348,7 +351,7 @@ public class Hours extends AppCompatActivity {
        // title+="/"+Calendar.getInstance().get(Calendar.YEAR);
         //Log.d("TKT_hours","title: "+title);
         title = generateDateFormat(Integer.parseInt(entrySplit[2]),month,Calendar.getInstance().get(Calendar.YEAR));
-        Log.d("TKT_hours","title: "+ title);
+        //Log.d("TKT_hours","title: "+ title);
         final String TITLE = title;
 
         //======show dialog
@@ -377,13 +380,19 @@ public class Hours extends AppCompatActivity {
         deleteEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
-            {//works fine
+            {
+                Log.d("TKT_hours","deleteEntry.onClickListener=============");
                 String [] entries = TITLE.split("/");
-                Log.d("TKT_deleteEntry","entries[0]" +
-                        ": "+ entries[0]);
+                //Log.d("TKT_deleteEntry","entries[0]" + ": "+ entries[0]);
                 int day = Integer.parseInt(entries[0]);
                 int month = Integer.parseInt(entries[1]);
                 Day [][] days = Cashier.getMatrixFromDB();
+                String hoursToRemoveFromAlt = days[day-1][month-1].sumHours;
+                //// TODO: 10/23/2017 reduce hourseToRemoveFromAlt from alt in shared - done: check left
+                //String newAlt = Cashier.hourDifference(hoursToRemoveFromAlt,Cashier.getAltFromDb(month));
+
+
+                Cashier.updateAltogetherHours(hoursToRemoveFromAlt, emptyHour, month);
                 days[day-1][month-1] = null;
                 Cashier.writeMatToDB(days);
 
@@ -398,32 +407,19 @@ public class Hours extends AppCompatActivity {
         st.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                /*
-                String m = "", h = "";
-                if(minute<10)
-                    m = "0"+minute;
-                else
-                    m += minute;
-                    START = hourOfDay+":0"+minute;
-                else
-                    START = hourOfDay+":"+minute;
-                */
+
+                Log.d("TKT_hours","st.onClickListener=============");
                 START = generateTimeFormat(hourOfDay,minute);
-                Log.d("TKT_hours","START: "+START);
+                //Log.d("TKT_hours","START: "+START);
             }
         });
 
         ed.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                /*
-                if(minute<10)
-                    END = hourOfDay+":0"+minute;
-                else
-                    END = hourOfDay+":"+minute;
-                */
+                Log.d("TKT_hours","ed.onClickListener=============");
                 END = generateTimeFormat(hourOfDay,minute);
-                Log.d("TKT_hours","END: "+END);
+                //Log.d("TKT_hours","END: "+END);
             }
         });
 
@@ -470,19 +466,21 @@ public class Hours extends AppCompatActivity {
                 entry format:
                          יי/חח/שש>>שעת_התחלה - שעת_סיום=סה"כ שעות: דד/שש
                 */
+        Log.d("TKT_hours","updateMatrix=============");
         String diff = Cashier.hourDifference(start, end);
+        Log.d("TKT_hours","diff: "+diff);
         String newEntry = generateEntry(title, start, end, diff);
+        Log.d("TKT_hours","newEntry: "+newEntry);
         String [] dayOfMonth = newEntry.split(">>");
         dayOfMonth = dayOfMonth[0].split("/");
         int day = Integer.parseInt(dayOfMonth[0]);
-        Log.d("TKT_hours","day: "+day);
-        Log.d("TKT_hours","day: "+day);
-        //Log.d("TKT_hours","newDayObj: "+newDayObj.toString());
         Day [][] dayMat = Cashier.getMatrixFromDB();
         dayMat[day-1][month-1] = new Day(newEntry);//newEntry;
         Cashier.writeMatToDB(dayMat);
 
-        Log.d("TKT_hours","currDiff: "+currentDiff+", dayMay[][].sumHours: "+dayMat[day-1][month-1].sumHours+", month: "+month);
+        //Log.d("TKT_hours","currDiff: "+currentDiff+", dayMay[][].sumHours: "+dayMat[day-1][month-1].sumHours+", month: "+month);
+        Log.d("TKT_hours","currDiff: "+currentDiff);
+        Log.d("TKT_hours","sumHours: "+dayMat[day-1][month-1].sumHours);
         Cashier.updateAltogetherHours(currentDiff, dayMat[day-1][month-1].sumHours, month);
         Cashier.dialog.dismiss();
         showChangeDialog(month);
