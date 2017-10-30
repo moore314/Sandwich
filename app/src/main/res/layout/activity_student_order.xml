@@ -26,7 +26,7 @@
         android:textStyle="bold"
         android:textSize="25dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
 
         />
 
@@ -35,50 +35,57 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        android:weightSum="4">
+
+        <!-- todo check the button that is close to the current hour-->
 
         <Button
-
-            android:layout_width="60dp"
+            android:id="@+id/tenOrder"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:textSize="18dp"
             android:text="@string/timeTen"
             android:tag="@string/timeTen"
-            android:onClick="setTime"/>
+            android:onClick="setTime"
+            android:layout_weight="1"/>
 
         <Button
-
-            android:layout_width="60dp"
+            android:id="@+id/twelveOrder"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:textSize="18dp"
-            android:text="@string/timeEleven"
+            android:text="@string/timeTwelve"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:tag="@string/timeEleven"
-            android:onClick="setTime"/>
+            android:tag="@string/timeTwelve"
+            android:onClick="setTime"
+            android:layout_weight="1"/>
 
         <Button
-
-            android:layout_width="60dp"
+            android:id="@+id/oneOrder"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:textSize="18dp"
             android:text="@string/timeOne"
             android:layout_marginRight="5dp"
             android:tag="@string/timeOne"
-            android:onClick="setTime"/>
+            android:onClick="setTime"
+            android:layout_weight="1"/>
 
         <Button
-
-            android:layout_width="60dp"
+            android:id="@+id/threeOrder"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:textSize="18dp"
             android:text="@string/timeThree"
             android:tag="@string/timeThree"
-            android:onClick="setTime"/>
+            android:onClick="setTime"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -88,14 +95,15 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/turq"
-            android:layout_marginBottom="5dp"></View>
+            android:layout_marginBottom="10dp"></View>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="5dp"
+        >
 
         <ImageButton
             android:id="@+id/muesliButton"
@@ -137,6 +145,7 @@
             android:textStyle="bold"
             android:onClick="salads"
             android:clickable="true"
+
             >
         </ImageButton>
 
@@ -205,6 +214,7 @@
 
 
     <EditText
+        android:id="@+id/studentNotes"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:background="@drawable/shape"
@@ -215,6 +225,7 @@
         android:textColorHint="@color/turq"
         android:layout_marginBottom="5dp"
         android:padding="5dp"
+        android:focusableInTouchMode="true"
         />
 
 
@@ -228,6 +239,7 @@
 
 
         <EditText
+            android:id="@+id/studentName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18dp"
@@ -241,22 +253,168 @@
 
 
 
-        <!--
-        <LinearLayout
-            android:id="@+id/orderLinearLayout"
+
+        <RelativeLayout
+            android:id="@+id/orderRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
             android:layout_gravity="right"
-            android:padding="5dp"
             android:layout_marginBottom="55dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+
             >
 
+            <!-- sand1 ============================ -->
+           <LinearLayout
+               android:id="@+id/sand"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:background="@drawable/shape"
+               android:backgroundTint="@color/gray"
+               android:padding="5dp"
+               android:layout_alignParentEnd="true"
+               android:visibility="gone"
+               >
 
-        </LinearLayout>
-        -->
+               <ImageButton
+                   android:id="@+id/cancelSand"
+                   android:layout_width="30dp"
+                   android:layout_height="30dp"
+                   android:background="@android:drawable/ic_menu_close_clear_cancel"
+                   android:layout_gravity="center"/>
+
+               <TextView
+                   android:id="@+id/studentItem"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="קמח מלא: חציל+בולגרית"
+                   android:textSize="18dp"
+                   android:layout_gravity="center"
+                   android:gravity="right"
 
 
+                   />
+           </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/twoItemLinear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/sand"
+                android:layout_alignParentEnd="true"
+                android:layout_marginLeft="5dp"
+                >
+
+                <!-- hots ============================= -->
+                <LinearLayout
+                    android:id="@+id/itemHot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/shape"
+                    android:backgroundTint="@color/gray"
+                    android:padding="5dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    >
+
+                    <ImageButton
+                        android:id="@+id/cancelHot"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@android:drawable/ic_menu_close_clear_cancel"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/hotItem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10 שניצל תירס"
+                        android:textSize="18dp"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+
+                        />
+                </LinearLayout>
+
+                <!-- dessert ===================== -->
+                <LinearLayout
+                    android:id="@+id/itemDessert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@drawable/shape"
+                    android:backgroundTint="@color/gray"
+                    android:padding="5dp"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone">
+
+                    <ImageButton
+                        android:id="@+id/cancelDessert"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@android:drawable/ic_menu_close_clear_cancel"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/dessertItem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10 פירות חתוכים"
+                        android:textSize="18dp"
+                        android:layout_gravity="center"
+                        android:gravity="right"
+
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <!-- salad ========================= -->
+            <LinearLayout
+                android:id="@+id/itemSalad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/gray"
+                android:padding="5dp"
+                android:layout_toLeftOf="@id/twoItemLinear"
+                android:layout_below="@id/sand"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"
+                >
+
+                <ImageButton
+                    android:id="@+id/cancelSalad"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@android:drawable/ic_menu_close_clear_cancel"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/saladItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="סלט:\nתוספות: ללא\nפרוסת לחם: כן"
+                    android:textSize="18dp"
+                    android:gravity="right"
+                    android:layout_gravity="center"
+
+                    />
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
 
 
     </LinearLayout>
@@ -298,7 +456,7 @@
             android:textColor="@color/blanco"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:onClick="check"
+            android:onClick="order"
             android:layout_weight="1"
             android:layout_marginLeft="2dp"
             />

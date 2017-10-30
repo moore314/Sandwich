@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            >
+
+
+            <NumberPicker
+                android:id="@+id/studentSaladNumPick"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:scaleX="1.7"
+                android:scaleY="1.7"
+                android:descendantFocusability="blocksDescendants"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_weight="1"></NumberPicker>
+
+
+            <TextView
+                android:id="@+id/saladAdditionBuutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="@string/saladAddition"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:tag="@string/saladAddition"
+                android:hint="@string/salad_hint"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+
+
+
+        <Button
+            android:id="@+id/breadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:text="@string/bread"
+            android:textStyle="bold"
+            android:tag="@string/bread"
+            android:clickable="true"
+            android:hint="16"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="5dp"
+            >
+
+            <Button
+                android:id="@+id/cancelCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/red"
+                android:text="@string/cancel"
+                android:textColor="@color/blanco"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginRight="2dp"
+
+                />
+
+            <Button
+                android:id="@+id/check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/turq"
+                android:text="@string/checkPlease"
+                android:textColor="@color/blanco"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

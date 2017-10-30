@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="ltr"
+    android:layout_weight="1"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <RadioButton
+                    android:id="@+id/baguetteRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/bagette"
+                    android:buttonTint="@color/turq"
+                    android:layoutDirection="rtl"
+                    android:layout_gravity="right"
+                    android:onClick="chooseBread"
+                    android:tag="@string/bagette"
+                    />
+
+                <RadioButton
+                    android:id="@+id/wholeWheatRadio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wholeWheat"
+                    android:buttonTint="@color/turq"
+                    android:layoutDirection="rtl"
+                    android:layout_gravity="right"
+                    android:onClick="chooseBread"
+                    android:tag="@string/wholeWheat"/>
+
+            </RadioGroup>
+
+        </LinearLayout>
+
+
+        <View
+
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/turq"
+            android:layout_marginBottom="10dp"></View>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="3"
+            >
+
+
+            <Button
+                android:id="@+id/shakshukaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/shakshuka"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="1"/>
+            <Button
+                android:id="@+id/tunaSaladButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/tunaSalad"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="2"/>
+            <Button
+                android:id="@+id/greenOmletteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/greenOmlette"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="3"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+            >
+
+
+            <Button
+                android:id="@+id/sabihButton"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/sabih"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="4"/>
+            <Button
+                android:id="@+id/spicyEggplantButton"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/spicyEggplant"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="5"
+                />
+            <Button
+                android:id="@+id/pestoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/pesto"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="6"/>
+
+            <Button
+                android:id="@+id/cheeseEggplantBuutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/cheeseEggplant"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="7"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="4">
+
+
+
+
+
+            <Button
+                android:id="@+id/eggSaladbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/eggSalad"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="8"/>
+
+            <Button
+                android:id="@+id/bulgarianButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/bulgarian"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="9"></Button>
+
+            <Button
+                android:id="@+id/creamCheeseButton"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/creamCheese"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="10"/>
+
+            <Button
+                android:id="@+id/tunaButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/tuna"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="11"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_weight="4"
+
+
+            >
+
+
+
+            <Button
+                android:id="@+id/yellowCheeseButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:text="@string/yellowCheese"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="12"/>
+
+            <Button
+                android:id="@+id/tivolButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginRight="2dp"
+                android:layout_marginLeft="2dp"
+                android:text="@string/tivol"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="13"
+                />
+
+            <Button
+                android:id="@+id/omletteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:text="@string/omlette"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="14"
+                />
+
+            <Button
+                android:id="@+id/avocadobutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:layout_marginLeft="2dp"
+                android:text="@string/avocado"
+                android:textStyle="bold"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:onClick="chooseSandwich"
+                android:tag="15"
+                />
+
+
+
+            />
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            >
+
+            <Button
+                android:id="@+id/cancelCheck"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/red"
+                android:text="@string/cancel"
+                android:textColor="@color/blanco"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginRight="2dp"
+
+                />
+
+            <Button
+                android:id="@+id/check"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape"
+                android:backgroundTint="@color/turq"
+                android:text="@string/checkPlease"
+                android:textColor="@color/blanco"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_marginLeft="2dp"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

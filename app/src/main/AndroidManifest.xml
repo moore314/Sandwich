@@ -26,7 +26,8 @@
             android:name=".ItemScreen"
             android:parentActivityName=".Welcome"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
             android:name=".Report"
             android:label="@string/report"
@@ -41,15 +42,22 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Hours"
+            android:label="@string/hours"
             android:parentActivityName=".Welcome"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ClassicView"
+            android:label="@string/cashier"
             android:parentActivityName=".ItemScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".StudentOrder"></activity>
+        <activity
+            android:name=".StudentOrder"
+            android:label="@string/studentOrderLable"
+            android:parentActivityName=".Welcome"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

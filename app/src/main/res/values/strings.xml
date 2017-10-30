@@ -18,7 +18,7 @@
     <string name="yes">כן</string>
     <string name="no">לא</string>
     <string name="timeTen">10:00</string>
-    <string name="timeEleven">12:00</string>
+    <string name="timeTwelve">12:00</string>
     <string name="timeOne">13:30</string>
     <string name="timeThree">15:30</string>
     <string name="notes">הערות...</string>
@@ -34,6 +34,13 @@
 
     <!-- student mode-->
     <string name="defaultName">לויס ליין</string>
+    <string name="wholeWheat">קמח מלא</string>
+    <string name="bagette">באגט</string>
+    <string name="pleaseChooseBreadType">שכחת לבחור סוג לחם :o</string>
+    <string name="pleaseChooseSand">שכחת לבחור סנדוויץ\' :o</string>
+    <string name="studentOrderLable">הזמנה</string>
+    <string name="hotsQuantity">כמות</string>
+    <string name="pleaseChooseMeal">שכחת לבחור פריט :o</string>
 
 
 
@@ -119,7 +126,7 @@
     <string name="bulgarian">בולגרית\n10</string>
     <string name="yellowCheese">גבינה צהובה\n10</string>
     <string name="eggSalad">סלט ביצים\n10</string>
-    <string name="avocado">אבוקדו\n12</string>
+    <string name="avocado">אבוקדו\n15</string>
     <string name="omlette">חביתה\n12</string>
     <string name="tivol">כריך טבעול\n12</string>
 
@@ -183,7 +190,7 @@
     <string name="corn_milanesa">שניצל תירס\n5</string>
 
     <!-- meusli -->
-    <string name="watermelon">אבטיח\n7</string>
+    <string name="watermelon">פירות חתוכים\n7</string>
     <string name="fruitMuesli">מוזלי\n15</string>
     <string name="muller_froop">מולר קטן\n5.5</string>
     <string name="muller_click">מולר גדול\n6.5</string>

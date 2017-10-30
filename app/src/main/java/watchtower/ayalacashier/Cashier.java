@@ -1,5 +1,6 @@
 package watchtower.ayalacashier;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -68,6 +69,7 @@ public class Cashier {
     public static final String DETAIL_VIEW = "קופה מפורטת";
     public static final String ALTOGETHER_HR_TXT = "סה\"כ שעות: ";
     public static final String IS_STUDENT = "isStudent";
+
 
     //public static final String REPORT_HEB = "דוח מכירות"
 
@@ -445,6 +447,7 @@ public class Cashier {
     public static Dialog dialog;
     public static Locale il = new Locale("iw", "IL");
     public static final Currency ILS = Currency.getInstance(il);
+    final static String number = "+972526670900";
 
     static int itemName = 0;
     static int itemPrice = 1;
@@ -941,7 +944,7 @@ update        */
         int i = Integer.parseInt(month[DAY]);
         int j = Integer.parseInt(month[MONTH]);
         //fetch mat from shared
-        Day[][] fromDB = getMatrixFromDB();//(month[MONTH]); //// TODO: 10/10/2017 change file name since it's a mat
+        Day[][] fromDB = getMatrixFromDB();//(month[MONTH]);
         //if(fromDB == null)
         {
             fromDB[i - 1][j - 1] = new Day(day);
@@ -1139,16 +1142,41 @@ update        */
     }
 
 
+    @SuppressLint("NewApi")
     public static void sendThisMonthToA(int month, Context context) {
         Log.d("TKT_cashier", "sendThisMonthToA==========");
         //Log.d("TKT_cashier","month is: "+(month));
         //Log.d("TKT_cashier","month[]: "+MONTHS[(month)]);
         //generate string to send
+
+        //String formatedNumber = PhoneNumberUtils.format(number);
+
+
         String hourMessage = generateHourMessage(month);
+        /*
+        try {
+
+
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, hourMessage);
+            intent.putExtra("jid", number + "@s.whatsapp.net");
+            intent.setPackage("com.whatsapp");
+            context.startActivity(intent);
+        }
+        catch (Exception x)
+        {
+            Log.d("TKT_cashier","cannot send whatsapp");
+        }
+        */
+
         Intent sendToA = new Intent(Intent.ACTION_SEND);
         sendToA.putExtra(Intent.EXTRA_TEXT, hourMessage);
         sendToA.setType("text/plain");
         context.startActivity(Intent.createChooser(sendToA, "שליחת דו\"ח שעות"));
+
 
     }
 
@@ -1215,6 +1243,53 @@ update        */
     {
         progressEdit = checkPrefs.edit();
         progressEdit.putBoolean(IS_STUDENT,true);
+        progressEdit.commit();
+    }
+
+    public static void sharedUpdateSand(String sand) {
+        Log.d("TKT_cashier", "sharedUpdateSand===================");
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(StudentOrder.CHOSEN_SAND, sand);
+        progressEdit.commit();
+    }
+    public static void sharedUpdateSandBread(String bread) {
+        Log.d("TKT_cashier", "sharedUpdateSandBread===================");
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(StudentOrder.CHOSEN_BREAD, bread);
+        progressEdit.commit();
+    }
+    
+    //// TODO: 10/29/2017 update shared about these selections 
+    public static void sharedUpdateSaladBread(String bread) {
+        Log.d("TKT_cashier", "sharedUpdateSandBread===================");
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(StudentOrder.CHOSEN_SALAD_BREAD, bread);
+        progressEdit.commit();
+    }
+    public static void sharedUpdateSaladAdds(String adds) {
+        Log.d("TKT_cashier", "sharedUpdateSandBread===================");
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(StudentOrder.NUM_SALAD_ADDS, adds);
+        progressEdit.commit();
+    }
+    public static void sharedUpdateHot(String hot)
+    {
+        Log.d("TKT_cashier", "sharedUpdateHot===================");
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(StudentOrder.CHOSEN_HOT, hot);
+        progressEdit.commit();
+    }
+    public static void sharedUpdateDessert(String dessert)
+    {
+        Log.d("TKT_cashier", "sharedUpdateHot===================");
+
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(StudentOrder.CHOSEN_DESSERT, dessert);
         progressEdit.commit();
     }
 

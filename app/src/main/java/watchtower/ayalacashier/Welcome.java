@@ -53,22 +53,24 @@ public class Welcome extends AppCompatActivity {
 
             getInShift.setOnLongClickListener(new View.OnLongClickListener() {
 
+
                 @Override
                 public boolean onLongClick(View v) {
-                    start = true;
-                    Log.d("TKT_welcome","start = "+start);
-                    if(Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
+                    if (!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false)){
+                        /////////////////////////////
+                        start = true;
+                    Log.d("TKT_welcome", "start = " + start);
+                    if (Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
                         //progressBar.setVisibility(View.VISIBLE);
-                        if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
-                        {//if longPressed and shift = true; meaning, getOut
-                            Log.d("TKT_welcome","getOutShift");
+                        if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false)) {//if longPressed and shift = true; meaning, getOut
+                            Log.d("TKT_welcome", "getOutShift");
 
                             Cashier.dialog = new Dialog(context);
                             Cashier.dialog.setContentView(R.layout.are_you_sure);
-                            TextView q = (TextView)Cashier.dialog.findViewById(R.id.text);
+                            TextView q = (TextView) Cashier.dialog.findViewById(R.id.text);
                             q.setText(Cashier.EXIT_SHIFT);
-                            Button yes = (Button)Cashier.dialog.findViewById(R.id.hellYeah);
-                            Button no = (Button)Cashier.dialog.findViewById(R.id.heavensNo);
+                            Button yes = (Button) Cashier.dialog.findViewById(R.id.hellYeah);
+                            Button no = (Button) Cashier.dialog.findViewById(R.id.heavensNo);
 
                             yes.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -88,7 +90,7 @@ public class Welcome extends AppCompatActivity {
                             Cashier.dialog.show();
 
                         } else {
-                            Log.d("TKT_welcome","getInShift");
+                            Log.d("TKT_welcome", "getInShift");
                             progressBar.setBackgroundResource(R.drawable.circle_turq);
                             Cashier.updateShiftState(true);
                             shiftEntry();
@@ -97,6 +99,9 @@ public class Welcome extends AppCompatActivity {
                         //handler();
                         return true;
                     }
+
+                    }
+                    Log.d("TKT_welcome","student cannot get in shift");
                     return false;
                 }
             });
@@ -307,8 +312,11 @@ public class Welcome extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.welcome_menu, menu);
-        return true;
+        if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false)) {
+            getMenuInflater().inflate(R.menu.welcome_menu, menu);
+            return true;
+        }
+        return false;
     }
 
 
