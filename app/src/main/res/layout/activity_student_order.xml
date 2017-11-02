@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context="watchtower.ayalacashier.StudentOrder"
     android:background="@color/background"
-    android:layoutDirection="ltr">
+    android:layoutDirection="ltr"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
 
     <LinearLayout
@@ -16,7 +18,27 @@
         android:padding="5dp"
         >
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="right">
 
+
+    <EditText
+        android:id="@+id/studentName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_gravity="right"
+        android:text="@string/defaultName"
+        android:maxLines="1"
+        android:maxLength="30"
+        android:gravity="center"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+
+        />
 
 
     <TextView
@@ -24,11 +46,14 @@
         android:layout_height="wrap_content"
         android:text="@string/order"
         android:textStyle="bold"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="10dp"
+        android:gravity="right"
 
         />
+
+</LinearLayout>
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -226,6 +251,7 @@
         android:layout_marginBottom="5dp"
         android:padding="5dp"
         android:focusableInTouchMode="true"
+        android:gravity="top"
         />
 
 
@@ -237,22 +263,39 @@
 
         <!-- orderDetail -->
 
-
-        <EditText
-            android:id="@+id/studentName"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18dp"
-            android:layout_gravity="right"
-            android:text="@string/defaultName"
-            android:maxLines="1"
-            android:maxLength="30"
-            android:gravity="right"
-            android:paddingRight="5dp"
-            />
+            android:orientation="horizontal"
+            android:gravity="right">
 
 
+            <TextView
+                android:id="@+id/paymentTextField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_gravity="right"
+                android:text="0.0"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
 
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/studentPayment"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_gravity="center"
+                android:gravity="right"
+
+                />
+
+        </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/orderRelativeLayout"

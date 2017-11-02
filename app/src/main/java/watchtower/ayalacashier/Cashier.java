@@ -257,7 +257,7 @@ public class Cashier {
 
     //salad===================================================================
     public static String[] SALAD_NAMES = {"סלט", "פרוסת לחם", "תוספות לסלט"};
-    public static double[] SALAD_PRICES = {13, 1.5, 3};
+    public static double[] SALAD_PRICES = {13, 1, 3};
     public static int IND_SALAD = 0;
     public static int IND_SALAD_BREAD = 1;
     public static int IND_SALAD_ADDITION = 2;
@@ -1279,7 +1279,7 @@ update        */
     public static void sharedUpdateHot(String hot)
     {
         Log.d("TKT_cashier", "sharedUpdateHot===================");
-
+        Log.d("TKT_cashoer","hot to be in shared: "+hot);
         progressEdit = checkPrefs.edit();
         progressEdit.putString(StudentOrder.CHOSEN_HOT, hot);
         progressEdit.commit();

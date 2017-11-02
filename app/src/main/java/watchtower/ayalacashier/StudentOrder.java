@@ -1,5 +1,6 @@
 package watchtower.ayalacashier;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,6 +19,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.HashMap;
+
+//// TODO: 11/2/2017 when changing an order to the same item but different quantity, the price isn't right - 
 
 public class StudentOrder extends AppCompatActivity {
 
@@ -34,29 +38,34 @@ public class StudentOrder extends AppCompatActivity {
     final String one = "13:30";
     final String three = "15:30";
     //sandwich
-    String [] sandwich = new String [2];
+    String [] sandwich = new String [3];
     final int IND_BREAD_TYPE = 0;
     final int IND_SANDWICH_TYPE = 1;
+    final int IND_SANDWICH_PRICE = 2;
     final String openDialogFlag = "openDialogFlag";
 
     //salad
     final int IND_SALAD_ADDS = 0;
     final int IND_SALAD_BREAD = 1;
+    final int IND_SALAD_ADD_PRICE = 2;
+    final int IND_SALAD_BREAD_PRICE = 3;
     final String NO_BREAD = "ללא";
     final String YES_BREAD = "כן";
     final String ORDER_STRING_SALAD_ADDS = "תוספות: ";
     final String ORDER_STRING_SALAD_BREAD = "פרוסת לחם: ";
-    String [] salad = {IND_SALAD_ADDS+"",NO_BREAD};
+    String [] salad = {IND_SALAD_ADDS+"",NO_BREAD, 0+"", 0+""};
 
     //hots
     final int HOT_ITEM = 0;
     final int HOT_QUAN = 1;
-    String [] hots = {null, HOT_QUAN+""};
+    final int HOT_PRICE = 2;
+    String [] hots = {null, HOT_QUAN+"", 0+""};
 
     //meusli
     int MEU_ITEM = 0;
     int MEU_QUAN = 1;
-    String [] dessert = {null, MEU_QUAN+""};
+    int MEU_PRICE = 2;
+    String [] dessert = {null, MEU_QUAN+"", 0+""};
 
 
 
@@ -72,6 +81,8 @@ public class StudentOrder extends AppCompatActivity {
     static TextView sandTxtView, saladTxtView, hotsTxtView, dessertTxtView;
     static LinearLayout sandParent, saladParent, hotParent, dessertParent;
     static RelativeLayout bottomView;
+    EditText nameFromET, notesFromET;
+    TextView payment;
 
 
     @Override
@@ -88,17 +99,26 @@ public class StudentOrder extends AppCompatActivity {
         saladParent = (LinearLayout)findViewById(R.id.itemSalad);
         dessertParent = (LinearLayout)findViewById(R.id.itemDessert);
         bottomView = (RelativeLayout)findViewById(R.id.orderRelativeLayout);
+        nameFromET = (EditText)findViewById(R.id.studentName);
+        notesFromET = (EditText)findViewById(R.id.studentNotes);
+        payment = (TextView)findViewById(R.id.paymentTextField);
+        initBoxes();
 
 
         ImageButton deleteSandFromOrder = (ImageButton)findViewById(R.id.cancelSand);
         ImageButton deleteHotFromOrder = (ImageButton)findViewById(R.id.cancelHot);
         ImageButton deleteSaladFromOrder = (ImageButton)findViewById(R.id.cancelSalad);
         ImageButton deleteDessertFromOrder = (ImageButton)findViewById(R.id.cancelDessert);
+        
+        //// TODO: 10/31/2017 when remove from view, also remove from hash!
         deleteSandFromOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                //// TODO: 10/30/2017 add r u sure
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_SAND), sandwich);
+                Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_SAND));
+                Log.d("TKT_studentOrder","itemPrice: "+sandwich[IND_SANDWICH_PRICE]);
+                orderDetails.remove(ORDER_SAND);
                 sandParent.setVisibility(View.GONE);
             }
         });
@@ -106,7 +126,10 @@ public class StudentOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                //// TODO: 10/30/2017 add r u sure
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_HOTS), hots);
+                Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_HOTS));
+                Log.d("TKT_studentOrder","itemPrice: "+hots[HOT_PRICE]);
+                orderDetails.remove(ORDER_HOTS);
                 hotParent.setVisibility(View.GONE);
             }
         });
@@ -114,7 +137,10 @@ public class StudentOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                //// TODO: 10/30/2017 add r u sure
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_SALAD), salad);
+                Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_SALAD));
+                Log.d("TKT_studentOrder","itemPrice: "+salad[IND_SALAD_ADD_PRICE]+", "+salad[IND_SALAD_BREAD_PRICE]);
+                orderDetails.remove(ORDER_SALAD);
                 saladParent.setVisibility(View.GONE);
             }
         });
@@ -122,11 +148,33 @@ public class StudentOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                //// TODO: 10/30/2017 add r u sure
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_DESSERT), dessert);
+                Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_DESSERT));
+                Log.d("TKT_studentOrder","itemPrice: "+dessert[MEU_PRICE]);
+                orderDetails.remove(ORDER_DESSERT);
                 dessertParent.setVisibility(View.GONE);
             }
         });
         //EditText notes = (EditText)findViewById(R.id.studentNotes);
+    }
+
+    public void reducePriceAfterRemoveItem(String itemRemoved, String [] itemArr)
+    {
+        Log.d("TKT_studentOrder","reducePrice..==================");
+        String stringPrice = itemArr[2]; //2 is the index of price in every array, in salads, there is another price
+        double doublePrice = Double.parseDouble(stringPrice);
+        if(itemArr.length > 3)
+        {
+            String stringSaladBreadPrice = itemArr[IND_SALAD_BREAD_PRICE];
+            double doubleSaladBreadPrice = Double.parseDouble(stringSaladBreadPrice) + Cashier.SALAD_PRICES[Cashier.IND_SALAD];
+            doublePrice += doubleSaladBreadPrice;
+        }
+        String stringPaymentTxt = payment.getText().toString();
+        double doublePaymentTxt = Double.parseDouble(stringPaymentTxt);
+        Log.d("TKT_studentOrder","doublePrice - doublePaymentTxt: " + (doublePrice - doublePaymentTxt));
+        double difference = doublePaymentTxt - doublePrice;
+        payment.setText(difference+"");
+
     }
 
     public void cancel(View v)
@@ -141,6 +189,7 @@ public class StudentOrder extends AppCompatActivity {
 
     public void setTime(View v)
     {
+        hideKeyboard(v);
         Log.d("TKT_studentOrder","setTime================");
         String hour = orderDetails.get(ORDER_TIME);
         //Log.d("TKT_studentOrder","tag: "+v.getTag().toString());
@@ -154,7 +203,8 @@ public class StudentOrder extends AppCompatActivity {
     }
 
     public void buttonHandler(String tag,String currentTag)
-    {
+    {//handles changing view of button from pressed to unpressed
+        // - get prev pressed button using 'tag', then change its background
         Log.d("TKT_studentOrder","getChosenButton");
             Button button = null;
             switch (tag) {
@@ -184,104 +234,134 @@ public class StudentOrder extends AppCompatActivity {
                 {
                     Log.d("TKT_studentOrder", "1");
                     button = (Button) Cashier.dialog.findViewById(R.id.shakshukaButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 2+"":
                 {
                     Log.d("TKT_studentOrder", "2");
                     button = (Button) Cashier.dialog.findViewById(R.id.tunaSaladButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }case 3+"":
                 {
                     Log.d("TKT_studentOrder", "3");
                     button = (Button) Cashier.dialog.findViewById(R.id.greenOmletteButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 4+"":
                 {
                     Log.d("TKT_studentOrder", "4");
                     button = (Button) Cashier.dialog.findViewById(R.id.sabihButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 5+"":
                 {
                     Log.d("TKT_studentOrder", "5");
                     button = (Button) Cashier.dialog.findViewById(R.id.spicyEggplantButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 6+"":
                 {
                     Log.d("TKT_studentOrder", "6");
                     button = (Button) Cashier.dialog.findViewById(R.id.pestoButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 7+"":
                 {
                     Log.d("TKT_studentOrder", "7");
                     button = (Button) Cashier.dialog.findViewById(R.id.cheeseEggplantBuutton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 8+"":
                 {
                     Log.d("TKT_studentOrder", "8");
                     button = (Button) Cashier.dialog.findViewById(R.id.eggSaladbutton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 9+"":
                 {
                     Log.d("TKT_studentOrder", "9");
                     button = (Button) Cashier.dialog.findViewById(R.id.bulgarianButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 10+"":
                 {
                     Log.d("TKT_studentOrder", "10");
                     button = (Button) Cashier.dialog.findViewById(R.id.creamCheeseButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 11+"":
                 {
                     Log.d("TKT_studentOrder", "11");
                     button = (Button) Cashier.dialog.findViewById(R.id.tunaButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 12+"":
                 {
                     Log.d("TKT_studentOrder", "12");
                     button = (Button) Cashier.dialog.findViewById(R.id.yellowCheeseButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 13+"":
                 {
                     Log.d("TKT_studentOrder", "13");
                     button = (Button) Cashier.dialog.findViewById(R.id.tivolButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 14+"":
                 {
                     Log.d("TKT_studentOrder", "14");
                     button = (Button) Cashier.dialog.findViewById(R.id.omletteButton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 15+"":
                 {
                     Log.d("TKT_studentOrder", "15");
                     button = (Button) Cashier.dialog.findViewById(R.id.avocadobutton);
-                    sandwich[IND_SANDWICH_TYPE] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    sandwich[IND_SANDWICH_TYPE] = temp[0];
+                    sandwich[IND_SANDWICH_PRICE] = temp[1];
                     break;
                 }
                 case 16+"":
@@ -293,32 +373,70 @@ public class StudentOrder extends AppCompatActivity {
                 case 17+"":
                 {
                     button = (Button)Cashier.dialog.findViewById(R.id.milanesaButton);
-                    hots[HOT_ITEM] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    hots[HOT_ITEM] = temp[0];
+                    hots[HOT_PRICE] = temp[1];
                     break;
                 }
                 case 18+"":
                 {
                     button = (Button)Cashier.dialog.findViewById(R.id.kuskusButton);
-                    hots[HOT_ITEM] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    hots[HOT_ITEM] = temp[0];
+                    hots[HOT_PRICE] = temp[1];
                     break;
                 }
                 case 19+"":
                 {
                     button = (Button)Cashier.dialog.findViewById(R.id.pastaButton);
-                    hots[HOT_ITEM] = button.getText().toString();
+                    String [] temp = button.getText().toString().split("\n");
+                    hots[HOT_ITEM] = temp[0];
+                    hots[HOT_PRICE] = temp[1];
                     break;
                 }
                 //meuslis
                 case 20+"":
                 {
                     button = (Button)Cashier.dialog.findViewById(R.id.meusliButton);
+                    String [] temp = button.getText().toString().split("\n");
+                    dessert[MEU_ITEM] = temp[0];
+                    dessert[MEU_PRICE] = temp[1];
                     break;
                 }
                 case 21+"":
                 {
                     button = (Button)Cashier.dialog.findViewById(R.id.watermelonButton);
+                    String [] temp = button.getText().toString().split("\n");
+                    dessert[MEU_ITEM] = temp[0];
+                    dessert[MEU_PRICE] = temp[1];
                     break;
                 }
+                //hots: soup
+                case 22+"":
+                {
+                    button = (Button)Cashier.dialog.findViewById(R.id.lentilButton);
+                    String [] temp = button.getText().toString().split("\n");
+                    hots[HOT_ITEM] = temp[0];
+                    hots[HOT_PRICE] = temp[1];
+                    break;
+                }
+                case 23+"":
+                {
+                    button = (Button)Cashier.dialog.findViewById(R.id.veggiButton);
+                    String [] temp = button.getText().toString().split("\n");
+                    hots[HOT_ITEM] = temp[0];
+                    hots[HOT_PRICE] = temp[1];
+                    break;
+                }
+                case 24+"":
+                {
+                    button = (Button)Cashier.dialog.findViewById(R.id.yamBuutton);
+                    String [] temp = button.getText().toString().split("\n");
+                    hots[HOT_ITEM] = temp[0];
+                    hots[HOT_PRICE] = temp[1];
+                    break;
+                }
+
             }
 
             if(currentTag == openDialogFlag)
@@ -405,6 +523,7 @@ public class StudentOrder extends AppCompatActivity {
     public void sandwiches(View v)
     {
         Log.d("TKT_studentOrder","sandwiches=====================");
+        hideKeyboard(v);
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.student_sandwich_dialog_layout);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -413,11 +532,13 @@ public class StudentOrder extends AppCompatActivity {
         final RadioButton ww = (RadioButton) Cashier.dialog.findViewById(R.id.wholeWheatRadio);
         final RadioButton bg = (RadioButton) Cashier.dialog.findViewById(R.id.baguetteRadio);
 
-        initSandButtons();
+
+        //initSandButtons();
         //get chosen data from before, if exists:
         String bread = Cashier.checkPrefs.getString(CHOSEN_BREAD,null);
         String sand = Cashier.checkPrefs.getString(CHOSEN_SAND, null);
 
+        ///*
         if(bread != null)
         {
             Log.d("TKT_studentOrder","bread != null");
@@ -433,9 +554,12 @@ public class StudentOrder extends AppCompatActivity {
                 //chooseBread(Cashier.dialog.findViewById(R.id.baguetteRadio));
 
         }
+
         if(sand != null) {
             buttonHandler(sand, openDialogFlag);
+
         }
+        //*/
 
 
         finish.setOnClickListener(new View.OnClickListener() {
@@ -461,6 +585,7 @@ public class StudentOrder extends AppCompatActivity {
                 else {
                     orderDetails.put(ORDER_SAND, sandwich[IND_BREAD_TYPE] + ": " + sandwich[IND_SANDWICH_TYPE]);
                     Log.d("TKT_studentOrder", "orderDetail: " + orderDetails.get(ORDER_SAND));
+                    setPayment(payment, sandwich[IND_SANDWICH_PRICE]);
                     orderDetailHandler(ORDER_SAND, sandTxtView, sandParent);
                     Cashier.dialog.dismiss();
                 }
@@ -480,6 +605,25 @@ public class StudentOrder extends AppCompatActivity {
 
     }
 
+    public void setPayment(TextView tv, String payment)
+    {
+        Log.d("TKT_studentOrder","setPayment=============");
+        Log.d("TKT_studentOrder","payment: " + payment);
+        String currPaymentString = tv.getText().toString();
+        Log.d("TKT_studentOrder","currentPayment: " + currPaymentString);
+        tv.setText("");
+        double currPaymentDouble = Double.parseDouble(currPaymentString);
+        if(currPaymentDouble != 0)
+        {
+            double newPayment = Double.parseDouble(payment);
+            newPayment += currPaymentDouble;
+            tv.setText(newPayment+"");
+        }
+        else
+            tv.setText(payment);
+
+    }
+
     public void chooseBread(View v)
     {
         Log.d("TKT_studentOrder","chooseBread");
@@ -490,6 +634,7 @@ public class StudentOrder extends AppCompatActivity {
     public void chooseSandwich(View v)
     {
         //consider maybe redirect here from an OnClickListener of each button
+
         Button b = (Button)v;
         Log.d("TKT_studentOrder","chooseSandwich");
         String [] txt = b.getText().toString().split("\n");
@@ -501,12 +646,15 @@ public class StudentOrder extends AppCompatActivity {
         }
         Cashier.sharedUpdateSand(v.getTag().toString());
         b.setBackground(getDrawable(R.drawable.shape_gray));
+        Log.d("TKT_studentOrder","txt[0]: "+txt[0]);
         sandwich[IND_SANDWICH_TYPE] = txt[0];
+        sandwich[IND_SANDWICH_PRICE] = txt[1];
     }
 
     public void salads(View v)
     {
-        Log.d("TKT_studentOrder","salads");
+        Log.d("TKT_studentOrder","salads==============");
+        hideKeyboard(v);
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.student_salad_dialog_layout);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -517,8 +665,10 @@ public class StudentOrder extends AppCompatActivity {
         String [] tempTxt = (getString(R.string.saladAddition)).split("\n");
         addition.setText(tempTxt[0]);
         final Button breadSlice = (Button)Cashier.dialog.findViewById(R.id.breadButton);
-        tempTxt = (getString(R.string.bread)).split("\n");
-        breadSlice.setText(tempTxt[0]);
+        //tempTxt = (getString(R.string.bread)).split("\n");
+        //breadSlice.setText(tempTxt[0]);
+        salad[IND_SALAD_ADD_PRICE] = 0+"";
+        salad[IND_SALAD_BREAD_PRICE] = 0+"";
 
         /*
         // show prev chosen state of breadSlice - I don't want this for now
@@ -537,13 +687,15 @@ public class StudentOrder extends AppCompatActivity {
         picker.setMinValue(0);
         picker.setMaxValue(6);
         picker.setWrapSelectorWheel(false);
-        picker.setValue(addsPicked);
-        salad[IND_SALAD_ADDS] = addsPicked+"";
+        //picker.setValue(addsPicked);
+        //salad[IND_SALAD_ADDS] = addsPicked+"";
         picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 //Log.d("TKT_studentOrder","picker.onValueChangeListener=============");
                 salad[IND_SALAD_ADDS] = newVal+"";
+                double price = newVal*Cashier.SALAD_PRICES[Cashier.IND_SALAD_ADDITION];
+                salad[IND_SALAD_ADD_PRICE] = price+"";
             }
         });
         //===================
@@ -556,18 +708,19 @@ public class StudentOrder extends AppCompatActivity {
                     //Cashier.sharedUpdateSaladBread(1);
                     salad[IND_SALAD_BREAD] = YES_BREAD;
                     breadSlice.setBackground(getDrawable(R.drawable.shape_gray));
+                    salad[IND_SALAD_BREAD_PRICE] = Cashier.SALAD_PRICES[IND_SALAD_BREAD]+"";
                 }
                 else
                 {
                     //Cashier.sharedUpdateSaladBread(0);
                     salad[IND_SALAD_BREAD] = NO_BREAD;
                     breadSlice.setBackground(getDrawable(R.drawable.shape));
+                    salad[IND_SALAD_BREAD_PRICE] = "0";
                 }
             }
         });
 
         finish.setOnClickListener(new View.OnClickListener() {
-            //// TODO: 10/29/2017 clear data and try again! 
             @Override
             public void onClick(View v) {
                 orderDetails.put(ORDER_SALAD,SALAD+":\n"+
@@ -575,11 +728,12 @@ public class StudentOrder extends AppCompatActivity {
                         ORDER_STRING_SALAD_BREAD + salad[IND_SALAD_BREAD]);
                 Cashier.sharedUpdateSaladAdds(salad[IND_SALAD_ADDS]);
                 Cashier.sharedUpdateSaladBread(salad[IND_SALAD_BREAD]);
+                double combinedPrice = Double.parseDouble(salad[IND_SALAD_ADD_PRICE]) + Double.parseDouble(salad[IND_SALAD_BREAD_PRICE]) + Cashier.SALAD_PRICES[Cashier.IND_SALAD];
+                setPayment(payment, combinedPrice+"");
                 Log.d("TKT_studentOrder","orderDetail: "+orderDetails.get(ORDER_SALAD));
                 salad[IND_SALAD_ADDS] = IND_SALAD_ADDS+"";
                 salad[IND_SALAD_BREAD] = NO_BREAD;
                 orderDetailHandler(ORDER_SALAD, saladTxtView, saladParent);
-
                 Cashier.dialog.dismiss();
             }
         });
@@ -595,7 +749,8 @@ public class StudentOrder extends AppCompatActivity {
 
     public void hots(View v)
     {
-        Log.d("TKT_studentOrder","hots");
+        Log.d("TKT_studentOrder","hots===============");
+        hideKeyboard(v);
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.student_hots_dialog_layout);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -607,6 +762,7 @@ public class StudentOrder extends AppCompatActivity {
         picker.setMaxValue(10);
         picker.setWrapSelectorWheel(false);
 
+
         picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal)
@@ -616,9 +772,22 @@ public class StudentOrder extends AppCompatActivity {
 
         });
 
-        final Button milanesa = (Button)Cashier.dialog.findViewById(R.id.milanesaButton);
-        final Button kuskus = (Button)Cashier.dialog.findViewById(R.id.kuskusButton);
-        final Button pasta = (Button)Cashier.dialog.findViewById(R.id.pastaButton);
+        //final Button milanesa = (Button)Cashier.dialog.findViewById(R.id.milanesaButton);
+        //final Button kuskus = (Button)Cashier.dialog.findViewById(R.id.kuskusButton);
+        //final Button pasta = (Button)Cashier.dialog.findViewById(R.id.pastaButton);
+
+        final Button lentil = (Button)Cashier.dialog.findViewById(R.id.lentilButton);
+        final Button veggi = (Button)Cashier.dialog.findViewById(R.id.veggiButton);
+        final Button yam = (Button)Cashier.dialog.findViewById(R.id.yamBuutton);
+
+        String hotChosenPrev = Cashier.checkPrefs.getString(CHOSEN_HOT, null);
+        if(hotChosenPrev != null)
+        {
+            buttonHandler(hotChosenPrev, openDialogFlag);
+        }
+
+
+        /*
         String [] tempTxt = (getString(R.string.corn_milanesa)).split("\n");
         milanesa.setText(tempTxt[0]);
         tempTxt = (getString(R.string.kuskus)).split("\n");
@@ -626,16 +795,55 @@ public class StudentOrder extends AppCompatActivity {
         tempTxt = (getString(R.string.pasta)).split("\n");
         pasta.setText(tempTxt[0]);
 
-        String hotChosenPrev = Cashier.checkPrefs.getString(CHOSEN_HOT,null);
-        if(hotChosenPrev != null)
-            buttonHandler(hotChosenPrev,openDialogFlag);
+        tempTxt = (getString(R.string.lentil)).split("\n");
+        lentil.setText(tempTxt[0]);
+        tempTxt = (getString(R.string.veggie)).split("\n");
+        veggi.setText(tempTxt[0]);
+        tempTxt = (getString(R.string.yam)).split("\n");
+        yam.setText(tempTxt[0]);
+        */
 
 
+        //// TODO: 10/31/2017 enable in time =======================vvvvvv
+        lentil.setEnabled(false);
+        veggi.setEnabled(false);
+        yam.setEnabled(false);
+        //========^^^^^^^^^^^============================================
+
+        /*
+        lentil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TKT_studentOrder","lentilChosen");
+                chooseHot(lentil);
+            }
+        });
+        veggi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TKT_studentOrder","lentilChosen");
+                chooseHot(veggi);
+            }
+        });
+        yam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TKT_studentOrder","lentilChosen");
+                chooseHot(yam);
+            }
+        });
+*/
+
+        //String hotChosenPrev = Cashier.checkPrefs.getString(CHOSEN_HOT,null);
+        //Log.d("TKTK_studentOrder","hotChosenPrev: "+hotChosenPrev);
+        //if(hotChosenPrev != null)
+          ///  buttonHandler(hotChosenPrev,openDialogFlag);
+
+        /*
         milanesa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseHot(milanesa);
-
             }
         });
         kuskus.setOnClickListener(new View.OnClickListener() {
@@ -644,13 +852,13 @@ public class StudentOrder extends AppCompatActivity {
                 chooseHot(kuskus);
             }
         });
-
         pasta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 chooseHot(pasta);
             }
         });
+        */
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -671,8 +879,11 @@ public class StudentOrder extends AppCompatActivity {
                     mensaje.show();
                 }
                 else {
+                    Log.d("TKT_studentOrder","hots[hot_item]: "+hots[HOT_ITEM]);
                     orderDetails.put(ORDER_HOTS, hots[HOT_QUAN] + " " + hots[HOT_ITEM]);
                     Log.d("TKT_studentOrder", "orderDetails: " + orderDetails.get(ORDER_HOTS));
+                    double combinedPrice = Double.parseDouble(hots[HOT_QUAN]) * Double.parseDouble(hots[HOT_PRICE]);
+                    setPayment(payment,combinedPrice+"");
                     hots[HOT_ITEM] = null;
                     hots[HOT_QUAN] = 1 + "";
                     orderDetailHandler(ORDER_HOTS, hotsTxtView, hotParent);
@@ -683,22 +894,29 @@ public class StudentOrder extends AppCompatActivity {
         Cashier.dialog.show();
     }
 
-    public void chooseHot(Button hot)
-    {
-        hots[HOT_ITEM] = hot.getText().toString();
+    public void chooseHot(View v)
+    {//since there are 6 buttons, I decided to use an onClick rather than an onClickListener
+        Button hot = (Button)v;
+        hideKeyboard(v);
+        String [] temp = hot.getText().toString().split("\n");
+        Log.d("TKTK_studentOrder","temp[0]: "+temp[0]);
+
         String prevHot = Cashier.checkPrefs.getString(CHOSEN_HOT,null);
         if(prevHot != null)
         {
             Log.d("TKT_studentOrder","prevHot: "+prevHot);
             buttonHandler(prevHot, hot.getTag().toString());
         }
+        hots[HOT_ITEM] = temp[0];
         Cashier.sharedUpdateHot(hot.getTag().toString());
+        hots[HOT_PRICE] =temp[1];
         hot.setBackground(getDrawable(R.drawable.shape_gray));
     }
 
     public void fruitMeusli(View v)
     {
-        Log.d("TKT_studentOrder","fruitMeusli");
+        Log.d("TKT_studentOrder","fruitMeusli==============");
+        hideKeyboard(v);
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.student_meusli_dialog_layout);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -706,10 +924,16 @@ public class StudentOrder extends AppCompatActivity {
         Button cancel = (Button)Cashier.dialog.findViewById(R.id.cancelCheck);
         final Button meusli = (Button)Cashier.dialog.findViewById(R.id.meusliButton);
         final Button fruit = (Button)Cashier.dialog.findViewById(R.id.watermelonButton);
-        String [] tempTxt = (getString(R.string.fruitMuesli)).split("\n");
-        meusli.setText(tempTxt[0]);
-        tempTxt = (getString(R.string.watermelon)).split("\n");
-        fruit.setText(tempTxt[0]);
+        //String [] tempTxt = (getString(R.string.fruitMuesli)).split("\n");
+        //meusli.setText(tempTxt[0]);
+        //tempTxt = (getString(R.string.watermelon)).split("\n");
+        //fruit.setText(tempTxt[0]);
+
+        String dessertChosenPrev = Cashier.checkPrefs.getString(CHOSEN_DESSERT,null);
+        if(dessertChosenPrev != null)
+        {
+            buttonHandler(dessertChosenPrev, openDialogFlag);
+        }
 
         NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.studentMeuNumPick);
         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
@@ -754,6 +978,8 @@ public class StudentOrder extends AppCompatActivity {
                 if(dessert[MEU_ITEM] != null) {
                     orderDetails.put(ORDER_DESSERT, dessert[MEU_QUAN] + " " + dessert[MEU_ITEM]);
                     Log.d("TKT_studentPrder", "orderDessert: " + orderDetails.get(ORDER_DESSERT));
+                    double combinedPrice = Double.parseDouble(dessert[MEU_QUAN]) * Double.parseDouble(dessert[MEU_PRICE]);
+                    setPayment(payment,combinedPrice+"");
                     dessert[MEU_ITEM] = null;
                     dessert[MEU_QUAN] = 1+"";
                     orderDetailHandler(ORDER_DESSERT, dessertTxtView, dessertParent);
@@ -783,13 +1009,15 @@ public class StudentOrder extends AppCompatActivity {
     public void chooseDessert(Button dess)
     {//couldn't use this for both dessert and hots cuz of the Cashier.foo call - it's different for each object
         Log.d("TKT_studentOrder","chooseDessertOrHots===============");
-        dessert[MEU_ITEM] = dess.getText().toString();
+        String [] temp = dess.getText().toString().split("\n");
         String prevDes = Cashier.checkPrefs.getString(CHOSEN_DESSERT,null);
         if(prevDes != null)
         {
             buttonHandler(prevDes, dess.getTag().toString());
         }
         Cashier.sharedUpdateDessert(dess.getTag().toString());
+        dessert[MEU_ITEM] = temp[0];
+        dessert[MEU_PRICE] = temp[1];
         dess.setBackground(getDrawable(R.drawable.shape_gray));
 
     }
@@ -814,24 +1042,118 @@ public class StudentOrder extends AppCompatActivity {
         super.onResume();
     }
 
+
     public void order(View v)
     {
+
         Log.d("TKT_studentOrder","order=================");
         //// TODO: 10/30/2017 iterate through orderDetails, collect the none nulls and generate message
-        Log.d("TKT_studentOrder","orderDetails.SAND: "+orderDetails.get(ORDER_SAND));
-        Log.d("TKT_studentOrder","orderDetails.NOTES: "+orderDetails.get(ORDER_NOTES));
-        Log.d("TKT_studentOrder","orderDetails.NAME: "+orderDetails.get(ORDER_NAME));
-        Log.d("TKT_studentOrder","orderDetails.DESSERT: "+orderDetails.get(ORDER_DESSERT));
-        Log.d("TKT_studentOrder","orderDetails.SALAD: "+orderDetails.get(ORDER_SALAD));
-        Log.d("TKT_studentOrder","orderDetails.HOTS: "+orderDetails.get(ORDER_HOTS));
+        String name = nameFromET.getText().toString();
+        String message = "";
+        if(name.length() < 2)
+        {
+            AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+            mensaje.setMessage(R.string.pleaseChooseName).create();
+            mensaje.show();
+        }
+        else {
+            orderDetails.put(ORDER_NAME, name);
+            message = messageName() + System.getProperty("line.separator")
+                    + messageTime() + System.getProperty("line.separator");
+
+
+            String sandwich = orderDetails.get(ORDER_SAND);
+            String hot = orderDetails.get(ORDER_NOTES);
+            String dessert = orderDetails.get(ORDER_DESSERT);
+
+            if (sandwich == null && hot == null && dessert == null)
+            {
+                AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+                mensaje.setMessage(R.string.pleaseChooseMeal).create();
+                mensaje.show();
+            }
+            else
+                {
+                Log.d("TKT_studentOrder", "message: " + message);
+                if (sandwich != null)
+                    message += sandwich + System.getProperty("line.separator");
+                if (hot != null)
+                    message += hot + System.getProperty("line.separator");
+                if (dessert != null)
+                    message += dessert + System.getProperty("line.separator");
+                messageNotes(message);
+
+            }
+        }
     }
 
-    public String generateMessage()
+    public String messageNotes(String m)
     {
-        //// TODO: 10/30/2017 generate message and return to order
-        String message = "";
+        String message = "הערות: ";
+        String fromET = notesFromET.getText().toString();
+        if(fromET.length() > 3)
+        {
+            message += fromET;
+            m += message;
+        }
 
+        Log.d("TKT_studentOrder","entire message: "+m );
+        return m;
+    }
+
+    public String messageTime()
+    {
+        String message = "לשעה: ";
+        String time = orderDetails.get(ORDER_TIME);
+        if(time == null)
+        {
+            AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+            mensaje.setMessage(R.string.pleaseChooseTime).create();
+            mensaje.show();
+            return  null;
+        }
+        else {
+            message += time;
+            return message;
+        }
+
+    }
+
+    public String messageName()
+    {
+        String message = "הזמנה ל: ";
+        message += orderDetails.get(ORDER_NAME);
         return message;
+
+    }
+
+    public void initBoxes()
+    {
+        Log.d("TKT_studentOrder","intiBoxes was called=======================");
+        nameFromET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
+        notesFromET.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+
+            }
+        });
+    }
+    public void hideKeyboard(View view) {
+        Log.d("TKT_studentOrder","hiding keyboard===================");
+
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+
     }
 
 }

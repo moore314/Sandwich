@@ -41,6 +41,9 @@
     <string name="studentOrderLable">הזמנה</string>
     <string name="hotsQuantity">כמות</string>
     <string name="pleaseChooseMeal">שכחת לבחור פריט :o</string>
+    <string name="pleaseChooseTime">שכחת לבחור שעה :o</string>
+    <string name="pleaseChooseName">שכחת לציין שם :o</string>
+    <string name="soonSoup">מרקים בקרוב!</string>
 
 
 
@@ -61,7 +64,7 @@
     <string name="classicView">קופה בסיסית</string>
     <string name="detailView">קופה מפורטת</string>
     <string name="enterPrice">מחיר מוצר:</string>
-    <string name="order">הזמנה</string>
+    <string name="order">הזמנה ל:</string>
     <string name="newHourEntry">חדש</string>
     <string name="sendHours1">שליחה</string>
 
@@ -81,6 +84,7 @@
     <string name="emptyCheck">הזמנה ריקה</string>
     <string name="cash">התקבל:</string>
     <string name="change">עודף:</string>
+    <string name="studentPayment">לתשלום:</string>
 
     <!-- drinks -->
     <string name="smallDrink">קטן</string>
@@ -126,7 +130,7 @@
     <string name="bulgarian">בולגרית\n10</string>
     <string name="yellowCheese">גבינה צהובה\n10</string>
     <string name="eggSalad">סלט ביצים\n10</string>
-    <string name="avocado">אבוקדו\n15</string>
+    <string name="avocado">אבוקדו\n12</string>
     <string name="omlette">חביתה\n12</string>
     <string name="tivol">כריך טבעול\n12</string>
 
@@ -176,7 +180,7 @@
     <!-- salad -->
     <string name="salad_hint">salad</string>
     <string name="saladBase">סלט\n13</string>
-    <string name="bread">פרוסת לחם\n1.5</string>
+    <string name="bread">פרוסת לחם\n1</string>
     <string name="saladAddition">תוספות\n3</string>
 
     <!-- hots -->

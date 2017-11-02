@@ -44,7 +44,8 @@
                 android:tag="17"
                 android:clickable="true"
                 android:layout_weight="1"
-                android:layout_marginRight="2dp"/>
+                android:layout_marginRight="2dp"
+                android:onClick="chooseHot"/>
 
 
             <Button
@@ -58,7 +59,8 @@
                 android:textStyle="bold"
                 android:tag="18"
                 android:clickable="true"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="chooseHot"/>
             <Button
                 android:id="@+id/pastaButton"
                 android:layout_width="wrap_content"
@@ -70,14 +72,15 @@
                 android:tag="19"
                 android:clickable="true"
                 android:layout_weight="1"
+                android:onClick="chooseHot"
                 />
         </LinearLayout>
 
-        <!--
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/soup"
+            android:text="@string/soonSoup"
             android:gravity="center"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
@@ -104,11 +107,11 @@
                 android:layout_marginRight="2dp"
                 android:text="@string/lentil"
                 android:textStyle="bold"
-                android:tag="@string/lentil"
-                android:onClick="chooseItem"
+                android:tag="22"
                 android:clickable="true"
                 android:hint="@string/soup_hint"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="chooseHot"/>
             <Button
                 android:id="@+id/veggiButton"
                 android:layout_width="wrap_content"
@@ -118,11 +121,11 @@
                 android:layout_marginRight="2dp"
                 android:text="@string/veggie"
                 android:textStyle="bold"
-                android:tag="@string/veggie"
-                android:onClick="chooseItem"
+                android:tag="23"
                 android:clickable="true"
                 android:hint="@string/soup_hint"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="chooseHot"/>
 
             <Button
                 android:id="@+id/yamBuutton"
@@ -132,15 +135,15 @@
                 android:layout_marginLeft="2dp"
                 android:text="@string/yam"
                 android:textStyle="bold"
-                android:tag="@string/yam"
-                android:onClick="chooseItem"
+                android:tag="24"
                 android:clickable="true"
                 android:hint="@string/soup_hint"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:onClick="chooseHot"/>
 
         </LinearLayout>
 
--->
+
 
 
         <LinearLayout
