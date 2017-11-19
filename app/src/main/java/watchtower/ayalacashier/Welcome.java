@@ -200,13 +200,8 @@ public class Welcome extends AppCompatActivity {
                 name.setEnabled(false);
                 progressBar.setBackgroundResource(R.drawable.circle_turq);
                 progressBar.setEnabled(false);
-
             }
-
         }
-
-
-
     }
 
 
@@ -383,7 +378,6 @@ public class Welcome extends AppCompatActivity {
         }
         return false;
     }
-
 
 
 }

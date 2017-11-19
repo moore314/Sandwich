@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
-//// TODO: 11/2/2017 when changing an order to the same item but different quantity, the price isn't right -
+//// TODO: 11/2/2017 when changing an order to the same item but different quantity, the price isn't right - hot & dessert
 
 public class StudentOrder extends AppCompatActivity {
 
@@ -114,8 +114,8 @@ public class StudentOrder extends AppCompatActivity {
         deleteSandFromOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("TKT_studentOrder","deleteItemFromOrder");
-                reducePriceAfterRemoveItem(orderDetails.get(ORDER_SAND), sandwich);
+                Log.d("TKT_studentOrder","deleteItemFromOrder====================");
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_SAND), sandwich, null);
                 Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_SAND));
                 Log.d("TKT_studentOrder","itemPrice: "+sandwich[IND_SANDWICH_PRICE]);
                 sandwich[IND_SANDWICH_PRICE] = null;
@@ -129,9 +129,14 @@ public class StudentOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                reducePriceAfterRemoveItem(orderDetails.get(ORDER_HOTS), hots);
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_HOTS), hots, hots[HOT_QUAN]);
                 Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_HOTS));
                 Log.d("TKT_studentOrder","itemPrice: "+hots[HOT_PRICE]);
+
+                hots[HOT_PRICE] = ZERO;
+                hots[HOT_QUAN] = ONE;
+                hots[HOT_ITEM] = null;
+
                 orderDetails.remove(ORDER_HOTS);
                 hotParent.setVisibility(View.GONE);
             }
@@ -140,7 +145,7 @@ public class StudentOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                reducePriceAfterRemoveItem(orderDetails.get(ORDER_SALAD), salad);
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_SALAD), salad, null);
                 Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_SALAD));
                 Log.d("TKT_studentOrder","itemPrice: "+salad[IND_SALAD_ADD_PRICE]+", "+salad[IND_SALAD_BREAD_PRICE]);
                 salad[IND_SALAD_ADD_PRICE] = ZERO;
@@ -155,9 +160,12 @@ public class StudentOrder extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","deleteItemFromOrder");
-                reducePriceAfterRemoveItem(orderDetails.get(ORDER_DESSERT), dessert);
+                reducePriceAfterRemoveItem(orderDetails.get(ORDER_DESSERT), dessert, dessert[MEU_QUAN]);
                 Log.d("TKT_studentOrder","itemRemoved: "+orderDetails.get(ORDER_DESSERT));
                 Log.d("TKT_studentOrder","itemPrice: "+dessert[MEU_PRICE]);
+                dessert[MEU_PRICE] = ZERO;
+                dessert[MEU_QUAN] = ONE;
+                dessert[MEU_ITEM] = null;
                 orderDetails.remove(ORDER_DESSERT);
                 dessertParent.setVisibility(View.GONE);
             }
@@ -165,11 +173,15 @@ public class StudentOrder extends AppCompatActivity {
         //EditText notes = (EditText)findViewById(R.id.studentNotes);
     }
 
-    public void reducePriceAfterRemoveItem(String itemRemoved, String [] itemArr)
+    public void reducePriceAfterRemoveItem(String itemRemoved, String [] itemArr, String quan)
     {
         Log.d("TKT_studentOrder","reducePrice..==================");
-        String stringPrice = itemArr[2]; //2 is the index of price in every array, in salads, there is another price
-        double doublePrice = Double.parseDouble(stringPrice);
+         //2 is the index of price in every array, in salads, there is another price
+
+        double doublePrice = Double.parseDouble(itemArr[2]);//*Integer.parseInt(itemArr[1]);
+        if(quan != null)
+            doublePrice *= Integer.parseInt(quan);
+        Log.d("TKT_studentOrder","doublePrice: "+doublePrice);
         if(itemArr.length > 3)
         {
             String stringSaladBreadPrice = itemArr[IND_SALAD_BREAD_PRICE];
@@ -178,7 +190,8 @@ public class StudentOrder extends AppCompatActivity {
         }
         String stringPaymentTxt = payment.getText().toString();
         double doublePaymentTxt = Double.parseDouble(stringPaymentTxt);
-        Log.d("TKT_studentOrder","doublePrice - doublePaymentTxt: " + (doublePrice - doublePaymentTxt));
+
+        Log.d("TKT_studentOrder","-doublePrice + doublePaymentTxt: " + (-doublePrice + doublePaymentTxt));
         double difference = doublePaymentTxt - doublePrice;
         payment.setText(difference+"");
 
@@ -652,7 +665,7 @@ public class StudentOrder extends AppCompatActivity {
         //consider maybe redirect here from an OnClickListener of each button
 
         Button b = (Button)v;
-        Log.d("TKT_studentOrder","chooseSandwich");
+        Log.d("TKT_studentOrder","chooseSandwich====================");
         String [] txt = b.getText().toString().split("\n");
         String prevSand = Cashier.checkPrefs.getString(CHOSEN_SAND,null);
         if(prevSand != null)
@@ -662,7 +675,7 @@ public class StudentOrder extends AppCompatActivity {
         }
         Cashier.sharedUpdateSand(v.getTag().toString());
         b.setBackground(getDrawable(R.drawable.shape_gray));
-        Log.d("TKT_studentOrder","txt[0]: "+txt[0]);
+        //Log.d("TKT_studentOrder","txt[0]: "+txt[0]);
         sandwich[IND_SANDWICH_TYPE] = txt[0];
         sandwich[IND_SANDWICH_PRICE] = txt[1];
     }
@@ -990,8 +1003,6 @@ public class StudentOrder extends AppCompatActivity {
             buttonHandler(dessertChosenPrev, openDialogFlag);
         }
 
-
-
         NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.studentMeuNumPick);
         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         picker.setMinValue(1);
@@ -1007,13 +1018,6 @@ public class StudentOrder extends AppCompatActivity {
 
         });
 
-        /*
-        String dessertPrev = Cashier.checkPrefs.getString(CHOSEN_DESSERT,null);
-        if(dessertPrev != null)
-        {
-            buttonHandler(dessertPrev,openDialogFlag);
-        }
-        */
 
         meusli.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -1073,8 +1077,10 @@ public class StudentOrder extends AppCompatActivity {
             buttonHandler(prevDes, dess.getTag().toString());
         }
         Cashier.sharedUpdateDessert(dess.getTag().toString());
+        int quan = Integer.parseInt(dessert[MEU_QUAN]);
         dessert[MEU_ITEM] = temp[0];
-        dessert[MEU_PRICE] = temp[1];
+        dessert[MEU_PRICE] = (Double.parseDouble(temp[1])*quan)+"";
+        Log.d("TKT_studentOrder","priceee: "+dessert[MEU_PRICE]);
         dess.setBackground(getDrawable(R.drawable.shape_gray));
 
     }
@@ -1104,6 +1110,7 @@ public class StudentOrder extends AppCompatActivity {
     {
 
         Log.d("TKT_studentOrder","order=================");
+
         String name = nameFromET.getText().toString();
         String message = "";
         if(name.length() < 2)
@@ -1122,7 +1129,7 @@ public class StudentOrder extends AppCompatActivity {
             String hot = orderDetails.get(ORDER_NOTES);
             String dessert = orderDetails.get(ORDER_DESSERT);
 
-            if (sandwich == null && hot == null && dessert == null)
+            if (sandwich == null && hot == null && dessert == null)//whats about salad?
             {
                 AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
                 mensaje.setMessage(R.string.pleaseChooseMeal).create();
@@ -1137,8 +1144,8 @@ public class StudentOrder extends AppCompatActivity {
                     message += hot + System.getProperty("line.separator");
                 if (dessert != null)
                     message += dessert + System.getProperty("line.separator");
-                messageNotes(message);
-
+                message =  messageNotes(message);
+                Cashier.sendOrderToA(message, this);
             }
         }
     }

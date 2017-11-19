@@ -447,7 +447,7 @@ public class Cashier {
     public static Dialog dialog;
     public static Locale il = new Locale("iw", "IL");
     public static final Currency ILS = Currency.getInstance(il);
-    final static String number = "+972526670900";
+    final static String number = "972547474764";
 
     static int itemName = 0;
     static int itemPrice = 1;
@@ -1293,5 +1293,27 @@ update        */
         progressEdit.commit();
     }
 
+    public static void sendOrderToA(String message, Context context)
+    {
+
+        Log.d("TKT_cashier","sendOrderToA========================");
+        //String formatedNumber = PhoneNumberUtils.format(number);
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            //intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, message);
+            intent.putExtra("jid", number + "@s.whatsapp.net");
+            intent.setPackage("com.whatsapp");
+            context.startActivity(Intent.createChooser(intent,"share with:"));
+        }
+        catch (Exception x)
+        {
+            Toast.makeText(context, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+            Log.d("TKT_cashier","cannot send whatsapp");
+        }
+
+    }
 
 }
