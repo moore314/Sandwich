@@ -3,6 +3,11 @@
 
     <string name="app_name">פשוט טעים</string>
     <string name="cashier">קופה</string>
+    <string name="cafeteria">קפיטריה</string>
+    <string name="catering">קיטרינג</string>
+    <string name="design">עיצוב אירועים</string>
+    <string name="clerk">מכירה</string>
+    <string name="orderMenu">הזמנה</string>
 
 
     <string name="employee_name">שם</string>
@@ -44,7 +49,7 @@
     <string name="pleaseChooseTime">שכחת לבחור שעה :o</string>
     <string name="pleaseChooseName">שכחת לציין שם :o</string>
     <string name="soonSoup">מרקים בקרוב!</string>
-
+    <string name="addsPick">ניתן לציין את התוספות הרצויות לסלט בהערות :)</string>
 
 
     <string name="cancel">ביטול</string>

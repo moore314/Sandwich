@@ -132,10 +132,11 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:backgroundTint="@color/turq"
-            android:visibility="visible"
+            android:visibility="gone"
             android:maxLength="18"
             android:maxLines="1"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            />
 
         <ImageButton
             android:id="@+id/nextButton"

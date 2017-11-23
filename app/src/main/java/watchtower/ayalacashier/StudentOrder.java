@@ -43,6 +43,7 @@ public class StudentOrder extends AppCompatActivity {
     final int IND_SANDWICH_TYPE = 1;
     final int IND_SANDWICH_PRICE = 2;
     final String openDialogFlag = "openDialogFlag";
+    final String baguetteSabih = 20+"";
 
     //salad
     final String ONE = 1+"";
@@ -104,6 +105,7 @@ public class StudentOrder extends AppCompatActivity {
         notesFromET = (EditText)findViewById(R.id.studentNotes);
         payment = (TextView)findViewById(R.id.paymentTextField);
         initBoxes();
+        nameFromET.requestFocus();
 
 
         ImageButton deleteSandFromOrder = (ImageButton)findViewById(R.id.cancelSand);
@@ -180,7 +182,7 @@ public class StudentOrder extends AppCompatActivity {
 
         double doublePrice = Double.parseDouble(itemArr[2]);//*Integer.parseInt(itemArr[1]);
         if(quan != null)
-            doublePrice *= Integer.parseInt(quan);
+            doublePrice *= Double.parseDouble(quan);
         Log.d("TKT_studentOrder","doublePrice: "+doublePrice);
         if(itemArr.length > 3)
         {
@@ -553,6 +555,9 @@ public class StudentOrder extends AppCompatActivity {
         final RadioButton bg = (RadioButton) Cashier.dialog.findViewById(R.id.baguetteRadio);
 
 
+
+
+
         //initSandButtons();
         //get chosen data from before, if exists:
         String bread = Cashier.checkPrefs.getString(CHOSEN_BREAD,null);
@@ -578,7 +583,6 @@ public class StudentOrder extends AppCompatActivity {
 
         if(sand != null) {
             buttonHandler(sand, openDialogFlag);
-
         }
         //*/
         finish.setOnClickListener(new View.OnClickListener() {
@@ -628,7 +632,7 @@ public class StudentOrder extends AppCompatActivity {
     {
         double paymentDouble = Double.parseDouble(payment.getText().toString());
         double paymentToRemoveDouble = Double.parseDouble(paymentToRemove);
-        int quanInt = Integer.parseInt(quan);
+        double quanInt = Double.parseDouble(quan);
         paymentDouble -= (paymentToRemoveDouble*quanInt);
         Log.d("TKT_studentOrder","paymentDouble: "+paymentDouble);
         payment.setText(paymentDouble+"");
@@ -648,14 +652,37 @@ public class StudentOrder extends AppCompatActivity {
             newPayment += currPaymentDouble;
             tv.setText(newPayment+"");
         }
-        else
-            tv.setText(payment);
+        else {
+            double temp = Double.parseDouble(payment);
+            tv.setText(temp+"");
+        }
 
     }
 
     public void chooseBread(View v)
     {
         Log.d("TKT_studentOrder","chooseBread");
+        Button radio = (Button)v;
+        if(radio.getText().toString().equals(getString(R.string.bagette)))
+        {
+            Button tempSabih = (Button) Cashier.dialog.findViewById(R.id.sabihButton);
+            String [] temp = tempSabih.getText().toString().split("\n");
+            String newName = temp[0]+"\n"+baguetteSabih;
+            tempSabih.setText(newName);
+            //sandwich[IND_SANDWICH_TYPE] = temp[0];
+            sandwich[IND_SANDWICH_PRICE] = baguetteSabih;
+        }
+        else
+        {
+            Button tempSabih = (Button) Cashier.dialog.findViewById(R.id.sabihButton);
+            String [] temp = tempSabih.getText().toString().split("\n");
+            String newName = temp[0]+"\n"+(int)Cashier.SANDWICH_PRICES[Cashier.IND_SABIH];
+            tempSabih.setText(newName);
+            //tempSabih.setT
+
+            //sandwich[IND_SANDWICH_TYPE] = temp[0];
+            sandwich[IND_SANDWICH_PRICE] = Cashier.SANDWICH_PRICES[Cashier.IND_SABIH]+"";
+        }
         sandwich[IND_BREAD_TYPE] = v.getTag().toString();
         Cashier.sharedUpdateSandBread(v.getTag().toString());
     }
@@ -786,6 +813,12 @@ public class StudentOrder extends AppCompatActivity {
                 double combinedPrice = Double.parseDouble(salad[IND_SALAD_ADD_PRICE]) + Double.parseDouble(salad[IND_SALAD_BREAD_PRICE]) + Cashier.SALAD_PRICES[Cashier.IND_SALAD];
                 setPayment(payment, combinedPrice+"");
                 Log.d("TKT_studentOrder","orderDetail: "+orderDetails.get(ORDER_SALAD));
+                if(Integer.parseInt(salad[IND_SALAD_ADDS]) != 0) {
+                    //Toast.makeText(StudentOrder.this, R.string.addsPick, Toast.LENGTH_LONG).show();
+                    AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+                    mensaje.setMessage(R.string.addsPick).create();
+                    mensaje.show();
+                }
                 salad[IND_SALAD_ADDS] = IND_SALAD_ADDS+"";
                 salad[IND_SALAD_BREAD] = NO_BREAD;
                 orderDetailHandler(ORDER_SALAD, saladTxtView, saladParent);
@@ -1077,7 +1110,7 @@ public class StudentOrder extends AppCompatActivity {
             buttonHandler(prevDes, dess.getTag().toString());
         }
         Cashier.sharedUpdateDessert(dess.getTag().toString());
-        int quan = Integer.parseInt(dessert[MEU_QUAN]);
+        double quan = Double.parseDouble(dessert[MEU_QUAN]);
         dessert[MEU_ITEM] = temp[0];
         dessert[MEU_PRICE] = (Double.parseDouble(temp[1])*quan)+"";
         Log.d("TKT_studentOrder","priceee: "+dessert[MEU_PRICE]);
@@ -1126,10 +1159,17 @@ public class StudentOrder extends AppCompatActivity {
 
 
             String sandwich = orderDetails.get(ORDER_SAND);
-            String hot = orderDetails.get(ORDER_NOTES);
+            String hot = orderDetails.get(ORDER_HOTS);
             String dessert = orderDetails.get(ORDER_DESSERT);
-
-            if (sandwich == null && hot == null && dessert == null)//whats about salad?
+            String salad = orderDetails.get(ORDER_SALAD);
+            String time = orderDetails.get(ORDER_TIME);
+            if(time == null)
+            {
+                AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+                mensaje.setMessage(R.string.pleaseChooseTime).create();
+                mensaje.show();
+            }
+            else if (sandwich == null && hot == null && dessert == null && salad == null)//whats about salad?
             {
                 AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
                 mensaje.setMessage(R.string.pleaseChooseMeal).create();
@@ -1144,6 +1184,8 @@ public class StudentOrder extends AppCompatActivity {
                     message += hot + System.getProperty("line.separator");
                 if (dessert != null)
                     message += dessert + System.getProperty("line.separator");
+                if (salad != null)
+                    message += salad + System.getProperty("line.separator");
                 message =  messageNotes(message);
                 Cashier.sendOrderToA(message, this);
             }
@@ -1168,6 +1210,7 @@ public class StudentOrder extends AppCompatActivity {
     {
         String message = "לשעה: ";
         String time = orderDetails.get(ORDER_TIME);
+        /*
         if(time == null)
         {
             AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
@@ -1175,7 +1218,9 @@ public class StudentOrder extends AppCompatActivity {
             mensaje.show();
             return  null;
         }
-        else {
+        else
+            */
+        {
             message += time;
             return message;
         }

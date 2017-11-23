@@ -47,6 +47,7 @@ public class Welcome extends AppCompatActivity {
         ImageButton getInShift = (ImageButton) findViewById(R.id.logo);
         //TextView timerText = (TextView)findViewById(R.id.timerCount);
         inShift();
+        pass.setVisibility(View.GONE);
         context = this;
 
 
@@ -172,7 +173,7 @@ public class Welcome extends AppCompatActivity {
         if(employeeName == null)
         {//no emplyee yet
             name.setEnabled(true);
-            pass.setVisibility(View.VISIBLE);
+            //pass.setVisibility(View.VISIBLE);
             initBoxes();
         }
         else
@@ -208,10 +209,26 @@ public class Welcome extends AppCompatActivity {
    public void next (View v)
    {
        Log.d("TKT_welcome","next===================");
-       if(pass.getVisibility() == View.GONE)
+       String temp = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
+       if(pass.getVisibility() == View.GONE )
        {
            //Log.d("TKT_welcome","pass is gone");
-           goToItemScreen();
+           if(temp != null)
+               goToItemScreen();
+           else
+           {
+               Log.d("TKT_welcome","studentPassword");
+               employeeName = name.getText().toString();
+               if(employeeName.length() < 2)
+                   Toast.makeText(context, R.string.pleaseChooseName, Toast.LENGTH_SHORT).show();
+               else {
+                   Cashier.sharedUpdateEmployee(employeeName);
+                   name.setEnabled(false);
+                   pass.setEnabled(false);
+                   Cashier.sharedUpdateStudentState();
+                   inShift();
+               }
+           }
        }
        else {
            //Log.d("TKT_welcome","pass is visible");
@@ -225,6 +242,7 @@ public class Welcome extends AppCompatActivity {
 
 
            } else
+               /*
                if(Cashier.STUDENT_PASSWORD.equals(pass.getText().toString()))
                {
                    Log.d("TKT_welcome","studentPassword");
@@ -235,7 +253,8 @@ public class Welcome extends AppCompatActivity {
                    Cashier.sharedUpdateStudentState();
                    inShift();
                }
-               else
+               */
+               //else
                {
                //Log.d("TKT_welcome", "next - else");
                Toast.makeText(this, R.string.wrong_password, Toast.LENGTH_SHORT).show();
@@ -307,11 +326,17 @@ public class Welcome extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false)) {
             getMenuInflater().inflate(R.menu.welcome_menu, menu);
+
+            if(Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
+                MenuItem m = menu.findItem(R.id.clerk);
+                m.setTitle(R.string.orderMenu);
+            }
             return true;
         }
-        return false;
+            return false;
     }
 
 
@@ -356,9 +381,7 @@ public class Welcome extends AppCompatActivity {
             }
             case R.id.classicView:
             {
-
                 int state = Cashier.checkPrefs.getInt(Cashier.VIEW_STATE,1);
-
                 if(state == 0)
                 {
                     //setTextToDetail
@@ -375,6 +398,30 @@ public class Welcome extends AppCompatActivity {
                 //item.setTitle(R.string.detailView);
                 return true;
             }
+            case R.id.clerk:
+            {
+                if(pass.getVisibility() == View.GONE)
+                {
+                    Log.d("TKT_welcome","gone");
+                    if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false) && Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null)
+                    {
+                        Intent intent = new Intent(this, StudentOrder.class);
+                        startActivity(intent);
+                    }
+                    else {
+                        pass.setVisibility(View.VISIBLE);
+                    }
+                    item.setTitle(R.string.orderMenu);
+                }
+                else
+                {
+                    Log.d("TKT_welcome","visible");
+                    pass.setVisibility(View.GONE);
+                    item.setTitle(R.string.clerk);
+                }
+                return true;
+            }
+
         }
         return false;
     }

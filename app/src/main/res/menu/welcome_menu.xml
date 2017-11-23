@@ -43,6 +43,12 @@
 
     </item>
 
+    <item
+        android:id="@+id/clerk"
+        android:title="@string/clerk"
+        app:showAsAction="never">
+    </item>
+
 
 
 </menu>

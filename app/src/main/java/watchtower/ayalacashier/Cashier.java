@@ -811,6 +811,7 @@ update        */
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " +
                 context.getString(R.string.report) + " - " + dateFormat.format(c.getTime()).toString());
         context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
         //clear all
         clearAllReport(context, listView, textView);
 
@@ -1153,29 +1154,34 @@ update        */
 
 
         String hourMessage = generateHourMessage(month);
-        /*
+
         try {
 
 
 
             Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+            //intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
             intent.setType("text/plain");
             intent.putExtra(Intent.EXTRA_TEXT, hourMessage);
             intent.putExtra("jid", number + "@s.whatsapp.net");
             intent.setPackage("com.whatsapp");
-            context.startActivity(intent);
+            //go here if u want to change send to not only whatsapp  vvv
+            //https://www.codeproject.com/Tips/1097808/Custom-App-Chooser-in-Android
+            context.startActivity(intent);//context.startActivity(Intent.createChooser(intent,"Choose application:"));
         }
         catch (Exception x)
         {
-            Log.d("TKT_cashier","cannot send whatsapp");
+            Log.d("TKT_cashier","whatsapp is not installed on this device");
+            Toast.makeText(context,"WhatsApp is not Installed" , Toast.LENGTH_SHORT).show();
         }
-        */
 
+
+        /*
         Intent sendToA = new Intent(Intent.ACTION_SEND);
         sendToA.putExtra(Intent.EXTRA_TEXT, hourMessage);
         sendToA.setType("text/plain");
         context.startActivity(Intent.createChooser(sendToA, "שליחת דו\"ח שעות"));
+        */
 
 
     }
@@ -1306,11 +1312,11 @@ update        */
             intent.putExtra(Intent.EXTRA_TEXT, message);
             intent.putExtra("jid", number + "@s.whatsapp.net");
             intent.setPackage("com.whatsapp");
-            context.startActivity(Intent.createChooser(intent,"share with:"));
+            context.startActivity(intent);//(Intent.createChooser(intent,"share with:"));
         }
         catch (Exception x)
         {
-            Toast.makeText(context, "WhatsApp not Installed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "WhatsApp is not Installed", Toast.LENGTH_SHORT).show();
             Log.d("TKT_cashier","cannot send whatsapp");
         }
 
