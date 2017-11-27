@@ -22,11 +22,12 @@ public class Main extends AppCompatActivity {
         if(v.getId() == R.id.catering)
         {
             //redirect to catering
-            return false;
+            intent = new Intent(this, Catering.class);
+            //return false;
         }
         if(v.getId() == R.id.design)
         {
-            //redirect to design
+            //redirect to design - open facebook
             return false;
         }
         //if(intent != null)

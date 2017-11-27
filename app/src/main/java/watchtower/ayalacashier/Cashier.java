@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -453,6 +454,10 @@ public class Cashier {
     static int itemPrice = 1;
     static int MONTH_TO_SEND;
     static String type = "";
+
+
+    //CATERING
+    public static HashMap<String, Integer> cateringOrder = new HashMap<>();
 
 
     public static void sharedUpdateEmployee(String employeeName) {
@@ -1156,9 +1161,7 @@ update        */
         String hourMessage = generateHourMessage(month);
 
         try {
-
-
-
+            
             Intent intent = new Intent(Intent.ACTION_SEND);
             //intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
             intent.setType("text/plain");

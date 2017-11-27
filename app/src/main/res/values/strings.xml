@@ -9,6 +9,32 @@
     <string name="clerk">מכירה</string>
     <string name="orderMenu">הזמנה</string>
 
+    <!-- catering -->
+    <string name="facebookButton">Facebook</string>
+    <string name="menu">תפריט</string>
+    <string name="quiche">קיש</string>
+    <string name="plates">פלטות</string>
+    <string name="pastaCatering">פסטות</string>
+    <string name="breadCatering">לחמים</string>
+    <string name="desserts">קינוחים</string>
+    <string name="foucachas">פוקצ\'ות</string>
+    <string name="hugeSaladCatering">סלט ענק</string>
+    <string name="hugeSaladCatering1">חסה, פטריות, עגבניות שרי,\nבצל סגול, ויניגרט</string>
+    <string name="hugeSaladCatering2">חסה, עלי בייבי, בטטה מוקפצת,\nעגבניות שרי, בצל סגול,\nגרעיני חמנייה קלויים</string>
+    <string name="hugeSaladCatering3">כרוב, חמוציות, שבבי שקדים קלויים,\nבצל ירוק, רוטב סיני</string>
+    <string name="hugeSaladCatering4">סביח: חסה, גמבה, מלפפון חמוץ,\nחציל מטוגן, גרגירי חומוס,\nביצים קשות, רוטב טחינה</string>
+
+    <string name="lentilSaladCatering">סלט עדשים</string>
+    <string name="quinoaSaladCatering">סלט קינואה</string>
+    <string name="tunaSaladCatering">סלט טונה</string>
+    <string name="eggSaladCatering">סלט ביצים</string>
+    <string name="eggplantSaladCatering">סלט חצילים\nאדום</string>
+    <string name="thiniSaladCatering">סלט טחינה\nירוק</string>
+    <string name="avocadoSaladCatering">סלט אבוקדו</string>
+    <string name="hugeSaladPrice">185 ש\"ח: מספיק ל 10-12 אנשים</string>
+    <string name="viewOrder">צפייה בהזמנה</string>
+
+
 
     <string name="employee_name">שם</string>
     <string name="password">סיסמה</string>
@@ -253,6 +279,7 @@
     <string name="generalExSand">כריך עשיר</string>
     <string name="generalMenSand">כריך בינוני</string>
     <string name="generalRegSand">כריך בסיסי</string>
+    <string name="title_activity_catering">Catering</string>
 
 
 </resources>
