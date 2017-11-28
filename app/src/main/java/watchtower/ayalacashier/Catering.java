@@ -70,6 +70,16 @@ public class Catering extends AppCompatActivity {
             Log.d("TKT_catering","opening facebook");
             return true;
         }
+        if(id == R.id.cart)
+        {
+            //open cart
+            Log.d("TKT_catering","opening cart");
+            Intent intent = new Intent(this, Cart.class);
+            startActivity(intent);
+            return true;
+        }
         return false;
     }
+
+
 }

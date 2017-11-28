@@ -33,12 +33,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Moore on 9/5/2017.
  */
+
+//// TODO: 11/28/2017 when update for version 1, disable launcer in main and enable launger for welcome 
 
 public class Cashier {
 
@@ -458,6 +461,11 @@ public class Cashier {
 
     //CATERING
     public static HashMap<String, Integer> cateringOrder = new HashMap<>();
+    public static double [] CATERING_PRICES = {185, 160,160, 150, 110, 110, 110, 110};//salads
+    //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad
+
+
+
 
 
     public static void sharedUpdateEmployee(String employeeName) {
@@ -1159,7 +1167,20 @@ update        */
 
 
         String hourMessage = generateHourMessage(month);
+        String userName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("text/plain");
+        String [] to = {"ayalam530@walla.com"};
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+        // the attachment
+        emailIntent.putExtra(Intent.EXTRA_TEXT, hourMessage);
+        // the mail subject
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " +
+                context.getString(R.string.hours) + " - " + MONTHS[month]);
+        context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
 
+/*
+sending through whatsapp
         try {
             
             Intent intent = new Intent(Intent.ACTION_SEND);
@@ -1177,6 +1198,7 @@ update        */
             Log.d("TKT_cashier","whatsapp is not installed on this device");
             Toast.makeText(context,"WhatsApp is not Installed" , Toast.LENGTH_SHORT).show();
         }
+        */
 
 
         /*
@@ -1325,4 +1347,23 @@ update        */
 
     }
 
+    public static void displayOrderCatering(ListView listView, TextView totalSum, Context context)
+    {
+        Log.d("TKT_cashier","displayOrderCatering========");
+        List<String>listOfItem = new ArrayList<>();
+        if(!cateringOrder.isEmpty())
+        {
+            for(Map.Entry<String, Integer> entry : cateringOrder.entrySet())
+            {
+                listOfItem.add(entry.getValue() + " :: " + entry.getKey());
+            }
+            Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
+            ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
+            listView.setAdapter(adapter);
+        }
+        else
+            Log.d("TKT_cashier","nothing to see here");
+
+
+    }
 }

@@ -35,7 +35,6 @@
     <string name="viewOrder">צפייה בהזמנה</string>
 
 
-
     <string name="employee_name">שם</string>
     <string name="password">סיסמה</string>
     <string name="wrong_password">סיסמה שגויה</string>
@@ -222,7 +221,7 @@
     <string name="lentil">עדשים\n10</string>
     <string name="veggie">ירקות\n10</string>
     <string name="yam">בטטה\n10</string>
-    <string name="corn_milanesa">שניצל טבעול\n5</string>
+    <string name="corn_milanesa">שניצל תירס\n5</string>
 
     <!-- meusli -->
     <string name="watermelon">פירות חתוכים\n7</string>
