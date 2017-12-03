@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 public class CateringSalads extends AppCompatActivity {
 
+    public final String PRICE = "185";
 
 
     @Override
@@ -34,6 +35,8 @@ public class CateringSalads extends AppCompatActivity {
         final CheckBox salad2 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad2);
         final CheckBox salad3 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad3);
         final CheckBox salad4 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad4);
+
+        double price = 0;
 
         if(Cashier.cateringOrder.containsKey(s1))
             salad1.setChecked(true);
@@ -127,10 +130,11 @@ public class CateringSalads extends AppCompatActivity {
     public void checkHandler(String saladType, boolean isChecked)
     {
         Log.d("TKT_cateringSalad","checkHandler==============");
+        CateringObjectInfo c = new CateringObjectInfo(PRICE, "1");
 
         if(isChecked)
         {
-            Cashier.cateringOrder.put(saladType, 1);
+            Cashier.cateringOrder.put(saladType, c);
             Log.d("TKT_cateringSalad","isChecked! length: "+Cashier.cateringOrder.size());
         }
         else

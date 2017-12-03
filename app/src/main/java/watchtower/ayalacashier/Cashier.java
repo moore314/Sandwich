@@ -73,6 +73,7 @@ public class Cashier {
     public static final String DETAIL_VIEW = "קופה מפורטת";
     public static final String ALTOGETHER_HR_TXT = "סה\"כ שעות: ";
     public static final String IS_STUDENT = "isStudent";
+    public static final String CATERING_ALTOGETHER = "cateringAltogether";
 
 
     //public static final String REPORT_HEB = "דוח מכירות"
@@ -193,7 +194,7 @@ public class Cashier {
 
     //PastrieS===========================================================
     public static String[] PASTRY_NAMES = {"קרואסון שוקולד", "גבינית", "קרואסון חמאה", "קרואסון קינמון", "דונאט", "בורקס גבינה", "בורקס תפו\"א", "בורקס + ביצה", "מלאווח", "מלאווח + תוספות", "פיצה רגילה", "פיצה + תוספות", "בולגרית לפיצה"};
-    public static double[] PASTRY_PRICES = {7, 7, 7, 7, 6, 7, 7, 10, 10, 13, 6, 7, 3};
+    public static double[] PASTRY_PRICES = {7, 7, 7, 7, 6, 7, 7, 10, 9.5, 12.5, 6, 7, 3};
     public static int IND_CHOCO_CROI = 0;
     public static int IND_CHEESE_CROI = 1;
     public static int IND_BUTTER_CROI = 2;
@@ -460,10 +461,12 @@ public class Cashier {
 
 
     //CATERING
-    public static HashMap<String, Integer> cateringOrder = new HashMap<>();
-    public static double [] CATERING_PRICES = {185, 160,160, 150, 110, 110, 110, 110};//salads
+    public static HashMap<String, CateringObjectInfo> cateringOrder = new HashMap<>();
+    //public static String [] CATERING_ITEMS = {}
+    
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110"};//salads
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad
-
+    
 
 
 
@@ -1353,9 +1356,10 @@ sending through whatsapp
         List<String>listOfItem = new ArrayList<>();
         if(!cateringOrder.isEmpty())
         {
-            for(Map.Entry<String, Integer> entry : cateringOrder.entrySet())
+            for(Map.Entry<String, CateringObjectInfo> entry : cateringOrder.entrySet())
             {
-                listOfItem.add(entry.getValue() + " :: " + entry.getKey());
+                //// TODO: 12/3/2017 check this; changed Map's val to CatObjInf, haven't checked if it works 
+                listOfItem.add(entry.getValue() + " :: " + entry.getKey().toString());
             }
             Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
             ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
@@ -1365,5 +1369,13 @@ sending through whatsapp
             Log.d("TKT_cashier","nothing to see here");
 
 
+    }
+    
+    public static void sharedUpdateCatering(String price)
+    {
+        //// TODO: 12/3/2017 make sure to update price if item is removed or added!! 
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(CATERING_ALTOGETHER,price);
+        progressEdit.commit();
     }
 }
