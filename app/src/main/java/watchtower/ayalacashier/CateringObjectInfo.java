@@ -28,15 +28,18 @@ public class CateringObjectInfo implements Serializable{
         price = new Double(p);
     }
 
-    public void setAmount(String a) {
+    public void setAmount(String a)
+    {
         amount = new Double(a);
     }
 
-    public double getAmount() {
+    public double getAmount()
+    {
         return amount;
     }
 
-    public double getPrice() {
+    public double getPrice()
+    {
         return price*amount;
     }
 
