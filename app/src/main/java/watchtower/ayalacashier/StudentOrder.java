@@ -669,8 +669,12 @@ public class StudentOrder extends AppCompatActivity {
             String [] temp = tempSabih.getText().toString().split("\n");
             String newName = temp[0]+"\n"+baguetteSabih;
             tempSabih.setText(newName);
+            if(sandwich[IND_SANDWICH_TYPE] != null && sandwich[IND_SANDWICH_TYPE].contains("סביח"))
+            {
+                sandwich[IND_SANDWICH_PRICE] = baguetteSabih;
+            }
             //sandwich[IND_SANDWICH_TYPE] = temp[0];
-            sandwich[IND_SANDWICH_PRICE] = baguetteSabih;
+            //sandwich[IND_SANDWICH_PRICE] = baguetteSabih;
         }
         else
         {
@@ -678,10 +682,12 @@ public class StudentOrder extends AppCompatActivity {
             String [] temp = tempSabih.getText().toString().split("\n");
             String newName = temp[0]+"\n"+(int)Cashier.SANDWICH_PRICES[Cashier.IND_SABIH];
             tempSabih.setText(newName);
-            //tempSabih.setT
-
+            if(sandwich[IND_SANDWICH_TYPE] != null && sandwich[IND_SANDWICH_TYPE].contains("סביח"))
+            {
+                sandwich[IND_SANDWICH_PRICE] = Cashier.SANDWICH_PRICES[Cashier.IND_SABIH]+"";
+            }
             //sandwich[IND_SANDWICH_TYPE] = temp[0];
-            sandwich[IND_SANDWICH_PRICE] = Cashier.SANDWICH_PRICES[Cashier.IND_SABIH]+"";
+
         }
         sandwich[IND_BREAD_TYPE] = v.getTag().toString();
         Cashier.sharedUpdateSandBread(v.getTag().toString());
