@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AyalaCashier.iml" filepath="$PROJECT_DIR$/AyalaCashier.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PayPal-Android-SDK-master/PayPal-Android-SDK-master.iml" filepath="$PROJECT_DIR$/PayPal-Android-SDK-master/PayPal-Android-SDK-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

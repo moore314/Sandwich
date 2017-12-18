@@ -3,6 +3,7 @@ package watchtower.ayalacashier;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,12 @@ import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import java.util.HashMap;
 
@@ -24,6 +31,16 @@ import java.util.HashMap;
 
 public class StudentOrder extends AppCompatActivity {
 
+
+    /*paypal
+    PayPalConfiguration configuration;
+    String  paypalClientId;
+    Intent service;
+    int paypalRequest = 999;
+    */
+
+    static String message = "";
+    //==============
     Context context;
     HashMap<String, String>orderDetails = new HashMap<>();
     String ORDER_TIME = "orderTime";
@@ -44,6 +61,7 @@ public class StudentOrder extends AppCompatActivity {
     final int IND_SANDWICH_PRICE = 2;
     final String openDialogFlag = "openDialogFlag";
     final String baguetteSabih = 20+"";
+    public static boolean PAID = false;
 
     //salad
     final String ONE = 1+"";
@@ -105,7 +123,16 @@ public class StudentOrder extends AppCompatActivity {
         notesFromET = (EditText)findViewById(R.id.studentNotes);
         payment = (TextView)findViewById(R.id.paymentTextField);
         initBoxes();
+        message = "";
         nameFromET.requestFocus();
+
+
+        //paypal
+        Cashier.configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Cashier.paypalClientId);
+        Cashier.service = new Intent(this, PayPalService.class);
+        Cashier.service.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, Cashier.configuration);
+        startService(Cashier.service);//paypal service listening to calls of payment
+        //===============
 
 
         ImageButton deleteSandFromOrder = (ImageButton)findViewById(R.id.cancelSand);
@@ -1141,6 +1168,7 @@ public class StudentOrder extends AppCompatActivity {
         EditText t = (EditText)findViewById(R.id.studentName);
         t.setText(studentName);
         orderDetails.put(ORDER_NAME,studentName);
+        message = Cashier.checkPrefs.getString(Cashier.MESSAGE,null);
         super.onResume();
     }
 
@@ -1151,14 +1179,15 @@ public class StudentOrder extends AppCompatActivity {
         Log.d("TKT_studentOrder","order=================");
 
         String name = nameFromET.getText().toString();
-        String message = "";
+         //String message = "";
         if(name.length() < 2)
         {
             AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
             mensaje.setMessage(R.string.pleaseChooseName).create();
             mensaje.show();
         }
-        else {
+        else
+            {
             orderDetails.put(ORDER_NAME, name);
             message = messageName() + System.getProperty("line.separator")
                     + messageTime() + System.getProperty("line.separator");
@@ -1193,7 +1222,12 @@ public class StudentOrder extends AppCompatActivity {
                 if (salad != null)
                     message += salad + System.getProperty("line.separator");
                 message =  messageNotes(message);
-                Cashier.sendOrderToA(message, this);
+                    Cashier.putMessageInShared(message);
+
+                    Cashier.pay(this, this, payment.getText().toString() );///bad practice!!! but works for now
+                        //Cashier.sendOrderToA(message, this);
+
+
             }
         }
     }
@@ -1270,4 +1304,31 @@ public class StudentOrder extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Cashier.paypalRequestCode)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                PaymentConfirmation confirmation = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
+                if(confirmation != null && confirmation.getProofOfPayment().getState().equals(Cashier.PAYMENT_APPROVED))
+                {
+                    Log.d("TKT_studentOrder","confirmation approved!");
+                    if(message != null)
+                        Cashier.sendOrderToA(message, this);
+
+                    else
+                        Toast.makeText(context, "No order exists", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Log.d("TKT_studentOrder","confirmation is null");
+                    Toast.makeText(context, "Confirmation failed", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }
+    }
 }

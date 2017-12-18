@@ -31,4 +31,5 @@ dependencies {
     compile 'com.github.HotBitmapGG:RingProgressBar:V1.2.2'
     compile 'com.android.support:design:25.3.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.paypal.sdk:paypal-android-sdk:2.15.3'
 }

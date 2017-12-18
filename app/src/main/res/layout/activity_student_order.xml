@@ -499,7 +499,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/shape"
             android:backgroundTint="@color/turq"
-            android:text="@string/payNow"
+            android:text="@string/checkPlease"
             android:textColor="@color/blanco"
             android:textSize="20dp"
             android:textStyle="bold"

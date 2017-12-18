@@ -1,6 +1,7 @@
 package watchtower.ayalacashier;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,12 +18,18 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.paypal.android.sdk.payments.PayPalConfiguration;
+import com.paypal.android.sdk.payments.PayPalPayment;
+import com.paypal.android.sdk.payments.PayPalService;
+import com.paypal.android.sdk.payments.PaymentActivity;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +43,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
 /**
  * Created by Moore on 9/5/2017.
  */
@@ -45,6 +51,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Cashier {
 
+    //paypal info
+    public static PayPalConfiguration configuration;
+    public static String paypalClientId = "ASod7GQIJzUSWkxC6PszybkqJvxfkP4Qoavf0393SzdodozA1cwzMBvhqwpwGegVZjCJTA4RjNbHPYIj";
+    public static Intent service;
+    public static int paypalRequestCode = 999;
+    public static final String PAYMENT_APPROVED = "approved";
+    public static final String CURRENCY = "ILS";
+    public static final String MESSAGE = "message";
+    //=======================
     protected static SharedPreferences checkPrefs;
     public static SharedPreferences.Editor progressEdit;
     //====== sharedPref ======
@@ -1327,26 +1342,36 @@ sending through whatsapp
         progressEdit.commit();
     }
 
-    public static void sendOrderToA(String message, Context context)
-    {
+    public static void sendOrderToA(String message, Context context) {
 
-        Log.d("TKT_cashier","sendOrderToA========================");
+        Log.d("TKT_cashier", "sendOrderToA========================");
         //String formatedNumber = PhoneNumberUtils.format(number);
-        try {
+/*
+        if (!StudentOrder.PAID) {
+            //paypal transaction
 
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            //intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, message);
-            intent.putExtra("jid", number + "@s.whatsapp.net");
-            intent.setPackage("com.whatsapp");
-            context.startActivity(intent);//(Intent.createChooser(intent,"share with:"));
-        }
-        catch (Exception x)
+            StudentOrder.PAID = true;
+            //sendOrderToA(message, context);  //recourse
+        } else
+            */
         {
-            Toast.makeText(context, "WhatsApp is not Installed", Toast.LENGTH_SHORT).show();
-            Log.d("TKT_cashier","cannot send whatsapp");
-        }
+
+            try {
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                //intent.setComponent(new ComponentName("com.whatsapp", "com.whatsapp.Conversation"));
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, message);
+                intent.putExtra("jid", number + "@s.whatsapp.net");
+                intent.setPackage("com.whatsapp");
+                context.startActivity(intent);//(Intent.createChooser(intent,"share with:"));
+                //do sth if onDestroy
+                StudentOrder.PAID = false; //after message sent to a
+            } catch (Exception x) {
+                Toast.makeText(context, "WhatsApp is not Installed", Toast.LENGTH_SHORT).show();
+                Log.d("TKT_cashier", "cannot send whatsapp");
+            }
+    }
 
     }
 
@@ -1378,4 +1403,26 @@ sending through whatsapp
         progressEdit.putString(CATERING_ALTOGETHER,price);
         progressEdit.commit();
     }
+
+    public static void putMessageInShared(String message)
+    {
+        if(message.length() > 1)
+        {
+            progressEdit = checkPrefs.edit();
+            progressEdit.putString(MESSAGE, message);
+            progressEdit.commit();
+        }
+    }
+
+    public static void pay(Context context, Activity act, String amount)
+    {
+        PayPalPayment  payment = new PayPalPayment(new BigDecimal(amount),CURRENCY,"Test paypal",PayPalPayment.PAYMENT_INTENT_SALE);
+        Log.d("TKT_studentOrder","payment: "+payment.getAmountAsLocalizedString().toString());
+        Intent intent = new Intent(context, PaymentActivity.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, configuration);
+        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
+        act.startActivityForResult(intent, paypalRequestCode);
+    }
+
+
 }
