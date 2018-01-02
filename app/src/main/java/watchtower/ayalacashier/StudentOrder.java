@@ -125,6 +125,9 @@ public class StudentOrder extends AppCompatActivity {
         initBoxes();
         message = "";
         nameFromET.requestFocus();
+        //Log.d("TKT_studentOrder","currDay: "+Cashier.c.get(Calendar.DAY_OF_YEAR));
+        Log.d("TKT_studentOrder","krypt: "+Cashier.KRYPT.generateCrypto());
+
 
 
         //paypal
@@ -1225,6 +1228,7 @@ public class StudentOrder extends AppCompatActivity {
                     Cashier.putMessageInShared(message);
 
                     Cashier.pay(this, this, payment.getText().toString() );///bad practice!!! but works for now
+
                         //Cashier.sendOrderToA(message, this);
 
 
@@ -1316,8 +1320,12 @@ public class StudentOrder extends AppCompatActivity {
                 if(confirmation != null && confirmation.getProofOfPayment().getState().equals(Cashier.PAYMENT_APPROVED))
                 {
                     Log.d("TKT_studentOrder","confirmation approved!");
-                    if(message != null)
+                    if(message != null) {
+                        //Cashier.KRYPT.generateCrypto();
+                        message = Cashier.KRYPT.generateCrypto() + "\n"+message;
+                        Log.d("TKT_studentOrder","messageWKRIPT: "+message);
                         Cashier.sendOrderToA(message, this);
+                    }
 
                     else
                         Toast.makeText(context, "No order exists", Toast.LENGTH_SHORT).show();

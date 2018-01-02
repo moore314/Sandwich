@@ -2,6 +2,7 @@ package watchtower.ayalacashier;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -27,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Hours extends AppCompatActivity {
+    //// TODO: 12/19/2017 fix reds
 
     CalendarView calendar;
     Calendar cal;
@@ -153,23 +155,20 @@ public class Hours extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-        switch(id)
-        {
-            case android.R.id.home:
-            {
+        switch (id) {
+            case android.R.id.home: {
                 onBackPressed();
                 return true;
             }
-            case R.id.manualUpdate:
-            {
+            case R.id.manualUpdate: {
                 //manualUpdate
                 //dialog that on top there are months, and below there will be a listView of all month entries
                 showChangeDialog(0);
                 return true;
             }
         }
-        return false;
-    }
+            return false;
+        }
 
 
     public void addNewEntryDialog()
@@ -188,8 +187,18 @@ public class Hours extends AppCompatActivity {
         endTime.setIs24HourView(true);
         updateMonth = cal.get(Calendar.MONTH)+1;
         updateTitle = generateDateFormat(cal.get(Calendar.DAY_OF_MONTH),updateMonth,cal.get(Calendar.YEAR));
-        updateStart = generateTimeFormat(startTime.getHour(), startTime.getMinute());
-        updateEnd = generateTimeFormat(endTime.getHour(), endTime.getMinute());
+        if(Build.VERSION.SDK_INT < 23)
+        {
+            updateStart = Cashier.generateTimeFormat(startTime.getCurrentHour(), startTime.getCurrentMinute());
+            updateEnd = Cashier.generateTimeFormat(endTime.getCurrentHour(), endTime.getCurrentMinute());
+        }
+        else
+        {
+            updateStart = Cashier.generateTimeFormat(startTime.getHour(), startTime.getMinute());
+            updateEnd = Cashier.generateTimeFormat(endTime.getHour(), endTime.getMinute());
+        }
+        //updateStart = Cashier.generateTimeFormat(startTime.getHour(), startTime.getMinute());
+        //updateEnd = Cashier.generateTimeFormat(endTime.getHour(), endTime.getMinute());
 
         //Log.d("TKT_hours","initTitile: "+updateTitle);
         //Log.d("TKT_hours","initStart: "+updateStart);
@@ -208,13 +217,13 @@ public class Hours extends AppCompatActivity {
         startTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                updateStart = generateTimeFormat(hourOfDay,minute);
+                updateStart = Cashier.generateTimeFormat(hourOfDay,minute);
             }
         });
         endTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                updateEnd = generateTimeFormat(hourOfDay,minute);
+                updateEnd = Cashier.generateTimeFormat(hourOfDay,minute);
             }
         });
 
@@ -370,12 +379,23 @@ public class Hours extends AppCompatActivity {
         //set time to timePicker
         Calendar cSt = Calendar.getInstance();
         cSt.setTime(beg);
-        st.setHour(cSt.get(Calendar.HOUR_OF_DAY));
-        st.setMinute(cSt.get(Calendar.MINUTE));
-        Calendar cEnd = Calendar.getInstance();
-        cEnd.setTime(end);
-        ed.setHour(cEnd.get(Calendar.HOUR_OF_DAY));
-        ed.setMinute(cEnd.get(Calendar.MINUTE));
+        if(Build.VERSION.SDK_INT < 23)
+        {
+            st.setCurrentHour(cSt.get(Calendar.HOUR_OF_DAY));
+            st.setCurrentMinute(cSt.get(Calendar.MINUTE));
+            Calendar cEnd = Calendar.getInstance();
+            cEnd.setTime(end);
+            ed.setCurrentHour(cEnd.get(Calendar.HOUR_OF_DAY));
+            ed.setCurrentMinute(cEnd.get(Calendar.MINUTE));
+        }
+        else {
+            st.setHour(cSt.get(Calendar.HOUR_OF_DAY));
+            st.setMinute(cSt.get(Calendar.MINUTE));
+            Calendar cEnd = Calendar.getInstance();
+            cEnd.setTime(end);
+            ed.setHour(cEnd.get(Calendar.HOUR_OF_DAY));
+            ed.setMinute(cEnd.get(Calendar.MINUTE));
+        }
 
         deleteEntry.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -409,7 +429,7 @@ public class Hours extends AppCompatActivity {
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 
                 Log.d("TKT_hours","st.onClickListener=============");
-                START = generateTimeFormat(hourOfDay,minute);
+                START = Cashier.generateTimeFormat(hourOfDay,minute);
                 //Log.d("TKT_hours","START: "+START);
             }
         });
@@ -418,7 +438,7 @@ public class Hours extends AppCompatActivity {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 Log.d("TKT_hours","ed.onClickListener=============");
-                END = generateTimeFormat(hourOfDay,minute);
+                END = Cashier.generateTimeFormat(hourOfDay,minute);
                 //Log.d("TKT_hours","END: "+END);
             }
         });

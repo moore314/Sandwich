@@ -59,6 +59,7 @@ public class Cashier {
     public static final String PAYMENT_APPROVED = "approved";
     public static final String CURRENCY = "ILS";
     public static final String MESSAGE = "message";
+    public static Crypto KRYPT = new Crypto();
     //=======================
     protected static SharedPreferences checkPrefs;
     public static SharedPreferences.Editor progressEdit;
@@ -1412,6 +1413,20 @@ sending through whatsapp
             progressEdit.putString(MESSAGE, message);
             progressEdit.commit();
         }
+    }
+
+    public static String generateTimeFormat(int hours, int minutes)
+    {
+        String h = "",m = "";
+        if(hours<10)
+            h = "0"+hours;
+        else
+            h += hours;
+        if(minutes < 10)
+            m = "0"+minutes;
+        else
+            m += minutes;
+        return h+":"+m;
     }
 
     public static void pay(Context context, Activity act, String amount)
