@@ -264,13 +264,13 @@ public class ItemScreen extends AppCompatActivity {
         Button kuskus = (Button)Cashier.dialog.findViewById(R.id.kuskusButton);
         setPriceView(kuskus, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_KUSKUS);
 
-        Button yamSoup = (Button)Cashier.dialog.findViewById(R.id.yamBuutton);
+        Button yamSoup = (Button)Cashier.dialog.findViewById(R.id.smallSoup);
         setPriceView(yamSoup, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_YAM_SOUP);
 
         Button lentilSoup = (Button)Cashier.dialog.findViewById(R.id.lentilButton);
         setPriceView(lentilSoup, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_LENTIL_SOUP);
 
-        Button veggieSoup = (Button)Cashier.dialog.findViewById(R.id.veggiButton);
+        Button veggieSoup = (Button)Cashier.dialog.findViewById(R.id.largeSoup);
         setPriceView(veggieSoup, Cashier.PASTRY_NAMES, Cashier.PASTRY_PRICES, Cashier.IND_VEGGIE_SOUP);
 
         Button cornMilanesa = (Button)Cashier.dialog.findViewById(R.id.milanesaButton);

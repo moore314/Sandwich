@@ -187,7 +187,7 @@
     <string name="plusEgg">+ ביצה\n10</string>
 
     <string name="melawacText">מלאווח</string>
-    <string name="melawac">מלאווח\n10</string>
+    <string name="melawac">מלאווח\n9.5</string>
     <string name="melawacEgg">+ ביצה\n13</string>
 
     <string name="pizzaText">פיצה</string>
@@ -222,6 +222,8 @@
     <string name="veggie">ירקות\n10</string>
     <string name="yam">בטטה\n10</string>
     <string name="corn_milanesa">שניצל תירס\n5</string>
+    <string name="soup10">כוס\n10</string>
+    <string name="soup14">קערה\n14</string>
 
     <!-- meusli -->
     <string name="watermelon">פירות חתוכים\n7</string>

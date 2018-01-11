@@ -48,6 +48,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 //// TODO: 11/28/2017 when update for version 1, disable launcer in main and enable launger for welcome 
+    //// TODO: 1/11/2018 add back arrow to welcome  
 
 public class Cashier {
 
@@ -478,7 +479,7 @@ public class Cashier {
 
     //CATERING
     public static HashMap<String, CateringObjectInfo> cateringOrder = new HashMap<>();
-    //public static String [] CATERING_ITEMS = {}
+    public static final String [] CATERING_ITEMS = {"SALAD_HUGE","SALAD_LENTIL","SALAD_QUINOA","SALAD_TUNA","SALAD_EGG","SALAD_EGGPLANT","SALAD_THINI","SALAD_AVOCADO"};
     
     public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110"};//salads
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad
@@ -1378,23 +1379,32 @@ sending through whatsapp
 
     public static void displayOrderCatering(ListView listView, TextView totalSum, Context context)
     {
+        //// TODO: 1/11/2018 add a dialog that tells user that a long touch on item is for changing amount
         Log.d("TKT_cashier","displayOrderCatering========");
+        double sum = 0;
         List<String>listOfItem = new ArrayList<>();
         if(!cateringOrder.isEmpty())
         {
             for(Map.Entry<String, CateringObjectInfo> entry : cateringOrder.entrySet())
             {
-                //// TODO: 12/3/2017 check this; changed Map's val to CatObjInf, haven't checked if it works 
-                listOfItem.add(entry.getValue() + " :: " + entry.getKey().toString());
+                listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString()));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
+                sum += entry.getValue().getPrice();
+                Log.d("TKT_cashier","MMM: "+entry.toString());
             }
             Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
             ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
             listView.setAdapter(adapter);
+            totalSum.setText(sum+"");
         }
         else
             Log.d("TKT_cashier","nothing to see here");
 
 
+    }
+
+    public static String cateringCartGenerateString(String val, String key)//(Map.Entry entry)
+    {
+        return val + " :: " + key;//entry.getValue() + " :: " + entry.getKey().toString();
     }
     
     public static void sharedUpdateCatering(String price)

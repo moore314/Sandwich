@@ -327,7 +327,10 @@ public class Welcome extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false)) {
+        Log.d("TKT_welcome","onCreateOptionMenu==========================================");
+        if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false))
+        {//this is empoyee
+            Log.d("TKT_welcome","welcome_menu inflated");
             getMenuInflater().inflate(R.menu.welcome_menu, menu);
 
             if(Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
@@ -336,7 +339,14 @@ public class Welcome extends AppCompatActivity {
             }
             return true;
         }
-            return false;
+        return false;
+        /*
+        else {
+            getMenuInflater().inflate(R.menu.top_menu, menu);
+            Log.d("TKT_welcome","top_menu inflated");
+            return true;
+        }
+        */
     }
 
 

@@ -465,29 +465,31 @@ public class StudentOrder extends AppCompatActivity {
                 }
                 //hots: soup
                 case 22+"":
-                {
-                    button = (Button)Cashier.dialog.findViewById(R.id.lentilButton);
+                {//largeSoup
+                    button = (Button)Cashier.dialog.findViewById(R.id.largeSoup);
                     String [] temp = button.getText().toString().split("\n");
                     hots[HOT_ITEM] = temp[0];
                     hots[HOT_PRICE] = temp[1];
                     break;
                 }
                 case 23+"":
-                {
-                    button = (Button)Cashier.dialog.findViewById(R.id.veggiButton);
+                {//small soup
+                    button = (Button)Cashier.dialog.findViewById(R.id.smallSoup);
                     String [] temp = button.getText().toString().split("\n");
                     hots[HOT_ITEM] = temp[0];
                     hots[HOT_PRICE] = temp[1];
                     break;
                 }
+                /*
                 case 24+"":
                 {
-                    button = (Button)Cashier.dialog.findViewById(R.id.yamBuutton);
+                    button = (Button)Cashier.dialog.findViewById(R.id.smallSoup);
                     String [] temp = button.getText().toString().split("\n");
                     hots[HOT_ITEM] = temp[0];
                     hots[HOT_PRICE] = temp[1];
                     break;
                 }
+                */
 
             }
 
@@ -594,7 +596,8 @@ public class StudentOrder extends AppCompatActivity {
         String sand = Cashier.checkPrefs.getString(CHOSEN_SAND, null);
         Log.d("TKT_studentOrder","sandwich[IND_SANDWICH_PRICE]: "+sandwich[IND_SANDWICH_PRICE]);
         final String tempPayment = sandwich[IND_SANDWICH_PRICE];
-        ///*
+        /*
+        //handles displaying prev chosen sandwich and bread type
         if(bread != null)
         {
             Log.d("TKT_studentOrder","bread != null");
@@ -607,14 +610,15 @@ public class StudentOrder extends AppCompatActivity {
                 (bg).setChecked(true);
                 chooseBread(bg);
             }
-                //chooseBread(Cashier.dialog.findViewById(R.id.baguetteRadio));
-
+                //chooseBread(Cashier.dialog.findViewById(R.id.baguetteRadio))
         }
 
-        if(sand != null) {
+
+        if(sand != null)
+        {
             buttonHandler(sand, openDialogFlag);
         }
-        //*/
+        */
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -891,9 +895,9 @@ public class StudentOrder extends AppCompatActivity {
         //final Button kuskus = (Button)Cashier.dialog.findViewById(R.id.kuskusButton);
         //final Button pasta = (Button)Cashier.dialog.findViewById(R.id.pastaButton);
 
-        final Button lentil = (Button)Cashier.dialog.findViewById(R.id.lentilButton);
-        final Button veggi = (Button)Cashier.dialog.findViewById(R.id.veggiButton);
-        final Button yam = (Button)Cashier.dialog.findViewById(R.id.yamBuutton);
+        //final Button lentil = (Button)Cashier.dialog.findViewById(R.id.lentilButton);
+        final Button largeSoup = (Button)Cashier.dialog.findViewById(R.id.largeSoup);
+        final Button smallSoup = (Button)Cashier.dialog.findViewById(R.id.smallSoup);
 
         String hotChosenPrev = Cashier.checkPrefs.getString(CHOSEN_HOT, null);
         final String tempPayment = hots[HOT_PRICE];
@@ -902,10 +906,12 @@ public class StudentOrder extends AppCompatActivity {
         hots[HOT_QUAN] = ONE;
         Log.d("TKT_studentOrder","hots[HOT_ITEM]: "+tempPayment);
         Log.d("TKT_studentOrder","hots[HOT_QUAN]: "+tempQuan);
-        if(hotChosenPrev != null)
+
+        //if(hotChosenPrev != null)
         {
-            buttonHandler(hotChosenPrev, openDialogFlag);
+            //buttonHandler(hotChosenPrev, openDialogFlag);
         }
+
 
         picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
@@ -928,16 +934,16 @@ public class StudentOrder extends AppCompatActivity {
         tempTxt = (getString(R.string.lentil)).split("\n");
         lentil.setText(tempTxt[0]);
         tempTxt = (getString(R.string.veggie)).split("\n");
-        veggi.setText(tempTxt[0]);
-        tempTxt = (getString(R.string.yam)).split("\n");
-        yam.setText(tempTxt[0]);
+        largeSoup.setText(tempTxt[0]);
+        tempTxt = (getString(R.string.smallSoup)).split("\n");
+        smallSoup.setText(tempTxt[0]);
         */
 
 
         //// TODO: 10/31/2017 enable in time =======================vvvvvv
-        lentil.setEnabled(false);
-        veggi.setEnabled(false);
-        yam.setEnabled(false);
+        //lentil.setEnabled(false);
+        largeSoup.setEnabled(false);
+        smallSoup.setEnabled(false);
         //========^^^^^^^^^^^============================================
 
         /*
@@ -948,18 +954,18 @@ public class StudentOrder extends AppCompatActivity {
                 chooseHot(lentil);
             }
         });
-        veggi.setOnClickListener(new View.OnClickListener() {
+        largeSoup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","lentilChosen");
-                chooseHot(veggi);
+                chooseHot(largeSoup);
             }
         });
-        yam.setOnClickListener(new View.OnClickListener() {
+        smallSoup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_studentOrder","lentilChosen");
-                chooseHot(yam);
+                chooseHot(smallSoup);
             }
         });
 */
@@ -1067,9 +1073,9 @@ public class StudentOrder extends AppCompatActivity {
         Log.d("TKT_studentOrder","tempQuan: "+tempQuan);
         Log.d("TKT_studentOrder","tempPayment: "+tempPayment);
         String dessertChosenPrev = Cashier.checkPrefs.getString(CHOSEN_DESSERT,null);
-        if(dessertChosenPrev != null)
+        //if(dessertChosenPrev != null)
         {
-            buttonHandler(dessertChosenPrev, openDialogFlag);
+            //buttonHandler(dessertChosenPrev, openDialogFlag);
         }
 
         NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.studentMeuNumPick);

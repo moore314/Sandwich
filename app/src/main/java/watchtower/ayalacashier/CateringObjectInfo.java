@@ -9,18 +9,20 @@ import java.io.Serializable;
 public class CateringObjectInfo implements Serializable{
 
     private Double price;
-    private Double amount; //set this as double cuz I want it to be displayed with a decimel
+    private Integer amount; //set this as double cuz I want it to be displayed with a decimel
+    //private String
 
     public CateringObjectInfo()
     {
         price = new Double(0);
-        amount = new Double(0);
+        amount = new Integer(0);
+
     }
 
     public CateringObjectInfo(String p, String  a)
     {
         price = new Double(p);
-        amount = new Double(a);
+        amount = new Integer(a);
     }
 
     public void setPrice(String  p)
@@ -30,7 +32,7 @@ public class CateringObjectInfo implements Serializable{
 
     public void setAmount(String a)
     {
-        amount = new Double(a);
+        amount = new Integer(a);
     }
 
     public double getAmount()
