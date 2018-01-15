@@ -12,7 +12,6 @@ import android.widget.Button;
 
 public class Catering extends AppCompatActivity {
     //// TODO: 11/27/2017 set on destroy and put order details in shared 
-    //// TODO: 1/11/2018 pick up from here; hugeSalads is ok, move on to the rest of the salads and items, consider adding option for removing item in cart - add it to OnLongPressListener
 
     Context context;
 

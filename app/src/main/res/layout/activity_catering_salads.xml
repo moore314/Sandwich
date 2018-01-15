@@ -33,7 +33,7 @@
 
                 <Button
                     android:id="@+id/lentilSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/lentilSaladCatering"
                     android:background="@drawable/circle"
@@ -42,12 +42,13 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginRight="20dp"
+                    android:onClick="openLentilSalad"
 
                     >
                 </Button>
                 <Button
                     android:id="@+id/hugeSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/hugeSaladCatering"
                     android:background="@drawable/circle"
@@ -55,7 +56,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_marginLeft="20dp"
-                    android:onClick="openSalad"
+                    android:onClick="openHugeSalad"
                     >
                 </Button>
 
@@ -71,7 +72,7 @@
 
                 <Button
                     android:id="@+id/tunaSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/tunaSaladCatering"
                     android:background="@drawable/circle"
@@ -79,12 +80,13 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_marginRight="20dp"
+                    android:onClick="openTunaSalad"
                     >
                 </Button>
 
                 <Button
                     android:id="@+id/quinoaSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/quinoaSaladCatering"
                     android:background="@drawable/circle"
@@ -93,6 +95,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginLeft="20dp"
+                    android:onClick="openQuinoaSalad"
                     >
                 </Button>
 
@@ -108,7 +111,7 @@
 
                 <Button
                     android:id="@+id/eggplantSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/eggplantSaladCatering"
                     android:background="@drawable/circle"
@@ -117,12 +120,14 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
+                    android:onClick="openEggplantSalad"
+                    android:tag="@string/TAGunchecked"
                     >
                 </Button>
 
                 <Button
                     android:id="@+id/eggSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/eggSaladCatering"
                     android:background="@drawable/circle"
@@ -131,6 +136,9 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginLeft="20dp"
+                    android:onClick="openEggSalad"
+                    android:tag="@string/TAGunchecked"
+
                     >
                 </Button>
 
@@ -145,7 +153,7 @@
 
                 <Button
                     android:id="@+id/avocadoSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/avocadoSaladCatering"
                     android:background="@drawable/circle"
@@ -153,12 +161,14 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_marginRight="20dp"
+                    android:onClick="openAvocadoSalad"
+                    android:tag="@string/TAGunchecked"
                     >
                 </Button>
 
                 <Button
                     android:id="@+id/greedThiniSalad"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="@string/thiniSaladCatering"
                     android:background="@drawable/circle"
@@ -167,6 +177,9 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginLeft="20dp"
+                    android:onClick="openThiniSalad"
+                    android:tag="@string/TAGunchecked"
+
                     >
                 </Button>
 

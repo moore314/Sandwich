@@ -23,15 +23,22 @@
     <string name="hugeSaladCatering2">חסה, עלי בייבי, בטטה מוקפצת,\nעגבניות שרי, בצל סגול,\nגרעיני חמנייה קלויים</string>
     <string name="hugeSaladCatering3">כרוב, חמוציות, שבבי שקדים קלויים,\nבצל ירוק, רוטב סיני</string>
     <string name="hugeSaladCatering4">סביח: חסה, גמבה, מלפפון חמוץ,\nחציל מטוגן, גרגירי חומוס,\nביצים קשות, רוטב טחינה</string>
+    <string name="lentilSaladCateringIngre">עדשים שחורות, גבינה\nבולגרית, בטטה</string>
+    <string name="quinoaSaladCateringIngre">קינואה, חמוציות, גרעיני חמנייה</string>
+    <string name="tunaSaladCateringIngre">טונה, מיונז, מלפפון חמוץ,\nגמבה, בצל סגול</string>
+    <string name="TAGunchecked">unchecked</string>
+    <string name="TAGchecked">checked</string>
 
     <string name="lentilSaladCatering">סלט עדשים</string>
     <string name="quinoaSaladCatering">סלט קינואה</string>
     <string name="tunaSaladCatering">סלט טונה</string>
     <string name="eggSaladCatering">סלט ביצים</string>
-    <string name="eggplantSaladCatering">סלט חצילים\nאדום</string>
-    <string name="thiniSaladCatering">סלט טחינה\nירוק</string>
+    <string name="eggplantSaladCatering">סלט חצילים אדום</string>
+    <string name="thiniSaladCatering">סלט טחינה ירוק</string>
     <string name="avocadoSaladCatering">סלט אבוקדו</string>
     <string name="hugeSaladPrice">185 ש\"ח: מספיק ל 10-12 אנשים</string>
+    <string name="lentilSaladPrice">160 ש\"ח: מספיק ל 10 אנשים</string>
+    <string name="tunaSaladPrice">150 ש\"ח: מספיק ל 12 אנשים</string>
     <string name="viewOrder">צפייה בהזמנה</string>
 
 

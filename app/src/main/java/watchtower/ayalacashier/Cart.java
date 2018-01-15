@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class Cart extends AppCompatActivity {
         context = this;
         totalSum = (TextView)findViewById(R.id.altogetherTextCatering);
         lisa = (ListView)findViewById(R.id.orderListCatering);
-        Cashier.displayOrderCatering(lisa, totalSum, context);
+        Cashier.displayOrderCatering(lisa, totalSum, context,0);
         lisa.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
@@ -47,12 +48,12 @@ public class Cart extends AppCompatActivity {
     public void changeAmountDialog(final String entry, final int position)
     {
         Log.d("TKT_cart","changeAmountDialog=======");
-        //Log.d("TKT_cart","changeAmountDialog.chosenAmount: "+chosenAmount);
         chosenAmount = 1;
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.change_amount_dialog);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.cateringPickAmount);
+        ImageButton delete = (ImageButton)Cashier.dialog.findViewById(R.id.cateringDeleteEntryButton);
         Button cancel = (Button)Cashier.dialog.findViewById(R.id.cateringCancelCheck);
         Button finish = (Button)Cashier.dialog.findViewById(R.id.cateringCheck);
         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
@@ -63,7 +64,6 @@ public class Cart extends AppCompatActivity {
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //do stuff
                 updateItemAmount(entry, chosenAmount, position);
                 Cashier.dialog.dismiss();
             }
@@ -82,7 +82,26 @@ public class Cart extends AppCompatActivity {
                 chosenAmount = newVal;
             }
         });
+
+        delete.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                Log.d("TKT_cart","delete was clicked");
+                deleteEntry(entry);
+                Cashier.dialog.dismiss();
+            }
+        });
         Cashier.dialog.show();
+    }
+
+    public void deleteEntry(String entry)
+    {
+        String [] entrySplit = entry.split(" :: ");
+        Log.d("TKT_cart","deleteEntry.entrySplit[1]: "+entrySplit[1]);
+        CateringObjectInfo temp = Cashier.cateringOrder.remove(entrySplit[1]);
+        Cashier.displayOrderCatering(lisa, totalSum, context,temp.getPrice());
     }
 
     public void updateItemAmount(String entry, int newAmount, int pos)
@@ -93,7 +112,7 @@ public class Cart extends AppCompatActivity {
         //entrySplit[0] = newAmount+"";
         CateringObjectInfo newOb = Cashier.cateringOrder.get(entrySplit[1]);
         newOb.setAmount(newAmount+"");
-        Cashier.displayOrderCatering(lisa, totalSum, context);
+        Cashier.displayOrderCatering(lisa, totalSum, context,0);
         //lisa.getItemAtPosition(pos);
 
         //String newEntry = Cashier.cateringCartGenerateString(entrySplit[0],entrySplit[1]);

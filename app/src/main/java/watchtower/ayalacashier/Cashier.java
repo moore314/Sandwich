@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
@@ -479,6 +480,7 @@ public class Cashier {
 
     //CATERING
     public static HashMap<String, CateringObjectInfo> cateringOrder = new HashMap<>();
+    //^^hashmap key: itemDescription; value: CateringObjectInfo
     public static final String [] CATERING_ITEMS = {"SALAD_HUGE","SALAD_LENTIL","SALAD_QUINOA","SALAD_TUNA","SALAD_EGG","SALAD_EGGPLANT","SALAD_THINI","SALAD_AVOCADO"};
     
     public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110"};//salads
@@ -1377,12 +1379,13 @@ sending through whatsapp
 
     }
 
-    public static void displayOrderCatering(ListView listView, TextView totalSum, Context context)
+    public static void displayOrderCatering(ListView listView, TextView totalSum, Context context, double priceToReduce)
     {
         //// TODO: 1/11/2018 add a dialog that tells user that a long touch on item is for changing amount
         Log.d("TKT_cashier","displayOrderCatering========");
         double sum = 0;
         List<String>listOfItem = new ArrayList<>();
+        ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
         if(!cateringOrder.isEmpty())
         {
             for(Map.Entry<String, CateringObjectInfo> entry : cateringOrder.entrySet())
@@ -1392,12 +1395,22 @@ sending through whatsapp
                 Log.d("TKT_cashier","MMM: "+entry.toString());
             }
             Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
-            ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
+            //adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
             listView.setAdapter(adapter);
             totalSum.setText(sum+"");
         }
-        else
-            Log.d("TKT_cashier","nothing to see here");
+        else {
+            //adapter.notifyDataSetChanged();
+            double tempSum = Double.parseDouble(totalSum.getText().toString());
+            if(tempSum != 0)
+            {
+                tempSum -=priceToReduce;
+                totalSum.setText(tempSum+"");
+            }
+            listView.setAdapter(adapter);
+            Log.d("TKT_cashier", "nothing to see here");
+
+        }
 
 
     }
@@ -1448,6 +1461,29 @@ sending through whatsapp
         intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
         act.startActivityForResult(intent, paypalRequestCode);
     }
+
+    public static void cateringButtonBackgroundChange(View v, Context context, String price)
+    {
+        Button bv = (Button)v;
+        if(v.getTag().equals(context.getString(R.string.TAGunchecked)))
+        {//unchecked
+            v.setTag(context.getString(R.string.TAGchecked));
+            bv.setBackground(ContextCompat.getDrawable(context,R.drawable.circle_gray));
+            CateringObjectInfo c = new CateringObjectInfo(price, "1");
+            cateringOrder.put(bv.getText().toString(), c);
+        }
+        else
+        {
+            v.setTag(context.getString(R.string.TAGunchecked));
+            bv.setBackground(ContextCompat.getDrawable(context,R.drawable.circle));
+            cateringOrder.remove(bv.getText().toString());
+
+        }
+    }
+
+
+
+
 
 
 }
