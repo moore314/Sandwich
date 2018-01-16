@@ -482,9 +482,19 @@ public class Cashier {
     public static HashMap<String, CateringObjectInfo> cateringOrder = new HashMap<>();
     //^^hashmap key: itemDescription; value: CateringObjectInfo
     public static final String [] CATERING_ITEMS = {"SALAD_HUGE","SALAD_LENTIL","SALAD_QUINOA","SALAD_TUNA","SALAD_EGG","SALAD_EGGPLANT","SALAD_THINI","SALAD_AVOCADO"};
-    
-    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110"};//salads
-    //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad
+    public static final int SALAD_HUGE = 0;
+    public static final int SALAD_LENTIL = 1;
+    public static final int SALAD_QUINOA = 2;
+    public static final int SALAD_TUNA = 3;
+    public static final int SALAD_EGG = 4;
+    public static final int SALAD_EGGPLANT = 5;
+    public static final int SALAD_THINI = 6;
+    public static final int QUICHE = 7;
+    public static final int TORTILLA = 8;
+
+
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200"};
+    //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     
 
 

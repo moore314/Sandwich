@@ -26,6 +26,28 @@
     <string name="lentilSaladCateringIngre">עדשים שחורות, גבינה\nבולגרית, בטטה</string>
     <string name="quinoaSaladCateringIngre">קינואה, חמוציות, גרעיני חמנייה</string>
     <string name="tunaSaladCateringIngre">טונה, מיונז, מלפפון חמוץ,\nגמבה, בצל סגול</string>
+    <string name="mushroomQuicheCateringIngre">קיש פטריות</string>
+    <string name="yamQuicheCateringIngre">קיש בטטה</string>
+    <string name="broccoliQuicheCateringIngre">קיש ברוקולי</string>
+    <string name="onionQuicheCateringIngre">קיש בצל</string>
+    <!-- plates -->
+    <string name="tortillaPlateCatering">טורטיות ממולאות</string>
+    <string name="eggplantPlateWhiteCatering">חציל ולבנה</string>
+    <string name="hashbrownPlateCatering">לביבות</string>
+    <string name="antipastiPlateCatering">אנטיפסטי</string>
+    <string name="cheesePlateCatering">גבינות</string>
+    <string name="sandPlateCatering">סנדוויצ\'ים</string>
+    <string name="veggiPlateCatering">ירקות</string>
+    <string name="pescadoPlateCatering">דגים מעושנים</string>
+    <string name="tortillaFilling1">פסטו, פטה, גמבה קלוייה, רוקט</string>
+    <string name="tortillaFilling2">סלט טונה</string>
+    <string name="tortillaFilling3">חציל, פטה, גמבה קלוייה, קורט</string>
+    <string name="tortillaFilledWith">פלטת טורטיות במילוי:</string>
+
+
+
+
+
     <string name="TAGunchecked">unchecked</string>
     <string name="TAGchecked">checked</string>
 
@@ -39,6 +61,8 @@
     <string name="hugeSaladPrice">185 ש\"ח: מספיק ל 10-12 אנשים</string>
     <string name="lentilSaladPrice">160 ש\"ח: מספיק ל 10 אנשים</string>
     <string name="tunaSaladPrice">150 ש\"ח: מספיק ל 12 אנשים</string>
+    <string name="quichePrice">110 ש\"ח: מספיק ל 10-12 אנשים</string>
+    <string name="tortillaPrice">200 ש\"ח: מספיק ל 12 אנשים</string>
     <string name="viewOrder">צפייה בהזמנה</string>
 
 
