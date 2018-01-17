@@ -14,19 +14,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lentilSaladPrice"
+            android:text="@string/cheesePlatePrice"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
+
             />
+
 
         <View
             android:layout_width="match_parent"
@@ -34,7 +37,6 @@
             android:background="@color/blanco"></View>
 
     <LinearLayout
-        android:id="@+id/lentilLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
@@ -43,17 +45,18 @@
                     >
 
                     <TextView
-                        android:id="@+id/lentilSalad1txt"
+                        android:id="@+id/cheesePlatetxt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="@string/lentilSaladCateringIngre"
+                        android:text="@string/cheesePlateCateringIngre"
                         android:padding="5dp"
                         android:clickable="true"
                         />
 
+
                     <CheckBox
-                        android:id="@+id/lentilSaladCheckBox"
+                        android:id="@+id/cheesePlateCheckBox"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -87,8 +90,8 @@
                 />
         </LinearLayout>
 
-
     </LinearLayout>
+
 
 
 

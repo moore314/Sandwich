@@ -491,9 +491,13 @@ public class Cashier {
     public static final int SALAD_THINI = 6;
     public static final int QUICHE = 7;
     public static final int TORTILLA = 8;
+    public static final int WHITE_EGGPLANT = 9;
+    public static final int HASHBROWNS = 10;
+    public static final int ANTIPASTI = 11;
+    public static final int CHEESE_PLATE = 12;
 
 
-    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200"};
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200"};
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     
 

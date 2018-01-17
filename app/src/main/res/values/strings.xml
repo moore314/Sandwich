@@ -9,7 +9,8 @@
     <string name="clerk">מכירה</string>
     <string name="orderMenu">הזמנה</string>
 
-    <!-- catering -->
+    <!-- catering ingredients -->
+    <!-- TODO problem with displaying one liner cuz of the checkbox, fix it!! #bad_practice -->
     <string name="facebookButton">Facebook</string>
     <string name="menu">תפריט</string>
     <string name="quiche">קיש</string>
@@ -30,6 +31,13 @@
     <string name="yamQuicheCateringIngre">קיש בטטה</string>
     <string name="broccoliQuicheCateringIngre">קיש ברוקולי</string>
     <string name="onionQuicheCateringIngre">קיש בצל</string>
+    <string name="whiteEggplantCateringIngre">חציל, לבנה, נגיעות גמבה\nקלויה, שום</string>
+    <string name="quinoaHashBrownsCateringIngre">לביבות קינואה</string>
+    <string name="lentilHashBrownsCateringIngre">לביבות עדשים שחורות</string>
+    <string name="antipastiCateringIngre">חציל, גמבה במגוון צבעים, בצל,\nסגול, בטטה, שומר</string>
+    <string name="cheesePlateCateringIngre">גבינות צהובות, צפתית, בולגרית,\nבלקנית</string>
+
+
     <!-- plates -->
     <string name="tortillaPlateCatering">טורטיות ממולאות</string>
     <string name="eggplantPlateWhiteCatering">חציל ולבנה</string>
@@ -48,6 +56,7 @@
 
 
 
+
     <string name="TAGunchecked">unchecked</string>
     <string name="TAGchecked">checked</string>
 
@@ -58,11 +67,15 @@
     <string name="eggplantSaladCatering">סלט חצילים אדום</string>
     <string name="thiniSaladCatering">סלט טחינה ירוק</string>
     <string name="avocadoSaladCatering">סלט אבוקדו</string>
-    <string name="hugeSaladPrice">185 ש\"ח: מספיק ל 10-12 אנשים</string>
-    <string name="lentilSaladPrice">160 ש\"ח: מספיק ל 10 אנשים</string>
-    <string name="tunaSaladPrice">150 ש\"ח: מספיק ל 12 אנשים</string>
-    <string name="quichePrice">110 ש\"ח: מספיק ל 10-12 אנשים</string>
-    <string name="tortillaPrice">200 ש\"ח: מספיק ל 12 אנשים</string>
+    <string name="hugeSaladPrice">185 ש\"ח\nמספיק ל 10-12 אנשים</string>
+    <string name="lentilSaladPrice">160 ש\"ח\nמספיק ל 10 אנשים</string>
+    <string name="tunaSaladPrice">150 ש\"ח\nמספיק ל 12 אנשים</string>
+    <string name="quichePrice">110 ש\"ח\nמספיק ל 10-12 אנשים</string>
+    <string name="tortillaPrice">200 ש\"ח\nמספיק ל 12 אנשים</string>
+    <string name="whiteEggplantPrice">100 ש\"ח\nמספיק ל 10 אנשים</string>
+    <string name="hashBrownPrice">100 ש\"ח\n20 יחידות\nמוגש עם רוטב שמנת</string>
+    <string name="antipastiPrice">195 ש\"ח\nמספיק ל 10 אנשים\nמוגש עם חומץ בלסמי ושום</string>
+    <string name="cheesePlatePrice">200 ש\"ח\nמספיק ל 10 אנשים</string>
     <string name="viewOrder">צפייה בהזמנה</string>
 
 
