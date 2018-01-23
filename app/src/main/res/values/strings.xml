@@ -20,22 +20,26 @@
     <string name="desserts">קינוחים</string>
     <string name="foucachas">פוקצ\'ות</string>
     <string name="hugeSaladCatering">סלט ענק</string>
-    <string name="hugeSaladCatering1">חסה, פטריות, עגבניות שרי,\nבצל סגול, ויניגרט</string>
-    <string name="hugeSaladCatering2">חסה, עלי בייבי, בטטה מוקפצת,\nעגבניות שרי, בצל סגול,\nגרעיני חמנייה קלויים</string>
-    <string name="hugeSaladCatering3">כרוב, חמוציות, שבבי שקדים קלויים,\nבצל ירוק, רוטב סיני</string>
-    <string name="hugeSaladCatering4">סביח: חסה, גמבה, מלפפון חמוץ,\nחציל מטוגן, גרגירי חומוס,\nביצים קשות, רוטב טחינה</string>
-    <string name="lentilSaladCateringIngre">עדשים שחורות, גבינה\nבולגרית, בטטה</string>
-    <string name="quinoaSaladCateringIngre">קינואה, חמוציות, גרעיני חמנייה</string>
-    <string name="tunaSaladCateringIngre">טונה, מיונז, מלפפון חמוץ,\nגמבה, בצל סגול</string>
+    <string name="hugeSaladCatering1">[סלט] חסה, פטריות, עגבניות שרי, בצל סגול, ויניגרט</string>
+    <string name="hugeSaladCatering2">[סלט] חסה, עלי בייבי, בטטה מוקפצת, עגבניות שרי, בצל סגול, גרעיני חמנייה קלויים</string>
+    <string name="hugeSaladCatering3">[סלט] כרוב, חמוציות, שבבי שקדים קלויים, בצל ירוק, רוטב סיני</string>
+    <string name="hugeSaladCatering4">[סלט סביח] חסה, גמבה, מלפפון חמוץ, חציל מטוגן, גרגירי חומוס, ביצים קשות, רוטב טחינה</string>
+    <string name="lentilSaladCateringIngre">[סלט] עדשים שחורות, גבינה, בולגרית, בטטה</string>
+    <string name="quinoaSaladCateringIngre">[סלט] קינואה, חמוציות, גרעיני חמנייה</string>
+    <string name="tunaSaladCateringIngre">[סלט] טונה, מיונז, מלפפון חמוץ, גמבה, בצל סגול</string>
     <string name="mushroomQuicheCateringIngre">קיש פטריות</string>
     <string name="yamQuicheCateringIngre">קיש בטטה</string>
     <string name="broccoliQuicheCateringIngre">קיש ברוקולי</string>
     <string name="onionQuicheCateringIngre">קיש בצל</string>
-    <string name="whiteEggplantCateringIngre">חציל, לבנה, נגיעות גמבה\nקלויה, שום</string>
-    <string name="quinoaHashBrownsCateringIngre">לביבות קינואה</string>
-    <string name="lentilHashBrownsCateringIngre">לביבות עדשים שחורות</string>
-    <string name="antipastiCateringIngre">חציל, גמבה במגוון צבעים, בצל,\nסגול, בטטה, שומר</string>
-    <string name="cheesePlateCateringIngre">גבינות צהובות, צפתית, בולגרית,\nבלקנית</string>
+    <string name="whiteEggplantCateringIngre">[פלטה] חציל, לבנה, נגיעות גמבה קלויה, שום</string>
+    <string name="quinoaHashBrownsCateringIngre">[פלטה] לביבות קינואה</string>
+    <string name="lentilHashBrownsCateringIngre">[פלטה] לביבות עדשים שחורות</string>
+    <string name="antipastiCateringIngre">[אנטי פסטי] חציל, גמבה במגוון צבעים, בצל, סגול, בטטה, שומר</string>
+    <string name="cheesePlateCateringIngre">[פלטה] גבינות צהובות, צפתית, בולגרית, בלקנית</string>
+    <string name="sandPlateCateringIngre">[פלטה] רבעי בגט במילויים עשירים ומגוונים</string>
+    <string name="veggiePlateCateringIngre">[פלטה] עגבניות שרי, מלפפון, גזר, תירס גמדי, פטריות, שומר, גמבות במבחר צבעים, רוטב שום</string>
+    <string name="smokedFishPlateCatering">[פלטה] דגים מעושנים</string>
+
 
 
     <!-- plates -->
@@ -76,6 +80,9 @@
     <string name="hashBrownPrice">100 ש\"ח\n20 יחידות\nמוגש עם רוטב שמנת</string>
     <string name="antipastiPrice">195 ש\"ח\nמספיק ל 10 אנשים\nמוגש עם חומץ בלסמי ושום</string>
     <string name="cheesePlatePrice">200 ש\"ח\nמספיק ל 10 אנשים</string>
+    <string name="sandPlatePrice">כל יחידה 10 ש\"ח\nמומלץ 1.5-2 יחידות לאדם</string>
+    <string name="veggiePlatePrice">110 ש\"ח\nמספיק ל 10 אנשים</string>
+    <string name="smokedFishPlatePrice">200 ש\"ח\nמספיק ל 10 אנשים</string>
     <string name="viewOrder">צפייה בהזמנה</string>
 
 

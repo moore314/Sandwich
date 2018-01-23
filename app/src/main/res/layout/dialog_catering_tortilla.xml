@@ -7,8 +7,7 @@
     android:layout_centerInParent="true"
     android:layout_gravity="center"
     android:gravity="center"
-    android:layoutDirection="ltr"
-    android:padding="5dp">
+    android:layoutDirection="ltr">
 
 
     <LinearLayout
@@ -33,6 +32,18 @@
             android:layout_height="2dp"
             android:background="@color/blanco"></View>
 
+        <TextView
+            android:id="@+id/tortillaChooseFilling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:text="@string/tortillaFilledWith"
+            android:padding="5dp"
+            android:layout_gravity="center"
+            />
+
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -45,110 +56,62 @@
                 android:layout_gravity="right">
 
 
-                <TextView
-                    android:id="@+id/tortillaChooseFilling"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:text="@string/tortillaFilledWith"
-                    android:padding="5dp"
-                    android:layout_gravity="center"
-                    />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/blanco"></View>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-                    >
 
                     <TextView
                         android:id="@+id/tortillaFilling1Txt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
                         android:text="@string/tortillaFilling1"
                         android:padding="5dp"
                         android:clickable="true"
+                        android:layout_gravity="right"
+                        android:background="@color/trans"
+                        android:tag="@string/TAGunchecked"
                         />
 
-                    <CheckBox
-                        android:id="@+id/tortillaFilling1Box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        />
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/blanco"></View>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-
-                    >
-
                     <TextView
                         android:id="@+id/tortillaFilling2Txt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
                         android:text="@string/tortillaFilling2"
                         android:padding="5dp"
                         android:clickable="true"
+                        android:layout_gravity="right"
+                        android:background="@color/trans"
+                        android:tag="@string/TAGunchecked"
                         />
-
-                    <CheckBox
-                        android:id="@+id/tortillaFilling2Box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        />
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:background="@color/blanco"></View>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-                    >
-
                     <TextView
                         android:id="@+id/tortillaFilling3Txt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
                         android:text="@string/tortillaFilling3"
                         android:padding="5dp"
                         android:clickable="true"
+                        android:layout_gravity="right"
+                        android:background="@color/trans"
+                        android:tag="@string/TAGunchecked"
                         />
 
-                    <CheckBox
-                        android:id="@+id/tortillaFilling3Box"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        />
-                </LinearLayout>
 
 
 

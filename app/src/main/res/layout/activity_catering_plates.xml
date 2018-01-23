@@ -120,6 +120,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_marginRight="20dp"
+                    android:onClick="openSand"
                     >
                 </Button>
 
@@ -158,6 +159,7 @@
                     android:textStyle="bold"
                     android:gravity="center"
                     android:layout_marginRight="20dp"
+                    android:onClick="openSmokedFish"
                     >
                 </Button>
 
@@ -172,6 +174,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:layout_marginLeft="20dp"
+                    android:onClick="openVeggie"
 
                     >
                 </Button>

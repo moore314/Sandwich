@@ -10,41 +10,52 @@
     android:layoutDirection="ltr">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
+
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lentilSaladPrice"
+            android:text="@string/sandPlatePrice"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
+
             />
+
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/blanco"></View>
 
-
                     <TextView
-                        android:id="@+id/quinoaSaladtxt"
-                        android:layout_width="match_parent"
+                        android:id="@+id/sandPlatetxt"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="@string/quinoaSaladCateringIngre"
+                        android:text="@string/sandPlateCateringIngre"
                         android:padding="5dp"
                         android:clickable="true"
                         android:layout_gravity="right"
                         android:background="@color/trans"
                         android:tag="@string/TAGunchecked"
                         />
+
+        <NumberPicker
+            android:id="@+id/sandPlatePickAmount"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:descendantFocusability="blocksDescendants"
+            android:layout_gravity="center"
+            android:gravity="center"></NumberPicker>
 
 
     <View

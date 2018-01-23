@@ -4,14 +4,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 public class Catering extends AppCompatActivity {
@@ -110,84 +109,57 @@ public class Catering extends AppCompatActivity {
         Cashier.dialog.setContentView(R.layout.dialog_catering_quiche);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox mushrooms = (CheckBox)Cashier.dialog.findViewById(R.id.mushroomQuicheBox);
-        final CheckBox yam = (CheckBox)Cashier.dialog.findViewById(R.id.yamQuicheBox);
-        final CheckBox broccoli = (CheckBox)Cashier.dialog.findViewById(R.id.broccoliQuicheBox);
-        final CheckBox onion = (CheckBox)Cashier.dialog.findViewById(R.id.onionQuicheBox);
+
+        final TextView mushroomTxt = (TextView)Cashier.dialog.findViewById(R.id.mushroomQuicheTxt);
+        final TextView yamTxt = (TextView)Cashier.dialog.findViewById(R.id.yamQuicheTxt);
+        final TextView broccoliTxt = (TextView)Cashier.dialog.findViewById(R.id.broccoliQuicheTxt);
+        final TextView onionTxt = (TextView)Cashier.dialog.findViewById(R.id.onionQuicheTxt);
 
         if(Cashier.cateringOrder.containsKey(quicheType[0]))
-            mushrooms.setChecked(true);
-        if(Cashier.cateringOrder.containsKey(quicheType[1]))
-            yam.setChecked(true);
-        if(Cashier.cateringOrder.containsKey(quicheType[2]))
-            broccoli.setChecked(true);
-        if(Cashier.cateringOrder.containsKey(quicheType[3]))
-            onion.setChecked(true);
+            Catering.setBackgroundCateringTxt(mushroomTxt,context,isCheckedArr,0);
 
-        TextView mushroomTxt = (TextView)Cashier.dialog.findViewById(R.id.mushroomQuicheTxt);
-        TextView yamTxt = (TextView)Cashier.dialog.findViewById(R.id.yamQuicheTxt);
-        TextView broccoliTxt = (TextView)Cashier.dialog.findViewById(R.id.broccoliQuicheTxt);
-        TextView onionTxt = (TextView)Cashier.dialog.findViewById(R.id.onionQuicheTxt);
+        if(Cashier.cateringOrder.containsKey(quicheType[1]))
+            Catering.setBackgroundCateringTxt(yamTxt,context,isCheckedArr,1);
+
+        if(Cashier.cateringOrder.containsKey(quicheType[2]))
+            Catering.setBackgroundCateringTxt(broccoliTxt,context,isCheckedArr,2);
+
+        if(Cashier.cateringOrder.containsKey(quicheType[3]))
+            Catering.setBackgroundCateringTxt(onionTxt,context,isCheckedArr,3);
+
+
+
 
         mushroomTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textPressHandler(mushrooms);
+                Catering.setBackgroundCateringTxt(mushroomTxt,context,isCheckedArr,0);
             }
         });
         yamTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textPressHandler(yam);
+                Catering.setBackgroundCateringTxt(yamTxt,context,isCheckedArr,1);
             }
         });
         broccoliTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textPressHandler(broccoli);
+                Catering.setBackgroundCateringTxt(broccoliTxt,context,isCheckedArr,2);
             }
         });
         onionTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                textPressHandler(onion);
+                Catering.setBackgroundCateringTxt(onionTxt,context,isCheckedArr,3);
             }
         });
 
-        //======checkboxes
-        mushrooms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(s1, isChecked);
-                isCheckedArr[0] = isChecked;
-            }
-        });
-        yam.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(s2, isChecked);
-                isCheckedArr[1] = isChecked;
-            }
-        });
-        broccoli.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // checkHandler(s3, isChecked);
-                isCheckedArr[2] = isChecked;
-            }
-        });
-        onion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(s4, isChecked);
-                isCheckedArr[3] = isChecked;
-            }
-        });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(quicheType, isCheckedArr,NO_FLAG);
+                checkHandler(quicheType, isCheckedArr,NO_FLAG,Cashier.ONE);
                 Cashier.dialog.dismiss();
             }
         });
@@ -197,20 +169,32 @@ public class Catering extends AppCompatActivity {
 
     }
 
-    public static void textPressHandler(CheckBox check)
+
+    public static void setBackgroundCateringTxt(TextView txt, Context context, boolean [] isCheckedArr, int pos)
     {
-        Log.d("TKT_catering","textPressHandler================");
-        if(check.isChecked())
-            check.setChecked(false);
+        if(txt.getTag().toString().equals(context.getString(R.string.TAGunchecked))) {
+            Log.d("TKT_cateringPlate","equals unchecked");
+            isCheckedArr[pos] = true;
+            txt.setTag(context.getString(R.string.TAGchecked));
+            txt.setBackgroundColor(ContextCompat.getColor(context,R.color.darkGray));
+            Log.d("TKT_cateringPlate","tag1: " + txt.getTag().toString());
+            //v.setBackground(getDrawable(R.drawable.shape_contour));
+        }
         else
-            check.setChecked(true);
-        //checkHandler(saladType, check.isChecked());
+        {
+            Log.d("TKT_cateringPlate","equals checked");
+            isCheckedArr[pos] = false;
+            txt.setTag(context.getString(R.string.TAGunchecked));
+            txt.setBackgroundColor(ContextCompat.getColor(context,R.color.gray));
+            Log.d("TKT_cateringPlate","tag2: " + txt.getTag().toString());
+            //v.setBackground(getDrawable(R.drawable.shape_trans_contour));
+        }
     }
 
-    public static void checkHandler(String [] itemArr, boolean [] isChecked, String flag)
+    public static void checkHandler(String [] itemArr, boolean [] isChecked, String flag, String initAmount)
     {
         Log.d("TKT_catering","checkHandler==============");
-        CateringObjectInfo c = new CateringObjectInfo(Catering.PRICE, "1");
+        CateringObjectInfo c = new CateringObjectInfo(Catering.PRICE, initAmount);
         int counter = 0;
         if(flag.equals(TORTILLA_FLAG))
         {//tortillas

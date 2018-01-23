@@ -1,24 +1,24 @@
 package watchtower.ayalacashier;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 public class CateringSalads extends AppCompatActivity {
 
-
+    static Context context;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catering_salads);
+        context = this;
 
         initButtons();
     }
@@ -62,94 +62,54 @@ public class CateringSalads extends AppCompatActivity {
         Cashier.dialog.setContentView(R.layout.dialog_catering_huge_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox salad1 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad1);
-        final CheckBox salad2 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad2);
-        final CheckBox salad3 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad3);
-        final CheckBox salad4 = (CheckBox)Cashier.dialog.findViewById(R.id.hugeSalad4);
+        final TextView salad1txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad1txt);
+        final TextView salad2txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad2txt);
+        final TextView salad3txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad3txt);
+        final TextView salad4txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad4txt);
 
         if(Cashier.cateringOrder.containsKey(saladType[0])) {
-            salad1.setChecked(true);
-            //isCheckedArr[0] = true;
+           Catering.setBackgroundCateringTxt(salad1txt, context,isCheckedArr, 0);
         }
         if(Cashier.cateringOrder.containsKey(saladType[1])) {
-            salad2.setChecked(true);
-            //isCheckedArr[1] = true;
+            Catering.setBackgroundCateringTxt(salad2txt, context,isCheckedArr,1 );            //isCheckedArr[1] = true;
         }
         if(Cashier.cateringOrder.containsKey(saladType[2])) {
-            salad3.setChecked(true);
-            //isCheckedArr[2] = true;
+            Catering.setBackgroundCateringTxt(salad3txt, context,isCheckedArr,2 );            //isCheckedArr[2] = true;
         }
         if(Cashier.cateringOrder.containsKey(saladType[3])) {
-            salad4.setChecked(true);
-            //isCheckedArr[3] = true;
+            Catering.setBackgroundCateringTxt(salad4txt, context,isCheckedArr,3 );            //isCheckedArr[3] = true;
         }
 
-        TextView salad1txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad1txt);
-        TextView salad2txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad2txt);
-        TextView salad3txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad3txt);
-        TextView salad4txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad4txt);
+
 
         salad1txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(salad1);
-            }
+                Catering.setBackgroundCateringTxt(salad1txt, context,isCheckedArr,0 );            }
         });
         salad2txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(salad2);
-            }
+                Catering.setBackgroundCateringTxt(salad2txt, context,isCheckedArr,1 );             }
         });
         salad3txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(salad3);
+                Catering.setBackgroundCateringTxt(salad3txt, context,isCheckedArr,2 );            //isCheckedArr[2] = true;
             }
         });
         salad4txt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(salad4);
+                Catering.setBackgroundCateringTxt(salad4txt, context,isCheckedArr,3 );            //isCheckedArr[3] = true;
             }
         });
-
-
-        salad1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(s1, isChecked);
-                isCheckedArr[0] = isChecked;
-            }
-        });
-        salad2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(s2, isChecked);
-                isCheckedArr[1] = isChecked;
-            }
-        });
-        salad3.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-               // checkHandler(s3, isChecked);
-                isCheckedArr[2] = isChecked;
-            }
-        });
-        salad4.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(s4, isChecked);
-                isCheckedArr[3] = isChecked;
-            }
-        });
-
 
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(saladType,isCheckedArr, Catering.NO_FLAG);
+                Catering.checkHandler(saladType,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
                 Cashier.dialog.dismiss();
             }
         });
@@ -169,33 +129,22 @@ public class CateringSalads extends AppCompatActivity {
         Cashier.dialog.setContentView(R.layout.dialog_catering_lentil_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox lentil = (CheckBox)Cashier.dialog.findViewById(R.id.lentilSaladCheckBox);
+        final TextView lentilTxt = (TextView)Cashier.dialog.findViewById(R.id.lentilSalad1txt);
 
         if(Cashier.cateringOrder.containsKey(stringLentil[0])) {
-            lentil.setChecked(true);
-            //isCheckedArr[0] = true;//redundant? cuz no duplicates in a hash
-        }
-       TextView lentilTxt = (TextView)Cashier.dialog.findViewById(R.id.lentilSalad1txt);
-        //LinearLayout lentilField = (LinearLayout)Cashier.dialog.findViewById(R.id.lentilLayout);
+            Catering.setBackgroundCateringTxt(lentilTxt,context,isCheckedArr,0);        }
         lentilTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(lentil);
+                Catering.setBackgroundCateringTxt(lentilTxt,context,isCheckedArr,0);
             }
         });
 
-        lentil.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(stringLentil, isChecked);
-                isCheckedArr[0] = isChecked;
-            }
-        });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringLentil,isCheckedArr, Catering.NO_FLAG);
+                Catering.checkHandler(stringLentil,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
                 Cashier.dialog.dismiss();
             }
         });
@@ -213,32 +162,24 @@ public class CateringSalads extends AppCompatActivity {
         Cashier.dialog.setContentView(R.layout.dialog_catering_quinoa_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox quinoa = (CheckBox)Cashier.dialog.findViewById(R.id.quinoaSaladCheckBox);
+        final TextView quinoaTxt = (TextView)Cashier.dialog.findViewById(R.id.quinoaSaladtxt);
+
 
         if(Cashier.cateringOrder.containsKey(stringQuinoa[0]))
-            quinoa.setChecked(true);
-        TextView quinoaTxt = (TextView)Cashier.dialog.findViewById(R.id.quinoaSaladtxt);
+            Catering.setBackgroundCateringTxt(quinoaTxt,context,isCheckedArr,0);
 
         quinoaTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(quinoa);
+                Catering.setBackgroundCateringTxt(quinoaTxt,context,isCheckedArr,0);
             }
         });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringQuinoa,isCheckedArr, Catering.NO_FLAG);
+                Catering.checkHandler(stringQuinoa,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
                 Cashier.dialog.dismiss();
-            }
-        });
-
-        quinoa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(stringQuinoa, isChecked);
-                isCheckedArr[0] = isChecked;
             }
         });
 
@@ -257,63 +198,27 @@ public class CateringSalads extends AppCompatActivity {
         Cashier.dialog.setContentView(R.layout.dialog_catering_tuna_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox tuna = (CheckBox)Cashier.dialog.findViewById(R.id.tunaSaladCheckBox);
+       final  TextView tunaTxt = (TextView)Cashier.dialog.findViewById(R.id.tunaSaladtxt);
 
         if(Cashier.cateringOrder.containsKey(stringTuna[0]))
-            tuna.setChecked(true);
-        TextView tunaTxt = (TextView)Cashier.dialog.findViewById(R.id.tunaSaladtxt);
+            Catering.setBackgroundCateringTxt(tunaTxt,context,isCheckedArr,0);
 
         tunaTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.textPressHandler(tuna);
+                Catering.setBackgroundCateringTxt(tunaTxt,context,isCheckedArr,0);
             }
         });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringTuna,isCheckedArr, Catering.NO_FLAG);
+                Catering.checkHandler(stringTuna,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
                 Cashier.dialog.dismiss();
             }
         });
-
-        tuna.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(stringTuna, isChecked);
-                isCheckedArr[0] = isChecked;
-            }
-        });
-
         Cashier.dialog.show();
     }
-
-    /*
-    public void textPressHandler(String saladType, CheckBox check)
-    {
-        if(check.isChecked())
-            check.setChecked(false);
-        else
-            check.setChecked(true);
-        //checkHandler(saladType, check.isChecked());
-    }
-    */
-
-    /*
-    public void checkHandler(String [] saladType, boolean [] isChecked)
-    {moved to Catering.class
-        Log.d("TKT_cateringSalad","checkHandler==============");
-        CateringObjectInfo c = new CateringObjectInfo(Catering.PRICE, "1");
-
-        for(int i = 0; i < saladType.length; i++)
-        {
-            if(isChecked[i])
-                Cashier.cateringOrder.put(saladType[i],c);
-        }
-
-    }
-*/
 
     public void openEggSalad(View v)
     {

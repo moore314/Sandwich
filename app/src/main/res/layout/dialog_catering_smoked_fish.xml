@@ -10,16 +10,16 @@
     android:layoutDirection="ltr">
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lentilSaladPrice"
+            android:text="@string/smokedFishPlatePrice"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="20dp"
@@ -33,12 +33,13 @@
             android:background="@color/blanco"></View>
 
 
+
                     <TextView
-                        android:id="@+id/quinoaSaladtxt"
+                        android:id="@+id/smokedFishtxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="@string/quinoaSaladCateringIngre"
+                        android:text="@string/smokedFishPlateCatering"
                         android:padding="5dp"
                         android:clickable="true"
                         android:layout_gravity="right"

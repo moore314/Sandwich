@@ -7,8 +7,7 @@
     android:layout_centerInParent="true"
     android:layout_gravity="center"
     android:gravity="center"
-    android:layoutDirection="ltr"
-    android:padding="5dp">
+    android:layoutDirection="ltr">
 
 
     <LinearLayout
@@ -33,31 +32,20 @@
             android:layout_height="2dp"
             android:background="@color/blanco"></View>
 
-    <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_gravity="right"
-                    android:gravity="right"
-                    >
+
 
                     <TextView
                         android:id="@+id/whiteEggplanttxt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
                         android:text="@string/whiteEggplantCateringIngre"
                         android:padding="5dp"
                         android:clickable="true"
+                        android:layout_gravity="right"
+                        android:background="@color/trans"
+                        android:tag="@string/TAGunchecked"
                         />
-
-                    <CheckBox
-                        android:id="@+id/whiteEggplantCheckBox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        />
-                </LinearLayout>
 
 
     <View
