@@ -19,7 +19,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hashBrownPrice"
+        android:text="@string/pastaCateringPrice"
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="20dp"
@@ -40,11 +40,11 @@
             android:layout_gravity="right">
 
                 <TextView
-                    android:id="@+id/quinoaHashTxt"
+                    android:id="@+id/creamNmushTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="17dp"
-                    android:text="@string/quinoaHashBrownsCateringIngre"
+                    android:text="@string/pastaType1Catering"
                     android:padding="5dp"
                     android:clickable="true"
                     android:layout_gravity="right"
@@ -58,11 +58,11 @@
                 android:background="@color/blanco"></View>
 
                 <TextView
-                    android:id="@+id/lentilHashTxt"
+                    android:id="@+id/pomodoroTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="17dp"
-                    android:text="@string/lentilHashBrownsCateringIngre"
+                    android:text="@string/pastaType2Catering"
                     android:padding="5dp"
                     android:clickable="true"
                     android:layout_gravity="right"
@@ -71,7 +71,6 @@
                     />
 
         </LinearLayout>
-
 
     <View
         android:layout_width="match_parent"

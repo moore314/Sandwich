@@ -13,85 +13,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sandPlatePrice"
+            android:text="@string/foucachasCateringPrice"
             android:layout_gravity="center"
             android:gravity="center"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginBottom="5dp"
-
             />
-
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:background="@color/blanco"></View>
 
-        <TextView
-                        android:id="@+id/sandPlatetxt"
-                        android:layout_width="wrap_content"
+
+
+                    <TextView
+                        android:id="@+id/foucachatxt"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="@string/sandPlateCateringIngre"
+                        android:text="@string/foucachasCateringIng"
                         android:padding="5dp"
                         android:clickable="true"
                         android:layout_gravity="right"
                         android:background="@color/trans"
                         android:tag="@string/TAGunchecked"
                         />
-
-        <LinearLayout
-            android:id="@+id/wrap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:weightSum="2"
-            android:padding="5dp"
-            android:scaleX="1.2"
-            android:scaleY="1.2"
-            android:visibility="gone"
-            >
-
-
-            <NumberPicker
-                android:id="@+id/sandPlatePickAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:orientation="horizontal"
-                android:descendantFocusability="blocksDescendants"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_weight="1"
-
-                ></NumberPicker>
-
-
-            <TextView
-                android:id="@+id/txtQuan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:text="@string/hotsQuantity"
-                android:textStyle="bold"
-                android:textSize="16dp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                />
-
-
-        </LinearLayout>
 
 
     <View

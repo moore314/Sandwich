@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -498,11 +499,16 @@ public class Cashier {
     public static final int SAND_PLATE = 13;
     public static final int VEGGIE_PLATE = 14;
     public static final int SMOKED_FISH_PLATE = 15;
+    public static final int PASTA = 16;
+    public static final int SOUP = 17;
+    public static final int FOUCACHAS = 18;
+    public static final int BREAD_BASKET = 19;
 
 
-    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200"};
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000"};
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     public static String ONE = 1+"";
+    public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
 
 
 
@@ -1495,6 +1501,16 @@ sending through whatsapp
         }
     }
 
+    public static CateringObjectInfo getCateringObject(String itemName)
+    {
+            return cateringOrder.get(itemName);
+    }
+
+    public static void openFacebook(Context context)
+    {
+        Intent facebookIntent = new Intent("android.intent.action.VIEW", Uri.parse(FACEBOOK_URL));
+        context.startActivity(facebookIntent);
+    }
 
 
 

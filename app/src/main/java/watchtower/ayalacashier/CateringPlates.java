@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
@@ -293,27 +294,55 @@ public class CateringPlates extends AppCompatActivity {
 
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SAND_PLATE];
         Cashier.dialog = new Dialog(this);
-        Cashier.dialog.setContentView(R.layout.dialog_catering_cheese_plate);
+        Cashier.dialog.setContentView(R.layout.dialog_catering_sand_plate);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final TextView cheeseTxt = (TextView)Cashier.dialog.findViewById(R.id.cheesePlatetxt);
-        NumberPicker numberPicker = (NumberPicker)Cashier.dialog.findViewById(R.id.sandPlatePickAmount);
-        numberPicker.setMinValue(10);
-        numberPicker.setMinValue(100);
-        if(Cashier.cateringOrder.containsKey(sandString[0]))
-            Catering.setBackgroundCateringTxt(cheeseTxt,context,isCheckedArr,0);
+        final TextView sandTxt = (TextView)Cashier.dialog.findViewById(R.id.sandPlatetxt);
+        final LinearLayout wrap = (LinearLayout)Cashier.dialog.findViewById(R.id.wrap);
+        NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.sandPlatePickAmount);
+        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+        picker.setMinValue(10);
+        picker.setMaxValue(300);
+        picker.setWrapSelectorWheel(false);
+        picker.setEnabled(true);
 
-        numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
+        if(Cashier.cateringOrder.containsKey(sandString[0])) {
+            wrap.setVisibility(View.VISIBLE);
+            Catering.setBackgroundCateringTxt(sandTxt, context, isCheckedArr, 0);
+            CateringObjectInfo temp = Cashier.getCateringObject(sandString[0]);
+            if(temp != null)
+                picker.setValue(temp.getAmount());
+        }
+
+
+
+        picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                Log.d("TKT_cateringPlates" ,"value changed: "+newVal);
                 pickedNum = newVal;
             }
         });
 
-        cheeseTxt.setOnClickListener(new View.OnClickListener() {
+
+        sandTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.setBackgroundCateringTxt(cheeseTxt,context,isCheckedArr,0);
+                Catering.setBackgroundCateringTxt(sandTxt,context,isCheckedArr,0);
+
+                if(wrap.getVisibility() == View.GONE)
+                {
+                    Log.d("TKT_cateringPlates" ,"setVisible");
+
+                    wrap.setVisibility(View.VISIBLE);
+                }
+                else {
+                    Log.d("TKT_cateringPlates" ,"setGone");
+                    wrap.setVisibility(View.GONE);
+                }
+
+
             }
         });
 
@@ -399,119 +428,8 @@ public class CateringPlates extends AppCompatActivity {
 
         Cashier.dialog.show();
     }
-    /*
-    public void openLentilSalad(View v)
-    {
-        //final String stringLentil = getString(R.string.lentilSaladCateringIngre);
-        final String [] stringLentil = {getString(R.string.lentilSaladCateringIngre)};
-        final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_LENTIL];
-        Cashier.dialog = new Dialog(this);
-        Cashier.dialog.setContentView(R.layout.dialog_catering_lentil_salad);
-        Cashier.dialog.setCanceledOnTouchOutside(false);
-        Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox lentil = (CheckBox)Cashier.dialog.findViewById(R.id.lentilSaladCheckBox);
-
-        if(Cashier.cateringOrder.containsKey(stringLentil[0]))
-            lentil.setChecked(true);
-       TextView lentilTxt = (TextView)Cashier.dialog.findViewById(R.id.lentilSalad1txt);
-        //LinearLayout lentilField = (LinearLayout)Cashier.dialog.findViewById(R.id.lentilLayout);
-        lentilTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Catering.textPressHandler(lentil);
-            }
-        });
-
-        lentil.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(stringLentil, isChecked);
-                isCheckedArr[0] = isChecked;
-            }
-        });
-
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Catering.checkHandler(stringLentil,isCheckedArr);
-                Cashier.dialog.dismiss();
-            }
-        });
-
-        Cashier.dialog.show();
-    }
-
-    public void openQuinoaSalad(View v)
-    {
-        //final String stringQuinoa = getString(R.string.quinoaSaladCateringIngre);
-        final String [] stringQuinoa = {getString(R.string.quinoaSaladCateringIngre)};
-        final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_QUINOA];
-        Cashier.dialog = new Dialog(this);
-        Cashier.dialog.setContentView(R.layout.dialog_catering_quinoa_salad);
-        Cashier.dialog.setCanceledOnTouchOutside(false);
-        Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final CheckBox quinoa = (CheckBox)Cashier.dialog.findViewById(R.id.quinoaSaladCheckBox);
-
-        if(Cashier.cateringOrder.containsKey(stringQuinoa[0]))
-            quinoa.setChecked(true);
-        TextView quinoaTxt = (TextView)Cashier.dialog.findViewById(R.id.quinoaSaladtxt);
-
-        quinoaTxt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Catering.textPressHandler(quinoa);
-            }
-        });
-
-        proceed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Catering.checkHandler(stringQuinoa,isCheckedArr);
-                Cashier.dialog.dismiss();
-            }
-        });
-
-        quinoa.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //checkHandler(stringQuinoa, isChecked);
-                isCheckedArr[0] = isChecked;
-            }
-        });
-
-        Cashier.dialog.show();
-
-    }
 
 
-
-
-    public void openEggSalad(View v)
-    {
-        //PRICE = Cashier.CATERING_PRICES[4];
-        Cashier.cateringButtonBackgroundChange(v,this,Cashier.CATERING_PRICES[Cashier.SALAD_EGG]);
-    }
-
-    public void openEggplantSalad(View v)
-    {
-        //PRICE = Cashier.CATERING_PRICES[5];
-        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.SALAD_EGGPLANT]);
-    }
-
-    public void openThiniSalad(View v)
-    {
-        //PRICE = Cashier.CATERING_PRICES[6];
-        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.SALAD_THINI]);
-    }
-
-    public void openAvocadoSalad(View v)
-    {
-        //PRICE = Cashier.CATERING_PRICES[7];
-        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[7]);
-    }
-    */
 
 
 

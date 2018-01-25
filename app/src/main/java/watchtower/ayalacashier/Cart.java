@@ -64,6 +64,7 @@ public class Cart extends AppCompatActivity {
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("TKT_cart","entry: "+ entry+"\nchooseAmount: "+chosenAmount+"\npos: "+position);
                 updateItemAmount(entry, chosenAmount, position);
                 Cashier.dialog.dismiss();
             }

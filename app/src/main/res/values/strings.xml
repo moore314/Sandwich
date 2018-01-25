@@ -36,10 +36,10 @@
     <string name="lentilHashBrownsCateringIngre">[פלטה] לביבות עדשים שחורות</string>
     <string name="antipastiCateringIngre">[אנטי פסטי] חציל, גמבה במגוון צבעים, בצל, סגול, בטטה, שומר</string>
     <string name="cheesePlateCateringIngre">[פלטה] גבינות צהובות, צפתית, בולגרית, בלקנית</string>
-    <string name="sandPlateCateringIngre">[פלטה] רבעי בגט במילויים עשירים ומגוונים</string>
+    <string name="sandPlateCateringIngre">רבעי בגט במילויים עשירים ומגוונים</string>
     <string name="veggiePlateCateringIngre">[פלטה] עגבניות שרי, מלפפון, גזר, תירס גמדי, פטריות, שומר, גמבות במבחר צבעים, רוטב שום</string>
     <string name="smokedFishPlateCatering">[פלטה] דגים מעושנים</string>
-
+    <string name="sandAmountCatering">יחידות</string>
 
 
     <!-- plates -->
@@ -55,6 +55,14 @@
     <string name="tortillaFilling2">סלט טונה</string>
     <string name="tortillaFilling3">חציל, פטה, גמבה קלוייה, קורט</string>
     <string name="tortillaFilledWith">פלטת טורטיות במילוי:</string>
+    <string name="pastaType1Catering">[פסטה] ברוטב שמנת פטריות</string>
+    <string name="pastaType2Catering">[פסטה] ברוטב עגבניות</string>
+    <string name="orangeSoupCatering">[מרק] כתום</string>
+    <string name="onionSoupCatering">[מרק] בצל</string>
+    <string name="lentilSoupCatering">[מרק] עדשים כתומות</string>
+    <string name="foucachasCateringIng">פוקצ\'ות עם עשבי תיבול</string>
+    <string name="breadBasketCateringIng">סלסלת לחמניות מקמח מלא ולחמי מחמצת במגוון טעמים</string>
+
 
 
 
@@ -83,7 +91,11 @@
     <string name="sandPlatePrice">כל יחידה 10 ש\"ח\nמומלץ 1.5-2 יחידות לאדם</string>
     <string name="veggiePlatePrice">110 ש\"ח\nמספיק ל 10 אנשים</string>
     <string name="smokedFishPlatePrice">200 ש\"ח\nמספיק ל 10 אנשים</string>
+    <string name="pastaCateringPrice">160 ש\"ח\nמספיק ל 10 אנשים</string>
+    <string name="soupCateringPrice">250 ש\"ח\nמספיק ל 35 אנשים</string>
     <string name="viewOrder">צפייה בהזמנה</string>
+    <string name="foucachasCateringPrice">000 ש\"ח\nמספיק ל 000 אנשים</string>
+    <string name="breadBasketCateringPrice">מחיר תלוי בכמות שתוזמן</string>
 
 
     <string name="employee_name">שם</string>

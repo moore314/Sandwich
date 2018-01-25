@@ -35,7 +35,7 @@ public class CateringObjectInfo implements Serializable{
         amount = new Integer(a);
     }
 
-    public double getAmount()
+    public int getAmount()
     {
         return amount;
     }

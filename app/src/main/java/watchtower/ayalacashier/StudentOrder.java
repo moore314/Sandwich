@@ -1070,8 +1070,8 @@ public class StudentOrder extends AppCompatActivity {
         final String tempPayment = dessert[MEU_PRICE];
         dessert[MEU_QUAN] = ONE;
         dessert[MEU_ITEM] = null;
-        Log.d("TKT_studentOrder","tempQuan: "+tempQuan);
-        Log.d("TKT_studentOrder","tempPayment: "+tempPayment);
+        //Log.d("TKT_studentOrder","tempQuan: "+tempQuan);
+        //Log.d("TKT_studentOrder","tempPayment: "+tempPayment);
         String dessertChosenPrev = Cashier.checkPrefs.getString(CHOSEN_DESSERT,null);
         //if(dessertChosenPrev != null)
         {
