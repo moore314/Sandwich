@@ -8,9 +8,9 @@
     <string name="design">עיצוב אירועים</string>
     <string name="clerk">מכירה</string>
     <string name="orderMenu">הזמנה</string>
+    <string name="cancelDelivery">ביטול משלוח</string>
 
     <!-- catering ingredients -->
-    <!-- TODO problem with displaying one liner cuz of the checkbox, fix it!! #bad_practice -->
     <string name="facebookButton">Facebook</string>
     <string name="menu">תפריט</string>
     <string name="quiche">קיש</string>
@@ -19,6 +19,9 @@
     <string name="breadCatering">לחמים</string>
     <string name="desserts">קינוחים</string>
     <string name="foucachas">פוקצ\'ות</string>
+    <string name="childrenCatering">מומלץ לילדים</string>
+    <string name="rentThePlace">השכרת האולם</string>
+    <string name="deliveryCatering">משלוח בתשלום</string>
     <string name="hugeSaladCatering">סלט ענק</string>
     <string name="hugeSaladCatering1">[סלט] חסה, פטריות, עגבניות שרי, בצל סגול, ויניגרט</string>
     <string name="hugeSaladCatering2">[סלט] חסה, עלי בייבי, בטטה מוקפצת, עגבניות שרי, בצל סגול, גרעיני חמנייה קלויים</string>
@@ -60,8 +63,9 @@
     <string name="orangeSoupCatering">[מרק] כתום</string>
     <string name="onionSoupCatering">[מרק] בצל</string>
     <string name="lentilSoupCatering">[מרק] עדשים כתומות</string>
-    <string name="foucachasCateringIng">פוקצ\'ות עם עשבי תיבול</string>
+    <string name="foucachasCateringIng">מגש פוקצ\'ות עם עשבי תיבול</string>
     <string name="breadBasketCateringIng">סלסלת לחמניות מקמח מלא ולחמי מחמצת במגוון טעמים</string>
+    <string name="dessertCateringIng">מנות אחרונות ועוגות</string>
 
 
 
@@ -96,7 +100,10 @@
     <string name="viewOrder">צפייה בהזמנה</string>
     <string name="foucachasCateringPrice">000 ש\"ח\nמספיק ל 000 אנשים</string>
     <string name="breadBasketCateringPrice">מחיר תלוי בכמות שתוזמן</string>
-
+    <string name="dessertsCateringPrice">120-150 ש\"ח</string>
+    <string name="childrenCateringPriceVeggie">[110 ש\"ח]</string>
+    <string name="childrenCateringPricePasta">[160 ש\"ח]</string>
+    <string name="rentThePlacePrice">השכרת האולם - עד 50 איש</string>
 
     <string name="employee_name">שם</string>
     <string name="password">סיסמה</string>

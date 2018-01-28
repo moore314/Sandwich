@@ -26,6 +26,7 @@ public class CateringPlates extends AppCompatActivity {
         Log.d("TKT_cateringPlates","onCreate=================");
         context = this;
 
+        Catering.children = false;
 
         //initButtons();
     }

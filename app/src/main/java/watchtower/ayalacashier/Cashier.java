@@ -503,9 +503,12 @@ public class Cashier {
     public static final int SOUP = 17;
     public static final int FOUCACHAS = 18;
     public static final int BREAD_BASKET = 19;
+    public static final int DESSERT_BASKET = 20;
+    public static final int DELIVERY = 21;
+    public static final int RENT = 22;
 
 
-    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000"};
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000","000","000","400"};
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     public static String ONE = 1+"";
     public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
@@ -1410,8 +1413,10 @@ sending through whatsapp
         {
             for(Map.Entry<String, CateringObjectInfo> entry : cateringOrder.entrySet())
             {
-                listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString()));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
-                sum += entry.getValue().getPrice();
+                    listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
+                    sum += entry.getValue().getPrice();
+
+
                 Log.d("TKT_cashier","MMM: "+entry.toString());
             }
             Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
@@ -1435,9 +1440,12 @@ sending through whatsapp
 
     }
 
-    public static String cateringCartGenerateString(String val, String key)//(Map.Entry entry)
+    public static String cateringCartGenerateString(String val, String key, Context context)//(Map.Entry entry)
     {
-        return val + " :: " + key;//entry.getValue() + " :: " + entry.getKey().toString();
+        if(!key.equals(context.getString(R.string.deliveryCatering)))
+            return val + " :: " + key;//entry.getValue() + " :: " + entry.getKey().toString();
+        else
+            return key;
     }
     
     public static void sharedUpdateCatering(String price)

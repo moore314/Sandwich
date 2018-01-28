@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/gray"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layoutDirection="ltr">
+
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/childrenCatering"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/blanco"></View>
+
+        <!-- quiche types-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="right">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layoutChildrenVeggie"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:padding="5dp"
+                android:tag="@string/TAGunchecked">
+
+                <TextView
+                    android:id="@+id/veggiPlateChildrenTxt"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/veggiePlateCateringIngre"
+                    android:clickable="true"
+                    android:layout_gravity="right|center"
+                    android:background="@color/trans"
+                    />
+
+                <TextView
+                    android:id="@+id/veggiePriceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/childrenCateringPriceVeggie"
+                    android:textSize="17dp"
+                    android:layout_gravity="right|center"
+                    android:gravity="right|center"
+                    android:textStyle="bold"
+                    android:paddingLeft="5dp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blanco"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:padding="5dp"
+                android:id="@+id/layoutChildrenPasta"
+                android:tag="@string/TAGunchecked">
+
+                <TextView
+                    android:id="@+id/pomodoroChildrenTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="@string/pastaType2Catering"
+                    android:clickable="true"
+                    android:layout_gravity="right|center"
+                    android:gravity="right"
+                    android:background="@color/trans"
+                    />
+
+                <TextView
+                    android:id="@+id/pastaPriceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/childrenCateringPricePasta"
+                    android:textSize="17dp"
+                    android:layout_gravity="right|center"
+                    android:gravity="right|center"
+                    android:textStyle="bold"
+                    android:paddingLeft="5dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/blanco"></View>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:padding="5dp">
+
+
+        <Button
+            android:id="@+id/proceedDialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape"
+            android:backgroundTint="@color/turq"
+            android:text="@string/checkPlease"
+            android:textColor="@color/blanco"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+</LinearLayout>
+
+
+
+
+
+
+
+
+
+
+</RelativeLayout>

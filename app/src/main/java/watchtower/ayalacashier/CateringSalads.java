@@ -19,7 +19,7 @@ public class CateringSalads extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catering_salads);
         context = this;
-
+        Catering.children = false;
         initButtons();
     }
 

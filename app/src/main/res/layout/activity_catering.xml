@@ -36,66 +36,42 @@
                 android:layout_marginBottom="10dp">
 
                 <Button
-                    android:id="@+id/quicheCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/quiche"
-                    android:background="@drawable/circle"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:layout_marginRight="20dp"
-
-                    >
-                </Button>
-                <Button
-                    android:id="@+id/saladCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/salad"
-                    android:background="@drawable/circle"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginLeft="20dp"
-                    >
-                </Button>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                >
-
-                <Button
-                    android:id="@+id/pastaCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pastaCatering"
-                    android:background="@drawable/circle"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginRight="20dp"
-                    >
-                </Button>
-
-                <Button
                     android:id="@+id/platesCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:text="@string/plates"
                     android:background="@drawable/circle"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginLeft="20dp"
+                    >
+                </Button>
+
+                <Button
+                    android:id="@+id/quicheCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/quiche"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+
+                    >
+                </Button>
+                <Button
+                    android:id="@+id/saladCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/salad"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
                     >
                 </Button>
 
@@ -111,30 +87,97 @@
 
                 <Button
                     android:id="@+id/foucachaCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:text="@string/foucachas"
                     android:background="@drawable/circle"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:gravity="center"
-                    android:layout_marginRight="20dp"
+
                     >
                 </Button>
 
                 <Button
                     android:id="@+id/soupCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:text="@string/soup"
                     android:background="@drawable/circle"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
                     >
                 </Button>
+
+                <Button
+                    android:id="@+id/pastaCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/pastaCatering"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    >
+                </Button>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                >
+
+                <Button
+                    android:id="@+id/childrenCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/childrenCatering"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    >
+                </Button>
+
+                <Button
+                    android:id="@+id/dessertCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/desserts"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    >
+                </Button>
+
+                <Button
+                    android:id="@+id/breadCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/breadCatering"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    >
+                </Button>
+
+
 
             </LinearLayout>
 
@@ -146,31 +189,35 @@
                 >
 
                 <Button
-                    android:id="@+id/dessertCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/desserts"
-                    android:background="@drawable/circle"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:gravity="center"
-                    android:layout_marginRight="20dp"
-                    >
-                </Button>
-
-                <Button
-                    android:id="@+id/breadCatering"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/breadCatering"
+                    android:id="@+id/deliveryCatering"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/deliveryCatering"
                     android:background="@drawable/circle"
                     android:textSize="18dp"
                     android:textStyle="bold"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_marginLeft="20dp"
+                    android:tag="@string/TAGunchecked"
                     >
                 </Button>
+
+                <Button
+                    android:id="@+id/rentThePlace"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:text="@string/rentThePlace"
+                    android:background="@drawable/circle"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    >
+                </Button>
+
+
+
 
             </LinearLayout>
 

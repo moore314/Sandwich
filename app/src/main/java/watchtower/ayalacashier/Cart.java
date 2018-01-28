@@ -36,8 +36,14 @@ public class Cart extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
             {
                 String entry = lisa.getItemAtPosition(position).toString();
-                Log.d("TKT_cart","onCreate.entry: " + entry);
-                changeAmountDialog(entry, position);
+                if(entry.equals(getString(R.string.deliveryCatering)))
+                {
+                    changeAmountDialog(entry, position, true);
+                }
+                else {
+                    Log.d("TKT_cart", "onCreate.entry: " + entry);
+                    changeAmountDialog(entry, position, false);
+                }
                 return true;
             }
         });
@@ -45,21 +51,39 @@ public class Cart extends AppCompatActivity {
 
     }
 
-    public void changeAmountDialog(final String entry, final int position)
+    public void changeAmountDialog(final String entry, final int position, boolean flag)
     {
         Log.d("TKT_cart","changeAmountDialog=======");
+        //// TODO: 1/28/2018 finish this; handle the finish button for erasing delivery 
         chosenAmount = 1;
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.change_amount_dialog);
         Cashier.dialog.setCanceledOnTouchOutside(false);
-        NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.cateringPickAmount);
         ImageButton delete = (ImageButton)Cashier.dialog.findViewById(R.id.cateringDeleteEntryButton);
         Button cancel = (Button)Cashier.dialog.findViewById(R.id.cateringCancelCheck);
         Button finish = (Button)Cashier.dialog.findViewById(R.id.cateringCheck);
-        picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
-        picker.setMinValue(1);
-        picker.setMaxValue(10);
-        picker.setWrapSelectorWheel(false);
+        NumberPicker picker = (NumberPicker) Cashier.dialog.findViewById(R.id.cateringPickAmount);
+        TextView amountTxt = (TextView)Cashier.dialog.findViewById(R.id.amountTxt);
+        if(!flag) {
+            amountTxt.setText(getString(R.string.hotsQuantity));
+            picker.setVisibility(View.VISIBLE);
+            picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
+            picker.setMinValue(1);
+            picker.setMaxValue(10);
+            picker.setWrapSelectorWheel(false);
+            picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                    chosenAmount = newVal;
+                }
+            });
+        }
+        else {
+            amountTxt.setText(getString(R.string.cancelDelivery));
+            picker.setVisibility(View.GONE);
+        }
+
+
 
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,13 +101,6 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        picker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                chosenAmount = newVal;
-            }
-        });
-
         delete.setOnClickListener(new View.OnClickListener() {
 
 
@@ -94,6 +111,7 @@ public class Cart extends AppCompatActivity {
                 Cashier.dialog.dismiss();
             }
         });
+
         Cashier.dialog.show();
     }
 
