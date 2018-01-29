@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class CateringSalads extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[4];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_HUGE];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_huge_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -126,6 +128,7 @@ public class CateringSalads extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_LENTIL];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_lentil_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -159,6 +162,7 @@ public class CateringSalads extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_QUINOA];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_quinoa_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -195,6 +199,7 @@ public class CateringSalads extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_TUNA];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_tuna_salad);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);

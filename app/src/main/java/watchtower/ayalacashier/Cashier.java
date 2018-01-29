@@ -63,6 +63,8 @@ public class Cashier {
     public static final String CURRENCY = "ILS";
     public static final String MESSAGE = "message";
     public static Crypto KRYPT = new Crypto();
+    public static final double FEE = 1.2;
+    public static final double COMMISSION_PERCENTAGE = 3.4;
     //=======================
     protected static SharedPreferences checkPrefs;
     public static SharedPreferences.Editor progressEdit;
@@ -512,7 +514,7 @@ public class Cashier {
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     public static String ONE = 1+"";
     public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
-
+    public static final String INSTA_URL = "https://www.instagram.com/ayalamodli/?hl=en";
 
 
     public static void sharedUpdateEmployee(String employeeName) {
@@ -1520,7 +1522,28 @@ sending through whatsapp
         context.startActivity(facebookIntent);
     }
 
+    public static void openInstagram(Context context)
+    {
+        Intent instaIntent = new Intent("android.intent.action.VIEW", Uri.parse(INSTA_URL));
+        context.startActivity(instaIntent);
+    }
 
+    public static String calculateCommission(TextView tv)
+    {//// TODO: 1/30/2018 check how 
+        String commission, currPaymentString;
+        double temp;
+        currPaymentString = tv.getText().toString();
+        double currPaymentDouble = Double.parseDouble(currPaymentString);
+        temp = currPaymentDouble / 100;
+        Log.d("TKT_cashier","currPaymentDouble/100: "+temp);
+        temp *= COMMISSION_PERCENTAGE;
+        Log.d("TKT_cashier","currPaymentDouble*=COMMISSION_PER: "+temp);
+        temp += FEE;
+        Log.d("TKT_cashier","currPaymentDouble+fee: "+temp);
+        currPaymentDouble +=temp;
+        commission = currPaymentDouble+"";
+        return commission;
+    }
 
 
 

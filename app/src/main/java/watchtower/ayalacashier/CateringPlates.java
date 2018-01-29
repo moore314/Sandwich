@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
@@ -87,6 +88,7 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[3];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.TORTILLA];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_tortilla);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -144,6 +146,7 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.WHITE_EGGPLANT];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_white_eggplant);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -178,6 +181,7 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[2];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.HASHBROWNS];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_hashbrowns);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -226,6 +230,7 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.ANTIPASTI];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_antipasti);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -260,6 +265,7 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.CHEESE_PLATE];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_cheese_plate);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -295,6 +301,7 @@ public class CateringPlates extends AppCompatActivity {
 
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SAND_PLATE];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_sand_plate);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -364,6 +371,7 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_veggie_plate);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
@@ -402,20 +410,21 @@ public class CateringPlates extends AppCompatActivity {
         final boolean [] isCheckedArr = new boolean[1];
         Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SMOKED_FISH_PLATE];
         Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_smoked_fish);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
-        final TextView cheeseTxt = (TextView)Cashier.dialog.findViewById(R.id.smokedFishtxt);
+        final TextView smokedFishTxt = (TextView)Cashier.dialog.findViewById(R.id.smokedFishtxt);
 
 
         if(Cashier.cateringOrder.containsKey(fishString[0]))
-            Catering.setBackgroundCateringTxt(cheeseTxt,context,isCheckedArr,0);
+            Catering.setBackgroundCateringTxt(smokedFishTxt,context,isCheckedArr,0);
 
 
-        cheeseTxt.setOnClickListener(new View.OnClickListener() {
+        smokedFishTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.setBackgroundCateringTxt(cheeseTxt,context,isCheckedArr,0);
+                Catering.setBackgroundCateringTxt(smokedFishTxt,context,isCheckedArr,0);
             }
         });
 

@@ -51,10 +51,9 @@ public class Cart extends AppCompatActivity {
 
     }
 
-    public void changeAmountDialog(final String entry, final int position, boolean flag)
+    public void changeAmountDialog(final String entry, final int position, final boolean flag)
     {
         Log.d("TKT_cart","changeAmountDialog=======");
-        //// TODO: 1/28/2018 finish this; handle the finish button for erasing delivery 
         chosenAmount = 1;
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.change_amount_dialog);
@@ -107,7 +106,7 @@ public class Cart extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("TKT_cart","delete was clicked");
-                deleteEntry(entry);
+                deleteEntry(entry, flag);
                 Cashier.dialog.dismiss();
             }
         });
@@ -115,12 +114,21 @@ public class Cart extends AppCompatActivity {
         Cashier.dialog.show();
     }
 
-    public void deleteEntry(String entry)
+    public void deleteEntry(String entry, boolean flag)
     {
-        String [] entrySplit = entry.split(" :: ");
-        Log.d("TKT_cart","deleteEntry.entrySplit[1]: "+entrySplit[1]);
-        CateringObjectInfo temp = Cashier.cateringOrder.remove(entrySplit[1]);
-        Cashier.displayOrderCatering(lisa, totalSum, context,temp.getPrice());
+        String entryToDelete;
+        if(flag)
+        {//flag = true means entry == delivery
+            entryToDelete = entry;
+
+        }
+        else {
+            String[] entrySplit = entry.split(" :: ");
+            Log.d("TKT_cart", "deleteEntry.entrySplit[1]: " + entrySplit[1]);
+            entryToDelete = entrySplit[1];
+        }
+        CateringObjectInfo temp = Cashier.cateringOrder.remove(entryToDelete);
+        Cashier.displayOrderCatering(lisa, totalSum, context, temp.getPrice());
     }
 
     public void updateItemAmount(String entry, int newAmount, int pos)

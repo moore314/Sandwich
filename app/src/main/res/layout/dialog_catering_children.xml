@@ -65,11 +65,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/childrenCateringPriceVeggie"
-                    android:textSize="17dp"
+                    android:textSize="15dp"
                     android:layout_gravity="right|center"
                     android:gravity="right|center"
                     android:textStyle="bold"
-                    android:paddingLeft="5dp"/>
+                    android:paddingLeft="10dp"/>
             </LinearLayout>
 
             <View
@@ -104,11 +104,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="@string/childrenCateringPricePasta"
-                    android:textSize="17dp"
+                    android:textSize="15dp"
                     android:layout_gravity="right|center"
                     android:gravity="right|center"
                     android:textStyle="bold"
-                    android:paddingLeft="5dp"/>
+                    android:paddingLeft="10dp"/>
             </LinearLayout>
 
 
