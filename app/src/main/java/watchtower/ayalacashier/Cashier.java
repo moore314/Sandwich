@@ -65,6 +65,7 @@ public class Cashier {
     public static Crypto KRYPT = new Crypto();
     public static final double FEE = 1.2;
     public static final double COMMISSION_PERCENTAGE = 3.4;
+
     //=======================
     protected static SharedPreferences checkPrefs;
     public static SharedPreferences.Editor progressEdit;
@@ -1444,7 +1445,7 @@ sending through whatsapp
 
     public static String cateringCartGenerateString(String val, String key, Context context)//(Map.Entry entry)
     {
-        if(!key.equals(context.getString(R.string.deliveryCatering)))
+        if(!key.equals(context.getString(R.string.deliveryCatering)) && !key.equals(context.getString(R.string.rentThePlace)))
             return val + " :: " + key;//entry.getValue() + " :: " + entry.getKey().toString();
         else
             return key;
@@ -1528,11 +1529,10 @@ sending through whatsapp
         context.startActivity(instaIntent);
     }
 
-    public static String calculateCommission(TextView tv)
+    public static String calculateCommission(String currPaymentString)
     {//// TODO: 1/30/2018 check how 
-        String commission, currPaymentString;
+        String commission;
         double temp;
-        currPaymentString = tv.getText().toString();
         double currPaymentDouble = Double.parseDouble(currPaymentString);
         temp = currPaymentDouble / 100;
         Log.d("TKT_cashier","currPaymentDouble/100: "+temp);

@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +43,8 @@ public class StudentOrder extends AppCompatActivity {
     static String message = "";
     //==============
     Context context;
+    Activity act;
+    TextView after;
     HashMap<String, String>orderDetails = new HashMap<>();
     String ORDER_TIME = "orderTime";
     String ORDER_SAND = "orderSand";
@@ -110,6 +113,7 @@ public class StudentOrder extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_order);
         context = this;
+        act = this;
         sandTxtView = (TextView)findViewById(R.id.studentItem);
         saladTxtView = (TextView)findViewById(R.id.saladItem);
         hotsTxtView = (TextView)findViewById(R.id.hotItem);
@@ -1233,13 +1237,47 @@ public class StudentOrder extends AppCompatActivity {
                 message =  messageNotes(message);
                     Cashier.putMessageInShared(message);
 
-                    Cashier.pay(this, this, payment.getText().toString() );///bad practice!!! but works for now
-
+                    dialogPayment();
+                    //redirect to paypal transaction
+                    //Cashier.pay(this, this, payment.getText().toString() );///bad practice!!! but works for now
                         //Cashier.sendOrderToA(message, this);
-
-
             }
         }
+    }
+
+    public void dialogPayment()
+    {
+        Log.d("TMT_studentOrder","dialogAmount============");
+        Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        Cashier.dialog.setContentView(R.layout.dialog_final_price);
+        Cashier.dialog.setCanceledOnTouchOutside(false);
+        TextView b4 = (TextView)Cashier.dialog.findViewById(R.id.priceB4feeTxt);
+        after = (TextView)Cashier.dialog.findViewById(R.id.priceAfterfeeTxt);
+        b4.setText(payment.getText().toString());
+        after.setText(Cashier.calculateCommission(payment.getText().toString()));
+        Button ok = (Button)Cashier.dialog.findViewById(R.id.feeCheck);
+        Button cancel = (Button)Cashier.dialog.findViewById(R.id.feeCancel);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //redirect to paypal
+                Cashier.pay(context, act, after.getText().toString());///bad practice!!! but works for now
+                Cashier.dialog.dismiss();
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cashier.dialog.dismiss();
+            }
+        });
+
+        Cashier.dialog.show();
+
+
     }
 
     public String messageNotes(String m)

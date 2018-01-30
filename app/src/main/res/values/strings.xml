@@ -9,9 +9,15 @@
     <string name="clerk">מכירה</string>
     <string name="orderMenu">הזמנה</string>
     <string name="cancelDelivery">ביטול משלוח</string>
+    <string name="paymentCatering">תשלום</string>
+    <string name="paypalPayement">תשלום באמצעות PayPal (בתוספת עמלה)</string>
+    <string name="cashPayement">תשלום באמצעות במזומן לאיילה</string>
+    <string name="choosePaymentMethod">בחרו צורת תשלום</string>
+
 
     <!-- catering ingredients -->
     <string name="facebookButton">Facebook</string>
+    <string name="payaplButton">PayPal</string>
     <string name="menu">תפריט</string>
     <string name="quiche">קיש</string>
     <string name="plates">פלטות</string>
@@ -68,11 +74,6 @@
     <string name="dessertCateringIng">מנות אחרונות ועוגות</string>
 
 
-
-
-
-
-
     <string name="TAGunchecked">unchecked</string>
     <string name="TAGchecked">checked</string>
 
@@ -103,7 +104,8 @@
     <string name="dessertsCateringPrice">120-150 ש\"ח</string>
     <string name="childrenCateringPriceVeggie">[110 ש\"ח]</string>
     <string name="childrenCateringPricePasta">[160 ש\"ח]</string>
-    <string name="rentThePlacePrice">השכרת האולם - עד 50 איש</string>
+    <string name="rentThePlacePrice">400 ש\"ח</string>
+    <string name="rentThePlaceIng">השכרת האולם - עד 50 איש</string>
 
     <string name="employee_name">שם</string>
     <string name="password">סיסמה</string>
@@ -131,6 +133,7 @@
     <string name="date">תאריך:</string>
     <string name="clearPurchaseReport">מחיקת דו\"ח מכירות</string>
     <string name="clearedSuccessfully">מחיקה בוצעה בהצלחה!</string>
+    <string name="deleteEntryCatering">מחיקה</string>
 
     <!-- student mode-->
     <string name="defaultName">לויס ליין</string>
@@ -146,6 +149,9 @@
     <string name="soonSoup">מרקים בקרוב!</string>
     <string name="addsPick">ניתן לציין את התוספות הרצויות לסלט בהערות :)</string>
     <string name="payNow">לתשלום</string>
+    <string name="priceB4fee">מחיר לפני עמלה:</string>
+    <string name="priceAfter4fee">מחיר אחרי עמלה:</string>
+    <string name="OKAY">אישור</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>

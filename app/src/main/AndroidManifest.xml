@@ -16,16 +16,15 @@
         <activity
             android:name=".Welcome"
             android:label="@string/app_name"
+            android:parentActivityName=".Main"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"
-            android:parentActivityName=".Main">
+            android:windowSoftInputMode="adjustPan">
 
-<!--
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             -->
         </activity>
         <activity
@@ -68,14 +67,11 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity
             android:name=".Catering"
@@ -89,19 +85,18 @@
             android:parentActivityName=".Catering"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".CateringPlates"
             android:label="@string/plates"
             android:parentActivityName=".Catering"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
-        <activity android:name=".Cart"
+        <activity
+            android:name=".Cart"
             android:label="@string/studentOrderLable"
             android:parentActivityName=".Catering"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>
