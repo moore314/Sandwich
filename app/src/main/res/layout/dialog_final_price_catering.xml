@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/background"
+    android:background="@color/gray"
     android:layout_centerInParent="true"
     android:layout_gravity="center"
     android:gravity="center"
@@ -13,92 +13,119 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-
-
-
-<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:padding="5dp"
-    android:weightSum="2">
+
+        >
+
         <TextView
-            android:id="@+id/priceB4feeTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="13.0"
+            android:textSize="20dp"
             android:textStyle="bold"
-            android:textSize="18dp"
-            android:gravity="right"
-            android:layout_weight="1"></TextView>
-         <TextView
-             android:id="@+id/priceb4feeTag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/priceB4fee"
-            android:textStyle="bold"
-            android:textSize="18dp"
+            android:text="@string/choosePaymentMethod"
             android:layout_gravity="center"
-            android:gravity="center"
-             android:layout_weight="1"
+            android:layout_marginBottom="10dp"
             />
-    </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/blanco"></View>
 
         <LinearLayout
+            android:id="@+id/paypalLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:background="@drawable/shape_contour"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="5dp"
-            android:weightSum="2">
+            android:tag="@string/TAGunchecked">
+
             <TextView
-                android:id="@+id/priceAfterfeeTxt"
-                android:layout_width="wrap_content"
+                android:id="@+id/paypalTextView1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="13.0"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/paypalPayement"
+                android:gravity="center"
+                android:layout_gravity="center" />
+
+
+            <TextView
+                android:id="@+id/paypalTextViewPRICE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1035.2"
                 android:textStyle="bold"
                 android:textSize="18dp"
-                android:gravity="right"
-                android:layout_weight="1"></TextView>
-            <TextView
-                android:id="@+id/priceAfterfeeTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/priceAfter4fee"
-                android:textStyle="bold"
-                android:textSize="18dp"
+                android:padding="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:layout_weight="1"
                 />
+
+
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/blanco"></View>
 
+        <LinearLayout
+            android:id="@+id/LinearLayoutCash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/shape_contour"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
+            android:tag="@string/TAGunchecked"
+            >
 
+            <TextView
+                android:id="@+id/cashTextView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:text="@string/cashPayement"
+                android:gravity="center"
+                android:layout_gravity="center"/>
 
+            <TextView
+                android:id="@+id/cashTextView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1000.0"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:padding="10dp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
 
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/blanco"></View>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="2"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:padding="5dp"
             >
 
             <Button
-                android:id="@+id/feeCancel"
+                android:id="@+id/cancelCheck"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape"
@@ -113,12 +140,12 @@
                 />
 
             <Button
-                android:id="@+id/feeCheck"
+                android:id="@+id/check"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape"
                 android:backgroundTint="@color/turq"
-                android:text="@string/OKAY"
+                android:text="@string/checkPlease"
                 android:textColor="@color/blanco"
                 android:textSize="20dp"
                 android:textStyle="bold"

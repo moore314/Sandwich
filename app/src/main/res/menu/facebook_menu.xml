@@ -6,6 +6,14 @@
     tools:context=".Main">
 
     <item
+        android:id="@+id/callA"
+        android:title="call"
+        app:showAsAction="always"
+        android:icon="@drawable/call"
+        >
+    </item>
+
+    <item
         android:id="@+id/facebook"
         android:title="@string/facebookButton"
         app:showAsAction="always"

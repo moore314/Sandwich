@@ -1250,7 +1250,7 @@ public class StudentOrder extends AppCompatActivity {
         Log.d("TMT_studentOrder","dialogAmount============");
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        Cashier.dialog.setContentView(R.layout.dialog_final_price);
+        Cashier.dialog.setContentView(R.layout.dialog_final_price_student);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         TextView b4 = (TextView)Cashier.dialog.findViewById(R.id.priceB4feeTxt);
         after = (TextView)Cashier.dialog.findViewById(R.id.priceAfterfeeTxt);

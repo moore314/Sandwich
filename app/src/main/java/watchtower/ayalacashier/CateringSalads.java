@@ -20,7 +20,7 @@ public class CateringSalads extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catering_salads);
         context = this;
-        Catering.children = false;
+        Catering.childrenFlag = false;
         initButtons();
     }
 
@@ -30,6 +30,7 @@ public class CateringSalads extends AppCompatActivity {
         Button eggplantSaladButton = (Button)findViewById(R.id.eggplantSalad);
         Button thiniSaladButton = (Button)findViewById(R.id.greedThiniSalad);
         Button avocadoSaladButton = (Button)findViewById(R.id.avocadoSalad);
+        Cashier.getCateringOrderFromFile(context);
 
         if(Cashier.cateringOrder.containsKey(eggSaladButton.getText())) {
             eggSaladButton.setBackground(getDrawable(R.drawable.circle_gray));
@@ -58,7 +59,7 @@ public class CateringSalads extends AppCompatActivity {
         Log.d("TKT_CateringSalads","openHugeSalad================");
         final String [] saladType = {getString(R.string.hugeSaladCatering1), getString(R.string.hugeSaladCatering2),getString(R.string.hugeSaladCatering3),getString(R.string.hugeSaladCatering4)};
         final boolean [] isCheckedArr = new boolean[4];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_HUGE];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_HUGE];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_huge_salad);
@@ -68,6 +69,7 @@ public class CateringSalads extends AppCompatActivity {
         final TextView salad2txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad2txt);
         final TextView salad3txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad3txt);
         final TextView salad4txt = (TextView)Cashier.dialog.findViewById(R.id.hugeSalad4txt);
+
 
         if(Cashier.cateringOrder.containsKey(saladType[0])) {
            Catering.setBackgroundCateringTxt(salad1txt, context,isCheckedArr, 0);
@@ -126,7 +128,7 @@ public class CateringSalads extends AppCompatActivity {
         Log.d("TKT_CateringSalads","openLentilSalad================");
         final String [] stringLentil = {getString(R.string.lentilSaladCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_LENTIL];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_LENTIL];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_lentil_salad);
@@ -160,7 +162,7 @@ public class CateringSalads extends AppCompatActivity {
         //final String stringQuinoa = getString(R.string.quinoaSaladCateringIngre);
         final String [] stringQuinoa = {getString(R.string.quinoaSaladCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_QUINOA];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_QUINOA];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_quinoa_salad);
@@ -197,7 +199,7 @@ public class CateringSalads extends AppCompatActivity {
         Log.d("TKT_CateringSalads","openTunaSalad================");
         final String [] stringTuna = {getString(R.string.tunaSaladCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_TUNA];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_TUNA];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_tuna_salad);
@@ -230,6 +232,7 @@ public class CateringSalads extends AppCompatActivity {
         //PRICE = Cashier.CATERING_PRICES[4];
         Log.d("TKT_CateringSalads","openEggSalad================");
         Cashier.cateringButtonBackgroundChange(v,this,Cashier.CATERING_PRICES[Cashier.SALAD_EGG]);
+
     }
 
     public void openEggplantSalad(View v)
@@ -253,7 +256,9 @@ public class CateringSalads extends AppCompatActivity {
         Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[7]);
     }
 
-
-
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initButtons();
+    }
 }

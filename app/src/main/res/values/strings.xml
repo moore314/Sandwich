@@ -11,8 +11,20 @@
     <string name="cancelDelivery">ביטול משלוח</string>
     <string name="paymentCatering">תשלום</string>
     <string name="paypalPayement">תשלום באמצעות PayPal (בתוספת עמלה)</string>
-    <string name="cashPayement">תשלום באמצעות במזומן לאיילה</string>
+    <string name="cashPayement">תשלום במזומן לאיילה</string>
     <string name="choosePaymentMethod">בחרו צורת תשלום</string>
+    <string name="finishOrderCatering">שליחת הזמנה לאיילה</string>
+    <string name="cateringPaidConfirm">תשלום בוצע בהצלחה!</string>
+    <string name="alreadyPaid">כבר שילמת עבור הזמנה זו</string>
+    <string name="cantAddItemsCatering">אין אפשרות להוסיף פריטים לאחר תשלום, עלייך לבצע הזמנה חדשה</string>
+    <string name="newOrderTxt">הזמנה חדשה</string>
+    <string name="phoneNum">טלפון:</string>
+    <string name="nullPayment">0.0</string>
+    <string name="cashPayment">סכום לתשלום במזומן: </string>
+    <string name="paidInPaypal">הסכום השולם: </string>
+    <string name="paidMail">[שולם] </string>
+    <string name="notPaidMail">[לא שולם] </string>
+    <string name="newOrderRUSure">הזמנה חדשה תמחוק את ההזמנה הנוכחית, האם להמשיך?</string>
 
 
     <!-- catering ingredients -->
@@ -152,6 +164,8 @@
     <string name="priceB4fee">מחיר לפני עמלה:</string>
     <string name="priceAfter4fee">מחיר אחרי עמלה:</string>
     <string name="OKAY">אישור</string>
+    <string name="invalidPhoneNumber">מספר הטלפון שהוזן אינו תקין</string>
+    <string name="orderForDate">הזמנה לתאריך:</string>
 
     <string name="cancel">ביטול</string>
     <string name="cancelCheck">ביטול חשבון</string>

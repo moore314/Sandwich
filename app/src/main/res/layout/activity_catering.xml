@@ -8,7 +8,8 @@
     tools:context="watchtower.ayalacashier.Catering"
     android:background="@drawable/background22"
     android:layoutDirection="ltr"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="5dp">
 
 
 
@@ -221,6 +222,21 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/newOrderButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/turq"
+        android:textColor="@color/blanco"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:text="@string/newOrderTxt"
+        android:onClick="newOrderDialog"
+
+       />
 
 
 

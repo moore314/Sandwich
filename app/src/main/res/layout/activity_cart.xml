@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,46 +7,83 @@
     android:layout_height="match_parent"
     tools:context="watchtower.ayalacashier.Cart"
     android:layoutDirection="ltr"
-    android:orientation="vertical">
+    android:paddingBottom="5dp"
+    >
+
+    <!-- This should be visible after choosing a payment method -->
+    <Button
+        android:id="@+id/orderNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:backgroundTint="@color/turq"
+        android:text="@string/finishOrderCatering"
+        android:textColor="@color/blanco"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+
+        />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@color/gray"
-        android:backgroundTint="@color/gray"
-        android:gravity="center"
-        android:layout_marginBottom="2dp"
+        android:orientation="vertical"
+        android:id="@+id/entireLayout"
+        android:layout_above="@id/orderNow"
+        android:layout_alignParentTop="true"
         >
 
-        <TextView
-            android:id="@+id/altogetherTextCatering"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="0.0"
-            />
+            android:orientation="horizontal"
+            android:background="@color/gray"
+            android:backgroundTint="@color/gray"
+            android:gravity="center"
+            android:layout_marginBottom="2dp"
+            >
 
-        <TextView
-            android:id="@+id/altogetherTagCatering"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/altogetherTextCatering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:text="@string/nullPayment"
+                />
+
+            <TextView
+                android:id="@+id/altogetherTagCatering"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/altogether"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/turq"
+                />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/orderListCatering"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="@string/altogether"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:textColor="@color/turq"
-            />
+            android:padding="5dp"
+            >
+        </ListView>
 
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/orderListCatering"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
 
-</LinearLayout>
+
+
+
+</RelativeLayout>

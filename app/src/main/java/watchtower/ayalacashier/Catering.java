@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -19,10 +20,11 @@ public class Catering extends AppCompatActivity {
     //// TODO: 11/27/2017 set on destroy and put order details in shared 
 
     static Context context;
-    public static String PRICE = "0.0";
+    //public static String PRICE = "0.0";
     public static String NO_FLAG = "noFlag";
     public static String TORTILLA_FLAG = "tortillaFlag";
-    public static boolean children = false;
+    public static boolean childrenFlag = false;
+    static Button delivery, quiche, salad, plates, pasta, soup, bread, desserts, children, rent, newOrder;
 
 
 
@@ -32,59 +34,60 @@ public class Catering extends AppCompatActivity {
         setContentView(R.layout.activity_catering);
         context = this;
         Log.d("TKT_catering","onCreate================");
-        Button salad = (Button)findViewById(R.id.saladCatering);
-        final Button quiche = (Button)findViewById(R.id.quicheCatering);
-        Button plates = (Button)findViewById(R.id.platesCatering);
-        Button pasta = (Button)findViewById(R.id.pastaCatering);
-        Button soup = (Button)findViewById(R.id.soupCatering);
+        salad = (Button)findViewById(R.id.saladCatering);
+        quiche = (Button)findViewById(R.id.quicheCatering);
+        plates = (Button)findViewById(R.id.platesCatering);
+        pasta = (Button)findViewById(R.id.pastaCatering);
+        soup = (Button)findViewById(R.id.soupCatering);
         //Button foucachas = (Button)findViewById(R.id.foucachaCatering);
-        Button bread = (Button)findViewById(R.id.breadCatering);
-        Button desserts = (Button)findViewById(R.id.dessertCatering);
-        Button children = (Button)findViewById(R.id.childrenCatering);
-        final Button delivery = (Button)findViewById(R.id.deliveryCatering);
-        Button rent = (Button)findViewById(R.id.rentThePlace);
-
-        if(Cashier.cateringOrder.containsKey(getString(R.string.deliveryCatering)))
+        bread = (Button)findViewById(R.id.breadCatering);
+        desserts = (Button)findViewById(R.id.dessertCatering);
+        children = (Button)findViewById(R.id.childrenCatering);
+        delivery = (Button)findViewById(R.id.deliveryCatering);
+        rent = (Button)findViewById(R.id.rentThePlace);
+        newOrder = (Button)findViewById(R.id.newOrderButton);
+        Cashier.getCateringOrderFromFile(context);
+        if (Cashier.cateringOrder.containsKey(getString(R.string.deliveryCatering)))
             delivery.setBackground(getDrawable(R.drawable.circle_gray));
 
-        salad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            salad.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                Intent intent = new Intent(context, CateringSalads.class);
-                startActivity(intent);
+                    Intent intent = new Intent(context, CateringSalads.class);
+                    startActivity(intent);
 
-            }
-        });
+                }
+            });
 
-        quiche.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quicheDialog();
-            }
-        });
+            quiche.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    quicheDialog();
+                }
+            });
 
-        plates.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, CateringPlates.class);
-                startActivity(intent);
-            }
-        });
+            plates.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, CateringPlates.class);
+                    startActivity(intent);
+                }
+            });
 
-        pasta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pastaDialog();
-            }
-        });
+            pasta.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pastaDialog();
+                }
+            });
 
-        soup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                soupDialog();
-            }
-        });
+            soup.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    soupDialog();
+                }
+            });
         /*
         foucachas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,40 +96,75 @@ public class Catering extends AppCompatActivity {
             }
         });
 */
-        bread.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                breadBasketDialog();
-            }
-        });
+            bread.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    breadBasketDialog();
+                }
+            });
 
-        desserts.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dessertDialog();
-            }
-        });
+            desserts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dessertDialog();
+                }
+            });
 
-        children.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                childrenDialog();
-            }
-        });
+            children.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    childrenDialog();
+                }
+            });
 
-        delivery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                chooseDelivery(v);
-            }
-        });
+            delivery.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    chooseDelivery(v);
+                }
+            });
 
-        rent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rentDialog();
-            }
-        });
+            rent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rentDialog();
+                }
+            });
+       // }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Cashier.getCateringOrderFromFile(context);
+        if(Cashier.cateringOrder.containsKey(getString(R.string.deliveryCatering)))
+            delivery.setBackground(getDrawable(R.drawable.circle_gray));
+        else
+            delivery.setBackground(getDrawable(R.drawable.circle));
+        if(Cashier.checkPrefs.getBoolean(Cashier.PAYPAL_PAID_CATERING,false))
+        {
+            AlertDialog.Builder message = new AlertDialog.Builder(context);
+            message.setMessage(R.string.cantAddItemsCatering).create();
+            message.show();
+            initButtons(false);
+        }
+        else
+            initButtons(true);
+    }
+
+    public static void initButtons(boolean flag)
+    {
+        Log.d("TKT_catering","initButtons================: "+flag);
+        salad.setEnabled(flag);
+        quiche.setEnabled(flag);
+        plates.setEnabled(flag);
+        pasta.setEnabled(flag);
+        soup.setEnabled(flag);
+        bread.setEnabled(flag);
+        desserts.setEnabled(flag);
+        children.setEnabled(flag);
+        rent.setEnabled(flag);
+        delivery.setEnabled(flag);
     }
 
     @Override
@@ -168,10 +206,10 @@ public class Catering extends AppCompatActivity {
     public void quicheDialog()
     {
         Log.d("TKT_catering","quicheDialog================");
-        children = false;
+        childrenFlag = false;
         final String [] quicheType = {getString(R.string.mushroomQuicheCateringIngre), getString(R.string.yamQuicheCateringIngre),getString(R.string.broccoliQuicheCateringIngre),getString(R.string.onionQuicheCateringIngre)};
         final boolean [] isCheckedArr = new boolean[4];
-        PRICE = Cashier.CATERING_PRICES[Cashier.QUICHE];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.QUICHE];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_quiche);
@@ -240,10 +278,10 @@ public class Catering extends AppCompatActivity {
     public void pastaDialog()
     {
         Log.d("TKT_catering","pastaDialog================");
-        children = false;
+        childrenFlag = false;
         final String [] pastaString = {getString(R.string.pastaType1Catering),getString(R.string.pastaType2Catering)};
         final boolean [] isCheckedArr = new boolean[2];
-        PRICE = Cashier.CATERING_PRICES[Cashier.PASTA];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.PASTA];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_pasta);
@@ -290,10 +328,10 @@ public class Catering extends AppCompatActivity {
     public void soupDialog()
     {
         Log.d("TKT_catering","soupDialog================");
-        children = false;
+        childrenFlag = false;
         final String [] soupType = {getString(R.string.orangeSoupCatering),getString(R.string.onionSoupCatering),getString(R.string.lentilSoupCatering)};
         final boolean [] isCheckedArr = new boolean[3];
-        PRICE = Cashier.CATERING_PRICES[Cashier.SOUP];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SOUP];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_soup);
@@ -351,10 +389,10 @@ public class Catering extends AppCompatActivity {
     public void foucachasDialog()
     {
         Log.d("TKT_catering","foucachasialog================");
-        children = false;
+        childrenFlag = false;
         final String [] foucachaString = {getString(R.string.foucachasCateringIng)};
         final boolean [] isCheckedArr = new boolean[1];
-        PRICE = Cashier.CATERING_PRICES[Cashier.FOUCACHAS];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.FOUCACHAS];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.setContentView(R.layout.dialog_catering_foucachas);
         Cashier.dialog.setCanceledOnTouchOutside(false);
@@ -388,10 +426,10 @@ public class Catering extends AppCompatActivity {
     {
         //// TODO: 1/25/2018 consider change color of items not included in check 
         Log.d("TKT_catering","breadBasketDialog================");
-        children = false;
+        childrenFlag = false;
         final String [] breadBasketString = {getString(R.string.breadBasketCateringIng)};
         final boolean [] isCheckedArr = new boolean[1];
-        PRICE = Cashier.CATERING_PRICES[Cashier.BREAD_BASKET];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.BREAD_BASKET];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_bread_basket);
@@ -426,10 +464,10 @@ public class Catering extends AppCompatActivity {
     {
         //// TODO: 1/28/2018 consider change color of items not included in check
         Log.d("TKT_catering","dessertDialog================");
-        children = false;
+        childrenFlag = false;
         final String [] dessertString = {getString(R.string.dessertCateringIng)};
         final boolean [] isCheckedArr = new boolean[1];
-        PRICE = Cashier.CATERING_PRICES[Cashier.DESSERT_BASKET];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.DESSERT_BASKET];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_desserts);
@@ -464,7 +502,7 @@ public class Catering extends AppCompatActivity {
     {
 
         Log.d("TKT_catering","childrenDialog================");
-        children = true;
+        childrenFlag = true;
         final String [] childrenString = {getString(R.string.veggiePlateCateringIngre),getString(R.string.pastaType2Catering)};
         final boolean [] isCheckedArr = new boolean[2];
         Cashier.dialog = new Dialog(this);
@@ -531,10 +569,10 @@ public class Catering extends AppCompatActivity {
     public void rentDialog()
     {
         Log.d("TKT_catering","rentDialog================");
-        children = false;
+        childrenFlag = false;
         final String [] rentString = {getString(R.string.rentThePlace)};
         final boolean [] isCheckedArr = new boolean[1];
-        PRICE = Cashier.CATERING_PRICES[Cashier.RENT];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.RENT];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_rent);
@@ -565,10 +603,6 @@ public class Catering extends AppCompatActivity {
         Cashier.dialog.show();
     }
 
-
-
-
-
     public void chooseDelivery(View v)
     {
         //PRICE = Cashier.CATERING_PRICES[6];
@@ -576,6 +610,36 @@ public class Catering extends AppCompatActivity {
         Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.DELIVERY]);
     }
 
+    public void newOrderDialog(View v)
+    {
+        Log.d("TKT_catering","newOrderDialog================");
+        Cashier.dialog = new Dialog(this);
+        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        Cashier.dialog.setContentView(R.layout.dialog_new_order);
+        Cashier.dialog.setCanceledOnTouchOutside(false);
+        Button yes = (Button)Cashier.dialog.findViewById(R.id.proceedNewOrder);
+        Button no = (Button)Cashier.dialog.findViewById(R.id.cancelNewOrder);
+
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //erase all and init all
+                Cashier.deleteCateringOrder(context);
+                initButtons(true);
+                Cashier.dialog.dismiss();
+            }
+        });
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cashier.dialog.dismiss();
+            }
+        });
+
+
+        Cashier.dialog.show();
+    }
 
     public void setBackgroundChildren(LinearLayout txt, Context context, boolean [] isCheckedArr, int pos)
     {
@@ -619,19 +683,27 @@ public class Catering extends AppCompatActivity {
 
     public static void checkHandler(String [] itemArr, boolean [] isChecked, String flag, String initAmount) {
         Log.d("TKT_catering", "checkHandler==============");
-        if (children) {
-            if(isChecked[0]) {
-                Cashier.cateringOrder.put(itemArr[0], new CateringObjectInfo(Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE], initAmount));
+        if (childrenFlag) {
+            if(isChecked[0])
+            {
+                if(!Cashier.cateringOrder.containsKey(itemArr[0]))
+                    Cashier.cateringOrder.put(itemArr[0], new CateringObjectInfo(Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE], initAmount));
             }
-            if(isChecked[1]) {
-                Cashier.cateringOrder.put(itemArr[1], new CateringObjectInfo(Cashier.CATERING_PRICES[Cashier.PASTA], initAmount));
+            else
+                Cashier.cateringOrder.remove(itemArr[0]);
+
+            if(isChecked[1])
+            {
+                if(!Cashier.cateringOrder.containsKey(itemArr[1]))
+                    Cashier.cateringOrder.put(itemArr[1], new CateringObjectInfo(Cashier.CATERING_PRICES[Cashier.PASTA], initAmount));
             }
+            else
+                Cashier.cateringOrder.remove(itemArr[1]);
 
         }
         else
             {
-            CateringObjectInfo c = new CateringObjectInfo(PRICE, initAmount);
-            int counter = 0;
+            CateringObjectInfo c = new CateringObjectInfo(Cashier.PRICE, initAmount);
             if (flag.equals(TORTILLA_FLAG)) {//tortillas
                 Log.d("TKT_catering", "flag = tortilla");
                 String tortillaString = context.getString(R.string.tortillaFilledWith);
@@ -639,10 +711,9 @@ public class Catering extends AppCompatActivity {
                     if (isChecked[i]) {
                         Log.d("TKT_catering", "itemArr[" + i + "] is checked");
                         tortillaString += "\n- " + itemArr[i];
-                        counter++;
                     }
+                    //else
                 }
-
                 if (!tortillaString.equals(context.getString(R.string.tortillaFilledWith))) {
                     String prevEntry = CateringPlates.getTortillaEntry();
                     if (prevEntry != null) {
@@ -655,11 +726,18 @@ public class Catering extends AppCompatActivity {
             } else {
                 Log.d("TKT_catering", "flag = noFlag");
                 for (int i = 0; i < itemArr.length; i++) {
-                    if (isChecked[i])
-                        Cashier.cateringOrder.put(itemArr[i], new CateringObjectInfo(Catering.PRICE, initAmount));
+                    if (isChecked[i]) {
+                        if(!Cashier.cateringOrder.containsKey(itemArr[i]))
+                            Cashier.cateringOrder.put(itemArr[i], new CateringObjectInfo(Cashier.PRICE, initAmount));
+                    }
+                    else
+                        Cashier.cateringOrder.remove(itemArr[i]);
                 }
             }
         }
+
+        Cashier.writeToFileCateringOrder(context);
+
     }
 
 }

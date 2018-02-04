@@ -28,8 +28,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class Hours extends AppCompatActivity {
-    //// TODO: 12/19/2017 fix reds
-
     CalendarView calendar;
     Calendar cal;
     Dialog updateDialog;

@@ -27,7 +27,7 @@ public class CateringPlates extends AppCompatActivity {
         Log.d("TKT_cateringPlates","onCreate=================");
         context = this;
 
-        Catering.children = false;
+        Catering.childrenFlag = false;
 
         //initButtons();
     }
@@ -86,7 +86,7 @@ public class CateringPlates extends AppCompatActivity {
         Log.d("TKT_CateringPlates","openTortillas================");
         final String [] tortillaFilling = {getString(R.string.tortillaFilling1), getString(R.string.tortillaFilling2),getString(R.string.tortillaFilling3)};
         final boolean [] isCheckedArr = new boolean[3];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.TORTILLA];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.TORTILLA];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_tortilla);
@@ -144,7 +144,7 @@ public class CateringPlates extends AppCompatActivity {
     {
         final String [] stringWhiteEggplant = {getString(R.string.whiteEggplantCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.WHITE_EGGPLANT];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.WHITE_EGGPLANT];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_white_eggplant);
@@ -179,7 +179,7 @@ public class CateringPlates extends AppCompatActivity {
         Log.d("TKT_catering","hashBrownDialog================");
         final String [] hashbrownType = {getString(R.string.quinoaHashBrownsCateringIngre),getString(R.string.lentilHashBrownsCateringIngre)};
         final boolean [] isCheckedArr = new boolean[2];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.HASHBROWNS];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.HASHBROWNS];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_hashbrowns);
@@ -228,7 +228,7 @@ public class CateringPlates extends AppCompatActivity {
     {
         final String [] antipastiString = {getString(R.string.antipastiCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.ANTIPASTI];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.ANTIPASTI];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_antipasti);
@@ -263,7 +263,7 @@ public class CateringPlates extends AppCompatActivity {
     {
         final String [] cheeseString = {getString(R.string.cheesePlateCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.CHEESE_PLATE];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.CHEESE_PLATE];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_cheese_plate);
@@ -299,7 +299,7 @@ public class CateringPlates extends AppCompatActivity {
         final String [] sandString = {getString(R.string.sandPlateCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
 
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SAND_PLATE];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SAND_PLATE];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_sand_plate);
@@ -369,7 +369,7 @@ public class CateringPlates extends AppCompatActivity {
     {
         final String [] veggieString = {getString(R.string.veggiePlateCateringIngre)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_veggie_plate);
@@ -408,7 +408,7 @@ public class CateringPlates extends AppCompatActivity {
     {
         final String [] fishString = {getString(R.string.smokedFishPlateCatering)};
         final boolean [] isCheckedArr = new boolean[1];
-        Catering.PRICE = Cashier.CATERING_PRICES[Cashier.SMOKED_FISH_PLATE];
+        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SMOKED_FISH_PLATE];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_smoked_fish);

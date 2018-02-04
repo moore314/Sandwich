@@ -65,6 +65,9 @@ public class Cashier {
     public static Crypto KRYPT = new Crypto();
     public static final double FEE = 1.2;
     public static final double COMMISSION_PERCENTAGE = 3.4;
+    public static String PRICE = "0.0";
+    public static final String PAYPAL_PAID_CATERING = "paypalPaid";
+
 
     //=======================
     protected static SharedPreferences checkPrefs;
@@ -96,6 +99,11 @@ public class Cashier {
     public static final String ALTOGETHER_HR_TXT = "סה\"כ שעות: ";
     public static final String IS_STUDENT = "isStudent";
     public static final String CATERING_ALTOGETHER = "cateringAltogether";
+    public static final String CATERING_CONTACT_INFO_NAME = "cateringConactInfoName";
+    public static final String CATERING_CONTACT_INFO_PHONE = "cateringConactInfoPhone";
+    public static final String CATERING_DATE_INFO = "cateringDateInfo";
+    public static final String PAID_AMOUNT = "paidAmountPaypal";
+
 
 
     //public static final String REPORT_HEB = "דוח מכירות"
@@ -514,6 +522,7 @@ public class Cashier {
     public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000","000","000","400"};
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     public static String ONE = 1+"";
+    public static String ZERO = 0+"";
     public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
     public static final String INSTA_URL = "https://www.instagram.com/ayalamodli/?hl=en";
 
@@ -522,6 +531,14 @@ public class Cashier {
         Log.d("TKT_cashier", "updateEmployee===================");
         progressEdit = checkPrefs.edit();
         progressEdit.putString(EMPLOYEE_NAME, employeeName);
+        progressEdit.commit();
+    }
+
+    public static void sharedUpdateContactInfo(String name, String phone)
+    {
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(CATERING_CONTACT_INFO_NAME, name);
+        progressEdit.putString(CATERING_CONTACT_INFO_PHONE, phone);
         progressEdit.commit();
     }
 
@@ -872,6 +889,32 @@ update        */
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, userName + ": " +
                 context.getString(R.string.report) + " - " + dateFormat.format(c.getTime()).toString());
         context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
+        //clear all
+        clearAllReport(context, listView, textView);
+
+    }
+
+    public static void sendCateringOrderToA(Context context, ListView listView, TextView textView) throws IOException {
+        //create a file with userName & report file
+        //create a new file:
+        //// TODO: 2/1/2018 assign contact info
+        String contactName = checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_NAME, null);
+        String contactNumber = checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_PHONE, null);
+        //getDate of order
+
+        String SavedShoppingList = openItemList(context);
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        // set the type to 'email'
+        emailIntent.setType("text/plain");//("vnd.android.cursor.dir/email");
+        String to[] = {"ayalam530@walla.com"};//
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
+        // the attachment
+        emailIntent.putExtra(Intent.EXTRA_TEXT, SavedShoppingList);
+        // the mail subject
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, contactName + ": " + dateFormat.format(c.getTime()).toString());
+        context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
+
 
         //clear all
         clearAllReport(context, listView, textView);
@@ -1372,6 +1415,9 @@ sending through whatsapp
         progressEdit.commit();
     }
 
+    //==============^^^ student ^^^^^
+
+
     public static void sendOrderToA(String message, Context context) {
 
         Log.d("TKT_cashier", "sendOrderToA========================");
@@ -1410,22 +1456,31 @@ sending through whatsapp
         //// TODO: 1/11/2018 add a dialog that tells user that a long touch on item is for changing amount
         Log.d("TKT_cashier","displayOrderCatering========");
         double sum = 0;
+
         List<String>listOfItem = new ArrayList<>();
         ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
+        getCateringOrderFromFile(context);
         if(!cateringOrder.isEmpty())
         {
             for(Map.Entry<String, CateringObjectInfo> entry : cateringOrder.entrySet())
             {
-                    listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
+                String temp = cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context);
+                if(!temp.contains("::"))
+                    listOfItem.add(0,temp);
+                else
+                    listOfItem.add(temp);
+                    //listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
                     sum += entry.getValue().getPrice();
 
 
                 Log.d("TKT_cashier","MMM: "+entry.toString());
             }
             Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
+
             //adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
             listView.setAdapter(adapter);
             totalSum.setText(sum+"");
+
         }
         else {
             //adapter.notifyDataSetChanged();
@@ -1441,23 +1496,35 @@ sending through whatsapp
         }
 
 
+
+    }
+
+    public static void getCateringOrderFromFile(Context context)
+    {
+        ObjectInputStream objectInputStream;
+        File file = new File(context.getFilesDir(),CATERING_ORDER_FILE);
+        try {
+            objectInputStream = new ObjectInputStream(new FileInputStream(file));
+            Log.d("TKT_cashier","orderB4 file: " + cateringOrder.toString());
+            cateringOrder = (HashMap<String,CateringObjectInfo>)objectInputStream.readObject();
+            Log.d("TKT_cashier","try is successful");
+            Log.d("TKT_cashier","orderB4 file: " + cateringOrder.toString());
+        }
+        catch (Exception e)
+        {
+            Log.d("TKT_cashier","halt&catch file :/");
+            e.printStackTrace();
+        }
     }
 
     public static String cateringCartGenerateString(String val, String key, Context context)//(Map.Entry entry)
     {
-        if(!key.equals(context.getString(R.string.deliveryCatering)) && !key.equals(context.getString(R.string.rentThePlace)))
+        if(!key.equals(context.getString(R.string.deliveryCatering)) && !key.equals(context.getString(R.string.rentThePlace)) && !key.equals(context.getString(R.string.cashPayement)))
             return val + " :: " + key;//entry.getValue() + " :: " + entry.getKey().toString();
         else
             return key;
     }
-    
-    public static void sharedUpdateCatering(String price)
-    {
-        //// TODO: 12/3/2017 make sure to update price if item is removed or added!! 
-        progressEdit = checkPrefs.edit();
-        progressEdit.putString(CATERING_ALTOGETHER,price);
-        progressEdit.commit();
-    }
+
 
     public static void putMessageInShared(String message)
     {
@@ -1502,12 +1569,15 @@ sending through whatsapp
             bv.setBackground(ContextCompat.getDrawable(context,R.drawable.circle_gray));
             CateringObjectInfo c = new CateringObjectInfo(price, "1");
             cateringOrder.put(bv.getText().toString(), c);
+            writeToFileCateringOrder(context);
+
         }
         else
         {
             v.setTag(context.getString(R.string.TAGunchecked));
             bv.setBackground(ContextCompat.getDrawable(context,R.drawable.circle));
             cateringOrder.remove(bv.getText().toString());
+            writeToFileCateringOrder(context);
 
         }
     }
@@ -1535,15 +1605,84 @@ sending through whatsapp
         double temp;
         double currPaymentDouble = Double.parseDouble(currPaymentString);
         temp = currPaymentDouble / 100;
-        Log.d("TKT_cashier","currPaymentDouble/100: "+temp);
+        //Log.d("TKT_cashier","currPaymentDouble/100: "+temp);
         temp *= COMMISSION_PERCENTAGE;
-        Log.d("TKT_cashier","currPaymentDouble*=COMMISSION_PER: "+temp);
+        //Log.d("TKT_cashier","currPaymentDouble*=COMMISSION_PER: "+temp);
         temp += FEE;
-        Log.d("TKT_cashier","currPaymentDouble+fee: "+temp);
+        //Log.d("TKT_cashier","currPaymentDouble+fee: "+temp);
         currPaymentDouble +=temp;
-        commission = currPaymentDouble+"";
+        Log.d("TKT_cashier","commission b4: "+currPaymentDouble);
+        commission = String.format("%.1f",currPaymentDouble);
+        Log.d("TKT_cashier","commission after: "+commission);
         return commission;
     }
+
+    public static void sharedUpdatePaypalPaid(boolean paypalPaid)
+    {
+        Log.d("TKT_cashier", "sharedPaypalPaid===================");
+        progressEdit = checkPrefs.edit();
+        progressEdit.putBoolean(PAYPAL_PAID_CATERING, paypalPaid);
+        progressEdit.commit();
+    }
+
+    public static final String CATERING_ORDER_FILE = "cateringOrderFile";
+
+    public static void writeToFileCateringOrder(Context context)
+    {
+        File cateringOrderFile = new File(context.getFilesDir().toString(), CATERING_ORDER_FILE);
+        try {
+            cateringOrderFile.createNewFile();
+            Log.d("TKT_cashier","writeToFileCateringOrder: try");
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(cateringOrderFile));
+            outputStream.writeObject(cateringOrder);
+            outputStream.flush();
+            outputStream.close();
+            Log.d("TKT_cashier","file save successfully");
+
+        }
+        catch (IOException e)
+        {
+            Log.d("TKT_cashier","writeToFileException");
+            e.printStackTrace();
+        }
+    }
+
+    public static void sharedUpdateDateCateringInfo(String date)
+    {
+        Log.d("TKT_cashier", "sharedUpdateDateCateringInfo===================");
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(CATERING_DATE_INFO, date);
+        progressEdit.commit();
+    }
+
+    public static void sharedUpdatePaidAmount(String amount)
+    {
+        //PAID_AMOUNT
+        Log.d("TKT_cashier", "sharedUpdatePaidAmount===================");
+        progressEdit = checkPrefs.edit();
+        progressEdit.putString(PAID_AMOUNT, amount);
+        progressEdit.commit();
+    }
+
+    public static void deleteCateringOrder(Context context)
+    {
+        File file = new File(context.getFilesDir(),Cashier.CATERING_ORDER_FILE);
+        file.delete();
+        cateringOrder.clear();
+        //keep name and phone
+        //delete date,delete paid, delete
+        progressEdit = checkPrefs.edit();
+        progressEdit.putBoolean(PAYPAL_PAID_CATERING,false);
+        progressEdit.putString(PAID_AMOUNT,PRICE);
+        progressEdit.putString(CATERING_DATE_INFO,null);
+        //Catering.initButtons(true);
+        progressEdit.commit();
+
+
+
+    }
+
+
 
 
 
