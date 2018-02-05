@@ -28,7 +28,6 @@ import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import java.util.HashMap;
 
-//// TODO: 11/2/2017 when changing an order to the same item but different quantity, the price isn't right - hot & dessert
 
 public class StudentOrder extends AppCompatActivity {
 
@@ -945,7 +944,6 @@ public class StudentOrder extends AppCompatActivity {
 
 
         //// TODO: 10/31/2017 enable in time =======================vvvvvv
-        //lentil.setEnabled(false);
         largeSoup.setEnabled(false);
         smallSoup.setEnabled(false);
         //========^^^^^^^^^^^============================================

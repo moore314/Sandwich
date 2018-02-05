@@ -406,7 +406,6 @@ public class Hours extends AppCompatActivity {
                 int month = Integer.parseInt(entries[1]);
                 Day [][] days = Cashier.getMatrixFromDB();
                 String hoursToRemoveFromAlt = days[day-1][month-1].sumHours;
-                //// TODO: 10/23/2017 reduce hourseToRemoveFromAlt from alt in shared - done: check left
                 //String newAlt = Cashier.hourDifference(hoursToRemoveFromAlt,Cashier.getAltFromDb(month));
 
 

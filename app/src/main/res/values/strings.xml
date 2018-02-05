@@ -25,6 +25,8 @@
     <string name="paidMail">[שולם] </string>
     <string name="notPaidMail">[לא שולם] </string>
     <string name="newOrderRUSure">הזמנה חדשה תמחוק את ההזמנה הנוכחית, האם להמשיך?</string>
+    <string name="longPress">לחיצה ארוכה על פריט מאפשרת שינוי כמות, או מחיקה</string>
+    <string name="dontShowAgain">אל תציג שוב</string>
 
 
     <!-- catering ingredients -->

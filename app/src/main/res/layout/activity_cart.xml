@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape"
-        android:backgroundTint="@color/turq"
+        android:backgroundTint="@color/red"
         android:text="@string/finishOrderCatering"
         android:textColor="@color/blanco"
         android:textSize="20dp"

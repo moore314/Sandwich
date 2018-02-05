@@ -15,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class Main extends AppCompatActivity {
-    //// TODO: 11/20/2017 I set both main and welcome to be launchers; don't forget to remove welcome's after main is all done 
 
     static final int MY_PERMISSION_INT = 1;
     Context context;

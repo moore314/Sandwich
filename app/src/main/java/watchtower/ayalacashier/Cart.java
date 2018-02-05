@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -49,9 +50,6 @@ public class Cart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        //// TODO: 1/11/2018 consider not using listView but a view similar to studentOrder
-        //adapter = new ArrayAdapter<String>(this, R.layout.list_item,R.id.item_text,data_array);
-
         context = this;
         act = this;
         totalSum = (TextView)findViewById(R.id.altogetherTextCatering);
@@ -347,11 +345,6 @@ public class Cart extends AppCompatActivity {
                         //checkHandler(paymentString, isCheckedArr,NO_FLAG,Cashier.ONE);
                         if (isCheckedArr[0])//paypal
                         {
-                            //// TODO: 2/1/2018 : vv
-                            //open paypal trans
-                            //then setVisible orderNow
-                            //remove cash payment from cateringOrder
-                            //add PAID flag
                             Cashier.cateringOrder.remove(paymentString[1]);
                             Cashier.writeToFileCateringOrder(context);
                             Cashier.sharedUpdatePaidAmount(paypalTxt2.getText().toString());
@@ -393,7 +386,6 @@ public class Cart extends AppCompatActivity {
                     Toast.makeText(context, R.string.cateringPaidConfirm, Toast.LENGTH_SHORT).show();
                     //createOrderTextAndSend();
                     orderNow.setVisibility(View.VISIBLE);
-                    //// TODO: 2/4/2018 visible send to A
 
                     }
 
@@ -436,8 +428,8 @@ public class Cart extends AppCompatActivity {
 
             //Log.d("TKT_cart","text: " + text);
             Log.d("TKT_cart","subject: " + subject);
-            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.setType("text/plain");
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","js777755@gmail.com", null));
+           // emailIntent.setType("text/plain");
             String to[] = {"js777755@gmail.com"};
             emailIntent.putExtra(Intent.EXTRA_EMAIL,to);
             emailIntent.putExtra(Intent.EXTRA_TEXT,text);
@@ -496,15 +488,7 @@ public class Cart extends AppCompatActivity {
         if(id == R.id.paypal)
         {
             //open fee price
-            //// TODO: 2/4/2018  uncomment when order is safely stored in shared  vvv
-            /*
-            if(Cashier.checkPrefs.getBoolean(Cashier.PAYPAL_PAID_CATERING, false))
-            {
-                Toast.makeText(context, R.string.alreadyPaid, Toast.LENGTH_LONG).show();
-            }
-            else
-                */
-                paymentDialog();
+            paymentDialog();
             return true;
         }
         return false;

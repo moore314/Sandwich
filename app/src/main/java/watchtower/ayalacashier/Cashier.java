@@ -50,7 +50,6 @@ import java.util.concurrent.TimeUnit;
  */
 
 //// TODO: 11/28/2017 when update for version 1, disable launcer in main and enable launger for welcome 
-    //// TODO: 1/11/2018 add back arrow to welcome  
 
 public class Cashier {
 
@@ -895,32 +894,6 @@ update        */
 
     }
 
-    public static void sendCateringOrderToA(Context context, ListView listView, TextView textView) throws IOException {
-        //create a file with userName & report file
-        //create a new file:
-        //// TODO: 2/1/2018 assign contact info
-        String contactName = checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_NAME, null);
-        String contactNumber = checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_PHONE, null);
-        //getDate of order
-
-        String SavedShoppingList = openItemList(context);
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        // set the type to 'email'
-        emailIntent.setType("text/plain");//("vnd.android.cursor.dir/email");
-        String to[] = {"ayalam530@walla.com"};//
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, to);
-        // the attachment
-        emailIntent.putExtra(Intent.EXTRA_TEXT, SavedShoppingList);
-        // the mail subject
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, contactName + ": " + dateFormat.format(c.getTime()).toString());
-        context.startActivity(Intent.createChooser(emailIntent, "Send email..."));
-
-
-        //clear all
-        clearAllReport(context, listView, textView);
-
-    }
-
     public static int itemIndexInArray(String itemName, String[] items) {
         for (int i = 0; i < items.length; i++) {
             if (items[i].equals(itemName))
@@ -1092,7 +1065,7 @@ update        */
                     s = strt;
                     e = end;
                 }
-                //// TODO: 10/23/2017 problemmmm!!!! 
+                //// TODO: 10/23/2017 problemmm???
             }
             Log.d("TKT_cashier", "s: " + s);
             Log.d("TKT_cashier", "e: " + e);
@@ -1383,7 +1356,6 @@ sending through whatsapp
         progressEdit.commit();
     }
     
-    //// TODO: 10/29/2017 update shared about these selections 
     public static void sharedUpdateSaladBread(String bread) {
         Log.d("TKT_cashier", "sharedUpdateSandBread===================");
 
@@ -1480,7 +1452,7 @@ sending through whatsapp
             //adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
             listView.setAdapter(adapter);
             totalSum.setText(sum+"");
-
+            //show long click dialog
         }
         else {
             //adapter.notifyDataSetChanged();
@@ -1600,7 +1572,7 @@ sending through whatsapp
     }
 
     public static String calculateCommission(String currPaymentString)
-    {//// TODO: 1/30/2018 check how 
+    {
         String commission;
         double temp;
         double currPaymentDouble = Double.parseDouble(currPaymentString);
