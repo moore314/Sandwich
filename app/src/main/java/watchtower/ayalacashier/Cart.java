@@ -16,6 +16,8 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -45,6 +47,7 @@ public class Cart extends AppCompatActivity {
     CalendarView calendar;
     String dateToOrder;
     int updateMonth;
+    boolean checkMe = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,8 @@ public class Cart extends AppCompatActivity {
 
             }
         });
+
+        dontShowAgainDialog();
         Cashier.configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Cashier.paypalClientId);
         Cashier.service = new Intent(this, PayPalService.class);
         Cashier.service.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, Cashier.configuration);
@@ -93,6 +98,57 @@ public class Cart extends AppCompatActivity {
 
     }
 
+
+    public void dontShowAgainDialog()
+    {
+        Log.d("TKT_cart","dontShowAgainDialog==============");
+        //could have done that condision only on the dialog.show() method, but eh...
+        if(!Cashier.checkPrefs.getBoolean(Cashier.DONT_SHOW_AGAIN,false) && lisa.isEnabled() && !Cashier.cateringOrder.isEmpty())
+        {
+            Cashier.dialog = new Dialog(this);
+            Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            Cashier.dialog.setContentView(R.layout.dialog_catering_long_click_list_item);
+            Cashier.dialog.setCanceledOnTouchOutside(false);
+            Button ok = (Button) Cashier.dialog.findViewById(R.id.okay);
+            TextView text = (TextView)Cashier.dialog.findViewById(R.id.dontShowAgainTxt);
+            final CheckBox checkBox = (CheckBox) Cashier.dialog.findViewById(R.id.dontShowAgainBox);
+
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkBox.isChecked())
+                    {
+                        checkBox.setChecked(false);
+                        checkMe = false;                    }
+                    else
+                    {
+                        checkBox.setChecked(true);
+                        checkMe = true;
+                    }
+                }
+            });
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkMe = isChecked;
+                }
+            });
+
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkMe)
+                        Cashier.updateDontShowAgain();
+                    Cashier.dialog.dismiss();
+                }
+            });
+            Cashier.dialog.show();
+
+        }
+
+
+    }
 
     public void contactInfoDialog()
     {
@@ -277,7 +333,7 @@ public class Cart extends AppCompatActivity {
 
     public void paymentDialog()
     {
-        Log.d("TKT_catering","paymentDialog================");
+        Log.d("TKT_cart","paymentDialog================");
         if(Cashier.checkPrefs.getBoolean(Cashier.PAYPAL_PAID_CATERING,false))
         {
             AlertDialog.Builder message = new AlertDialog.Builder(context);
@@ -364,8 +420,30 @@ public class Cart extends AppCompatActivity {
                     }
                 });
 
-
                 Cashier.dialog.show();
+                Log.d("TKT_cart","cateringOrder: " + Cashier.cateringOrder.toString());
+                AlertDialog.Builder message = new AlertDialog.Builder(Cashier.dialog.getContext());
+                message.setTitle(getString(R.string.attention));
+                String txt ="";// getString(R.string.attention);
+                boolean tempFlag = false;
+                if(Cashier.cateringOrder.containsKey(getString(R.string.breadBasketCateringIng)))
+                {
+                    Log.d("TKT_cart","breadIsIn");
+                    txt += "-" + getString(R.string.breadString)+"\n";
+                    tempFlag = true;
+                }
+
+                if(Cashier.cateringOrder.containsKey(getString(R.string.deliveryCatering))) {
+                    Log.d("TKT_cart","delivery");
+                    tempFlag = true;
+                    txt += "-" + getString(R.string.deliveryString)+"\n";
+                }
+                txt += "\n" + getString(R.string.forDetails);
+                if(tempFlag)
+                {
+                    message.setMessage(txt).create();
+                    message.show();
+                }
             }
         }
     }

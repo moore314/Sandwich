@@ -25,8 +25,12 @@
     <string name="paidMail">[שולם] </string>
     <string name="notPaidMail">[לא שולם] </string>
     <string name="newOrderRUSure">הזמנה חדשה תמחוק את ההזמנה הנוכחית, האם להמשיך?</string>
-    <string name="longPress">לחיצה ארוכה על פריט מאפשרת שינוי כמות, או מחיקה</string>
+    <string name="longPress">לחיצה ארוכה על פריט מאפשרת שינוי כמות, או מחיקה.</string>
     <string name="dontShowAgain">אל תציג שוב</string>
+    <string name="attention">שימו לב! הפריטים הבאים אינם כלולים בתשלום: </string>
+    <string name="deliveryString">משלוח לבית הלקוח</string>
+    <string name="breadString">סלסלת לחמים</string>
+    <string name="forDetails">לפרטים, ניתן ליצור קשר עם איילה.</string>
 
 
     <!-- catering ingredients -->

@@ -524,7 +524,7 @@ public class Cashier {
     public static String ZERO = 0+"";
     public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
     public static final String INSTA_URL = "https://www.instagram.com/ayalamodli/?hl=en";
-
+    public static final String DONT_SHOW_AGAIN = "dontShowAgain";
 
     public static void sharedUpdateEmployee(String employeeName) {
         Log.d("TKT_cashier", "updateEmployee===================");
@@ -1652,6 +1652,14 @@ sending through whatsapp
 
 
 
+    }
+
+    public static void updateDontShowAgain()
+    {
+        Log.d("TKT_cashier", "updateDontShowAgain===================");
+        progressEdit = checkPrefs.edit();
+        progressEdit.putBoolean(DONT_SHOW_AGAIN, true);
+        progressEdit.commit();
     }
 
 
