@@ -113,7 +113,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(saladType,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
+                Catering.checkHandler(saladType,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -149,7 +149,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringLentil,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
+                Catering.checkHandler(stringLentil,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -184,7 +184,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringQuinoa,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
+                Catering.checkHandler(stringQuinoa,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -220,7 +220,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringTuna,isCheckedArr, Catering.NO_FLAG,Cashier.ONE);
+                Catering.checkHandler(stringTuna,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });

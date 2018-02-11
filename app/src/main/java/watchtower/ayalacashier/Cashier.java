@@ -513,12 +513,13 @@ public class Cashier {
     public static final int SOUP = 17;
     public static final int FOUCACHAS = 18;
     public static final int BREAD_BASKET = 19;
-    public static final int DESSERT_BASKET = 20;
+    public static final int PIES = 20;
     public static final int DELIVERY = 21;
     public static final int RENT = 22;
+    public static final int CUPS = 23;
 
 
-    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000","000","000","400"};
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000","150","000","400","120"};
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     public static String ONE = 1+"";
     public static String ZERO = 0+"";

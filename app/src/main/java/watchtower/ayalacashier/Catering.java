@@ -265,7 +265,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(quicheType, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(quicheType, isCheckedArr,NO_FLAG,Cashier.ONE,Cashier.ZERO, Cashier.ZERO);//// TODO: 2/11/2018 i know it's bad practice, fix before production
                 Cashier.dialog.dismiss();
             }
         });
@@ -316,7 +316,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(pastaString, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(pastaString, isCheckedArr,NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -377,7 +377,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(soupType, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(soupType, isCheckedArr,NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -386,6 +386,7 @@ public class Catering extends AppCompatActivity {
         Cashier.dialog.show();
     }
 
+    /*
     public void foucachasDialog()
     {
         Log.d("TKT_catering","foucachasialog================");
@@ -413,7 +414,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(foucachaString, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(foucachaString, isCheckedArr,NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -421,6 +422,7 @@ public class Catering extends AppCompatActivity {
 
         Cashier.dialog.show();
     }
+    */
 
     public void breadBasketDialog()
     {
@@ -451,7 +453,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(breadBasketString, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(breadBasketString, isCheckedArr,NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -464,32 +466,60 @@ public class Catering extends AppCompatActivity {
     {
         //// TODO: 1/28/2018 consider change color of items not included in check
         Log.d("TKT_catering","dessertDialog================");
-        childrenFlag = false;
-        final String [] dessertString = {getString(R.string.dessertCateringIng)};
-        final boolean [] isCheckedArr = new boolean[1];
-        Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.DESSERT_BASKET];
+        childrenFlag = true;
+        final String [] dessertString = {getString(R.string.piesDessertsCateringIng),getString(R.string.cupsDessertsCateringIng)};
+        final boolean [] isCheckedArr = new boolean[2];
         Cashier.dialog = new Dialog(this);
         Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         Cashier.dialog.setContentView(R.layout.dialog_catering_desserts);
         Cashier.dialog.setCanceledOnTouchOutside(false);
         Button proceed = (Button)Cashier.dialog.findViewById(R.id.proceedDialog);
 
-        final TextView dessertTxt = (TextView)Cashier.dialog.findViewById(R.id.desserttxt);
+        final LinearLayout pieLayout = (LinearLayout)Cashier.dialog.findViewById(R.id.pieLayout);
+        final LinearLayout cupsLayout = (LinearLayout)Cashier.dialog.findViewById(R.id.cupsLayout);
+
+
+        final TextView pieTxt = (TextView)Cashier.dialog.findViewById(R.id.pieTxt);
+        final TextView piePriceTxt = (TextView)Cashier.dialog.findViewById(R.id.piePriceTxt);
+        final TextView cupsTxt = (TextView)Cashier.dialog.findViewById(R.id.cupsTxt);
+        final TextView cupsPriceTxt = (TextView)Cashier.dialog.findViewById(R.id.cupsPriceTxt);
 
         if(Cashier.cateringOrder.containsKey(dessertString[0]))
-            Catering.setBackgroundCateringTxt(dessertTxt,context,isCheckedArr,0);
+            setBackgroundChildren(pieLayout,context,isCheckedArr,0);
 
-        dessertTxt.setOnClickListener(new View.OnClickListener() {
+        if(Cashier.cateringOrder.containsKey(dessertString[1]))
+            setBackgroundChildren(cupsLayout,context,isCheckedArr,1);
+
+        pieTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.setBackgroundCateringTxt(dessertTxt,context,isCheckedArr,0);
+                setBackgroundChildren(pieLayout,context,isCheckedArr,0);
+            }
+        });
+        piePriceTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setBackgroundChildren(pieLayout,context,isCheckedArr,0);
+            }
+        });
+
+        cupsTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setBackgroundChildren(cupsLayout,context,isCheckedArr,1);
+            }
+        });
+        cupsPriceTxt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setBackgroundChildren(cupsLayout,context,isCheckedArr,1);
             }
         });
 
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(dessertString, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(dessertString, isCheckedArr,NO_FLAG,Cashier.ONE,Cashier.CATERING_PRICES[Cashier.PIES],Cashier.CATERING_PRICES[Cashier.CUPS]);
                 Cashier.dialog.dismiss();
             }
         });
@@ -557,7 +587,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(childrenString, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(childrenString, isCheckedArr,NO_FLAG,Cashier.ONE, Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE],Cashier.CATERING_PRICES[Cashier.PASTA] );
                 Cashier.dialog.dismiss();
             }
         });
@@ -594,7 +624,7 @@ public class Catering extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkHandler(rentString, isCheckedArr,NO_FLAG,Cashier.ONE);
+                checkHandler(rentString, isCheckedArr,NO_FLAG,Cashier.ONE, Cashier.ZERO, Cashier.ZERO);
                 Cashier.dialog.dismiss();
             }
         });
@@ -681,13 +711,14 @@ public class Catering extends AppCompatActivity {
         }
     }
 
-    public static void checkHandler(String [] itemArr, boolean [] isChecked, String flag, String initAmount) {
+    public static void checkHandler(String [] itemArr, boolean [] isChecked, String flag, String initAmount, String priceTag1, String priceTag2) {
         Log.d("TKT_catering", "checkHandler==============");
-        if (childrenFlag) {
+        if (childrenFlag)
+        {
             if(isChecked[0])
             {
                 if(!Cashier.cateringOrder.containsKey(itemArr[0]))
-                    Cashier.cateringOrder.put(itemArr[0], new CateringObjectInfo(Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE], initAmount));
+                    Cashier.cateringOrder.put(itemArr[0], new CateringObjectInfo(priceTag1, initAmount));
             }
             else
                 Cashier.cateringOrder.remove(itemArr[0]);
@@ -695,7 +726,7 @@ public class Catering extends AppCompatActivity {
             if(isChecked[1])
             {
                 if(!Cashier.cateringOrder.containsKey(itemArr[1]))
-                    Cashier.cateringOrder.put(itemArr[1], new CateringObjectInfo(Cashier.CATERING_PRICES[Cashier.PASTA], initAmount));
+                    Cashier.cateringOrder.put(itemArr[1], new CateringObjectInfo(priceTag2, initAmount));
             }
             else
                 Cashier.cateringOrder.remove(itemArr[1]);

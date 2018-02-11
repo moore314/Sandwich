@@ -90,6 +90,8 @@
     <string name="foucachasCateringIng">מגש פוקצ\'ות עם עשבי תיבול</string>
     <string name="breadBasketCateringIng">סלסלת לחמניות מקמח מלא ולחמי מחמצת במגוון טעמים</string>
     <string name="dessertCateringIng">מנות אחרונות ועוגות</string>
+    <string name="cupsDessertsCateringIng">כוסיות</string>
+    <string name="piesDessertsCateringIng">פאי</string>
 
 
     <string name="TAGunchecked">unchecked</string>
@@ -123,6 +125,8 @@
     <string name="childrenCateringPriceVeggie">[110 ש\"ח]</string>
     <string name="childrenCateringPricePasta">[160 ש\"ח]</string>
     <string name="rentThePlacePrice">400 ש\"ח</string>
+    <string name="pieCateringPrice">[150 ש\"ח]</string>
+    <string name="cupsCateringPrice">[120 ש\"ח]</string>
     <string name="rentThePlaceIng">השכרת האולם - עד 50 איש</string>
 
     <string name="employee_name">שם</string>

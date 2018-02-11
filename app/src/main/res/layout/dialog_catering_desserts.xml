@@ -34,18 +34,86 @@
 
 
 
-                    <TextView
-                        android:id="@+id/desserttxt"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="17dp"
-                        android:text="@string/dessertCateringIng"
-                        android:padding="5dp"
-                        android:clickable="true"
-                        android:layout_gravity="right"
-                        android:background="@color/trans"
-                        android:tag="@string/TAGunchecked"
-                        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="right">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/pieLayout"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:padding="5dp"
+                android:tag="@string/TAGunchecked">
+
+                <TextView
+                    android:id="@+id/pieTxt"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:text="@string/piesDessertsCateringIng"
+                    android:clickable="true"
+                    android:layout_gravity="right|center"
+                    android:background="@color/trans"
+                    />
+
+                <TextView
+                    android:id="@+id/piePriceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/pieCateringPrice"
+                    android:textSize="15dp"
+                    android:layout_gravity="right|center"
+                    android:gravity="right|center"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/blanco"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:padding="5dp"
+                android:id="@+id/cupsLayout"
+                android:tag="@string/TAGunchecked">
+
+                <TextView
+                    android:id="@+id/cupsTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="@string/cupsDessertsCateringIng"
+                    android:clickable="true"
+                    android:layout_gravity="right|center"
+                    android:gravity="right"
+                    android:background="@color/trans"
+                    />
+
+                <TextView
+                    android:id="@+id/cupsPriceTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/cupsCateringPrice"
+                    android:textSize="15dp"
+                    android:layout_gravity="right|center"
+                    android:gravity="right|center"
+                    android:textStyle="bold"
+                    android:paddingLeft="10dp"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
 
 
     <View
