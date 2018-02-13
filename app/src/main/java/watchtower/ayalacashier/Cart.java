@@ -33,7 +33,6 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import com.paypal.android.sdk.payments.PaymentConfirmation;
 
 import java.util.Calendar;
-import java.util.Map;
 
 public class Cart extends AppCompatActivity {
 
@@ -307,7 +306,10 @@ public class Cart extends AppCompatActivity {
         }
         CateringObjectInfo temp = Cashier.cateringOrder.remove(entryToDelete);
         Cashier.writeToFileCateringOrder(context);
-        Cashier.displayOrderCatering(lisa, totalSum, context, temp.getPrice());
+        if(temp != null)
+            Cashier.displayOrderCatering(lisa, totalSum, context, temp.getPrice());
+        else
+            Cashier.displayOrderCatering(lisa, totalSum, context, 0);//probably won't get here
     }
 
     public void updateItemAmount(String entry, int newAmount, int pos)
@@ -491,7 +493,7 @@ public class Cart extends AppCompatActivity {
         String unpaid = getString(R.string.noteToA);
         if(!Cashier.cateringOrder.isEmpty())
         {
-            for(Map.Entry<String, CateringObjectInfo> entry : Cashier.cateringOrder.entrySet())
+            for(OrderMapEntry entry : Cashier.cateringOrder.entrySet())
             {
                 String temp;
                 if(entry.getValue().getOrderString() == null) {

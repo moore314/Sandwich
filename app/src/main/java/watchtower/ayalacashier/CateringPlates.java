@@ -12,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
-import java.util.Map;
-
 public class CateringPlates extends AppCompatActivity {
 
     static Context context;
@@ -63,7 +61,7 @@ public class CateringPlates extends AppCompatActivity {
     public static String getTortillaEntry()
     {
         Log.d("TKT_CateringPlates","initTortillaCheckbox================");
-        for(Map.Entry<String, CateringObjectInfo> entry : Cashier.cateringOrder.entrySet())
+        for(OrderMapEntry entry : Cashier.cateringOrder.entrySet())
         {
             if(entry.getKey().contains(context.getString(R.string.tortillaFilledWith)))
             {

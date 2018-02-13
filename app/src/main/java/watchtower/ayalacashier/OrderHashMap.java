@@ -11,7 +11,7 @@ import java.util.Set;
 public class OrderHashMap{
    private int size;
    //private OrderMapEntry<String, CateringObjectInfo>
-    LinkedList<OrderMapEntry> values = new LinkedList<OrderMapEntry>();
+    LinkedList<OrderMapEntry> values = new LinkedList<>();
 
     public CateringObjectInfo get(String key)
     {
@@ -46,13 +46,17 @@ public class OrderHashMap{
         }
     }
 
-    public void remove(String key)
+    public CateringObjectInfo remove(String key)
     {
+        CateringObjectInfo removed = null;
         for(int i = 0; i < values.size(); i ++)
         {
-            if(values.get(i).getKey().equals(key))
-                values.remove(i);//check if okay
+            if(values.get(i).getKey().equals(key)) {
+                removed = values.remove(i).getValue();//check if okay
+
+            }
         }
+        return removed;
     }
 
     public Set<String> keySet()
@@ -63,6 +67,38 @@ public class OrderHashMap{
             set.add(values.get(i).getKey());
         }
         return set;
+    }
+
+    public Set<OrderMapEntry> entrySet()
+    {
+        Set<OrderMapEntry> set = new HashSet<>();
+        for(int i = 0; i < values.size(); i++)
+        {
+            set.add(values.get(i));
+        }
+        return set;
+    }
+
+    public boolean isEmpty()
+    {
+        if(values.size() == 0)
+            return true;
+        return false;
+    }
+
+    public boolean containsKey(CharSequence k)
+    {
+        for(int i = 0; i < values.size(); i++)
+        {
+            if(values.get(i).getKey().equals(k))
+                return true;
+        }
+        return false;
+    }
+
+    public void clear()
+    {
+        values.clear();
     }
 
     String salad = "סלט";
@@ -164,6 +200,8 @@ public class OrderHashMap{
                                 }
         return index;
     }
+
+
 
 
 

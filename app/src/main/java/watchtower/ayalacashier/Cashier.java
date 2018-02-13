@@ -39,10 +39,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Currency;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 /**
@@ -490,7 +488,7 @@ public class Cashier {
 
 
     //CATERING
-    public static HashMap<String, CateringObjectInfo> cateringOrder = new HashMap<>();
+    public static OrderHashMap cateringOrder = new OrderHashMap();
     //^^hashmap key: itemDescription; value: CateringObjectInfo
     public static final String [] CATERING_ITEMS = {"SALAD_HUGE","SALAD_LENTIL","SALAD_QUINOA","SALAD_TUNA","SALAD_EGG","SALAD_EGGPLANT","SALAD_THINI","SALAD_AVOCADO"};
     public static final int SALAD_HUGE = 0;
@@ -1435,10 +1433,10 @@ sending through whatsapp
         getCateringOrderFromFile(context);
         if(!cateringOrder.isEmpty())
         {
-            for(Map.Entry<String, CateringObjectInfo> entry : cateringOrder.entrySet())
+            for(OrderMapEntry entry : cateringOrder.entrySet())
             {
                 String temp = cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context);
-                if(!temp.contains("::"))
+                if(!temp.contains("::"))//seems redundant cuz map is already ordered
                     listOfItem.add(0,temp);
                 else
                     listOfItem.add(temp);
@@ -1479,7 +1477,7 @@ sending through whatsapp
         try {
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
             Log.d("TKT_cashier","orderB4 file: " + cateringOrder.toString());
-            cateringOrder = (HashMap<String,CateringObjectInfo>)objectInputStream.readObject();
+            cateringOrder = (OrderHashMap)objectInputStream.readObject();
             Log.d("TKT_cashier","try is successful");
             Log.d("TKT_cashier","orderB4 file: " + cateringOrder.toString());
         }
