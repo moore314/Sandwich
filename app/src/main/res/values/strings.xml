@@ -48,12 +48,24 @@
     <string name="deliveryCatering">משלוח בתשלום</string>
     <string name="hugeSaladCatering">סלט ענק</string>
     <string name="hugeSaladCatering1">[סלט] חסה, פטריות, עגבניות שרי, בצל סגול, ויניגרט</string>
+    <string name="orderStringLettuceSalad">סלט חסה, פטריות, עגבניות שרי</string>
+
     <string name="hugeSaladCatering2">[סלט] חסה, עלי בייבי, בטטה מוקפצת, עגבניות שרי, בצל סגול, גרעיני חמנייה קלויים</string>
+    <string name="orderStringYamSalad">סלט חסה, עלי בייבי, בטטה מוקפצת</string>
+
     <string name="hugeSaladCatering3">[סלט] כרוב, חמוציות, שבבי שקדים קלויים, בצל ירוק, רוטב סיני</string>
+    <string name="orderStringCabbageSaladCatering">סלט כרוב</string>
+
     <string name="hugeSaladCatering4">[סלט סביח] חסה, גמבה, מלפפון חמוץ, חציל מטוגן, גרגירי חומוס, ביצים קשות, רוטב טחינה</string>
+    <string name="orderStringSabiaSaladCatering">סלט סביח</string>
+
     <string name="lentilSaladCateringIngre">[סלט] עדשים שחורות, גבינה, בולגרית, בטטה</string>
+
     <string name="quinoaSaladCateringIngre">[סלט] קינואה, חמוציות, גרעיני חמנייה</string>
+
     <string name="tunaSaladCateringIngre">[סלט] טונה, מיונז, מלפפון חמוץ, גמבה, בצל סגול</string>
+
+
     <string name="mushroomQuicheCateringIngre">קיש פטריות</string>
     <string name="yamQuicheCateringIngre">קיש בטטה</string>
     <string name="broccoliQuicheCateringIngre">קיש ברוקולי</string>
@@ -63,21 +75,27 @@
     <string name="lentilHashBrownsCateringIngre">[פלטה] לביבות עדשים שחורות</string>
     <string name="antipastiCateringIngre">[אנטי פסטי] חציל, גמבה במגוון צבעים, בצל, סגול, בטטה, שומר</string>
     <string name="cheesePlateCateringIngre">[פלטה] גבינות צהובות, צפתית, בולגרית, בלקנית</string>
-    <string name="sandPlateCateringIngre">רבעי בגט במילויים עשירים ומגוונים</string>
+    <string name="sandPlateCateringIngre">[פלטה] רבעי בגט במילויים עשירים ומגוונים</string>
     <string name="veggiePlateCateringIngre">[פלטה] עגבניות שרי, מלפפון, גזר, תירס גמדי, פטריות, שומר, גמבות במבחר צבעים, רוטב שום</string>
+    <string name="orderStringVeggiePlate">פלטת ירקות</string>
     <string name="smokedFishPlateCatering">[פלטה] דגים מעושנים</string>
     <string name="sandAmountCatering">יחידות</string>
+    <string name="noteToA">הסכום לתשלום אינו כולל את הפריטים הבאים:</string>
 
 
     <!-- plates -->
     <string name="tortillaPlateCatering">טורטיות ממולאות</string>
     <string name="eggplantPlateWhiteCatering">חציל ולבנה</string>
+    <string name="orderStringeggplantPlateWhiteCatering">פלטת חציל ולבנה</string>
     <string name="hashbrownPlateCatering">לביבות</string>
     <string name="antipastiPlateCatering">אנטיפסטי</string>
     <string name="cheesePlateCatering">גבינות</string>
+    <string name="orderStringcheesePlateCatering">פלטת גבינות</string>
     <string name="sandPlateCatering">סנדוויצ\'ים</string>
+    <string name="orderStringsandPlateCatering">פלטת סנדוויצ\'ים</string>
     <string name="veggiPlateCatering">ירקות</string>
     <string name="pescadoPlateCatering">דגים מעושנים</string>
+    <string name="orderStringpescadoPlateCatering">פלטת דגים מעושנים</string>
     <string name="tortillaFilling1">פסטו, פטה, גמבה קלוייה, רוקט</string>
     <string name="tortillaFilling2">סלט טונה</string>
     <string name="tortillaFilling3">חציל, פטה, גמבה קלוייה, קורט</string>
@@ -90,8 +108,11 @@
     <string name="foucachasCateringIng">מגש פוקצ\'ות עם עשבי תיבול</string>
     <string name="breadBasketCateringIng">סלסלת לחמניות מקמח מלא ולחמי מחמצת במגוון טעמים</string>
     <string name="dessertCateringIng">מנות אחרונות ועוגות</string>
-    <string name="cupsDessertsCateringIng">כוסיות</string>
-    <string name="piesDessertsCateringIng">פאי</string>
+    <string name="chocolatePieCateringIng">פאי שוקולד</string>
+    <string name="nutPieCateringIng">פאי אגוזים</string>
+    <string name="cheesePieCateringIng">פאי גבינה</string>
+    <string name="berriesPieCateringIng">פאי פירות יער</string>
+
 
 
     <string name="TAGunchecked">unchecked</string>
@@ -121,7 +142,7 @@
     <string name="viewOrder">צפייה בהזמנה</string>
     <string name="foucachasCateringPrice">000 ש\"ח\nמספיק ל 000 אנשים</string>
     <string name="breadBasketCateringPrice">מחיר תלוי בכמות שתוזמן</string>
-    <string name="dessertsCateringPrice">120-150 ש\"ח</string>
+    <string name="dessertsCateringPrice">150 ש\"ח</string>
     <string name="childrenCateringPriceVeggie">[110 ש\"ח]</string>
     <string name="childrenCateringPricePasta">[160 ש\"ח]</string>
     <string name="rentThePlacePrice">400 ש\"ח</string>

@@ -408,7 +408,7 @@ public class Cart extends AppCompatActivity {
                             orderNow.setVisibility(View.INVISIBLE);
 
                         } else if (isCheckedArr[1]) {
-                            Cashier.cateringOrder.put(paymentString[1], new CateringObjectInfo(Cashier.ZERO, Cashier.ONE));
+                            Cashier.cateringOrder.put(paymentString[1], new CateringObjectInfo(Cashier.ZERO, Cashier.ONE,paymentString[1]));
                             Cashier.sharedUpdatePaidAmount(cashTxt2.getText().toString());
                             Cashier.writeToFileCateringOrder(context);
                             orderNow.setVisibility(View.VISIBLE);
@@ -482,26 +482,42 @@ public class Cart extends AppCompatActivity {
 
     public void createOrderTextAndSend()
     {//generate orderString and send order to a
-        String subject = getString(R.string.order) +" " + Cashier.checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_NAME, null) + " - " + Cashier.checkPrefs.getString(Cashier.CATERING_DATE_INFO,null);
+        String subject = getString(R.string.order) +" " + Cashier.checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_NAME, null) + " - " + Cashier.checkPrefs.getString(Cashier.CATERING_DATE_INFO,null)+"\n";
        // Log.d("TKT_cart","subject: " + subject);
         Cashier.getCateringOrderFromFile(context);
         String text = subject +" - " + Cashier.checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_PHONE,null)+"\n";
         //Log.d("TKT_cart","text: " + text);
+        //// TODO: 2/13/2018 remove \n from noteToA string!! 
+        String unpaid = getString(R.string.noteToA);
         if(!Cashier.cateringOrder.isEmpty())
         {
             for(Map.Entry<String, CateringObjectInfo> entry : Cashier.cateringOrder.entrySet())
             {
-                String temp = Cashier.cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context) + "\n";
+                String temp;
+                if(entry.getValue().getOrderString() == null) {
+                    Log.d("TKT_cart","orderString = null");
+                    temp = "\n" + Cashier.cateringCartGenerateString(entry.getValue().toString(), entry.getKey(), context);
+                }
+                else {
+                    Log.d("TKT_cart","orderString != null");
+                    temp = "\n" + Cashier.cateringCartGenerateString(entry.getValue().toString(), entry.getValue().getOrderString(), context);
+                }
+
                 text += temp;
+                if(entry.getKey().equals(getString(R.string.breadBasketCateringIng)))
+                    unpaid += "\n-" + getString(R.string.breadString);
+                if(entry.getKey().equals(getString(R.string.deliveryCatering)))
+                    unpaid += "\n-" + getString(R.string.deliveryString);
             }
+            text +="\n";
             //if paid by paypal
             if(Cashier.checkPrefs.getBoolean(Cashier.PAYPAL_PAID_CATERING,false)) {
                 subject = getString(R.string.paidMail) + subject;
-                text += getString(R.string.paidInPaypal) + Cashier.checkPrefs.getString(Cashier.PAID_AMOUNT, null);
+                text += getString(R.string.paidInPaypal) + Cashier.checkPrefs.getString(Cashier.PAID_AMOUNT, null) + "\n" + unpaid;
             }
             else {
                 subject = getString(R.string.notPaidMail) + subject;
-                text += getString(R.string.cashPayment) + Cashier.checkPrefs.getString(Cashier.PAID_AMOUNT, null);
+                text += "\n" + getString(R.string.cashPayment) + " " + Cashier.checkPrefs.getString(Cashier.PAID_AMOUNT, null) + " \n" + unpaid;
             }
 
             //Log.d("TKT_cart","text: " + text);

@@ -55,7 +55,7 @@ public class Cashier {
 
     //paypal info
     public static PayPalConfiguration configuration;
-    public static String paypalClientId = "ASod7GQIJzUSWkxC6PszybkqJvxfkP4Qoavf0393SzdodozA1cwzMBvhqwpwGegVZjCJTA4RjNbHPYIj";
+    public static String paypalClientId = "AVfkgQ-oJkJPQGLMtpkvV4qTGdeZNopnNp5POmFERtBPzd3Cq8ilTwjtT3XEQ6vdUbIwXzO9dIuZ_vqK";
     public static Intent service;
     public static int paypalRequestCode = 999;
     public static final String PAYMENT_APPROVED = "approved";
@@ -513,16 +513,16 @@ public class Cashier {
     public static final int SOUP = 17;
     public static final int FOUCACHAS = 18;
     public static final int BREAD_BASKET = 19;
-    public static final int PIES = 20;
+    public static final int DESSERT = 20;
     public static final int DELIVERY = 21;
     public static final int RENT = 22;
-    public static final int CUPS = 23;
 
 
-    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000","150","000","400","120"};
+    public static String [] CATERING_PRICES = {"185", "160","160", "150", "110", "110", "110", "110","200","100","100","195","200","10","110","200","160","250","000","000","150","000","400",};
     //hugeSalad, lentilSalad, quinoaSalad, tunaSalad, eggSalad, eggplantSalad, thiniSalad, avocadoSalad, quiche, tortilla
     public static String ONE = 1+"";
     public static String ZERO = 0+"";
+
     public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
     public static final String INSTA_URL = "https://www.instagram.com/ayalamodli/?hl=en";
     public static final String DONT_SHOW_AGAIN = "dontShowAgain";
@@ -1533,14 +1533,14 @@ sending through whatsapp
         act.startActivityForResult(intent, paypalRequestCode);
     }
 
-    public static void cateringButtonBackgroundChange(View v, Context context, String price)
+    public static void cateringButtonBackgroundChange(View v, Context context, String price, String orderString)
     {
         Button bv = (Button)v;
         if(v.getTag().equals(context.getString(R.string.TAGunchecked)))
         {//unchecked
             v.setTag(context.getString(R.string.TAGchecked));
             bv.setBackground(ContextCompat.getDrawable(context,R.drawable.circle_gray));
-            CateringObjectInfo c = new CateringObjectInfo(price, "1");
+            CateringObjectInfo c = new CateringObjectInfo(price, "1",orderString);
             cateringOrder.put(bv.getText().toString(), c);
             writeToFileCateringOrder(context);
 

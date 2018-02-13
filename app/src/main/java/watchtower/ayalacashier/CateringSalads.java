@@ -58,6 +58,8 @@ public class CateringSalads extends AppCompatActivity {
         //final String s4 = getString(R.string.hugeSaladCatering4);
         Log.d("TKT_CateringSalads","openHugeSalad================");
         final String [] saladType = {getString(R.string.hugeSaladCatering1), getString(R.string.hugeSaladCatering2),getString(R.string.hugeSaladCatering3),getString(R.string.hugeSaladCatering4)};
+        final String [] orderString = {getString(R.string.hugeSaladCatering1), getString(R.string.hugeSaladCatering2),getString(R.string.orderStringCabbageSaladCatering),getString(R.string.orderStringSabiaSaladCatering)};
+
         final boolean [] isCheckedArr = new boolean[4];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_HUGE];
         Cashier.dialog = new Dialog(this);
@@ -113,7 +115,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(saladType,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(saladType,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -127,6 +129,7 @@ public class CateringSalads extends AppCompatActivity {
         //final String stringLentil = getString(R.string.lentilSaladCateringIngre);
         Log.d("TKT_CateringSalads","openLentilSalad================");
         final String [] stringLentil = {getString(R.string.lentilSaladCateringIngre)};
+        final String [] orderString = {getString(R.string.lentilSaladCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_LENTIL];
         Cashier.dialog = new Dialog(this);
@@ -149,7 +152,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringLentil,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(stringLentil,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -161,6 +164,7 @@ public class CateringSalads extends AppCompatActivity {
     {
         //final String stringQuinoa = getString(R.string.quinoaSaladCateringIngre);
         final String [] stringQuinoa = {getString(R.string.quinoaSaladCateringIngre)};
+        final String [] orderString = {getString(R.string.quinoaSaladCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_QUINOA];
         Cashier.dialog = new Dialog(this);
@@ -184,7 +188,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringQuinoa,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(stringQuinoa,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO,orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -198,6 +202,7 @@ public class CateringSalads extends AppCompatActivity {
         //final String stringTuna = getString(R.string.tunaSaladCateringIngre);
         Log.d("TKT_CateringSalads","openTunaSalad================");
         final String [] stringTuna = {getString(R.string.tunaSaladCateringIngre)};
+        final String [] orderString = {getString(R.string.tunaSaladCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SALAD_TUNA];
         Cashier.dialog = new Dialog(this);
@@ -220,7 +225,7 @@ public class CateringSalads extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringTuna,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(stringTuna,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -231,7 +236,7 @@ public class CateringSalads extends AppCompatActivity {
     {
         //PRICE = Cashier.CATERING_PRICES[4];
         Log.d("TKT_CateringSalads","openEggSalad================");
-        Cashier.cateringButtonBackgroundChange(v,this,Cashier.CATERING_PRICES[Cashier.SALAD_EGG]);
+        Cashier.cateringButtonBackgroundChange(v,this,Cashier.CATERING_PRICES[Cashier.SALAD_EGG], getString(R.string.eggSaladCatering));
 
     }
 
@@ -239,21 +244,21 @@ public class CateringSalads extends AppCompatActivity {
     {
         //PRICE = Cashier.CATERING_PRICES[5];
         Log.d("TKT_CateringSalads","openEggplantSalad================");
-        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.SALAD_EGGPLANT]);
+        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.SALAD_EGGPLANT], getString(R.string.eggplantSaladCatering));
     }
 
     public void openThiniSalad(View v)
     {
         //PRICE = Cashier.CATERING_PRICES[6];
         Log.d("TKT_CateringSalads","openThiniSalad================");
-        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.SALAD_THINI]);
+        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[Cashier.SALAD_THINI], getString(R.string.thiniSaladCatering));
     }
 
     public void openAvocadoSalad(View v)
     {
         //PRICE = Cashier.CATERING_PRICES[7];
         Log.d("TKT_CateringSalads","openAvocadoSalad================");
-        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[7]);
+        Cashier.cateringButtonBackgroundChange(v, this, Cashier.CATERING_PRICES[7], getString(R.string.avocadoSaladCatering));
     }
 
     @Override

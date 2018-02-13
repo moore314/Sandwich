@@ -131,7 +131,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(tortillaFilling,isCheckedArr, Catering.TORTILLA_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(tortillaFilling,isCheckedArr, Catering.TORTILLA_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, null);
                 Cashier.dialog.dismiss();
             }
         });
@@ -143,6 +143,7 @@ public class CateringPlates extends AppCompatActivity {
     public void openWhiteEggplant(View v)
     {
         final String [] stringWhiteEggplant = {getString(R.string.whiteEggplantCateringIngre)};
+        final String [] orderString = {getString(R.string.orderStringeggplantPlateWhiteCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.WHITE_EGGPLANT];
         Cashier.dialog = new Dialog(this);
@@ -166,7 +167,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(stringWhiteEggplant,isCheckedArr, Catering.NO_FLAG, Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(stringWhiteEggplant,isCheckedArr, Catering.NO_FLAG, Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -214,7 +215,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(hashbrownType, isCheckedArr,Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(hashbrownType, isCheckedArr,Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, hashbrownType);
                 Cashier.dialog.dismiss();
             }
         });
@@ -227,6 +228,7 @@ public class CateringPlates extends AppCompatActivity {
     public void openAntipasti(View v)
     {
         final String [] antipastiString = {getString(R.string.antipastiCateringIngre)};
+        final String [] orderString = {getString(R.string.antipastiPlateCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.ANTIPASTI];
         Cashier.dialog = new Dialog(this);
@@ -251,7 +253,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(antipastiString,isCheckedArr, Catering.NO_FLAG, Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(antipastiString,isCheckedArr, Catering.NO_FLAG, Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -262,6 +264,7 @@ public class CateringPlates extends AppCompatActivity {
     public void openCheesePlate(View v)
     {
         final String [] cheeseString = {getString(R.string.cheesePlateCateringIngre)};
+        final String [] orderString = {getString(R.string.orderStringcheesePlateCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.CHEESE_PLATE];
         Cashier.dialog = new Dialog(this);
@@ -286,7 +289,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(cheeseString,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(cheeseString,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -297,6 +300,7 @@ public class CateringPlates extends AppCompatActivity {
     public void openSand(View v)
     {
         final String [] sandString = {getString(R.string.sandPlateCateringIngre)};
+        final String [] orderString = {getString(R.string.orderStringsandPlateCatering)};
         final boolean [] isCheckedArr = new boolean[1];
 
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SAND_PLATE];
@@ -357,7 +361,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(sandString,isCheckedArr, Catering.NO_FLAG, pickedNum+"",Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(sandString,isCheckedArr, Catering.NO_FLAG, pickedNum+"",Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -368,6 +372,7 @@ public class CateringPlates extends AppCompatActivity {
     public void openVeggie(View v)
     {
         final String [] veggieString = {getString(R.string.veggiePlateCateringIngre)};
+        final String [] orderString = {getString(R.string.orderStringVeggiePlate)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.VEGGIE_PLATE];
         Cashier.dialog = new Dialog(this);
@@ -396,7 +401,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(veggieString,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(veggieString,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });
@@ -407,6 +412,7 @@ public class CateringPlates extends AppCompatActivity {
     public void openSmokedFish(View v)
     {
         final String [] fishString = {getString(R.string.smokedFishPlateCatering)};
+        final String [] orderString = {getString(R.string.orderStringpescadoPlateCatering)};
         final boolean [] isCheckedArr = new boolean[1];
         Cashier.PRICE = Cashier.CATERING_PRICES[Cashier.SMOKED_FISH_PLATE];
         Cashier.dialog = new Dialog(this);
@@ -431,7 +437,7 @@ public class CateringPlates extends AppCompatActivity {
         proceed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Catering.checkHandler(fishString,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO);
+                Catering.checkHandler(fishString,isCheckedArr, Catering.NO_FLAG,Cashier.ONE,Cashier.ZERO,Cashier.ZERO, orderString);
                 Cashier.dialog.dismiss();
             }
         });

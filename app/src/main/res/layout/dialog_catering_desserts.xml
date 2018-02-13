@@ -32,88 +32,97 @@
             android:layout_height="2dp"
             android:background="@color/blanco"></View>
 
-
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="right">
+            android:layout_height="wrap_content">
 
+            <!-- quiche types-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/pieLayout"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:padding="5dp"
-                android:tag="@string/TAGunchecked">
+                android:orientation="vertical"
+                android:layout_gravity="right">
 
                 <TextView
-                    android:id="@+id/pieTxt"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dp"
-                    android:text="@string/piesDessertsCateringIng"
-                    android:clickable="true"
-                    android:layout_gravity="right|center"
-                    android:background="@color/trans"
-                    />
-
-                <TextView
-                    android:id="@+id/piePriceTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/pieCateringPrice"
-                    android:textSize="15dp"
-                    android:layout_gravity="right|center"
-                    android:gravity="right|center"
-                    android:textStyle="bold"
-                    android:paddingLeft="10dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/blanco"></View>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="right"
-                android:gravity="right"
-                android:padding="5dp"
-                android:id="@+id/cupsLayout"
-                android:tag="@string/TAGunchecked">
-
-                <TextView
-                    android:id="@+id/cupsTxt"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/chocolatePieTxt"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="17dp"
-                    android:text="@string/cupsDessertsCateringIng"
+                    android:text="@string/chocolatePieCateringIng"
+                    android:padding="5dp"
                     android:clickable="true"
-                    android:layout_gravity="right|center"
-                    android:gravity="right"
+                    android:layout_gravity="right"
                     android:background="@color/trans"
+                    android:tag="@string/TAGunchecked"
                     />
 
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/blanco"></View>
+
+
                 <TextView
-                    android:id="@+id/cupsPriceTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/cupsCateringPrice"
-                    android:textSize="15dp"
-                    android:layout_gravity="right|center"
-                    android:gravity="right|center"
-                    android:textStyle="bold"
-                    android:paddingLeft="10dp"/>
+                    android:id="@+id/nutPieTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="@string/nutPieCateringIng"
+                    android:padding="5dp"
+                    android:clickable="true"
+                    android:layout_gravity="right"
+                    android:background="@color/trans"
+                    android:tag="@string/TAGunchecked"
+                    />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/blanco"></View>
+
+                <TextView
+                    android:id="@+id/cheesePieTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="@string/cheesePieCateringIng"
+                    android:padding="5dp"
+                    android:clickable="true"
+                    android:layout_gravity="right"
+                    android:background="@color/trans"
+                    android:tag="@string/TAGunchecked"
+                    />
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/blanco"></View>
+
+
+                <TextView
+                    android:id="@+id/berriesPieTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"
+                    android:text="@string/berriesPieCateringIng"
+                    android:padding="5dp"
+                    android:clickable="true"
+                    android:layout_gravity="right"
+                    android:background="@color/trans"
+                    android:tag="@string/TAGunchecked"
+                    />
+
+
             </LinearLayout>
 
+        </ScrollView>
 
-        </LinearLayout>
+
+
+
 
 
     <View
