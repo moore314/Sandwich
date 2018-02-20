@@ -11,6 +11,7 @@ public class CateringObjectInfo implements Serializable{
     private Double price;
     private Integer amount; //set this as double cuz I want it to be displayed with a decimel
     private String orderString;
+    private String  additions = null;
     //private String
 
     public CateringObjectInfo()
@@ -26,6 +27,20 @@ public class CateringObjectInfo implements Serializable{
         price = new Double(p);
         amount = new Integer(a);
         orderString = stringOrder;
+    }
+
+    public CateringObjectInfo(String p, String  a, String stringOrder, String adds)
+    {
+        price = new Double(p);
+        amount = new Integer(a);
+        orderString = stringOrder;
+        additions = adds;
+    }
+
+
+    public String getAdditions()
+    {
+        return additions;
     }
 
     public void setPrice(String  p)

@@ -97,6 +97,9 @@ public class Crypto {
         krypto = primes[randInd]+""+ l[0] + stamp[ZERO] + l[1] + stamp[ONE] + l[2] + stamp[TWO] + l[3] + stamp[TRE];
         if(l.length == 5)
             krypto += l[4];
+        if(Integer.parseInt(stamp[ZERO]) % 2 == 0)
+            krypto += (int)Math.random()*5;
+
 
 
 

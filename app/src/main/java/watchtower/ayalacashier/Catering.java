@@ -741,7 +741,8 @@ public class Catering extends AppCompatActivity {
         else
             {
             CateringObjectInfo c = new CateringObjectInfo(Cashier.PRICE, initAmount,"");
-            if (flag.equals(TORTILLA_FLAG)) {//tortillas
+            if (flag.equals(TORTILLA_FLAG))
+            {//tortillas
                 Log.d("TKT_catering", "flag = tortilla");
                 String tortillaString = context.getString(R.string.tortillaFilledWith);
                 for (int i = 0; i < itemArr.length; i++) {
@@ -761,7 +762,9 @@ public class Catering extends AppCompatActivity {
                     }
                     Cashier.cateringOrder.put(tortillaString, c);
                 }
-            } else {
+            }
+            else
+                {
                 Log.d("TKT_catering", "flag = noFlag");
                 for (int i = 0; i < itemArr.length; i++) {
                     if (isChecked[i]) {

@@ -1,6 +1,5 @@
 package watchtower.ayalacashier;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -64,6 +63,7 @@ public class Cashier {
     public static final double COMMISSION_PERCENTAGE = 3.4;
     public static String PRICE = "0.0";
     public static final String PAYPAL_PAID_CATERING = "paypalPaid";
+    public static final String ORDER_CODE = "מספר הזמנה: ";
 
 
     //=======================
@@ -221,7 +221,7 @@ public class Cashier {
 
     //PastrieS===========================================================
     public static String[] PASTRY_NAMES = {"קרואסון שוקולד", "גבינית", "קרואסון חמאה", "קרואסון קינמון", "דונאט", "בורקס גבינה", "בורקס תפו\"א", "בורקס + ביצה", "מלאווח", "מלאווח + תוספות", "פיצה רגילה", "פיצה + תוספות", "בולגרית לפיצה"};
-    public static double[] PASTRY_PRICES = {7, 7, 7, 7, 6, 7, 7, 10, 9.5, 12.5, 6, 7, 3};
+    public static double[] PASTRY_PRICES = {7, 7, 7, 7, 6.5, 7, 7, 10, 9.5, 12.5, 6, 7, 3};
     public static int IND_CHOCO_CROI = 0;
     public static int IND_CHEESE_CROI = 1;
     public static int IND_BUTTER_CROI = 2;
@@ -489,6 +489,7 @@ public class Cashier {
 
     //CATERING
     public static OrderHashMap cateringOrder = new OrderHashMap();
+    public static OrderHashMap studentOrder = new OrderHashMap();
     //^^hashmap key: itemDescription; value: CateringObjectInfo
     public static final String [] CATERING_ITEMS = {"SALAD_HUGE","SALAD_LENTIL","SALAD_QUINOA","SALAD_TUNA","SALAD_EGG","SALAD_EGGPLANT","SALAD_THINI","SALAD_AVOCADO"};
     public static final int SALAD_HUGE = 0;
@@ -523,7 +524,9 @@ public class Cashier {
 
     public static final String FACEBOOK_URL = "https://www.facebook.com/pg/www.pashuttaem/photos/?ref=page_internal";
     public static final String INSTA_URL = "https://www.instagram.com/ayalamodli/?hl=en";
+    public static final String PAYPAL_REGISTER_URL = "https://www.paypal.com/il/signup/account?locale.x=he_IL";
     public static final String DONT_SHOW_AGAIN = "dontShowAgain";
+    public static final String DONT_SHOW_AGAIN_PAYPAL = "dontShowAgainPayPal";
 
     public static void sharedUpdateEmployee(String employeeName) {
         Log.d("TKT_cashier", "updateEmployee===================");
@@ -1219,7 +1222,7 @@ update        */
     }
 
 
-    @SuppressLint("NewApi")
+   // @SuppressLint("NewApi")
     public static void sendThisMonthToA(int month, Context context) {
         Log.d("TKT_cashier", "sendThisMonthToA==========");
         //Log.d("TKT_cashier","month is: "+(month));
@@ -1431,10 +1434,11 @@ sending through whatsapp
         List<String>listOfItem = new ArrayList<>();
         ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
         getCateringOrderFromFile(context);
-        if(!cateringOrder.isEmpty())
+        if(!studentOrder.isEmpty())
         {
-            for(OrderMapEntry entry : cateringOrder.entrySet())
+            for(OrderMapEntry entry : studentOrder.entrySet())
             {
+
                 String temp = cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context);
                 if(!temp.contains("::"))//seems redundant cuz map is already ordered
                     listOfItem.add(0,temp);
@@ -1442,6 +1446,57 @@ sending through whatsapp
                     listOfItem.add(temp);
                     //listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
                     sum += entry.getValue().getPrice();
+
+
+                Log.d("TKT_cashier","MMM: "+entry.toString());
+            }
+            Log.d("TKT_cashier","listOfItems: "+listOfItem.toString());
+
+            //adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
+            listView.setAdapter(adapter);
+            totalSum.setText(sum+"");
+            //show long click dialog
+        }
+        else {
+            //adapter.notifyDataSetChanged();
+            double tempSum = Double.parseDouble(totalSum.getText().toString());
+            if(tempSum != 0)
+            {
+                tempSum -=priceToReduce;
+                totalSum.setText(tempSum+"");
+            }
+            listView.setAdapter(adapter);
+            Log.d("TKT_cashier", "nothing to see here");
+
+        }
+
+
+
+    }
+
+    public static void displayStudentOrder(ListView listView, TextView totalSum, Context context, double priceToReduce)
+    {
+        //// TODO: 1/11/2018 add a dialog that tells user that a long touch on item is for changing amount
+        Log.d("TKT_cashier","displayOrderCatering========");
+        double sum = 0;
+
+        List<String>listOfItem = new ArrayList<>();
+        ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
+        //getCateringOrderFromFile(context);
+        if(!studentOrder.isEmpty())
+        {
+            for(OrderMapEntry entry : studentOrder.entrySet())
+            {
+
+                String temp = cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context);
+                if(entry.getValue().getOrderString() != null)
+                    temp += ": " + entry.getValue().getOrderString();
+                if(!temp.contains("::"))//seems redundant cuz map is already ordered
+                    listOfItem.add(0,temp);
+                else
+                    listOfItem.add(temp);
+                //listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
+                sum += entry.getValue().getPrice();
 
 
                 Log.d("TKT_cashier","MMM: "+entry.toString());
@@ -1479,11 +1534,11 @@ sending through whatsapp
             Log.d("TKT_cashier","orderB4 file: " + cateringOrder.toString());
             cateringOrder = (OrderHashMap)objectInputStream.readObject();
             Log.d("TKT_cashier","try is successful");
-            Log.d("TKT_cashier","orderB4 file: " + cateringOrder.toString());
+            Log.d("TKT_cashier","orderAfter file: " + cateringOrder.toString());
         }
         catch (Exception e)
         {
-            Log.d("TKT_cashier","halt&catch file :/");
+            Log.d("TKT_cashier","halt&catch file wasn't opened :/");
             e.printStackTrace();
         }
     }
@@ -1521,8 +1576,12 @@ sending through whatsapp
         return h+":"+m;
     }
 
+    public static final double usdRate = 3.51;
+
     public static void pay(Context context, Activity act, String amount)
     {
+        //String usdAmount = Double.parseDouble(amount)/usdRate + "";
+        //Log.d("TKT_cashier","usdAmount: " + usdAmount);
         PayPalPayment  payment = new PayPalPayment(new BigDecimal(amount),CURRENCY,"Test paypal",PayPalPayment.PAYMENT_INTENT_SALE);
         Log.d("TKT_studentOrder","payment: "+payment.getAmountAsLocalizedString().toString());
         Intent intent = new Intent(context, PaymentActivity.class);
@@ -1568,6 +1627,12 @@ sending through whatsapp
     {
         Intent instaIntent = new Intent("android.intent.action.VIEW", Uri.parse(INSTA_URL));
         context.startActivity(instaIntent);
+    }
+
+    public static void openPayPalRegister(Context context)
+    {
+        Intent payPalRegisterIntent = new Intent("android.intent.action.VIEW", Uri.parse(PAYPAL_REGISTER_URL));
+        context.startActivity(payPalRegisterIntent);
     }
 
     public static String calculateCommission(String currPaymentString)
@@ -1660,6 +1725,16 @@ sending through whatsapp
         progressEdit.putBoolean(DONT_SHOW_AGAIN, true);
         progressEdit.commit();
     }
+
+    public static void updateDontShowAgainPayPal()
+    {
+        Log.d("TKT_cashier", "updateDontShowAgain===================");
+        progressEdit = checkPrefs.edit();
+        progressEdit.putBoolean(DONT_SHOW_AGAIN_PAYPAL, true);
+        progressEdit.commit();
+    }
+
+
 
 
 

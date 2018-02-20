@@ -1,5 +1,6 @@
 package watchtower.ayalacashier;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -8,7 +9,7 @@ import java.util.Set;
  * Created by Moore on 2/13/2018.
  */
 
-public class OrderHashMap{
+public class OrderHashMap implements Serializable{
    private int size;
    //private OrderMapEntry<String, CateringObjectInfo>
     LinkedList<OrderMapEntry> values = new LinkedList<>();
@@ -199,6 +200,16 @@ public class OrderHashMap{
                                     }
                                 }
         return index;
+    }
+
+    public String toString()
+    {
+        String orderString = "";
+        for(int i = 0; i < values.size(); i++)
+        {
+            orderString += values.get(i).toString()+"\n";
+        }
+        return orderString;
     }
 
 

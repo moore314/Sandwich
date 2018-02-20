@@ -299,6 +299,16 @@
 
         </LinearLayout>
 
+
+        <ListView
+            android:id="@+id/studentOrderList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            >
+        </ListView>
+
+        <!--
         <RelativeLayout
             android:id="@+id/orderRelativeLayout"
             android:layout_width="match_parent"
@@ -307,10 +317,10 @@
             android:layout_marginBottom="55dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-
             >
+            -->
 
-            <!-- sand1 ============================ -->
+            <!-- sand1 ============================
            <LinearLayout
                android:id="@+id/sand"
                android:layout_width="wrap_content"
@@ -342,18 +352,20 @@
 
                    />
            </LinearLayout>
+           -->
 
-            <LinearLayout
-                android:id="@+id/twoItemLinear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@id/sand"
-                android:layout_alignParentEnd="true"
-                android:layout_marginLeft="5dp"
-                >
+        <!--
+        <LinearLayout
+            android:id="@+id/twoItemLinear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/sand"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="5dp"
+            >
 
-                <!-- hots ============================= -->
+             hots =============================
                 <LinearLayout
                     android:id="@+id/itemHot"
                     android:layout_width="wrap_content"
@@ -385,8 +397,9 @@
 
                         />
                 </LinearLayout>
+                -->
 
-                <!-- dessert ===================== -->
+                <!-- dessert =====================
                 <LinearLayout
                     android:id="@+id/itemDessert"
                     android:layout_width="wrap_content"
@@ -419,10 +432,10 @@
                 </LinearLayout>
 
             </LinearLayout>
+-->
 
 
-
-            <!-- salad ========================= -->
+            <!-- salad =========================
             <LinearLayout
                 android:id="@+id/itemSalad"
                 android:layout_width="wrap_content"
@@ -455,11 +468,12 @@
 
                     />
             </LinearLayout>
+-->
 
 
 
+<!--        </RelativeLayout> -->
 
-        </RelativeLayout>
 
 
     </LinearLayout>

@@ -81,6 +81,9 @@
     <string name="smokedFishPlateCatering">[פלטה] דגים מעושנים</string>
     <string name="sandAmountCatering">יחידות</string>
     <string name="noteToA">הסכום לתשלום אינו כולל את הפריטים הבאים:</string>
+    <string name="youNeedPayPal">בשביל לבצע הזמנה, עלייך להצטייד בחשבון PayPay.</string>
+    <string name="createPayPal">פתיחת חשבון PayPal</string>
+    <string name="createPayPalLater">אחר כך</string>
 
 
     <!-- plates -->

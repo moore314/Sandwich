@@ -299,7 +299,7 @@
 
             <Button
                 android:id="@+id/genSoup"
-                android:layout_width="match_parent"
+                android:layout_width="85dp"
                 android:layout_height="60dp"
                 android:background="@drawable/shape"
                 android:textStyle="bold"
@@ -325,7 +325,7 @@
                 />
             <Button
                 android:id="@+id/genPanini"
-                android:layout_width="match_parent"
+                android:layout_width="85dp"
                 android:layout_height="60dp"
                 android:background="@drawable/shape"
                 android:textStyle="bold"

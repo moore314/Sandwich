@@ -27,10 +27,12 @@ public class Welcome extends AppCompatActivity {
     String employeeName;
     EditText name, pass;
     ImageView progressBar;
+    ImageButton tick;
     static boolean start = false;
     int RED = R.color.red;
     int TURQ = R.color.turq;
     public static Context context;
+    Menu m;
 
 
 
@@ -45,6 +47,7 @@ public class Welcome extends AppCompatActivity {
         //progressBar = (RingProgressBar) findViewById(R.id.progressBar);
         progressBar = (ImageView)findViewById(R.id.stateCircle);
         ImageButton getInShift = (ImageButton) findViewById(R.id.logo);
+        tick = (ImageButton)findViewById(R.id.nextButton);
         //TextView timerText = (TextView)findViewById(R.id.timerCount);
         inShift();
         pass.setVisibility(View.GONE);
@@ -57,40 +60,45 @@ public class Welcome extends AppCompatActivity {
 
                 @Override
                 public boolean onLongClick(View v) {
-                    if (!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false)){
+                    if (!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false))
+                    {
                         /////////////////////////////
                         start = true;
-                    Log.d("TKT_welcome", "start = " + start);
-                    if (Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null) {
+                        Log.d("TKT_welcome", "start = " + start);
+                        if (Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null) != null)
+                        {
                         //progressBar.setVisibility(View.VISIBLE);
-                        if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false)) {//if longPressed and shift = true; meaning, getOut
-                            Log.d("TKT_welcome", "getOutShift");
+                            if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false))
+                            {//if longPressed and shift = true; meaning, getOut
+                                Log.d("TKT_welcome", "getOutShift");
 
-                            Cashier.dialog = new Dialog(context);
-                            Cashier.dialog.setContentView(R.layout.are_you_sure);
-                            TextView q = (TextView) Cashier.dialog.findViewById(R.id.text);
-                            q.setText(Cashier.EXIT_SHIFT);
-                            Button yes = (Button) Cashier.dialog.findViewById(R.id.hellYeah);
-                            Button no = (Button) Cashier.dialog.findViewById(R.id.heavensNo);
+                                Cashier.dialog = new Dialog(context);
+                                Cashier.dialog.setContentView(R.layout.are_you_sure);
+                                TextView q = (TextView) Cashier.dialog.findViewById(R.id.text);
+                                q.setText(Cashier.EXIT_SHIFT);
+                                Button yes = (Button) Cashier.dialog.findViewById(R.id.hellYeah);
+                                Button no = (Button) Cashier.dialog.findViewById(R.id.heavensNo);
 
-                            yes.setOnClickListener(new View.OnClickListener() {
+                                yes.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    progressBar.setBackgroundResource(R.drawable.circle_red);
-                                    Cashier.updateShiftState(false);
-                                    Cashier.dialog.dismiss();
-                                    shiftExit();
-                                }
+                                        progressBar.setBackgroundResource(R.drawable.circle_red);
+                                        Cashier.updateShiftState(false);
+                                        Cashier.dialog.dismiss();
+                                        shiftExit();
+                                    }
                             });
-                            no.setOnClickListener(new View.OnClickListener() {
+                                no.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Cashier.dialog.dismiss();
-                                }
+                                        Cashier.dialog.dismiss();
+                                    }
                             });
-                            Cashier.dialog.show();
+                                Cashier.dialog.show();
 
-                        } else {
+                            }
+                        else
+                        {
                             Log.d("TKT_welcome", "getInShift");
                             progressBar.setBackgroundResource(R.drawable.circle_turq);
                             Cashier.updateShiftState(true);
@@ -99,9 +107,10 @@ public class Welcome extends AppCompatActivity {
                         }
                         //handler();
                         return true;
-                    }
+                        }
 
                     }
+
                     Log.d("TKT_welcome","student cannot get in shift");
                     return false;
                 }
@@ -178,7 +187,9 @@ public class Welcome extends AppCompatActivity {
         }
         else
             {//employee is registered
-            if (!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false))
+                tick.setBackground(getDrawable(R.drawable.arrow));
+
+                if (!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false))
             {//this is staff
             pass.setVisibility(View.GONE);
             name.setText(employeeName);
@@ -201,6 +212,10 @@ public class Welcome extends AppCompatActivity {
                 name.setEnabled(false);
                 progressBar.setBackgroundResource(R.drawable.circle_turq);
                 progressBar.setEnabled(false);
+                onCreateOptionsMenu(null);
+
+
+
             }
         }
     }
@@ -316,7 +331,6 @@ public class Welcome extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onResume() {
         Log.d("TKT_welcome","onResume======================");
@@ -328,6 +342,7 @@ public class Welcome extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         Log.d("TKT_welcome","onCreateOptionMenu==========================================");
+        m = menu;
         if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT, false))
         {//this is empoyee
             Log.d("TKT_welcome","welcome_menu inflated");
@@ -339,6 +354,7 @@ public class Welcome extends AppCompatActivity {
             }
             return true;
         }
+        Log.d("TKT_welcome","student: remove menu");
         return false;
         /*
         else {

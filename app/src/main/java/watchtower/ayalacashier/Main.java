@@ -1,6 +1,7 @@
 package watchtower.ayalacashier;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,12 +14,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.TextView;
 
 public class Main extends AppCompatActivity {
 
     static final int MY_PERMISSION_INT = 1;
     Context context;
     Intent callIntent;
+    Boolean checkMe = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +44,90 @@ public class Main extends AppCompatActivity {
         else {
 
             if (v.getId() == R.id.cafeteria)
+            {
                 intent = new Intent(this, Welcome.class);
+                if(!Cashier.checkPrefs.getBoolean(Cashier.DONT_SHOW_AGAIN_PAYPAL, false))
+                {
+                    openPayPalCreate(intent);
+                }
+                else
+                    startActivity(intent);
+
+            }
+
 
             if (v.getId() == R.id.catering)
+            {
                 intent = new Intent(this, Catering.class);
+                if(!Cashier.checkPrefs.getBoolean(Cashier.DONT_SHOW_AGAIN_PAYPAL, false))
+                {
+                    openPayPalCreate(intent);
+                }
+                else
+                    startActivity(intent);
 
+            }
 
-            //if(intent != null)
-            startActivity(intent);
         }
         return true;
+    }
+
+
+    public void openPayPalCreate(final Intent intent)
+    {
+        Log.d("TKT_cart", "dontShowAgainPayPalDialog==============");
+        //could have done that condision only on the dialog.show() method, but eh...
+
+        {
+            Cashier.dialog = new Dialog(this);
+            Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            Cashier.dialog.setContentView(R.layout.dialog_create_paypal_account);
+            Cashier.dialog.setCanceledOnTouchOutside(false);
+            Button payPalRegister = (Button) Cashier.dialog.findViewById(R.id.openPayPalRegister);
+            Button later = (Button)Cashier.dialog.findViewById(R.id.cancelCheck);
+            TextView text = (TextView) Cashier.dialog.findViewById(R.id.dontShowAgainTxt);
+            final CheckBox checkBox = (CheckBox) Cashier.dialog.findViewById(R.id.dontShowAgainBox);
+
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (checkBox.isChecked()) {
+                        checkBox.setChecked(false);
+                        checkMe = false;
+                    } else {
+                        checkBox.setChecked(true);
+                        checkMe = true;
+                    }
+                }
+            });
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkMe = isChecked;
+                }
+            });
+
+            payPalRegister.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (checkMe)
+                        Cashier.updateDontShowAgainPayPal();
+                    Cashier.dialog.dismiss();
+                    Cashier.openPayPalRegister(context);
+                }
+            });
+            later.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (checkMe)
+                        Cashier.updateDontShowAgainPayPal();
+                    Cashier.dialog.dismiss();
+                    startActivity(intent);
+                }
+            });
+            Cashier.dialog.show();
+        }
     }
 
     @Override

@@ -1,10 +1,14 @@
 package watchtower.ayalacashier;
 
+import android.util.Log;
+
+import java.io.Serializable;
+
 /**
  * Created by Moore on 2/13/2018.
  */
 
-public class OrderMapEntry {
+public class OrderMapEntry implements Serializable{
     private String key;
     private CateringObjectInfo value;
 
@@ -27,5 +31,20 @@ public class OrderMapEntry {
     public void setValue(CateringObjectInfo c)
     {//// TODO: 2/13/2018 check if this is a deep copy semantics
         value = c;
+    }
+
+    public String toString()
+    {
+        if(value.getOrderString() != null)
+        {
+            Log.d("TKT_orderMapEntry", "not null");
+            return key+"="+value.toString() + ": " + value.getOrderString();
+        }
+        else {
+            Log.d("TKT_orderMapEntry", "null");
+            return key + "=" + value.toString();
+        }
+
+
     }
 }

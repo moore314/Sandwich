@@ -489,7 +489,6 @@ public class Cart extends AppCompatActivity {
         Cashier.getCateringOrderFromFile(context);
         String text = subject +" - " + Cashier.checkPrefs.getString(Cashier.CATERING_CONTACT_INFO_PHONE,null)+"\n";
         //Log.d("TKT_cart","text: " + text);
-        //// TODO: 2/13/2018 remove \n from noteToA string!! 
         String unpaid = getString(R.string.noteToA);
         if(!Cashier.cateringOrder.isEmpty())
         {
@@ -570,6 +569,8 @@ public class Cart extends AppCompatActivity {
     protected void onResume() {
         Log.d("TKT_cart","onResume=============");
         super.onResume();
+        //Cashier.displayOrderCatering(lisa, totalSum, context,0);
+        Cashier.getCateringOrderFromFile(this);
         if(Cashier.cateringOrder.containsKey(getString(R.string.cashPayement)) || Cashier.checkPrefs.getBoolean(Cashier.PAYPAL_PAID_CATERING,false))
             orderNow.setVisibility(View.VISIBLE);
     }
