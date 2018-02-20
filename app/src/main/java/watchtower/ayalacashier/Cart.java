@@ -16,8 +16,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -87,7 +85,7 @@ public class Cart extends AppCompatActivity {
             }
         });
 
-        dontShowAgainDialog();
+        Cashier.dontShowAgainDialog(lisa, context, Cashier.DONT_SHOW_AGAIN, Cashier.cateringOrder);
         Cashier.configuration = new PayPalConfiguration().environment(PayPalConfiguration.ENVIRONMENT_SANDBOX).clientId(Cashier.paypalClientId);
         Cashier.service = new Intent(this, PayPalService.class);
         Cashier.service.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, Cashier.configuration);
@@ -97,7 +95,7 @@ public class Cart extends AppCompatActivity {
 
     }
 
-
+/*
     public void dontShowAgainDialog()
     {
         Log.d("TKT_cart","dontShowAgainDialog==============");
@@ -148,6 +146,7 @@ public class Cart extends AppCompatActivity {
 
 
     }
+    */
 
     public void contactInfoDialog()
     {

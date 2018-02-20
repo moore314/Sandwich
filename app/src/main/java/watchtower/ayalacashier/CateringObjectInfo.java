@@ -11,7 +11,7 @@ public class CateringObjectInfo implements Serializable{
     private Double price;
     private Integer amount; //set this as double cuz I want it to be displayed with a decimel
     private String orderString;
-    private String  additions = null;
+    private String [] additions = null;
     //private String
 
     public CateringObjectInfo()
@@ -27,21 +27,43 @@ public class CateringObjectInfo implements Serializable{
         price = new Double(p);
         amount = new Integer(a);
         orderString = stringOrder;
+
     }
 
-    public CateringObjectInfo(String p, String  a, String stringOrder, String adds)
+    public CateringObjectInfo(String p, String  a, String stringOrder, String [] adds)
     {
         price = new Double(p);
         amount = new Integer(a);
         orderString = stringOrder;
-        additions = adds;
+        additions = new String[2];
+        additions[0] = adds[0];//represents bread for salad
+        additions[1] = adds[1];//represents number of additions
     }
 
 
-    public String getAdditions()
+    public String [] getAdditions()
     {
         return additions;
     }
+    public boolean getBread()
+    {
+        return additions[0].equals(StudentOrder.YES_BREAD);
+    }
+    public String getAdds()
+    {
+        return additions[1];
+    }
+    public double getSaladPrice()
+    {
+        double allPrice = price*amount;
+        if(additions[0] != StudentOrder.NO_BREAD)
+        {
+            allPrice ++;
+        }
+        allPrice += Integer.parseInt(additions[1]) * Cashier.SALAD_PRICES[Cashier.IND_SALAD_ADDITION];
+        return allPrice;
+    }
+
 
     public void setPrice(String  p)
     {
@@ -75,6 +97,12 @@ public class CateringObjectInfo implements Serializable{
 
     public String toString()
     {
+        if(orderString != null && orderString.equals(StudentOrder.SALAD))
+        {
+            return
+                    StudentOrder.ORDER_STRING_SALAD_ADDS + additions[1] + "\n" +
+                    StudentOrder.ORDER_STRING_SALAD_BREAD + additions[0];
+        }
         return amount+"";
     }
 

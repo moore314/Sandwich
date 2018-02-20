@@ -11,8 +11,11 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.NumberPicker;
@@ -101,6 +104,7 @@ public class Cashier {
     public static final String CATERING_DATE_INFO = "cateringDateInfo";
     public static final String PAID_AMOUNT = "paidAmountPaypal";
 
+    public static boolean checkMe = false;
 
 
     //public static final String REPORT_HEB = "דוח מכירות"
@@ -526,6 +530,8 @@ public class Cashier {
     public static final String INSTA_URL = "https://www.instagram.com/ayalamodli/?hl=en";
     public static final String PAYPAL_REGISTER_URL = "https://www.paypal.com/il/signup/account?locale.x=he_IL";
     public static final String DONT_SHOW_AGAIN = "dontShowAgain";
+    public static final String DONT_SHOW_AGAIN_STUDENT = "dontShowAgainStudent";
+
     public static final String DONT_SHOW_AGAIN_PAYPAL = "dontShowAgainPayPal";
 
     public static void sharedUpdateEmployee(String employeeName) {
@@ -1480,6 +1486,7 @@ sending through whatsapp
         Log.d("TKT_cashier","displayOrderCatering========");
         double sum = 0;
 
+
         List<String>listOfItem = new ArrayList<>();
         ArrayAdapter<String>adapter = new ArrayAdapter(context, R.layout.catering_custom_list_view, listOfItem);
         //getCateringOrderFromFile(context);
@@ -1489,14 +1496,24 @@ sending through whatsapp
             {
 
                 String temp = cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context);
-                if(entry.getValue().getOrderString() != null)
+                Log.d("TKT_cashier","temp:::::: " + temp);
+                //if(entry.getKey().equals(StudentOrder.SALAD))
+                if(entry.getValue().getOrderString() != null && !entry.getKey().equals(StudentOrder.SALAD))
                     temp += ": " + entry.getValue().getOrderString();
+                /*
+                if(entry.getKey().equals(StudentOrder.SALAD))
+                {
+                    temp = entry.getValue().getAmount() + " :: " + temp;
+                }*/
                 if(!temp.contains("::"))//seems redundant cuz map is already ordered
                     listOfItem.add(0,temp);
                 else
                     listOfItem.add(temp);
                 //listOfItem.add(cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context));//(cateringCartGenerateString(entry));//(entry.getValue() + " :: " + entry.getKey().toString());
-                sum += entry.getValue().getPrice();
+                if(entry.getKey().equals(StudentOrder.SALAD))
+                    sum += entry.getValue().getSaladPrice();
+                else
+                    sum += entry.getValue().getPrice();
 
 
                 Log.d("TKT_cashier","MMM: "+entry.toString());
@@ -1520,9 +1537,6 @@ sending through whatsapp
             Log.d("TKT_cashier", "nothing to see here");
 
         }
-
-
-
     }
 
     public static void getCateringOrderFromFile(Context context)
@@ -1545,10 +1559,18 @@ sending through whatsapp
 
     public static String cateringCartGenerateString(String val, String key, Context context)//(Map.Entry entry)
     {
+
+        if(key.equals(StudentOrder.SALAD))
+        {
+            //Log.d("TKT_cashier","val:::" + val);
+            return key + "\n" + val;
+        }
         if(!key.equals(context.getString(R.string.deliveryCatering)) && !key.equals(context.getString(R.string.rentThePlace)) && !key.equals(context.getString(R.string.cashPayement)))
             return val + " :: " + key;//entry.getValue() + " :: " + entry.getKey().toString();
-        else
-            return key;
+
+        //Log.d("TKT_cashier","val:::" + val);
+        //Log.d("TKT_cashier","key:::" + key);
+        return key;
     }
 
 
@@ -1718,13 +1740,14 @@ sending through whatsapp
 
     }
 
-    public static void updateDontShowAgain()
+    public static void updateDontShowAgain(String toUpdate)
     {
         Log.d("TKT_cashier", "updateDontShowAgain===================");
         progressEdit = checkPrefs.edit();
-        progressEdit.putBoolean(DONT_SHOW_AGAIN, true);
+        progressEdit.putBoolean(toUpdate, true);
         progressEdit.commit();
     }
+
 
     public static void updateDontShowAgainPayPal()
     {
@@ -1733,6 +1756,58 @@ sending through whatsapp
         progressEdit.putBoolean(DONT_SHOW_AGAIN_PAYPAL, true);
         progressEdit.commit();
     }
+
+    public static void dontShowAgainDialog(ListView lisa, Context context, final String toUpdate,OrderHashMap hash )
+    {
+        Log.d("TKT_cart","dontShowAgainDialog==============");
+        //could have done that condision only on the dialog.show() method, but eh...
+        if(!checkPrefs.getBoolean(toUpdate,false) && lisa.isEnabled() && !hash.isEmpty())
+        {
+            dialog = new Dialog(context);
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.dialog_catering_long_click_list_item);
+            dialog.setCanceledOnTouchOutside(false);
+            Button ok = (Button) dialog.findViewById(R.id.okay);
+            TextView text = (TextView)dialog.findViewById(R.id.dontShowAgainTxt);
+            final CheckBox checkBox = (CheckBox) dialog.findViewById(R.id.dontShowAgainBox);
+
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkBox.isChecked())
+                    {
+                        checkBox.setChecked(false);
+                        checkMe = false;                    }
+                    else
+                    {
+                        checkBox.setChecked(true);
+                        checkMe = true;
+                    }
+                }
+            });
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    checkMe = isChecked;
+                }
+            });
+
+            ok.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(checkMe)
+                        updateDontShowAgain(toUpdate);
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+
+        }
+
+
+    }
+
 
 
 

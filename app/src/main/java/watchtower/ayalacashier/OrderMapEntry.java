@@ -35,11 +35,13 @@ public class OrderMapEntry implements Serializable{
 
     public String toString()
     {
-        if(value.getOrderString() != null)
+        if(value.getOrderString() != null && !key.equals(StudentOrder.SALAD))
         {
-            Log.d("TKT_orderMapEntry", "not null");
-            return key+"="+value.toString() + ": " + value.getOrderString();
+
+                Log.d("TKT_orderMapEntry", "not null");
+                return key + "=" + value.toString() + ": " + value.getOrderString();
         }
+
         else {
             Log.d("TKT_orderMapEntry", "null");
             return key + "=" + value.toString();

@@ -41,9 +41,6 @@ public class StudentOrder extends AppCompatActivity {
     */
 
     /*
-    adds formats:
-    sandwich: [breadType]
-
     salad:
      */
 
@@ -80,10 +77,10 @@ public class StudentOrder extends AppCompatActivity {
     final int IND_SALAD_BREAD = 1;
     final int IND_SALAD_ADD_PRICE = 2;
     final int IND_SALAD_BREAD_PRICE = 3;
-    final String NO_BREAD = "ללא";
-    final String YES_BREAD = "כן";
-    final String ORDER_STRING_SALAD_ADDS = "תוספות: ";
-    final String ORDER_STRING_SALAD_BREAD = "פרוסת לחם: ";
+    static final String NO_BREAD = "ללא";
+    static final String YES_BREAD = "כן";
+    static final String ORDER_STRING_SALAD_ADDS = "תוספות: ";
+    static final String ORDER_STRING_SALAD_BREAD = "פרוסת לחם: ";
     String [] salad = {ZERO,NO_BREAD, ZERO, ZERO};
 
 
@@ -238,17 +235,20 @@ public class StudentOrder extends AppCompatActivity {
     public void changeAmountDialog(final String entry, final int position, final boolean flag)
     {
         Log.d("TKT_cart","changeAmountDialog=======");
-        chosenAmount = 1;
-        Cashier.dialog = new Dialog(this);
-        Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        Cashier.dialog.setContentView(R.layout.change_amount_dialog);
-        Cashier.dialog.setCanceledOnTouchOutside(false);
-        ImageButton delete = (ImageButton)Cashier.dialog.findViewById(R.id.cateringDeleteEntryButton);
-        Button cancel = (Button)Cashier.dialog.findViewById(R.id.cateringCancelCheck);
-        Button finish = (Button)Cashier.dialog.findViewById(R.id.cateringCheck);
-        NumberPicker picker = (NumberPicker) Cashier.dialog.findViewById(R.id.cateringPickAmount);
-        TextView amountTxt = (TextView)Cashier.dialog.findViewById(R.id.amountTxt);
 
+
+            chosenAmount = 1;
+            Cashier.dialog = new Dialog(this);
+            Cashier.dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            Cashier.dialog.setContentView(R.layout.change_amount_dialog);
+            Cashier.dialog.setCanceledOnTouchOutside(false);
+            ImageButton delete = (ImageButton) Cashier.dialog.findViewById(R.id.cateringDeleteEntryButton);
+            Button cancel = (Button) Cashier.dialog.findViewById(R.id.cateringCancelCheck);
+            Button finish = (Button) Cashier.dialog.findViewById(R.id.cateringCheck);
+            NumberPicker picker = (NumberPicker) Cashier.dialog.findViewById(R.id.cateringPickAmount);
+            TextView amountTxt = (TextView) Cashier.dialog.findViewById(R.id.amountTxt);
+
+        if(!entry.contains(ORDER_STRING_SALAD_BREAD)) {
             amountTxt.setText(getString(R.string.hotsQuantity));
             picker.setVisibility(View.VISIBLE);
             picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
@@ -262,35 +262,41 @@ public class StudentOrder extends AppCompatActivity {
                 }
             });
 
+        }
+        else
+        {
+            amountTxt.setText(getString(R.string.deleteEntryCatering));
+            picker.setVisibility(View.GONE);
+        }
+            finish.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("TKT_cart", "entry: " + entry + "\nchooseAmount: " + chosenAmount + "\npos: " + position);
+                    updateItemAmount(entry, chosenAmount, position);
+                    Cashier.dialog.dismiss();
+                }
+            });
 
-        finish.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("TKT_cart","entry: "+ entry+"\nchooseAmount: "+chosenAmount+"\npos: "+position);
-                updateItemAmount(entry, chosenAmount, position);
-                Cashier.dialog.dismiss();
-            }
-        });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Cashier.dialog.dismiss();
+                }
+            });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Cashier.dialog.dismiss();
-            }
-        });
-
-        delete.setOnClickListener(new View.OnClickListener() {
+            delete.setOnClickListener(new View.OnClickListener() {
 
 
-            @Override
-            public void onClick(View v) {
-                Log.d("TKT_cart","delete was clicked");
-                deleteEntry(entry, flag);
-                Cashier.dialog.dismiss();
-            }
-        });
+                @Override
+                public void onClick(View v) {
+                    Log.d("TKT_cart", "delete was clicked");
+                    deleteEntry(entry, flag);
+                    Cashier.dialog.dismiss();
+                }
+            });
 
-        Cashier.dialog.show();
+            Cashier.dialog.show();
+
     }
 
     public void updateItemAmount(String entry, int newAmount, int pos)
@@ -300,6 +306,7 @@ public class StudentOrder extends AppCompatActivity {
         Log.d("TKT_cart","updateItemAmount.entrySplit[1]: "+entrySplit[1]);
         //entrySplit[0] = newAmount+"";
         CateringObjectInfo newOb = Cashier.studentOrder.get(entrySplit[1]);
+
         newOb.setAmount(newAmount+"");
         //Cashier.writeToFileCateringOrder(context);
         Cashier.displayStudentOrder(lisa, payment, context,0);
@@ -313,15 +320,25 @@ public class StudentOrder extends AppCompatActivity {
     public void deleteEntry(String entry, boolean flag)
     {
         String entryToDelete;
+        if(entry.contains(ORDER_STRING_SALAD_BREAD))
+        {
+            entryToDelete = SALAD;
+        }
+        else {
 
             String[] entrySplit = entry.split(" :: ");
             Log.d("TKT_cart", "deleteEntry.entrySplit[1]: " + entrySplit[1]);
             entryToDelete = entrySplit[1];
+        }
 
         CateringObjectInfo temp = Cashier.studentOrder.remove(entryToDelete);
         //Cashier.writeToFileCateringOrder(context);
-        if(temp != null)
-            Cashier.displayOrderCatering(lisa, payment, context, temp.getPrice());
+        if(temp != null) {
+            if(entryToDelete.equals(SALAD))
+                Cashier.displayOrderCatering(lisa, payment, context, temp.getSaladPrice());
+            else
+                Cashier.displayOrderCatering(lisa, payment, context, temp.getPrice());
+        }
         else
             Cashier.displayOrderCatering(lisa, payment, context, 0);//probably won't get here
     }
@@ -772,6 +789,8 @@ public class StudentOrder extends AppCompatActivity {
                     //orderDetailHandler(ORDER_SAND, sandTxtView);
                     Cashier.displayStudentOrder(lisa, payment,context,0);
                     Cashier.dialog.dismiss();
+                    Cashier.dontShowAgainDialog(lisa, context, Cashier.DONT_SHOW_AGAIN_STUDENT, Cashier.studentOrder);
+
                 }
             }
         });
@@ -908,6 +927,7 @@ public class StudentOrder extends AppCompatActivity {
             priceToRemove += Double.parseDouble(tempBreadPrice);
         }
 
+
         Log.d("TKT_studentOrder","priceToRemove: "+priceToRemove);
         Log.d("TKT_studentOrder","salad[ind_price_adds]: "+tempAddPrice);
         Log.d("TKT_studentOrder","salad[ind_price_bread]: "+tempBreadPrice);
@@ -922,8 +942,17 @@ public class StudentOrder extends AppCompatActivity {
             salad[IND_SALAD_BREAD] = YES_BREAD;
         }
         */
-        //picker==============
-        int addsPicked =  Integer.parseInt(Cashier.checkPrefs.getString(NUM_SALAD_ADDS,ZERO));
+
+        if(Cashier.studentOrder.containsKey(SALAD))
+        {
+            CateringObjectInfo temp = Cashier.studentOrder.get(SALAD);
+            if(temp.getBread())
+            {
+                //change bread button color
+                salad[IND_SALAD_BREAD] = YES_BREAD;
+                breadSlice.setBackground(getDrawable(R.drawable.shape_gray));
+            }
+        }
         NumberPicker picker = (NumberPicker)Cashier.dialog.findViewById(R.id.studentSaladNumPick);
         picker.setDescendantFocusability(NumberPicker.FOCUS_BLOCK_DESCENDANTS);
         picker.setMinValue(0);
@@ -936,8 +965,8 @@ public class StudentOrder extends AppCompatActivity {
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 //Log.d("TKT_studentOrder","picker.onValueChangeListener=============");
                 salad[IND_SALAD_ADDS] = newVal+"";
-                double price = newVal*Cashier.SALAD_PRICES[Cashier.IND_SALAD_ADDITION];
-                salad[IND_SALAD_ADD_PRICE] = price+"";
+                //double price = newVal*Cashier.SALAD_PRICES[Cashier.IND_SALAD_ADDITION];
+                //salad[IND_SALAD_ADD_PRICE] = price+"";
             }
         });
         //===================
@@ -950,14 +979,14 @@ public class StudentOrder extends AppCompatActivity {
                     //Cashier.sharedUpdateSaladBread(1);
                     salad[IND_SALAD_BREAD] = YES_BREAD;
                     breadSlice.setBackground(getDrawable(R.drawable.shape_gray));
-                    salad[IND_SALAD_BREAD_PRICE] = Cashier.SALAD_PRICES[IND_SALAD_BREAD]+"";
+                    //salad[IND_SALAD_BREAD_PRICE] = Cashier.SALAD_PRICES[IND_SALAD_BREAD]+"";
                 }
                 else
                 {
                     //Cashier.sharedUpdateSaladBread(0);
                     salad[IND_SALAD_BREAD] = NO_BREAD;
                     breadSlice.setBackground(getDrawable(R.drawable.shape));
-                    salad[IND_SALAD_BREAD_PRICE] = "0";
+                    //salad[IND_SALAD_BREAD_PRICE] = "0";
                 }
             }
         });
@@ -980,23 +1009,32 @@ public class StudentOrder extends AppCompatActivity {
                 }
                 */
 
-                orderDetails.put(ORDER_SALAD,SALAD+":\n"+
-                        ORDER_STRING_SALAD_ADDS + salad[IND_SALAD_ADDS]+"\n"+
-                        ORDER_STRING_SALAD_BREAD + salad[IND_SALAD_BREAD]);
-                Cashier.sharedUpdateSaladAdds(salad[IND_SALAD_ADDS]);
-                Cashier.sharedUpdateSaladBread(salad[IND_SALAD_BREAD]);
-                double combinedPrice = Double.parseDouble(salad[IND_SALAD_ADD_PRICE]) + Double.parseDouble(salad[IND_SALAD_BREAD_PRICE]) + Cashier.SALAD_PRICES[Cashier.IND_SALAD];
+               // orderDetails.put(ORDER_SALAD,SALAD+":\n"+
+                 //       ORDER_STRING_SALAD_ADDS + salad[IND_SALAD_ADDS]+"\n"+
+                   //     ORDER_STRING_SALAD_BREAD + salad[IND_SALAD_BREAD]);
+                //Cashier.sharedUpdateSaladAdds(salad[IND_SALAD_ADDS]);
+                //Cashier.sharedUpdateSaladBread(salad[IND_SALAD_BREAD]);
+                //double combinedPrice = Double.parseDouble(salad[IND_SALAD_ADD_PRICE]) + Double.parseDouble(salad[IND_SALAD_BREAD_PRICE]) + Cashier.SALAD_PRICES[Cashier.IND_SALAD];
                 //setPayment(payment, combinedPrice+"");
-                Log.d("TKT_studentOrder","orderDetail: "+orderDetails.get(ORDER_SALAD));
+                //Log.d("TKT_studentOrder","orderDetail: "+orderDetails.get(ORDER_SALAD));
+               /*
+                String sal = SALAD + ":\n"+
+                               ORDER_STRING_SALAD_ADDS + salad[IND_SALAD_ADDS]+"\n"+
+                             ORDER_STRING_SALAD_BREAD + salad[IND_SALAD_BREAD];
+                */
+
+                String [] adds = {salad[IND_SALAD_BREAD], salad[IND_SALAD_ADDS]};
+                Cashier.studentOrder.put(SALAD,new CateringObjectInfo(Cashier.SALAD_PRICES[Cashier.IND_SALAD]+"", initAmount, SALAD, adds));
                 if(Integer.parseInt(salad[IND_SALAD_ADDS]) != 0) {
                     //Toast.makeText(StudentOrder.this, R.string.addsPick, Toast.LENGTH_LONG).show();
                     AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
                     mensaje.setMessage(R.string.addsPick).create();
                     mensaje.show();
                 }
-                salad[IND_SALAD_ADDS] = IND_SALAD_ADDS+"";
-                salad[IND_SALAD_BREAD] = NO_BREAD;
+                //salad[IND_SALAD_ADDS] = IND_SALAD_ADDS+"";
+                //salad[IND_SALAD_BREAD] = NO_BREAD;
                 //orderDetailHandler(ORDER_SALAD, saladTxtView);
+                Cashier.displayStudentOrder(lisa, payment,context,0);
                 Cashier.dialog.dismiss();
             }
         });
@@ -1311,17 +1349,6 @@ public class StudentOrder extends AppCompatActivity {
     }
 
 
-    /*
-    public void orderDetailHandler(String key, TextView tv)
-    {
-        Log.d("TKT_studentOrder","orderDetailHandler============");
-        String order = orderDetails.get(key);
-        Log.d("TKT_studentOrder","order: "+order);
-        tv.setText(order);
-    }
-    */
-
-
     @Override
     protected void onResume() {
         String studentName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
@@ -1349,23 +1376,21 @@ public class StudentOrder extends AppCompatActivity {
         }
         else
             {
-            orderDetails.put(ORDER_NAME, name);
+            //Cashier.studentOrder.put(ORDER_NAME, name);
             message = messageName() + System.getProperty("line.separator")
                     + messageTime() + System.getProperty("line.separator");
 
 
-            String sandwich = orderDetails.get(ORDER_SAND);
-            String hot = orderDetails.get(ORDER_HOTS);
-            String dessert = orderDetails.get(ORDER_DESSERT);
-            String salad = orderDetails.get(ORDER_SALAD);
+                
             String time = orderDetails.get(ORDER_TIME);
+                //// TODO: 2/20/2018 CHANGE THIS! WHAT NEEDS TO BE HERE IS: ITERATE THROUGH studentOrder and gather the items and generate a message from it. 
             if(time == null)
             {
                 AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
                 mensaje.setMessage(R.string.pleaseChooseTime).create();
                 mensaje.show();
             }
-            else if (sandwich == null && hot == null && dessert == null && salad == null)//whats about salad?
+            else if (Cashier.studentOrder.isEmpty())//whats about salad?
             {
                 AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
                 mensaje.setMessage(R.string.pleaseChooseMeal).create();
@@ -1374,14 +1399,7 @@ public class StudentOrder extends AppCompatActivity {
             else
                 {
                 Log.d("TKT_studentOrder", "message: " + message);
-                if (sandwich != null)
-                    message += sandwich + System.getProperty("line.separator");
-                if (hot != null)
-                    message += hot + System.getProperty("line.separator");
-                if (dessert != null)
-                    message += dessert + System.getProperty("line.separator");
-                if (salad != null)
-                    message += salad + System.getProperty("line.separator");
+                //// TODO: 2/20/2018 iterate here through studentOrder 
                 message =  messageNotes(message);
                     Cashier.putMessageInShared(message);
 
