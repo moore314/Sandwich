@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -100,6 +101,8 @@ public class Welcome extends AppCompatActivity {
                         else
                         {
                             Log.d("TKT_welcome", "getInShift");
+                            final MediaPlayer mp = MediaPlayer.create(context,R.raw.ting_ting);
+                            mp.start();
                             progressBar.setBackgroundResource(R.drawable.circle_turq);
                             Cashier.updateShiftState(true);
                             shiftEntry();
@@ -198,6 +201,7 @@ public class Welcome extends AppCompatActivity {
                 if (Cashier.checkPrefs.getBoolean(Cashier.SHIFT, false)) {//in shift
                     Log.d("TKT_welcome", "inShift");
                     progressBar.setBackgroundResource(R.drawable.circle_turq);
+
                     //set countUp timer
                 } else {//out shift
                     Log.d("TKT_welcome", "outShift");
@@ -284,6 +288,8 @@ public class Welcome extends AppCompatActivity {
        Log.d("TKT_welcome","goToItemScreen===================");
        Intent intent;
        if(!Cashier.checkPrefs.getBoolean(Cashier.IS_STUDENT,false)) {
+           /*
+           //decided to stick to simple view for now
            if (Cashier.checkPrefs.getInt(Cashier.VIEW_STATE, 1) == 0) {//this is classic
                //Log.d("TKT_welcome","classicView");
                intent = new Intent(this, ClassicView.class);
@@ -291,6 +297,8 @@ public class Welcome extends AppCompatActivity {
                //Log.d("TKT_welcome","itemScreen");
                intent = new Intent(this, ItemScreen.class);
            }
+           */
+           intent = new Intent(this, ClassicView.class);
        }
        else
        {
@@ -384,6 +392,7 @@ public class Welcome extends AppCompatActivity {
                 onBackPressed();
                 return true;
             }
+            /*
             case R.id.reportMenu:
             {
                 Log.d("TKT_itemScreen","reportMenu===================");
@@ -392,6 +401,7 @@ public class Welcome extends AppCompatActivity {
                 return true;
             }
 
+
             case R.id.updatePrices:
             {
                 //employeeName = Cashier.checkPrefs.getString(Cashier.EMPLOYEE_NAME, null);
@@ -399,12 +409,14 @@ public class Welcome extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             }
+            */
             case R.id.hours:
             {
                 Intent intent = new Intent(this, Hours.class);
                 startActivity(intent);
                 return true;
             }
+            /*
             case R.id.classicView:
             {
                 int state = Cashier.checkPrefs.getInt(Cashier.VIEW_STATE,1);
@@ -424,6 +436,7 @@ public class Welcome extends AppCompatActivity {
                 //item.setTitle(R.string.detailView);
                 return true;
             }
+            */
             case R.id.clerk:
             {
                 if(pass.getVisibility() == View.GONE)

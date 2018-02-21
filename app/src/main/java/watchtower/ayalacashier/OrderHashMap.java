@@ -10,7 +10,6 @@ import java.util.Set;
  */
 
 public class OrderHashMap implements Serializable{
-   private int size;
    //private OrderMapEntry<String, CateringObjectInfo>
     LinkedList<OrderMapEntry> values = new LinkedList<>();
 

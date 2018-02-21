@@ -5,20 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Welcome">
 
-    <item
-        android:id="@+id/reportMenu"
-        android:title="@string/report"
-        app:showAsAction="never"
-        >
-    </item>
-
     <!--
-    <item
-        android:id="@+id/endShiftMenu"
-        android:title="@string/endShift"
-        app:showAsAction="never">
-    </item>
-    -->
+   <item
+       android:id="@+id/reportMenu"
+       android:title="@string/report"
+       app:showAsAction="never"
+       >
+   </item>
+
+
+   <item
+       android:id="@+id/endShiftMenu"
+       android:title="@string/endShift"
+       app:showAsAction="never">
+   </item>
+
 
     <item
         android:id="@+id/updatePrices"
@@ -27,6 +28,7 @@
 
 
     </item>
+    -->
 
     <item
         android:id="@+id/hours"
@@ -36,12 +38,14 @@
 
     </item>
 
+    <!--
     <item
         android:id="@+id/classicView"
         android:title="@string/classicView"
         app:showAsAction="never">
 
     </item>
+    -->
 
     <item
         android:id="@+id/clerk"

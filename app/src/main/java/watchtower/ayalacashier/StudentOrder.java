@@ -113,6 +113,7 @@ public class StudentOrder extends AppCompatActivity {
     ListView lisa;
     int chosenAmount = 1;
     String initAmount = 1+"";
+    View timeButton;
 
 
 
@@ -380,6 +381,7 @@ public class StudentOrder extends AppCompatActivity {
     public void setTime(View v)
     {
         hideKeyboard(v);
+        timeButton = v;
         Log.d("TKT_studentOrder","setTime================");
         String hour = orderDetails.get(ORDER_TIME);
         //Log.d("TKT_studentOrder","tag: "+v.getTag().toString());
@@ -1377,32 +1379,39 @@ public class StudentOrder extends AppCompatActivity {
         else
             {
             //Cashier.studentOrder.put(ORDER_NAME, name);
-            message = messageName() + System.getProperty("line.separator")
-                    + messageTime() + System.getProperty("line.separator");
+            message = messageName() + System.getProperty("line.separator") //name
+                    + messageTime();// + System.getProperty("line.separator"); //time
 
 
-                
             String time = orderDetails.get(ORDER_TIME);
-                //// TODO: 2/20/2018 CHANGE THIS! WHAT NEEDS TO BE HERE IS: ITERATE THROUGH studentOrder and gather the items and generate a message from it. 
-            if(time == null)
-            {
-                AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
-                mensaje.setMessage(R.string.pleaseChooseTime).create();
-                mensaje.show();
-            }
-            else if (Cashier.studentOrder.isEmpty())//whats about salad?
-            {
-                AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
-                mensaje.setMessage(R.string.pleaseChooseMeal).create();
-                mensaje.show();
-            }
-            else
+
+                if (Cashier.studentOrder.isEmpty())//whats about salad?
                 {
-                Log.d("TKT_studentOrder", "message: " + message);
-                //// TODO: 2/20/2018 iterate here through studentOrder 
-                message =  messageNotes(message);
+                    AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+                    mensaje.setMessage(R.string.pleaseChooseMeal).create();
+                    mensaje.show();
+                }
+                else if(time == null)
+                {
+                    AlertDialog.Builder mensaje = new AlertDialog.Builder(context);
+                    mensaje.setMessage(R.string.pleaseChooseTime).create();
+                    mensaje.show();
+                }
+
+                 else
+                    {
+                    for(OrderMapEntry entry : Cashier.studentOrder.entrySet())
+                    {
+                        String temp = Cashier.cateringCartGenerateString(entry.getValue().toString(), entry.getKey().toString(),context);
+                        if(entry.getValue().getOrderString() != null && !entry.getKey().equals(StudentOrder.SALAD))
+                             temp += ": " + entry.getValue().getOrderString();
+
+                        message += "\n" + temp;
+                    }
+                    message =  "\n" + messageNotes(message);
                     Cashier.putMessageInShared(message);
 
+                    Log.d("TKT_studentOrder", "message: " + message);
                     dialogPayment();
                     //redirect to paypal transaction
                     //Cashier.pay(this, this, payment.getText().toString() );///bad practice!!! but works for now
@@ -1536,6 +1545,7 @@ public class StudentOrder extends AppCompatActivity {
                         message = Cashier.ORDER_CODE + Cashier.KRYPT.generateCrypto() + "\n"+message;
                         Log.d("TKT_studentOrder","messageWKRIPT: "+message);
                         Cashier.sendOrderToA(message, this);
+                        clearCheckAfterPayment();
                     }
 
                     else
@@ -1549,5 +1559,17 @@ public class StudentOrder extends AppCompatActivity {
 
             }
         }
+    }
+
+    public void clearCheckAfterPayment()
+    {
+        payment.setText(Cashier.PRICE);
+        Cashier.studentOrder.clear();
+        Cashier.displayStudentOrder(lisa,payment, context,0);
+        orderDetails.put(ORDER_TIME, null);
+        timeButton.setBackground(getDrawable(R.drawable.shape));
+
+
+
     }
 }

@@ -34,17 +34,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Currency;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 /**
  * Created by Moore on 9/5/2017.
  */
@@ -1052,6 +1048,27 @@ update        */
     public static String hourDifference(String strt, String end) {
         Log.d("TKT_cashier", "hourDifference==============");
         String diffString = "";
+        if (strt.equals(end)) {
+            return Hours.emptyHour;
+        }
+        else
+        {
+            String[] startArr = strt.split(":");
+            String[] endArr = end.split(":");
+            int startHour = Integer.parseInt(startArr[0]);
+            int endHour = Integer.parseInt(endArr[0]);
+            double sum = endHour - startHour;
+            Log.d("TKT_cashier", "sum1: " + sum);
+            int startMin = Integer.parseInt(startArr[1]);
+            int endMin = Integer.parseInt(endArr[1]);
+            sum += ((60-startMin) + endMin) / 60;
+            Log.d("TKT_cashier", "sum2: " + sum);
+            //commission = String.format("%.1f",currPaymentDouble);
+            return  String.format("%.2f",sum);
+
+        }
+
+        /*
         //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         if (strt.equals(end)) {
             return Hours.emptyHour;
@@ -1095,12 +1112,22 @@ update        */
                 e1.printStackTrace();
             }
             Log.d("TKT_cashier", e + " - " + s + " = " + diffString);
+
             return diffString;
+
         }
+        */
     }
 
     public static String hourAddition(String h1, String h2) {
         Log.d("TKT_cashier", "hourAddition==============");
+
+        double dH1 = Double.parseDouble(h1);
+        double dH2 = Double.parseDouble(h2);
+        Log.d("TKT_cashier", "dH1" + dH1);
+        Log.d("TKT_cashier", "dH2" + dH2);
+        return (dH1 + dH2)+"";
+        /*
         String sumString = "";
         //SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         timeFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -1117,8 +1144,10 @@ update        */
 
         }
 
+
         //String [] finalSum = sumString.split("-");
         return sumString;//finalSum[0];//meaning, only hours and minutes
+        */
     }
 
     public static void setCashierView(MenuItem item, String state) {//0: classic, 1: detail
@@ -1669,9 +1698,9 @@ sending through whatsapp
         temp += FEE;
         //Log.d("TKT_cashier","currPaymentDouble+fee: "+temp);
         currPaymentDouble +=temp;
-        Log.d("TKT_cashier","commission b4: "+currPaymentDouble);
+        //Log.d("TKT_cashier","commission b4: "+currPaymentDouble);
         commission = String.format("%.1f",currPaymentDouble);
-        Log.d("TKT_cashier","commission after: "+commission);
+        //Log.d("TKT_cashier","commission after: "+commission);
         return commission;
     }
 

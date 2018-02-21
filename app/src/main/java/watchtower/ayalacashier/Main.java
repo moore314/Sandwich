@@ -163,6 +163,7 @@ public class Main extends AppCompatActivity {
                 {
                     //show explanation or sth?
                     Log.d("TKT_main","explanation");
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},MY_PERMISSION_INT);
                 }
                 else
                 {
@@ -172,7 +173,7 @@ public class Main extends AppCompatActivity {
             }
             else
             {//else: permission was granted
-                Log.d("TKT_main","not sure what's here...");
+                Log.d("TKT_main","permission granted, but phone call failed");
                 //// TODO: 2/3/2018 uncomment this for QA and production
                 //startActivity(callIntent);
             }
