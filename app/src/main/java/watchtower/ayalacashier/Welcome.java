@@ -53,6 +53,7 @@ public class Welcome extends AppCompatActivity {
         inShift();
         pass.setVisibility(View.GONE);
         context = this;
+        //Cashier.getMatrixFromDB();
 
 
 

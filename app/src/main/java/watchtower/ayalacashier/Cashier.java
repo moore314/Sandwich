@@ -832,11 +832,12 @@ public class Cashier {
         Log.d("TKT_cashier", "displayHoursFromFile===================");
         List<String> hourList = new ArrayList<String>();
 
-        Day[][] dayMat = getMatrixFromDB();
+        //Day[][] dayMat =
+                getMatrixFromDB();
         String fileString = "";
         for (int i = 0; i < DAY_ARR_LST.length; i++) {
-            if (dayMat[i][month - 1] != null)
-                fileString += dayMat[i][month - 1].toString() + "\n";
+            if (Hours.dayMat[i][month - 1] != null)
+                fileString += Hours.dayMat[i][month - 1].toString() + "\n";
         }
         if (fileString.equals(""))
             listView.setAdapter(null);
@@ -945,9 +946,11 @@ update        */
         progressEdit.commit();
     }
 
+    /*
     public static void updateAltogetherHours(String hoursMinus, String hoursPlus, int month) {
         //display it again
         Log.d("TKT_cashir", "updateAltogetherHours================");
+
         String alt = checkPrefs.getString(ALTOGETHER_HOURS + month, null);
         progressEdit = checkPrefs.edit();
         Log.d("TKT_cashier", "alt: " + alt);
@@ -979,6 +982,7 @@ update        */
         //Log.d("TKT_cashier","monthCausesProb: "+month);
         Hours.altogetherHours.setText(setAltogetherHours(month));
     }
+    */
     public static String formatHoursMin(String hourseMinus)
     {
         String [] split = hourseMinus.split("\\.");
@@ -987,38 +991,49 @@ update        */
         return generateTimeFormat((int)hrs,(int)(mins*60));
     }
 
-    public static Day[][] getMatrixFromDB() {
+    public static void getMatrixFromDB() {
+
+        Log.d("TKT_cashier", "getMatrixFromDB===============");
         File file = new File(Welcome.context.getFilesDir(), DAY_MATRIX);
         ObjectInputStream objectInputStream = null;
         //Day[][] fromDB = null;
-        try {
+        try
+        {
+            Log.d("TKT_cashier", "getMatrixFromDB try1");
             objectInputStream = new ObjectInputStream(new FileInputStream(file));
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
+            Log.d("TKT_cashier", "getMatrixFromDB catch1");
             e.printStackTrace();
         }
 
-        if (objectInputStream != null) {
+        if (objectInputStream != null)
+        {
 
-            try {
-                DAY_ARR_LST = (Day[][]) objectInputStream.readObject();
+            try
+            {
+                Log.d("TKT_cashier", "getMatrixFromDB try2");
+                Hours.dayMat = (Day[][]) objectInputStream.readObject();
             } catch (Exception e1) {
                 e1.printStackTrace();
                 Log.d("TKT_cashier", "couldn't cast to matrix");
 
             }
         }
-        return DAY_ARR_LST;
+        //return DAY_ARR_LST;
 
 
     }
 
     public static void writeMatToDB(Day[][] mat) {
         Log.d("TKT_cashier", "writeMatToFile");
+
         File file = new File(Welcome.context.getFilesDir(), DAY_MATRIX);
         try {
             file.createNewFile();
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(file));
-            outputStream.writeObject(mat);
+            outputStream.writeObject(Hours.dayMat);
             outputStream.flush();
             outputStream.close();
 
@@ -1030,16 +1045,19 @@ update        */
     }
 
     public static void saveTodayToFile(Day day) {//called by updateToday
-        Log.d("TKT_cashier", "saveTodayToFile");
+        Log.d("TKT_cashier", "saveTodayToFile======================");
         String[] month = day.date.split("/");
         int i = Integer.parseInt(month[DAY]);
         int j = Integer.parseInt(month[MONTH]);
+        Log.d("TKT_cashier", "saveTodayToFile i: " + i);
+        Log.d("TKT_cashier", "saveTodayToFile j: " + j);
         //fetch mat from shared
-        Day[][] fromDB = getMatrixFromDB();//(month[MONTH]);
+        //Day[][] fromDB =
+                getMatrixFromDB();//(month[MONTH]);
         //if(fromDB == null)
         {
-            fromDB[i - 1][j - 1] = new Day(day);
-            writeMatToDB(fromDB);
+            Hours.dayMat[i - 1][j - 1] = new Day(day);
+            writeMatToDB(Hours.dayMat);
         }
         //else
         //writeMatToDB(fromDB);
@@ -1047,12 +1065,14 @@ update        */
 
     }
 
+/*
     public static String setAltogetherHours(int month) {
         //get hours from shared;
         Log.d("TKT_cashier", "setAltogetherHours month: " + month);
         Log.d("TKT_cashier", "inShared: " + checkPrefs.getString(ALTOGETHER_HOURS + month, null));
         return checkPrefs.getString(ALTOGETHER_HOURS + month, null);
     }
+    */
 
     public static String hourDifference(String strt, String end) {
         Log.d("TKT_cashier", "hourDifference==============");
@@ -1326,15 +1346,16 @@ sending through whatsapp
         String message = "", title = "דו\"ח שעות לחודש ", alt = "סה\"כ שעות: ";
         title += MONTHS[month];
         //Log.d("TKT_cashier","title: "+title);
-        Day[][] mat = getMatrixFromDB();
+        //Day[][] mat =
+        getMatrixFromDB();
         message += title + "\n";
-        for (int i = 0; i < mat.length; i++) {//run through days of month
-            if (mat[i][month - 1] != null) {
+        for (int i = 0; i < Hours.dayMat.length; i++) {//run through days of month
+            if (Hours.dayMat[i][month - 1] != null) {
 
-                message += generateSendEntry(mat[i][month - 1].toString()) + "\n";
+                message += generateSendEntry(Hours.dayMat[i][month - 1].toString()) + "\n";
             }
         }
-        alt += getAltFromDb(month);
+        alt += Hours.displayAltHours(month-1);
         message += alt;
         //Log.d("TKT_cashier","messageToA "+message);
         return message;
@@ -1847,6 +1868,24 @@ sending through whatsapp
 
     }
 
+    /*
+    public static String displayAltHours(Day [][] dayMat, int month, boolean display)
+    {
+        double sum = 0;
+        for(int i = 0; i < 31; i++)
+        {
+            if(dayMat[i][month] != null) {
+                sum += Double.parseDouble(dayMat[i][month].sumHours);
+                Log.d("TKT_hours","dispalyHrs sum += mat: "+sum);
+            }
+
+        }
+        if(display)
+            Hours.altogetherHours.setText(sum+"");
+        Log.d("TKT_hours","dispalyHrs sum: "+sum);
+        return sum+"";
+    }
+    */
 
 
 

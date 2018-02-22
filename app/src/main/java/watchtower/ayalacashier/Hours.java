@@ -39,6 +39,7 @@ public class Hours extends AppCompatActivity {
     String updateTitle = "", updateStart = "", updateEnd = "";
     int updateMonth;
     public static String emptyHour = "0.00";
+    static Day [][] dayMat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,14 @@ public class Hours extends AppCompatActivity {
         calendar = (CalendarView)findViewById(R.id.calendarView);
         int tempMonth = cal.get(Calendar.MONTH);
         currMonth = ++tempMonth;
+        //dayMat=
+        Cashier.getMatrixFromDB();
+        //Log.d("TKT_hours","dayMat==null? " + (dayMat==null));
 
         //int day = cal.get(Calendar.DAY_OF_MONTH);
         //int year = cal.get(Calendar.YEAR);
-        altogetherHours.setText(Cashier.setAltogetherHours(currMonth));
+        //altogetherHours.setText(Cashier.setAltogetherHours(currMonth));
+        //displayAltHours(currMonth-1);
 
         //Log.d("TKT_hours","month: "+month);
         //Log.d("TKT_hours","day: "+day);
@@ -65,19 +70,16 @@ public class Hours extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 month++;
 
-                String pressedDate = generateDateFormat(dayOfMonth, month, year);// dia+"/"+mes+"/"+year%100;
+                //String pressedDate = generateDateFormat(dayOfMonth, month, year);// dia+"/"+mes+"/"+year%100;
 
                 //File file = new File(Welcome.context.getFilesDir().toString(), currMonth+"");
                 //File file = new File(Welcome.context.getFilesDir().toString(), Cashier.DAY_MATRIX);
                // try
-
-
-                    Day [][] dayMat = Cashier.getMatrixFromDB();
                     if (dayMat == null)
                         Toast.makeText(Hours.this, R.string.noEntries, Toast.LENGTH_SHORT).show();
                     else
                     {
-                        displayHourDialog(dayMat, dayOfMonth, month);
+                        displayHourDialog(dayOfMonth, month);//(dayMat, dayOfMonth, month);
                     }
 
 
@@ -100,14 +102,16 @@ public class Hours extends AppCompatActivity {
         return dia+"/"+mes+"/"+year%100;
     }
 
-    public void displayHourDialog(Day [][] dayMat, int i, int j)
+    public void displayHourDialog(int i, int j)
     {
         //i = rows = days
         //j = cols = months
         Log.d("TKT_hours","displayHourDialog===========");
+        Log.d("TKT_hours","i:::::: " + i);
+        Log.d("TKT_hours","j:::::: " + j);
+        //dayMat= Cashier.getMatrixFromDB();
        if(dayMat[i-1][j-1] != null)
        {
-
            //Log.d("TKT_hours","dayMat[i-1][j-1]: "+dayMat[i-1][j-1]);
            AlertDialog.Builder message = new AlertDialog.Builder(this);
            message.setMessage(generateMessage(dayMat[i-1][j-1])).create();
@@ -404,19 +408,21 @@ public class Hours extends AppCompatActivity {
                 //Log.d("TKT_deleteEntry","entries[0]" + ": "+ entries[0]);
                 int day = Integer.parseInt(entries[0]);
                 int month = Integer.parseInt(entries[1]);
-                Day [][] days = Cashier.getMatrixFromDB();
-                String hoursToRemoveFromAlt = days[day-1][month-1].sumHours;
+                //Day [][] days =
+                        Cashier.getMatrixFromDB();
+                String hoursToRemoveFromAlt = dayMat[day-1][month-1].sumHours;
                 //String newAlt = Cashier.hourDifference(hoursToRemoveFromAlt,Cashier.getAltFromDb(month));
 
 
-                Cashier.updateAltogetherHours(hoursToRemoveFromAlt, emptyHour, month);
-                days[day-1][month-1] = null;
-                Cashier.writeMatToDB(days);
+                //Cashier.updateAltogetherHours(hoursToRemoveFromAlt, emptyHour, month);
+                dayMat[day-1][month-1] = null;
+                Cashier.writeMatToDB(dayMat);
 
                 updateDialog.dismiss();
                 if(Cashier.dialog.isShowing())
                     Cashier.dialog.dismiss();
                 showChangeDialog(month);
+                displayAltHours(month-1);
             }
         });
 
@@ -463,7 +469,6 @@ public class Hours extends AppCompatActivity {
                 //Cashier.dialog.dismiss();
                // showChangeDialog(month);
                 updateMatrix(TITLE, START, END,month, currentDiff);
-                //// TODO: 2/22/2018 here i need to update new entry of specific date; to override existing entry 
                 Toast.makeText(Hours.this, R.string.successHrUpdate, Toast.LENGTH_SHORT).show();
                 updateDialog.dismiss();
             }
@@ -486,25 +491,26 @@ public class Hours extends AppCompatActivity {
                 */
         Log.d("TKT_hours","updateMatrix=============");
         String diff = Cashier.hourDifference(start, end);
-        Log.d("TKT_hours","diff: "+diff);
+        //Log.d("TKT_hours","diff: "+diff);
         String newEntry = generateEntry(title, start, end, diff);
-        Log.d("TKT_hours","newEntry: "+newEntry);
+        //Log.d("TKT_hours","newEntry: "+newEntry);
         String [] dayOfMonth = newEntry.split(">>");
         dayOfMonth = dayOfMonth[0].split("/");
         int day = Integer.parseInt(dayOfMonth[0]);
-        Day [][] dayMat = Cashier.getMatrixFromDB();
+        //dayMat =
+                Cashier.getMatrixFromDB();
         dayMat[day-1][month-1] = new Day(newEntry);//newEntry;
         Cashier.writeMatToDB(dayMat);
 
         //Log.d("TKT_hours","currDiff: "+currentDiff+", dayMay[][].sumHours: "+dayMat[day-1][month-1].sumHours+", month: "+month);
-        Log.d("TKT_hours","currDiff: "+currentDiff);
-        Log.d("TKT_hours","sumHours: "+dayMat[day-1][month-1].sumHours);
-        Cashier.updateAltogetherHours(currentDiff, dayMat[day-1][month-1].sumHours, month);
+        //Log.d("TKT_hours","currDiff: "+currentDiff);
+        //Log.d("TKT_hours","sumHours: "+dayMat[day-1][month-1].sumHours);
+        //Cashier.updateAltogetherHours(currentDiff, dayMat[day-1][month-1].sumHours, month);
+        displayAltHours(month-1);
         Cashier.dialog.dismiss();
         showChangeDialog(month);
 
     }
-
 
     public String generateEntry(String date, String startTime, String endTime, String sumHours) {
         Log.d("TKT_hours","generateEntry===========");
@@ -513,8 +519,8 @@ public class Hours extends AppCompatActivity {
         return date+ ">>"+startTime+" - "+endTime+"="+Cashier.ALTOGETHER_HR_TXT +sumHours;
     }
 
-public String generateTimeFormat(int hours, int minutes)
-{
+    public String generateTimeFormat(int hours, int minutes)
+    {
     String h = "",m = "";
     if(hours<10)
         h = "0"+hours;
@@ -527,7 +533,31 @@ public String generateTimeFormat(int hours, int minutes)
     return h+":"+m;
 }
 
+    public static String displayAltHours(int month)
+    {
+    Log.d("TKT_hours","displayAltHours======================");
+    double sum = 0;
+    Cashier.getMatrixFromDB();
+    for(int i = 0; i < 31; i++)
+    {
+        if(dayMat[i][month] != null) {
+            sum += Double.parseDouble(dayMat[i][month].sumHours);
+            Log.d("TKT_hours","dispalyHrs sum += mat: "+sum);
+        }
+        //Log.d("TKT_hours","dayMat[i][month] == null");
 
+    }
+    altogetherHours.setText(sum+"");
+    Log.d("TKT_hours","dispalyHrs sum: "+sum);
+    return sum+"";
+}
+
+    @Override
+    protected void onResume() {
+        Log.d("TKT_hours","onResume=======");
+        super.onResume();
+        displayAltHours(currMonth-1);
+    }
 }
 
 
