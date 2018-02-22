@@ -960,6 +960,7 @@ update        */
         } else {
             String temp = Hours.emptyHour;
             if (hoursMinus != null) {
+                formatHoursMin(hoursMinus);
                 temp = hourDifference(alt, hoursMinus);
                 temp = hourAddition(temp, hoursPlus);
                 Log.d("TKT_cashier", "temp0: " + temp);
@@ -969,6 +970,7 @@ update        */
                 Log.d("TKT_cashier", "temp1: " + temp);
             }
 
+
             progressEdit.putString(ALTOGETHER_HOURS + month, temp);
 
 
@@ -976,6 +978,13 @@ update        */
         progressEdit.commit();
         //Log.d("TKT_cashier","monthCausesProb: "+month);
         Hours.altogetherHours.setText(setAltogetherHours(month));
+    }
+    public static String formatHoursMin(String hourseMinus)
+    {
+        String [] split = hourseMinus.split("\\.");
+        double hrs = Double.parseDouble(split[0]);
+        double mins = Double.parseDouble(split[1]);
+        return generateTimeFormat((int)hrs,(int)(mins*60));
     }
 
     public static Day[][] getMatrixFromDB() {
@@ -1055,12 +1064,12 @@ update        */
         {
             String[] startArr = strt.split(":");
             String[] endArr = end.split(":");
-            int startHour = Integer.parseInt(startArr[0]);
-            int endHour = Integer.parseInt(endArr[0]);
-            double sum = endHour - startHour;
+            double startHour = Double.parseDouble(startArr[0]);
+            double endHour = Double.parseDouble(endArr[0]);
+            double sum = endHour - startHour - 1;
             Log.d("TKT_cashier", "sum1: " + sum);
-            int startMin = Integer.parseInt(startArr[1]);
-            int endMin = Integer.parseInt(endArr[1]);
+            double startMin = Double.parseDouble(startArr[1]);
+            double endMin = Double.parseDouble(endArr[1]);
             sum += ((60-startMin) + endMin) / 60;
             Log.d("TKT_cashier", "sum2: " + sum);
             //commission = String.format("%.1f",currPaymentDouble);
@@ -1624,6 +1633,7 @@ sending through whatsapp
             m = "0"+minutes;
         else
             m += minutes;
+        Log.d("TKT_cashier","stringFormat: " + (h+":"+m));
         return h+":"+m;
     }
 

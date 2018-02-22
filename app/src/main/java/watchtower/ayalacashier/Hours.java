@@ -38,7 +38,7 @@ public class Hours extends AppCompatActivity {
     static int currMonth = 0;
     String updateTitle = "", updateStart = "", updateEnd = "";
     int updateMonth;
-    public static String emptyHour = "00:00";
+    public static String emptyHour = "0.00";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -463,6 +463,7 @@ public class Hours extends AppCompatActivity {
                 //Cashier.dialog.dismiss();
                // showChangeDialog(month);
                 updateMatrix(TITLE, START, END,month, currentDiff);
+                //// TODO: 2/22/2018 here i need to update new entry of specific date; to override existing entry 
                 Toast.makeText(Hours.this, R.string.successHrUpdate, Toast.LENGTH_SHORT).show();
                 updateDialog.dismiss();
             }
